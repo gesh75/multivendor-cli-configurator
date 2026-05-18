@@ -1,0 +1,576 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Multivendor CLI Reference — Cisco · Juniper · Arista</title>
+<meta name="description" content="Searchable cheat-sheet of router / switch / firewall commands for Cisco IOS/IOS-XE/NX-OS/ASA, Juniper Junos (MX/EX/QFX/SRX), and Arista EOS." />
+<style>
+:root{
+  --bg:#0b1020;--panel:#0f1530;--panel-2:#121a3a;--ink:#cfd6f5;--ink-dim:#8892b8;
+  --accent:#22d3ee;--accent-2:#a78bfa;--good:#22c55e;--warn:#f59e0b;--bad:#ef4444;
+  --line:#1f2a55;--chip:#16204a;--chip-on:#1e2a66;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:radial-gradient(1200px 800px at 20% -10%,#16204a 0%,var(--bg) 60%) fixed;color:var(--ink);font:14px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif}
+a{color:var(--accent)}
+header{position:sticky;top:0;z-index:30;backdrop-filter:blur(10px);background:rgba(11,16,32,.78);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;gap:14px;padding:10px 18px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.3px}
+.brand .dot{width:10px;height:10px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));box-shadow:0 0 12px var(--accent)}
+.brand small{color:var(--ink-dim);font-weight:500;margin-left:6px}
+.search{flex:1;display:flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--line);padding:8px 10px;border-radius:10px}
+.search input{flex:1;background:transparent;border:0;outline:0;color:var(--ink);font:14px var(--mono)}
+.kbd{font:11px var(--mono);background:#1a2350;border:1px solid var(--line);padding:2px 6px;border-radius:6px;color:var(--ink-dim)}
+.btn{background:var(--panel);border:1px solid var(--line);color:var(--ink);padding:7px 10px;border-radius:8px;cursor:pointer;font:12px var(--mono)}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+.btn.primary{background:linear-gradient(135deg,#0e7490,#7e22ce);border-color:transparent;color:#fff}
+main{display:grid;grid-template-columns:260px 1fr 380px;gap:16px;padding:16px;max-width:1700px;margin:0 auto}
+@media (max-width:1200px){main{grid-template-columns:240px 1fr}.cli-pane{position:fixed;right:-100%;top:60px;width:360px;height:calc(100vh - 60px);transition:right .25s;z-index:25}.cli-pane.open{right:0}}
+@media (max-width:780px){main{grid-template-columns:1fr}.side{position:fixed;left:-100%;top:60px;width:260px;height:calc(100vh - 60px);transition:left .25s;z-index:25}.side.open{left:0}}
+.side{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;height:calc(100vh - 92px);overflow:auto;position:sticky;top:76px}
+.side h4{margin:14px 0 6px;font-size:11px;letter-spacing:1.5px;color:var(--ink-dim);text-transform:uppercase}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{background:var(--chip);border:1px solid var(--line);color:var(--ink);padding:5px 10px;border-radius:999px;font:12px var(--mono);cursor:pointer;user-select:none}
+.chip:hover{border-color:var(--accent)}
+.chip.on{background:var(--chip-on);border-color:var(--accent);color:#fff;box-shadow:0 0 0 1px var(--accent) inset}
+.chip .v{opacity:.65;margin-left:4px;font-size:10px}
+.content{min-width:0}
+.toolbar{display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.toolbar .pill{background:var(--panel);border:1px solid var(--line);padding:5px 9px;border-radius:999px;font:11px var(--mono);color:var(--ink-dim)}
+.toolbar .pill b{color:var(--ink)}
+.cat{margin:18px 0 8px;display:flex;align-items:center;gap:10px}
+.cat h3{margin:0;font-size:14px;letter-spacing:.4px}
+.cat .count{font:11px var(--mono);color:var(--ink-dim);background:var(--panel);border:1px solid var(--line);padding:2px 8px;border-radius:999px}
+.cat .line{flex:1;height:1px;background:var(--line)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:10px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:8px;transition:transform .08s,border-color .15s;position:relative}
+.card:hover{border-color:var(--accent)}
+.card .head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.card .title{font-weight:600;font-size:13px}
+.card .tags{display:flex;gap:4px;flex-wrap:wrap}
+.tag{font:10px var(--mono);padding:2px 6px;border-radius:6px;border:1px solid var(--line);color:var(--ink-dim);background:#0c1230}
+.tag.os-ios{color:#22d3ee;border-color:#155e75}
+.tag.os-iosxe{color:#67e8f9;border-color:#155e75}
+.tag.os-nxos{color:#facc15;border-color:#854d0e}
+.tag.os-asa{color:#fb923c;border-color:#9a3412}
+.tag.os-junos{color:#a78bfa;border-color:#5b21b6}
+.tag.os-eos{color:#34d399;border-color:#065f46}
+.tag.role-router{color:#60a5fa;border-color:#1e40af}
+.tag.role-switch{color:#86efac;border-color:#15803d}
+.tag.role-firewall{color:#fda4af;border-color:#9f1239}
+.card pre{margin:0;padding:9px 10px;background:#070b1e;border:1px solid var(--line);border-radius:8px;font:12px/1.45 var(--mono);color:#e2e8f0;overflow:auto;white-space:pre-wrap;word-break:break-word}
+.card .desc{color:var(--ink-dim);font-size:12px}
+.card .actions{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.card .actions .btn{padding:5px 8px;font-size:11px}
+.cli-pane{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px;height:calc(100vh - 92px);position:sticky;top:76px;display:flex;flex-direction:column;gap:10px}
+.cli-pane h4{margin:0;display:flex;justify-content:space-between;align-items:center;font-size:12px;letter-spacing:1.4px;color:var(--ink-dim);text-transform:uppercase}
+.cli-pane h4 span.live{font:10px var(--mono);color:var(--good);background:#062b1d;border:1px solid #14532d;padding:2px 6px;border-radius:6px}
+.cli-pane textarea{flex:1;width:100%;background:#070b1e;border:1px solid var(--line);border-radius:10px;color:#e2e8f0;font:12px/1.5 var(--mono);padding:10px;resize:none;outline:0}
+.cli-pane .row{display:flex;gap:6px;flex-wrap:wrap}
+footer{padding:18px;color:var(--ink-dim);font-size:11px;text-align:center}
+.empty{padding:30px;text-align:center;color:var(--ink-dim);border:1px dashed var(--line);border-radius:12px;margin-top:20px}
+.kbd-hint{color:var(--ink-dim);font-size:11px}
+mark{background:rgba(34,211,238,.25);color:#fff;border-radius:3px;padding:0 2px}
+.toggle-btn{display:none}
+@media (max-width:1200px){.toggle-btn{display:inline-block}}
+.flash{position:absolute;top:6px;right:6px;background:#062b1d;border:1px solid #14532d;color:#86efac;padding:3px 8px;border-radius:6px;font:11px var(--mono);pointer-events:none}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="bar">
+    <div class="brand"><span class="dot"></span>Multivendor CLI <small>Cisco · Juniper · Arista</small></div>
+    <div class="search">
+      <span style="color:var(--ink-dim)">⌕</span>
+      <input id="q" placeholder="Search commands, descriptions, syntax… (e.g. 'bgp neighbor', 'show interface', 'set protocols ospf')" autofocus />
+      <span class="kbd">/</span>
+    </div>
+    <button class="btn toggle-btn" id="btn-side">☰ Filters</button>
+    <button class="btn toggle-btn" id="btn-cli">⌘ CLI</button>
+    <button class="btn primary" id="btn-export">Export</button>
+  </div>
+</header>
+
+<main>
+  <aside class="side">
+    <h4>Vendor</h4><div class="chips" id="vendors"></div>
+    <h4>Operating System</h4><div class="chips" id="oslist"></div>
+    <h4>Role</h4><div class="chips" id="roles"></div>
+    <h4>Category</h4><div class="chips" id="cats"></div>
+    <h4>View</h4>
+    <div class="chips">
+      <span class="chip" id="cmp">Compare mode</span>
+      <span class="chip" id="clr">Clear filters</span>
+    </div>
+    <h4>Stats</h4>
+    <div id="stats" style="font:11px var(--mono);color:var(--ink-dim);line-height:1.7"></div>
+  </aside>
+
+  <section class="content">
+    <div class="toolbar">
+      <span class="pill">Showing <b id="shown">0</b> / <b id="total">0</b> commands</span>
+      <span class="pill">Coverage: <b>config + operational</b></span>
+      <span class="pill">Hover any card → <b>Copy</b> or <b>+ CLI</b></span>
+      <span class="kbd-hint">Tip: press <span class="kbd">/</span> to jump to search, <span class="kbd">Esc</span> to clear.</span>
+    </div>
+    <div id="results"></div>
+  </section>
+
+  <aside class="cli-pane">
+    <h4>CLI Preview <span class="live">live</span></h4>
+    <textarea id="cli" spellcheck="false" placeholder="Click '+ CLI' on any command card to stack commands here.&#10;Tip: edit freely — your sheet is yours."></textarea>
+    <div class="row">
+      <button class="btn" id="btn-copycli">Copy</button>
+      <button class="btn" id="btn-clearcli">Clear</button>
+      <button class="btn" id="btn-dl">Download .txt</button>
+    </div>
+    <div style="font:11px var(--mono);color:var(--ink-dim)">
+      Public artifact · v1.0 · 2026<br/>
+      Verify syntax against the running platform version — commands evolve.
+    </div>
+  </aside>
+</main>
+
+<footer>
+  Built as a public single-file artifact. Zero dependencies. Open in any browser.
+  Commands span Cisco IOS/IOS-XE/NX-OS/ASA, Juniper Junos, and Arista EOS — routers, switches, firewalls.
+</footer>
+
+<script>
+"use strict";
+/* ---------------------------------------------------------------
+   DATA  schema: { os, role, vendor, cat, title, cmd, desc }
+   os    : ios | iosxe | nxos | asa | junos | eos
+   role  : router | switch | firewall
+--------------------------------------------------------------- */
+const DATA = [
+
+// CISCO IOS — System
+{os:"ios",role:"router",vendor:"Cisco",cat:"System",title:"Show running config",cmd:"show running-config",desc:"Display the active configuration in RAM."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"System",title:"Show startup config",cmd:"show startup-config",desc:"Display the saved configuration in NVRAM."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"System",title:"Save config",cmd:"copy running-config startup-config\n! short form: write memory",desc:"Persist running config to NVRAM."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"System",title:"Reload device",cmd:"reload\n! schedule reload: reload in 30",desc:"Reboot the device (with optional schedule)."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"System",title:"Show version",cmd:"show version",desc:"Hardware, IOS version, uptime, license."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"System",title:"Show inventory",cmd:"show inventory",desc:"Chassis, line cards, SFP/transceiver inventory."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"System",title:"Show environment",cmd:"show environment all",desc:"PSU, fans, temperature sensors."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"System",title:"Show CPU",cmd:"show processes cpu sorted | exclude 0.00",desc:"Top processes by CPU usage."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"System",title:"Show memory",cmd:"show memory statistics",desc:"Memory pools and free/used."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"System",title:"Set hostname",cmd:"configure terminal\nhostname R1",desc:"Configure device hostname."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"System",title:"Set clock / timezone",cmd:"clock timezone UTC 0\nclock set 12:00:00 1 Jan 2026",desc:"Configure system time and timezone."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"System",title:"Show file system",cmd:"show file systems\ndir flash:",desc:"List storage devices and contents."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"System",title:"Copy file (TFTP/SCP)",cmd:"copy tftp: flash:\ncopy scp: flash:",desc:"Transfer files via TFTP/SCP."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"System",title:"Enable mode / privilege",cmd:"enable\ndisable\nconfigure terminal",desc:"Privilege escalation and config mode."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"System",title:"Show boot variable",cmd:"show boot",desc:"Configured boot image and config-register."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"System",title:"Show license",cmd:"show license\nshow license udi",desc:"License status (Smart Licensing / classic)."},
+
+// CISCO IOS — Interfaces
+{os:"ios",role:"router",vendor:"Cisco",cat:"Interfaces",title:"Show interfaces",cmd:"show interfaces\nshow interfaces GigabitEthernet0/0",desc:"Interface status, counters, errors."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"Interfaces",title:"Show ip interface brief",cmd:"show ip interface brief",desc:"Concise IP and status per interface."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"Interfaces",title:"Show interface description",cmd:"show interfaces description",desc:"Per-interface descriptions and status."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"Interfaces",title:"Configure IP address",cmd:"interface GigabitEthernet0/0\n description WAN-uplink\n ip address 10.0.0.1 255.255.255.252\n no shutdown",desc:"Assign IPv4 address and enable interface."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"Interfaces",title:"Configure IPv6 address",cmd:"interface GigabitEthernet0/0\n ipv6 address 2001:db8::1/64\n ipv6 enable",desc:"Assign IPv6 address."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"Interfaces",title:"Subinterface (802.1Q)",cmd:"interface GigabitEthernet0/0.10\n encapsulation dot1Q 10\n ip address 192.168.10.1 255.255.255.0",desc:"VLAN-tagged subinterface for router-on-a-stick."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"Interfaces",title:"Loopback",cmd:"interface Loopback0\n ip address 1.1.1.1 255.255.255.255",desc:"Logical loopback interface (router-id, BGP source)."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"Interfaces",title:"MTU / IP MTU",cmd:"interface Gi0/0\n mtu 9216\n ip mtu 9000\n ipv6 mtu 9000",desc:"L2 MTU and L3 MTU."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"Interfaces",title:"Speed / duplex",cmd:"interface Gi0/0\n speed 1000\n duplex full",desc:"Force speed and duplex."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"Interfaces",title:"Clear counters",cmd:"clear counters\nclear counters GigabitEthernet0/0",desc:"Reset interface statistics."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"Interfaces",title:"Shutdown / no shutdown",cmd:"interface Gi0/1\n shutdown\n no shutdown",desc:"Administratively disable/enable interface."},
+{os:"ios",role:"switch",vendor:"Cisco",cat:"Interfaces",title:"Etherchannel / Port-channel",cmd:"interface range Gi1/0/1-2\n channel-group 1 mode active\ninterface Port-channel1\n switchport mode trunk",desc:"LACP bundle of two interfaces."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"Interfaces",title:"Show optics / transceiver",cmd:"show interfaces transceiver detail",desc:"SFP/QSFP DDM (RX/TX power, temp)."},
+
+// CISCO IOS — VLAN / L2
+{os:"ios",role:"switch",vendor:"Cisco",cat:"VLAN",title:"Show VLAN",cmd:"show vlan brief",desc:"VLAN database and port assignments."},
+{os:"ios",role:"switch",vendor:"Cisco",cat:"VLAN",title:"Create VLAN",cmd:"vlan 100\n name USERS",desc:"Create a VLAN with a name."},
+{os:"ios",role:"switch",vendor:"Cisco",cat:"VLAN",title:"Access port",cmd:"interface Gi1/0/1\n switchport mode access\n switchport access vlan 100",desc:"Tag-untagged single-VLAN port."},
+{os:"ios",role:"switch",vendor:"Cisco",cat:"VLAN",title:"Trunk port",cmd:"interface Gi1/0/24\n switchport trunk encapsulation dot1q\n switchport mode trunk\n switchport trunk allowed vlan 100,200,300",desc:"802.1Q trunk allowing specific VLANs."},
+{os:"ios",role:"switch",vendor:"Cisco",cat:"VLAN",title:"Voice VLAN",cmd:"interface Gi1/0/2\n switchport mode access\n switchport access vlan 10\n switchport voice vlan 20",desc:"Data + voice VLAN on the same port."},
+{os:"ios",role:"switch",vendor:"Cisco",cat:"VLAN",title:"Show MAC address-table",cmd:"show mac address-table\nshow mac address-table dynamic vlan 100",desc:"L2 forwarding table."},
+{os:"ios",role:"switch",vendor:"Cisco",cat:"VLAN",title:"Spanning-tree show",cmd:"show spanning-tree\nshow spanning-tree vlan 100",desc:"STP roles, state, root info."},
+{os:"ios",role:"switch",vendor:"Cisco",cat:"VLAN",title:"Rapid-PVST / MST",cmd:"spanning-tree mode rapid-pvst\n! or:\nspanning-tree mode mst",desc:"Select STP mode."},
+{os:"ios",role:"switch",vendor:"Cisco",cat:"VLAN",title:"Portfast / BPDU guard",cmd:"interface Gi1/0/5\n spanning-tree portfast\n spanning-tree bpduguard enable",desc:"Edge-port hardening."},
+
+// CISCO IOS — Static / Routing / OSPF / EIGRP / BGP
+{os:"ios",role:"router",vendor:"Cisco",cat:"Static",title:"Static route",cmd:"ip route 10.10.10.0 255.255.255.0 10.0.0.2\nipv6 route 2001:db8:10::/64 2001:db8::2",desc:"IPv4/IPv6 static routes."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"Static",title:"Default route",cmd:"ip route 0.0.0.0 0.0.0.0 10.0.0.2",desc:"Quad-zero default."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"Static",title:"Floating static",cmd:"ip route 10.10.10.0 255.255.255.0 10.0.0.6 200",desc:"Backup route with higher administrative distance."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"Routing",title:"Show IP route",cmd:"show ip route\nshow ip route bgp\nshow ip route 10.10.10.0",desc:"Routing table by protocol or prefix."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"Routing",title:"Show route summary",cmd:"show ip route summary",desc:"Counts of routes per protocol."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"OSPF",title:"OSPF basic config",cmd:"router ospf 1\n router-id 1.1.1.1\n network 10.0.0.0 0.0.0.255 area 0\n passive-interface default\n no passive-interface Gi0/0",desc:"Single-process OSPF v2."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"OSPF",title:"OSPF on interface (modern)",cmd:"interface Gi0/0\n ip ospf 1 area 0\n ip ospf network point-to-point\n ip ospf hello-interval 5\n ip ospf dead-interval 20",desc:"Per-interface OSPF (preferred for clarity)."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"OSPF",title:"OSPFv3 (IPv6)",cmd:"ipv6 router ospf 1\n router-id 1.1.1.1\ninterface Gi0/0\n ipv6 ospf 1 area 0",desc:"OSPFv3 for IPv6."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"OSPF",title:"Show OSPF neighbors",cmd:"show ip ospf neighbor\nshow ipv6 ospf neighbor",desc:"OSPF adjacencies."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"OSPF",title:"Show OSPF database",cmd:"show ip ospf database",desc:"LSDB summary."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"OSPF",title:"OSPF authentication",cmd:"interface Gi0/0\n ip ospf authentication message-digest\n ip ospf message-digest-key 1 md5 SECRET",desc:"MD5 authentication."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"EIGRP",title:"EIGRP classic",cmd:"router eigrp 100\n network 10.0.0.0 0.0.0.255\n no auto-summary",desc:"Classic EIGRP autonomous system."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"EIGRP",title:"EIGRP named",cmd:"router eigrp CORP\n address-family ipv4 unicast autonomous-system 100\n  network 10.0.0.0 0.0.0.255",desc:"Named EIGRP (recommended modern form)."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"EIGRP",title:"Show EIGRP neighbors",cmd:"show ip eigrp neighbors\nshow ip eigrp topology",desc:"Neighbors and topology table."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"BGP",title:"BGP basic config",cmd:"router bgp 65001\n bgp router-id 1.1.1.1\n neighbor 10.0.0.2 remote-as 65002\n address-family ipv4\n  network 10.10.10.0 mask 255.255.255.0\n  neighbor 10.0.0.2 activate",desc:"Single eBGP peer."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"BGP",title:"BGP iBGP + loopback",cmd:"router bgp 65001\n neighbor 2.2.2.2 remote-as 65001\n neighbor 2.2.2.2 update-source Loopback0\n neighbor 2.2.2.2 next-hop-self",desc:"iBGP peering sourced from loopback."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"BGP",title:"Show BGP summary",cmd:"show ip bgp summary\nshow bgp ipv4 unicast summary",desc:"Neighbor uptime + prefix counts."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"BGP",title:"Show BGP routes",cmd:"show ip bgp\nshow ip bgp 10.10.10.0/24\nshow ip bgp neighbors 10.0.0.2 advertised-routes",desc:"BGP table and advertised/received per neighbor."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"BGP",title:"Clear BGP neighbor (soft)",cmd:"clear ip bgp 10.0.0.2 soft\nclear ip bgp * soft in",desc:"Soft-reset to re-apply policy without dropping session."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"BGP",title:"BGP prefix-list filter",cmd:"ip prefix-list ALLOW seq 5 permit 10.10.10.0/24\nrouter bgp 65001\n neighbor 10.0.0.2 prefix-list ALLOW out",desc:"Outbound prefix filter."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"BGP",title:"BGP route-map (set local-pref)",cmd:"route-map PREF permit 10\n set local-preference 200\nrouter bgp 65001\n neighbor 10.0.0.2 route-map PREF in",desc:"Influence inbound path selection."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"BGP",title:"BGP MD5 auth",cmd:"router bgp 65001\n neighbor 10.0.0.2 password 7 SECRET",desc:"TCP MD5 authentication."},
+
+// CISCO IOS — ACL / NAT / QoS / HA / Logging / SNMP / NTP / AAA / Troubleshooting
+{os:"ios",role:"router",vendor:"Cisco",cat:"ACL",title:"Standard ACL",cmd:"access-list 10 permit 10.10.10.0 0.0.0.255\naccess-list 10 deny any log",desc:"Numbered standard ACL."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"ACL",title:"Extended (named) ACL",cmd:"ip access-list extended WEB\n permit tcp any host 10.10.10.10 eq 443\n deny ip any any log\ninterface Gi0/0\n ip access-group WEB in",desc:"Named L3/L4 ACL applied to an interface."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"ACL",title:"Show ACL hit counts",cmd:"show access-lists\nshow ip access-lists WEB",desc:"Per-line counters."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"ACL",title:"VTY access control",cmd:"line vty 0 4\n access-class MGMT in\n transport input ssh\n login local",desc:"Restrict management plane access."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"NAT",title:"Static NAT (1:1)",cmd:"ip nat inside source static 10.10.10.10 198.51.100.10\ninterface Gi0/0\n ip nat outside\ninterface Gi0/1\n ip nat inside",desc:"1-to-1 mapping inside↔outside."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"NAT",title:"PAT (overload)",cmd:"access-list 1 permit 10.10.10.0 0.0.0.255\nip nat inside source list 1 interface Gi0/0 overload",desc:"Many-to-one with port reuse."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"NAT",title:"Show NAT translations",cmd:"show ip nat translations\nshow ip nat statistics",desc:"Active translations and counters."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"QoS",title:"Class-map / policy-map",cmd:"class-map match-any VOICE\n match dscp ef\npolicy-map WAN-OUT\n class VOICE\n  priority percent 30\ninterface Gi0/0\n service-policy output WAN-OUT",desc:"MQC: classify, mark, queue."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"QoS",title:"Show policy-map",cmd:"show policy-map interface Gi0/0",desc:"Per-class counters and drops."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"HA",title:"HSRP",cmd:"interface Vlan10\n ip address 10.10.10.2 255.255.255.0\n standby 10 ip 10.10.10.1\n standby 10 priority 110\n standby 10 preempt",desc:"Cisco-proprietary first-hop redundancy."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"HA",title:"VRRP",cmd:"interface Vlan10\n vrrp 10 ip 10.10.10.1\n vrrp 10 priority 110\n vrrp 10 preempt",desc:"Standards-based FHRP."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"HA",title:"Show HSRP / VRRP",cmd:"show standby brief\nshow vrrp brief",desc:"State and active/standby roles."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"Logging",title:"Logging to syslog",cmd:"logging host 10.0.0.50\nlogging trap informational\nservice timestamps log datetime msec localtime",desc:"Remote syslog."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"SNMP",title:"SNMPv3 user",cmd:"snmp-server group OPS v3 priv\nsnmp-server user monitor OPS v3 auth sha AUTHPASS priv aes 128 PRIVPASS",desc:"SNMPv3 user with auth+priv."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"NTP",title:"NTP client + auth",cmd:"ntp server 10.0.0.5 prefer\nntp authenticate\nntp authentication-key 1 md5 NTPKEY\nntp trusted-key 1",desc:"Authenticated NTP."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"AAA",title:"AAA + TACACS+",cmd:"aaa new-model\ntacacs server TAC1\n address ipv4 10.0.0.20\n key 0 SECRET\naaa authentication login default group tacacs+ local\naaa authorization exec default group tacacs+ local",desc:"Centralized auth."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"Troubleshooting",title:"Ping / extended ping",cmd:"ping 10.10.10.1\nping 10.10.10.1 source Loopback0 size 1500 df-bit repeat 100",desc:"Reachability + MTU/PMTU test."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"Troubleshooting",title:"Traceroute",cmd:"traceroute 10.10.10.1\ntraceroute 10.10.10.1 source Loopback0 numeric",desc:"Hop-by-hop path."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"Troubleshooting",title:"Debug template",cmd:"terminal monitor\ndebug ip ospf adj\nundebug all",desc:"Console-level debugging — use with caution."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"Troubleshooting",title:"Show logging",cmd:"show logging\nshow logging | include LINK",desc:"In-memory log buffer."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"Troubleshooting",title:"Show tech-support",cmd:"show tech-support",desc:"Comprehensive diagnostic dump."},
+{os:"ios",role:"router",vendor:"Cisco",cat:"Troubleshooting",title:"Embedded packet capture",cmd:"monitor capture CAP interface Gi0/0 both match ipv4 any any\nmonitor capture CAP start\nshow monitor capture CAP buffer brief\nmonitor capture CAP stop",desc:"On-device packet capture (IOS-XE)."},
+
+// CISCO NX-OS
+{os:"nxos",role:"switch",vendor:"Cisco",cat:"System",title:"Show version (NX-OS)",cmd:"show version",desc:"NX-OS image, hardware, uptime."},
+{os:"nxos",role:"switch",vendor:"Cisco",cat:"System",title:"Save config",cmd:"copy running-config startup-config",desc:"Persist config."},
+{os:"nxos",role:"switch",vendor:"Cisco",cat:"System",title:"Feature enable",cmd:"feature ospf\nfeature bgp\nfeature interface-vlan\nfeature lacp\nfeature vpc",desc:"Enable NX-OS features (must precede config)."},
+{os:"nxos",role:"switch",vendor:"Cisco",cat:"Interfaces",title:"L3 interface",cmd:"interface Ethernet1/1\n no switchport\n ip address 10.0.0.1/30\n no shutdown",desc:"Routed port."},
+{os:"nxos",role:"switch",vendor:"Cisco",cat:"VLAN",title:"vPC peer-link",cmd:"vpc domain 1\n peer-keepalive destination 10.0.0.2\ninterface port-channel1\n vpc peer-link",desc:"Virtual port-channel between two N9K/N7K."},
+{os:"nxos",role:"switch",vendor:"Cisco",cat:"BGP",title:"BGP (NX-OS)",cmd:"router bgp 65001\n router-id 1.1.1.1\n neighbor 10.0.0.2 remote-as 65002\n  address-family ipv4 unicast",desc:"NX-OS BGP with explicit AF nesting."},
+{os:"nxos",role:"switch",vendor:"Cisco",cat:"OSPF",title:"OSPF (NX-OS)",cmd:"router ospf 1\n router-id 1.1.1.1\ninterface Ethernet1/1\n ip router ospf 1 area 0",desc:"NX-OS OSPF requires `feature ospf`."},
+{os:"nxos",role:"switch",vendor:"Cisco",cat:"Troubleshooting",title:"Ethanalyzer (NX-OS sniffer)",cmd:"ethanalyzer local interface inband display-filter \"bgp\" limit-captured-frames 0",desc:"Built-in tcpdump-like CPU capture."},
+
+// CISCO ASA
+{os:"asa",role:"firewall",vendor:"Cisco",cat:"System",title:"Show version (ASA)",cmd:"show version",desc:"ASA image and platform info."},
+{os:"asa",role:"firewall",vendor:"Cisco",cat:"System",title:"Save config",cmd:"write memory",desc:"Persist ASA config."},
+{os:"asa",role:"firewall",vendor:"Cisco",cat:"Interfaces",title:"Interface + nameif + security-level",cmd:"interface GigabitEthernet0/0\n nameif outside\n security-level 0\n ip address 198.51.100.1 255.255.255.0\n no shutdown",desc:"ASA interface requires nameif & security-level."},
+{os:"asa",role:"firewall",vendor:"Cisco",cat:"Firewall",title:"Access-list + access-group",cmd:"access-list OUT_IN extended permit tcp any host 10.10.10.10 eq 443\naccess-group OUT_IN in interface outside",desc:"Stateless ACL applied to interface."},
+{os:"asa",role:"firewall",vendor:"Cisco",cat:"NAT",title:"Static NAT (object)",cmd:"object network WEB\n host 10.10.10.10\n nat (inside,outside) static 198.51.100.10",desc:"Auto NAT 1:1."},
+{os:"asa",role:"firewall",vendor:"Cisco",cat:"NAT",title:"Dynamic PAT",cmd:"object network INSIDE_NET\n subnet 10.10.10.0 255.255.255.0\n nat (inside,outside) dynamic interface",desc:"Many-to-one PAT to outside interface."},
+{os:"asa",role:"firewall",vendor:"Cisco",cat:"Firewall",title:"Show xlate / connections",cmd:"show xlate\nshow conn\nshow conn long",desc:"NAT translations and stateful connections."},
+{os:"asa",role:"firewall",vendor:"Cisco",cat:"HA",title:"Failover (active/standby)",cmd:"failover\nfailover lan unit primary\nfailover lan interface FAILOVER GigabitEthernet0/3\nfailover key SECRET",desc:"Stateful HA pair."},
+{os:"asa",role:"firewall",vendor:"Cisco",cat:"Troubleshooting",title:"Packet-tracer",cmd:"packet-tracer input outside tcp 1.1.1.1 1024 10.10.10.10 443",desc:"Simulate packet through policy."},
+{os:"asa",role:"firewall",vendor:"Cisco",cat:"Troubleshooting",title:"Capture",cmd:"capture CAP interface outside match ip any host 10.10.10.10\nshow capture CAP\nno capture CAP",desc:"On-box capture per interface."},
+{os:"asa",role:"firewall",vendor:"Cisco",cat:"Firewall",title:"VPN site-to-site (IKEv2)",cmd:"crypto ikev2 policy 10\n encryption aes-256\n integrity sha256\n group 14\n prf sha256\ntunnel-group 198.51.100.2 type ipsec-l2l\ntunnel-group 198.51.100.2 ipsec-attributes\n ikev2 remote-authentication pre-shared-key SECRET\n ikev2 local-authentication pre-shared-key SECRET",desc:"IKEv2 L2L tunnel setup."},
+
+// JUNIPER — System
+{os:"junos",role:"router",vendor:"Juniper",cat:"System",title:"Show version",cmd:"show version\nshow version detail",desc:"Junos version and component versions."},
+{os:"junos",role:"router",vendor:"Juniper",cat:"System",title:"Show chassis hardware",cmd:"show chassis hardware\nshow chassis routing-engine",desc:"FRU inventory & RE status."},
+{os:"junos",role:"router",vendor:"Juniper",cat:"System",title:"Show config",cmd:"show configuration\nshow configuration | display set",desc:"Display config (hierarchical or set form)."},
+{os:"junos",role:"router",vendor:"Juniper",cat:"System",title:"Edit/commit workflow",cmd:"configure\nedit interfaces ge-0/0/0\nset description WAN\nshow | compare\ncommit check\ncommit confirmed 5\ncommit and-quit",desc:"Junos candidate-config + commit confirmed (auto-rollback)."},
+{os:"junos",role:"router",vendor:"Juniper",cat:"System",title:"Rollback",cmd:"configure\nrollback 1\ncommit",desc:"Revert to a previous committed configuration."},
+{os:"junos",role:"router",vendor:"Juniper",cat:"System",title:"Set hostname / system",cmd:"set system host-name R1\nset system time-zone UTC\nset system root-authentication plain-text-password",desc:"Basic system identity."},
+{os:"junos",role:"router",vendor:"Juniper",cat:"System",title:"Show system uptime",cmd:"show system uptime\nshow system processes extensive | match cpu",desc:"Uptime and process load."},
+{os:"junos",role:"router",vendor:"Juniper",cat:"System",title:"Show system storage",cmd:"show system storage",desc:"Filesystem usage."},
+{os:"junos",role:"router",vendor:"Juniper",cat:"System",title:"Request reboot",cmd:"request system reboot\nrequest system reboot at 22:00",desc:"Reboot now or scheduled."},
+{os:"junos",role:"router",vendor:"Juniper",cat:"System",title:"Software upgrade",cmd:"request system software add /var/tmp/jinstall.tgz no-validate reboot",desc:"Install Junos package and reboot."},
+
+// JUNIPER — Interfaces
+{os:"junos",role:"router",vendor:"Juniper",cat:"Interfaces",title:"Show interfaces terse",cmd:"show interfaces terse\nshow interfaces ge-0/0/0 extensive",desc:"Status quick view and detailed counters."},
+{os:"junos",role:"router",vendor:"Juniper",cat:"Interfaces",title:"Configure interface IPv4/IPv6",cmd:"set interfaces ge-0/0/0 description WAN\nset interfaces ge-0/0/0 unit 0 family inet address 10.0.0.1/30\nset interfaces ge-0/0/0 unit 0 family inet6 address 2001:db8::1/64",desc:"Logical unit 0 with inet/inet6 families."},
+{os:"junos",role:"router",vendor:"Juniper",cat:"Interfaces",title:"VLAN tagging / subinterface",cmd:"set interfaces ge-0/0/0 vlan-tagging\nset interfaces ge-0/0/0 unit 10 vlan-id 10 family inet address 192.168.10.1/24",desc:"802.1Q on a Junos router subinterface."},
+{os:"junos",role:"router",vendor:"Juniper",cat:"Interfaces",title:"Aggregated Ethernet (LACP)",cmd:"set chassis aggregated-devices ethernet device-count 4\nset interfaces ge-0/0/0 gigether-options 802.3ad ae0\nset interfaces ge-0/0/1 gigether-options 802.3ad ae0\nset interfaces ae0 aggregated-ether-options lacp active",desc:"AE bundle with LACP active."},
+{os:"junos",role:"router",vendor:"Juniper",cat:"Interfaces",title:"Loopback (lo0)",cmd:"set interfaces lo0 unit 0 family inet address 1.1.1.1/32",desc:"Router-id and protocol source."},
+{os:"junos",role:"router",vendor:"Juniper",cat:"Interfaces",title:"MTU",cmd:"set interfaces ge-0/0/0 mtu 9192\nset interfaces ge-0/0/0 unit 0 family inet mtu 9000",desc:"Physical and family MTU."},
+{os:"junos",role:"router",vendor:"Juniper",cat:"Interfaces",title:"Optics / DDM",cmd:"show interfaces diagnostics optics ge-0/0/0",desc:"Transceiver readings."},
+{os:"junos",role:"router",vendor:"Juniper",cat:"Interfaces",title:"Clear interface stats",cmd:"clear interfaces statistics all\nclear interfaces statistics ge-0/0/0",desc:"Reset counters."},
+{os:"junos",role:"switch",vendor:"Juniper",cat:"VLAN",title:"VLAN — ELS (EX/QFX)",cmd:"set vlans USERS vlan-id 100\nset interfaces ge-0/0/1 unit 0 family ethernet-switching interface-mode access vlan members USERS\nset interfaces ge-0/0/24 unit 0 family ethernet-switching interface-mode trunk vlan members [ USERS GUEST ]",desc:"ELS-style VLAN + access/trunk."},
+{os:"junos",role:"switch",vendor:"Juniper",cat:"VLAN",title:"Show VLANs / MAC",cmd:"show vlans\nshow ethernet-switching table",desc:"VLAN database & MAC table."},
+{os:"junos",role:"switch",vendor:"Juniper",cat:"VLAN",title:"Spanning-tree (RSTP)",cmd:"set protocols rstp\nshow spanning-tree bridge\nshow spanning-tree interface",desc:"RSTP global + status."},
+{os:"junos",role:"switch",vendor:"Juniper",cat:"VLAN",title:"Virtual Chassis (EX)",cmd:"show virtual-chassis\nshow virtual-chassis status",desc:"VC member roles and state."},
+
+// JUNIPER — Routing / Static / OSPF / BGP / MPLS
+{os:"junos",role:"router",vendor:"Juniper",cat:"Static",title:"Static route",cmd:"set routing-options static route 10.10.10.0/24 next-hop 10.0.0.2",desc:"IPv4 static."},
+{os:"junos",role:"router",vendor:"Juniper",cat:"Static",title:"Default route",cmd:"set routing-options static route 0.0.0.0/0 next-hop 10.0.0.2",desc:"Default."},
+{os:"junos",role:"router",vendor:"Juniper",cat:"Routing",title:"Show route",cmd:"show route\nshow route 10.10.10.0/24 exact\nshow route protocol bgp",desc:"FIB/RIB queries."},
+{os:"junos",role:"router",vendor:"Juniper",cat:"Routing",title:"Show route summary",cmd:"show route summary",desc:"Per-protocol prefix counts."},
+{os:"junos",role:"router",vendor:"Juniper",cat:"OSPF",title:"OSPF basic",cmd:"set routing-options router-id 1.1.1.1\nset protocols ospf area 0.0.0.0 interface ge-0/0/0.0\nset protocols ospf area 0.0.0.0 interface lo0.0 passive",desc:"Single-area OSPF."},
+{os:"junos",role:"router",vendor:"Juniper",cat:"OSPF",title:"OSPF neighbor / database",cmd:"show ospf neighbor\nshow ospf database\nshow ospf interface",desc:"State, LSDB, intf table."},
+{os:"junos",role:"router",vendor:"Juniper",cat:"OSPF",title:"OSPFv3 (IPv6)",cmd:"set protocols ospf3 area 0.0.0.0 interface ge-0/0/0.0",desc:"OSPFv3 for IPv6."},
+{os:"junos",role:"router",vendor:"Juniper",cat:"BGP",title:"BGP eBGP peer",cmd:"set routing-options autonomous-system 65001\nset protocols bgp group EXT type external\nset protocols bgp group EXT neighbor 10.0.0.2 peer-as 65002",desc:"External BGP neighbor."},
+{os:"junos",role:"router",vendor:"Juniper",cat:"BGP",title:"BGP iBGP + loopback",cmd:"set protocols bgp group INT type internal\nset protocols bgp group INT local-address 1.1.1.1\nset protocols bgp group INT neighbor 2.2.2.2",desc:"iBGP sourced from lo0."},
+{os:"junos",role:"router",vendor:"Juniper",cat:"BGP",title:"Show BGP summary",cmd:"show bgp summary",desc:"Neighbors, uptime, prefixes."},
+{os:"junos",role:"router",vendor:"Juniper",cat:"BGP",title:"Show BGP neighbor / route",cmd:"show bgp neighbor 10.0.0.2\nshow route advertising-protocol bgp 10.0.0.2\nshow route receive-protocol bgp 10.0.0.2",desc:"Detailed state and per-peer adverts/received."},
+{os:"junos",role:"router",vendor:"Juniper",cat:"BGP",title:"Clear BGP (soft)",cmd:"clear bgp neighbor 10.0.0.2 soft\nclear bgp neighbor all soft",desc:"Refresh policy without dropping session."},
+{os:"junos",role:"router",vendor:"Juniper",cat:"BGP",title:"Policy: prefix-list + policy-statement",cmd:"set policy-options prefix-list ALLOW 10.10.10.0/24\nset policy-options policy-statement EXPORT term 1 from prefix-list ALLOW\nset policy-options policy-statement EXPORT term 1 then accept\nset policy-options policy-statement EXPORT term 99 then reject\nset protocols bgp group EXT neighbor 10.0.0.2 export EXPORT",desc:"Policy chain for outbound filtering."},
+{os:"junos",role:"router",vendor:"Juniper",cat:"MPLS",title:"MPLS + LDP",cmd:"set protocols mpls interface ge-0/0/0.0\nset protocols ldp interface ge-0/0/0.0\nset protocols ldp interface lo0.0",desc:"Enable MPLS + LDP."},
+{os:"junos",role:"router",vendor:"Juniper",cat:"MPLS",title:"L3VPN VRF (routing-instance)",cmd:"set routing-instances CUST-A instance-type vrf\nset routing-instances CUST-A interface ge-0/0/1.0\nset routing-instances CUST-A route-distinguisher 65001:1\nset routing-instances CUST-A vrf-target target:65001:1",desc:"Per-customer VRF."},
+
+// JUNIPER SRX — Firewall / NAT / HA
+{os:"junos",role:"firewall",vendor:"Juniper",cat:"Firewall",title:"Security zones",cmd:"set security zones security-zone trust interfaces ge-0/0/1.0\nset security zones security-zone untrust interfaces ge-0/0/0.0\nset security zones security-zone trust host-inbound-traffic system-services [ ssh ping ]",desc:"Map interfaces to zones."},
+{os:"junos",role:"firewall",vendor:"Juniper",cat:"Firewall",title:"Address book + application",cmd:"set security zones security-zone trust address-book address WEB 10.10.10.10/32\nset applications application HTTPS protocol tcp destination-port 443",desc:"Reusable objects."},
+{os:"junos",role:"firewall",vendor:"Juniper",cat:"Firewall",title:"Security policy",cmd:"set security policies from-zone untrust to-zone trust policy ALLOW-WEB match source-address any\nset security policies from-zone untrust to-zone trust policy ALLOW-WEB match destination-address WEB\nset security policies from-zone untrust to-zone trust policy ALLOW-WEB match application HTTPS\nset security policies from-zone untrust to-zone trust policy ALLOW-WEB then permit",desc:"Inter-zone permit policy."},
+{os:"junos",role:"firewall",vendor:"Juniper",cat:"Firewall",title:"Show security policies / sessions",cmd:"show security policies\nshow security flow session\nshow security flow session destination-prefix 10.10.10.10",desc:"Active sessions & policy hits."},
+{os:"junos",role:"firewall",vendor:"Juniper",cat:"NAT",title:"Source NAT (PAT)",cmd:"set security nat source rule-set TRUST-OUT from zone trust\nset security nat source rule-set TRUST-OUT to zone untrust\nset security nat source rule-set TRUST-OUT rule R1 match source-address 10.10.10.0/24\nset security nat source rule-set TRUST-OUT rule R1 then source-nat interface",desc:"PAT to egress interface."},
+{os:"junos",role:"firewall",vendor:"Juniper",cat:"NAT",title:"Destination NAT (port-forward)",cmd:"set security nat destination pool WEB address 10.10.10.10/32 port 443\nset security nat destination rule-set DNAT from zone untrust\nset security nat destination rule-set DNAT rule WEB match destination-address 198.51.100.10/32\nset security nat destination rule-set DNAT rule WEB match destination-port 443\nset security nat destination rule-set DNAT rule WEB then destination-nat pool WEB",desc:"Inbound port-forward."},
+{os:"junos",role:"firewall",vendor:"Juniper",cat:"Firewall",title:"IPSec VPN (IKEv2)",cmd:"set security ike proposal P1 authentication-method pre-shared-keys\nset security ike proposal P1 dh-group group14\nset security ike proposal P1 authentication-algorithm sha-256\nset security ike proposal P1 encryption-algorithm aes-256-cbc\nset security ike policy POL proposals P1\nset security ike gateway GW1 ike-policy POL address 198.51.100.2 external-interface ge-0/0/0.0\nset security ipsec vpn VPN1 ike gateway GW1",desc:"Phase 1 / Phase 2 skeleton."},
+{os:"junos",role:"firewall",vendor:"Juniper",cat:"HA",title:"SRX chassis cluster",cmd:"set chassis cluster cluster-id 1 node 0 reboot\nshow chassis cluster status\nshow chassis cluster interfaces",desc:"Active/passive HA pair."},
+
+// JUNIPER — Logging / SNMP / NTP / AAA / Troubleshooting
+{os:"junos",role:"router",vendor:"Juniper",cat:"Logging",title:"Syslog",cmd:"set system syslog host 10.0.0.50 any info\nset system syslog file messages any notice",desc:"Remote and local syslog."},
+{os:"junos",role:"router",vendor:"Juniper",cat:"SNMP",title:"SNMPv3",cmd:"set snmp v3 usm local-engine user monitor authentication-sha authentication-password AUTHPASS privacy-aes128 privacy-password PRIVPASS\nset snmp v3 vacm security-to-group security-model usm security-name monitor group OPS",desc:"SNMPv3 user + VACM mapping."},
+{os:"junos",role:"router",vendor:"Juniper",cat:"NTP",title:"NTP",cmd:"set system ntp server 10.0.0.5 prefer\nset system time-zone UTC",desc:"NTP client."},
+{os:"junos",role:"router",vendor:"Juniper",cat:"AAA",title:"TACACS+ / RADIUS",cmd:"set system tacplus-server 10.0.0.20 secret SECRET\nset system authentication-order [ tacplus password ]",desc:"AAA with local fallback."},
+{os:"junos",role:"router",vendor:"Juniper",cat:"Troubleshooting",title:"Ping / traceroute",cmd:"ping 10.10.10.1 source 1.1.1.1 count 5 size 1500 do-not-fragment\ntraceroute 10.10.10.1 source 1.1.1.1",desc:"Reachability/MTU tests."},
+{os:"junos",role:"router",vendor:"Juniper",cat:"Troubleshooting",title:"Monitor traffic (tcpdump)",cmd:"monitor traffic interface ge-0/0/0 matching \"port 179\" no-resolve extensive",desc:"Inline tcpdump on PFE-CPU traffic."},
+{os:"junos",role:"router",vendor:"Juniper",cat:"Troubleshooting",title:"Request support information",cmd:"request support information | save /var/tmp/rsi.txt",desc:"Tech-support dump for TAC."},
+{os:"junos",role:"router",vendor:"Juniper",cat:"Troubleshooting",title:"Show log messages",cmd:"show log messages | last 100\nshow log messages | match \"ospf|bgp\"",desc:"Tail and grep logs."},
+
+// ARISTA EOS — System
+{os:"eos",role:"switch",vendor:"Arista",cat:"System",title:"Show version",cmd:"show version",desc:"EOS image, model, uptime."},
+{os:"eos",role:"switch",vendor:"Arista",cat:"System",title:"Save config",cmd:"copy running-config startup-config\n! short: write",desc:"Persist config."},
+{os:"eos",role:"switch",vendor:"Arista",cat:"System",title:"Show inventory / environment",cmd:"show inventory\nshow environment all",desc:"FRUs, fans, PSU, temp."},
+{os:"eos",role:"switch",vendor:"Arista",cat:"System",title:"Configure session (atomic commit)",cmd:"configure session UPGRADE\n  interface Ethernet1\n   description NEW\ncommit\n! or: abort",desc:"EOS atomic config sessions."},
+{os:"eos",role:"switch",vendor:"Arista",cat:"System",title:"Reload / config replace",cmd:"reload\n! safe upgrade:\nconfig replace flash:backup.conf",desc:"Reboot or atomic replace."},
+
+// ARISTA EOS — Interfaces
+{os:"eos",role:"switch",vendor:"Arista",cat:"Interfaces",title:"Show interfaces status",cmd:"show interfaces status\nshow interfaces description\nshow interfaces counters errors",desc:"Status + error counters."},
+{os:"eos",role:"switch",vendor:"Arista",cat:"Interfaces",title:"L3 interface",cmd:"interface Ethernet1\n no switchport\n ip address 10.0.0.1/30\n no shutdown",desc:"Routed port (EOS uses CIDR)."},
+{os:"eos",role:"switch",vendor:"Arista",cat:"Interfaces",title:"Port-Channel (LACP)",cmd:"interface Ethernet1-2\n channel-group 1 mode active\ninterface Port-Channel1\n switchport mode trunk",desc:"LACP bundle, trunk."},
+{os:"eos",role:"switch",vendor:"Arista",cat:"Interfaces",title:"Show transceiver",cmd:"show interfaces transceiver\nshow interfaces transceiver detail",desc:"DDM optics readings."},
+{os:"eos",role:"switch",vendor:"Arista",cat:"Interfaces",title:"MTU",cmd:"interface Ethernet1\n mtu 9214",desc:"Set jumbo MTU."},
+
+// ARISTA EOS — VLAN / L2
+{os:"eos",role:"switch",vendor:"Arista",cat:"VLAN",title:"VLAN config",cmd:"vlan 100\n name USERS\ninterface Ethernet5\n switchport mode access\n switchport access vlan 100\ninterface Ethernet24\n switchport mode trunk\n switchport trunk allowed vlan 100,200",desc:"Create + access/trunk."},
+{os:"eos",role:"switch",vendor:"Arista",cat:"VLAN",title:"MLAG (Arista MC-LAG)",cmd:"mlag configuration\n domain-id MLAG1\n local-interface Vlan4094\n peer-address 10.255.255.2\n peer-link Port-Channel999",desc:"Dual-active multi-chassis link aggregation."},
+{os:"eos",role:"switch",vendor:"Arista",cat:"VLAN",title:"Show MAC / Spanning-tree",cmd:"show mac address-table\nshow spanning-tree\nshow spanning-tree blockedports",desc:"L2 status."},
+
+// ARISTA EOS — Routing / Static / OSPF / BGP / EVPN
+{os:"eos",role:"switch",vendor:"Arista",cat:"Routing",title:"Show ip route",cmd:"show ip route\nshow ip route bgp\nshow ipv6 route",desc:"FIB by protocol."},
+{os:"eos",role:"switch",vendor:"Arista",cat:"Static",title:"Static route",cmd:"ip route 10.10.10.0/24 10.0.0.2\nip route 0.0.0.0/0 10.0.0.2",desc:"IPv4 static + default."},
+{os:"eos",role:"switch",vendor:"Arista",cat:"OSPF",title:"OSPF (EOS)",cmd:"router ospf 1\n router-id 1.1.1.1\n network 10.0.0.0/30 area 0\n passive-interface default\n no passive-interface Ethernet1",desc:"Single-area OSPF."},
+{os:"eos",role:"switch",vendor:"Arista",cat:"OSPF",title:"OSPF status",cmd:"show ip ospf neighbor\nshow ip ospf database\nshow ip ospf interface",desc:"Adjacency, LSDB, intf table."},
+{os:"eos",role:"switch",vendor:"Arista",cat:"BGP",title:"BGP (EOS)",cmd:"router bgp 65001\n router-id 1.1.1.1\n neighbor 10.0.0.2 remote-as 65002\n neighbor 10.0.0.2 send-community\n address-family ipv4\n  neighbor 10.0.0.2 activate\n  network 10.10.10.0/24",desc:"eBGP peer."},
+{os:"eos",role:"switch",vendor:"Arista",cat:"BGP",title:"BGP show / clear",cmd:"show ip bgp summary\nshow ip bgp\nshow ip bgp neighbors 10.0.0.2 advertised-routes\nclear ip bgp 10.0.0.2 soft",desc:"State, table, soft-reset."},
+{os:"eos",role:"switch",vendor:"Arista",cat:"BGP",title:"EVPN-VXLAN (Type-2/Type-5)",cmd:"service routing protocols model multi-agent\nrouter bgp 65001\n neighbor EVPN peer group\n neighbor EVPN remote-as 65000\n neighbor EVPN update-source Loopback0\n address-family evpn\n  neighbor EVPN activate",desc:"Arista BGP-EVPN underlay/overlay base."},
+
+// ARISTA EOS — ACL / HA / Logging / SNMP / NTP / AAA / Troubleshooting
+{os:"eos",role:"switch",vendor:"Arista",cat:"ACL",title:"IP ACL",cmd:"ip access-list WEB\n 10 permit tcp any host 10.10.10.10 eq 443\n 20 deny ip any any log\ninterface Ethernet1\n ip access-group WEB in",desc:"Named L3/L4 ACL."},
+{os:"eos",role:"switch",vendor:"Arista",cat:"ACL",title:"MAC ACL",cmd:"mac access-list MAC1\n 10 permit any host 0050.5601.0001 0xffff\ninterface Ethernet1\n mac access-group MAC1 in",desc:"Layer-2 filter."},
+{os:"eos",role:"switch",vendor:"Arista",cat:"HA",title:"VRRP",cmd:"interface Vlan10\n ip address 10.10.10.2/24\n vrrp 10 ip 10.10.10.1\n vrrp 10 priority 110\n vrrp 10 preempt",desc:"Standards FHRP."},
+{os:"eos",role:"switch",vendor:"Arista",cat:"HA",title:"VARP (anycast gateway)",cmd:"ip virtual-router mac-address 00:00:00:00:00:01\ninterface Vlan10\n ip address 10.10.10.2/24\n ip virtual-router address 10.10.10.1",desc:"Arista anycast GW for MLAG/EVPN."},
+{os:"eos",role:"switch",vendor:"Arista",cat:"Logging",title:"Syslog",cmd:"logging host 10.0.0.50\nlogging level all informational",desc:"Remote syslog."},
+{os:"eos",role:"switch",vendor:"Arista",cat:"SNMP",title:"SNMPv3",cmd:"snmp-server group OPS v3 priv\nsnmp-server user monitor OPS v3 auth sha AUTHPASS priv aes 128 PRIVPASS",desc:"SNMPv3 with auth+priv."},
+{os:"eos",role:"switch",vendor:"Arista",cat:"NTP",title:"NTP",cmd:"ntp server 10.0.0.5 prefer iburst",desc:"Single NTP server with iburst."},
+{os:"eos",role:"switch",vendor:"Arista",cat:"AAA",title:"AAA + TACACS+",cmd:"tacacs-server host 10.0.0.20 key SECRET\naaa authentication login default group tacacs+ local\naaa authorization commands all default group tacacs+ local",desc:"Centralized auth + command authz."},
+{os:"eos",role:"switch",vendor:"Arista",cat:"Troubleshooting",title:"Ping / traceroute",cmd:"ping 10.10.10.1 source 1.1.1.1 size 1500 df-bit repeat 100\ntraceroute 10.10.10.1 source 1.1.1.1",desc:"With DF-bit for MTU verify."},
+{os:"eos",role:"switch",vendor:"Arista",cat:"Troubleshooting",title:"Capture (EOS tcpdump)",cmd:"bash sudo tcpdump -i ma1 -nn host 10.10.10.10\n! or: bash sudo tcpdump -i et1",desc:"Drops to bash to use Linux tcpdump."},
+{os:"eos",role:"switch",vendor:"Arista",cat:"Troubleshooting",title:"Show logging",cmd:"show logging\nshow logging last 30 minutes",desc:"Live + time-windowed."},
+{os:"eos",role:"switch",vendor:"Arista",cat:"Troubleshooting",title:"Show tech-support",cmd:"show tech-support",desc:"All-purpose diagnostic snapshot."},
+{os:"eos",role:"switch",vendor:"Arista",cat:"System",title:"EOS eAPI (JSON-RPC)",cmd:"management api http-commands\n no shutdown\n protocol https",desc:"Enable JSON-RPC API for automation."},
+
+];
+
+/* -------- helpers -------- */
+const OSLABEL = {ios:"IOS / IOS-XE",iosxe:"IOS-XE",nxos:"NX-OS",asa:"ASA",junos:"Junos",eos:"EOS"};
+
+function esc(s){
+  return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"})[c]);
+}
+function escAttr(s){return esc(s)}
+function highlight(text,q){
+  const safe = esc(text);
+  if(!q) return safe;
+  const re = new RegExp("("+q.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+")","ig");
+  return safe.replace(re,"<mark>$1</mark>");
+}
+
+const state = {
+  vendor:new Set(),os:new Set(),role:new Set(),cat:new Set(),
+  q:"",compare:false
+};
+
+function uniq(arr){return [...new Set(arr)]}
+function countBy(field,val){return DATA.filter(d=>d[field]===val).length}
+
+function renderChips(){
+  const vendors = uniq(DATA.map(d=>d.vendor));
+  const oses    = uniq(DATA.map(d=>d.os));
+  const roles   = uniq(DATA.map(d=>d.role));
+  const cats    = uniq(DATA.map(d=>d.cat)).sort();
+
+  const groups = [
+    {id:"vendors",arr:vendors,key:"vendor",label:v=>v},
+    {id:"oslist", arr:oses,   key:"os",    label:v=>OSLABEL[v]||v},
+    {id:"roles",  arr:roles,  key:"role",  label:v=>v},
+    {id:"cats",   arr:cats,   key:"cat",   label:v=>v},
+  ];
+  groups.forEach(g=>{
+    const el = document.getElementById(g.id);
+    el.replaceChildren();
+    g.arr.forEach(v=>{
+      const chip = document.createElement("span");
+      chip.className = "chip" + (state[g.key].has(v)?" on":"");
+      chip.dataset.k = g.key; chip.dataset.v = v;
+      const label = document.createTextNode(g.label(v)+" ");
+      const count = document.createElement("span");
+      count.className="v"; count.textContent = countBy(g.key,v);
+      chip.appendChild(label); chip.appendChild(count);
+      chip.addEventListener("click",()=>{
+        if(state[g.key].has(v))state[g.key].delete(v); else state[g.key].add(v);
+        renderChips(); render();
+      });
+      el.appendChild(chip);
+    });
+  });
+
+  const s = document.getElementById("stats");
+  s.replaceChildren();
+  const html = `Total commands: <b>${DATA.length}</b><br/>
+    Vendors: ${vendors.length} · OSes: ${oses.length}<br/>
+    Roles: ${roles.length} · Categories: ${cats.length}<br/>
+    Cisco: ${countBy("vendor","Cisco")} · Juniper: ${countBy("vendor","Juniper")} · Arista: ${countBy("vendor","Arista")}`;
+  // safe: all data are integers/labels we control
+  const wrapper = document.createElement("div");
+  wrapper.innerHTML = html;
+  s.appendChild(wrapper);
+}
+
+function matches(d){
+  if(state.vendor.size && !state.vendor.has(d.vendor)) return false;
+  if(state.os.size && !state.os.has(d.os)) return false;
+  if(state.role.size && !state.role.has(d.role)) return false;
+  if(state.cat.size && !state.cat.has(d.cat)) return false;
+  if(state.q){
+    const hay = (d.title+" "+d.cmd+" "+d.desc+" "+d.cat+" "+d.os+" "+d.vendor+" "+d.role).toLowerCase();
+    if(!hay.includes(state.q)) return false;
+  }
+  return true;
+}
+
+function buildCard(d){
+  const card = document.createElement("div");
+  card.className = "card";
+
+  const head = document.createElement("div"); head.className="head";
+  const title = document.createElement("div"); title.className="title";
+  title.innerHTML = highlight(d.title,state.q);
+  const tags = document.createElement("div"); tags.className="tags";
+  const t1 = document.createElement("span"); t1.className="tag os-"+esc(d.os); t1.textContent = OSLABEL[d.os]||d.os;
+  const t2 = document.createElement("span"); t2.className="tag role-"+esc(d.role); t2.textContent = d.role;
+  tags.append(t1,t2);
+  head.append(title,tags);
+
+  const desc = document.createElement("div"); desc.className="desc";
+  desc.innerHTML = highlight(d.desc,state.q);
+
+  const pre = document.createElement("pre");
+  pre.innerHTML = highlight(d.cmd,state.q);
+
+  const actions = document.createElement("div"); actions.className="actions";
+  const copyBtn = document.createElement("button"); copyBtn.className="btn"; copyBtn.textContent="Copy";
+  const addBtn  = document.createElement("button"); addBtn.className="btn"; addBtn.textContent="+ CLI";
+  const vTag = document.createElement("span"); vTag.className="tag"; vTag.textContent = d.vendor;
+  const cTag = document.createElement("span"); cTag.className="tag"; cTag.textContent = d.cat;
+  actions.append(copyBtn, addBtn, vTag, cTag);
+
+  copyBtn.addEventListener("click",()=>{
+    navigator.clipboard.writeText(d.cmd).then(()=>flash(card,"Copied"));
+  });
+  addBtn.addEventListener("click",()=>{
+    const ta = document.getElementById("cli");
+    ta.value = (ta.value?ta.value+"\n\n":"") + "! --- "+d.title+" ---\n"+d.cmd;
+    ta.scrollTop = ta.scrollHeight;
+    flash(card,"Added to CLI");
+  });
+
+  card.append(head,desc,pre,actions);
+  return card;
+}
+
+function render(){
+  const filtered = DATA.filter(matches);
+  const results = document.getElementById("results");
+  document.getElementById("shown").textContent = filtered.length;
+  document.getElementById("total").textContent = DATA.length;
+  results.replaceChildren();
+
+  if(filtered.length===0){
+    const empty = document.createElement("div");
+    empty.className="empty";
+    empty.textContent = "No commands match. Try clearing some filters or shortening the search.";
+    results.appendChild(empty);
+    return;
+  }
+
+  const groups = {};
+  const groupKey = (state.compare && state.q) ? "title" : "cat";
+  filtered.forEach(d=>{ (groups[d[groupKey]] = groups[d[groupKey]] || []).push(d); });
+
+  Object.keys(groups).sort().forEach(k=>{
+    const cat = document.createElement("div"); cat.className="cat";
+    const h = document.createElement("h3"); h.textContent = k;
+    const c = document.createElement("span"); c.className="count"; c.textContent = groups[k].length;
+    const line = document.createElement("div"); line.className="line";
+    cat.append(h,c,line);
+    results.appendChild(cat);
+
+    const grid = document.createElement("div"); grid.className="grid";
+    groups[k].forEach(d=>grid.appendChild(buildCard(d)));
+    results.appendChild(grid);
+  });
+}
+
+function flash(el,msg){
+  const t = document.createElement("div");
+  t.className = "flash";
+  t.textContent = msg;
+  el.appendChild(t);
+  setTimeout(()=>t.remove(),700);
+}
+
+function clearFilters(){
+  state.vendor.clear();state.os.clear();state.role.clear();state.cat.clear();
+  document.getElementById("q").value="";state.q="";
+  renderChips();render();
+}
+function toggleCompare(){
+  state.compare = !state.compare;
+  document.getElementById("cmp").classList.toggle("on",state.compare);
+  render();
+}
+function copyCli(){
+  const ta = document.getElementById("cli");
+  navigator.clipboard.writeText(ta.value).then(()=>ta.focus());
+}
+function exportCheat(){
+  const ta = document.getElementById("cli");
+  const content = ta.value || DATA.filter(matches).map(d=>`! [${d.vendor}/${OSLABEL[d.os]}/${d.role}] ${d.title}\n${d.cmd}`).join("\n\n");
+  const blob = new Blob([content],{type:"text/plain"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "multivendor-cli-cheatsheet.txt";
+  a.click();
+}
+
+// wire up controls
+const qEl = document.getElementById("q");
+qEl.addEventListener("input",e=>{ state.q = e.target.value.trim().toLowerCase(); render(); });
+document.addEventListener("keydown",e=>{
+  if(e.key==="/" && document.activeElement!==qEl){e.preventDefault();qEl.focus();qEl.select();}
+  if(e.key==="Escape"){qEl.value="";state.q="";render();qEl.blur();}
+});
+document.getElementById("btn-side").addEventListener("click",()=>document.querySelector(".side").classList.toggle("open"));
+document.getElementById("btn-cli").addEventListener("click",()=>document.querySelector(".cli-pane").classList.toggle("open"));
+document.getElementById("btn-export").addEventListener("click",exportCheat);
+document.getElementById("btn-copycli").addEventListener("click",copyCli);
+document.getElementById("btn-clearcli").addEventListener("click",()=>document.getElementById("cli").value="");
+document.getElementById("btn-dl").addEventListener("click",exportCheat);
+document.getElementById("cmp").addEventListener("click",toggleCompare);
+document.getElementById("clr").addEventListener("click",clearFilters);
+
+renderChips();
+render();
+</script>
+</body>
+</html>

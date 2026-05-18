@@ -1,0 +1,902 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Multivendor GUI Configurator — Cisco · Juniper · Arista</title>
+<style>
+:root{
+  --bg:#000;--panel:#0a0f0a;--panel-2:#0d140d;--line:#1a3d1a;--line-2:#0e2810;
+  --ink:#9cffa0;--ink-dim:#4a7d4d;--accent:#39ff14;--warn:#ffb020;--bad:#ff5050;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font:13px/1.5 var(--mono)}
+a{color:var(--accent)}
+.topbar{background:#08120a;border-bottom:1px solid var(--line);padding:8px 14px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.brand{font-weight:700;color:var(--accent);letter-spacing:1px}
+.brand small{color:var(--ink-dim);margin-left:8px;font-weight:400}
+.field{display:flex;align-items:center;gap:6px}
+.field label{color:var(--ink-dim);font-size:11px;text-transform:uppercase;letter-spacing:1px}
+.field input,.field select{background:#000;color:var(--ink);border:1px solid var(--line);padding:5px 8px;font:12px var(--mono);outline:0;border-radius:3px}
+.field input:focus,.field select:focus{border-color:var(--accent);box-shadow:0 0 4px rgba(57,255,20,.35)}
+.tabs{display:flex;gap:0;margin-left:auto}
+.tab{padding:6px 12px;border:1px solid var(--line);background:transparent;color:var(--ink-dim);cursor:pointer;font:11px var(--mono);letter-spacing:1px;text-transform:uppercase}
+.tab+.tab{border-left:0}
+.tab.on{color:var(--accent);border-color:var(--accent);background:rgba(57,255,20,.06)}
+.tab:hover{color:var(--ink)}
+
+main{display:grid;grid-template-columns:180px 1fr 420px;gap:0;height:calc(100vh - 49px)}
+.side{background:#06100a;border-right:1px solid var(--line);overflow:auto}
+.side h4{margin:14px 12px 6px;font-size:10px;color:var(--ink-dim);letter-spacing:2px;text-transform:uppercase}
+.nav{display:flex;flex-direction:column}
+.nav a{padding:7px 14px;color:var(--ink-dim);cursor:pointer;border-left:2px solid transparent;text-decoration:none;font-size:12px}
+.nav a:hover{color:var(--ink);background:rgba(57,255,20,.04)}
+.nav a.on{color:var(--accent);border-left-color:var(--accent);background:rgba(57,255,20,.08)}
+
+.content{overflow:auto;padding:18px 22px}
+.sec-title{color:var(--accent);font-size:13px;letter-spacing:1px;margin:0 0 14px;font-weight:400}
+.sec-title::before{content:"# ";color:var(--ink-dim)}
+
+.entry{border-top:1px solid var(--line-2);padding:14px 0;position:relative}
+.entry:first-of-type{border-top:0;padding-top:0}
+.entry .head{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.entry .name{color:var(--accent);font-weight:600;letter-spacing:.5px}
+.entry .badges{display:flex;gap:6px;margin-left:auto;align-items:center}
+.pill{font-size:10px;padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--ink-dim);background:#000}
+.pill.up{color:#0aff0a;border-color:#0aff0a;background:rgba(10,255,10,.08)}
+.pill.down{color:#ff5050;border-color:#5a1010;background:rgba(255,80,80,.08)}
+.row{display:grid;grid-template-columns:150px 1fr;align-items:center;gap:10px;padding:4px 0}
+.row label{color:var(--ink-dim);font-size:12px}
+.row input,.row select{background:#000;color:var(--ink);border:1px solid var(--line);padding:5px 8px;font:12px var(--mono);outline:0;border-radius:3px;width:100%}
+.row input::placeholder{color:#2a4a2c}
+.row input:focus,.row select:focus{border-color:var(--accent)}
+.row .check{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink-dim)}
+.row .check input{width:auto}
+.row .dual{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+
+.add{margin-top:14px;background:transparent;border:1px dashed var(--line);color:var(--ink-dim);padding:8px 12px;cursor:pointer;font:12px var(--mono);width:100%;border-radius:3px}
+.add:hover{border-color:var(--accent);color:var(--accent)}
+.btn-x{background:transparent;border:1px solid var(--line-2);color:var(--ink-dim);cursor:pointer;font:11px var(--mono);padding:3px 7px;border-radius:3px}
+.btn-x:hover{color:var(--bad);border-color:var(--bad)}
+
+.cli{background:#000;border-left:1px solid var(--line);display:flex;flex-direction:column;height:100%}
+.cli .hdr{padding:9px 14px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;background:#08120a}
+.cli .hdr .t{color:var(--ink-dim);font-size:11px;letter-spacing:2px;text-transform:uppercase}
+.cli .hdr .live{color:#0aff0a;font-size:10px;background:rgba(10,255,10,.08);border:1px solid #0aff0a;padding:1px 6px;border-radius:3px;animation:pulse 2s infinite}
+@keyframes pulse{50%{opacity:.5}}
+.cli pre{margin:0;padding:14px;flex:1;overflow:auto;color:var(--accent);font:12px/1.6 var(--mono);text-shadow:0 0 2px rgba(57,255,20,.25);white-space:pre-wrap;word-break:break-word}
+.cli .ftr{padding:8px 12px;border-top:1px solid var(--line);display:flex;gap:6px;background:#08120a}
+.cli .ftr button{flex:1;background:transparent;border:1px solid var(--line);color:var(--ink-dim);padding:6px 10px;cursor:pointer;font:11px var(--mono);border-radius:3px;letter-spacing:1px;text-transform:uppercase}
+.cli .ftr button:hover{color:var(--accent);border-color:var(--accent)}
+.cli .ftr button.primary{background:rgba(57,255,20,.1);color:var(--accent);border-color:var(--accent)}
+
+.cli pre .c{color:#4a7d4d}
+.cli pre .k{color:#39ff14}
+.cli pre .v{color:#9cffa0}
+
+@media (max-width:1100px){main{grid-template-columns:160px 1fr 360px}}
+@media (max-width:900px){main{grid-template-columns:1fr;height:auto}.side,.cli{position:static;height:auto}.cli{order:99}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">CONFIG.GEN <small>multivendor CLI builder</small></div>
+  <div class="field"><label>Vendor</label>
+    <select id="vendor">
+      <option value="cisco">Cisco</option>
+      <option value="juniper">Juniper</option>
+      <option value="arista">Arista</option>
+    </select>
+  </div>
+  <div class="field"><label>OS</label><select id="osel"></select></div>
+  <div class="field"><label>Hostname</label><input id="hostname" value="R1" /></div>
+  <div class="tabs" id="roleTabs">
+    <button class="tab on" data-role="router">Router</button>
+    <button class="tab" data-role="switch">Switch</button>
+    <button class="tab" data-role="firewall">Firewall</button>
+  </div>
+</div>
+
+<main>
+  <aside class="side">
+    <h4>Configuration</h4>
+    <nav class="nav" id="nav"></nav>
+    <h4>Actions</h4>
+    <nav class="nav">
+      <a id="actLoad">Reload sample</a>
+      <a id="actReset">Reset all</a>
+    </nav>
+  </aside>
+
+  <section class="content" id="content"></section>
+
+  <aside class="cli">
+    <div class="hdr">
+      <span class="t">CLI Preview</span>
+      <span class="live">● live</span>
+    </div>
+    <pre id="cli"></pre>
+    <div class="ftr">
+      <button id="btnCopy">Copy</button>
+      <button id="btnDl" class="primary">Download</button>
+    </div>
+  </aside>
+</main>
+
+<script>
+"use strict";
+
+const OS_MAP = {
+  cisco:   [["ios","IOS / IOS-XE"],["nxos","NX-OS"],["asa","ASA"]],
+  juniper: [["junos","Junos"]],
+  arista:  [["eos","EOS"]],
+};
+const SECTIONS = {
+  router:   ["interfaces","static","ospf","bgp","acls","snmp","logging"],
+  switch:   ["interfaces","vlans","trunks","stp","ospf","bgp","acls","snmp"],
+  firewall: ["interfaces","zones","policies","nat","vpn","static","logging"],
+};
+const SECTION_LABELS = {
+  interfaces:"Interfaces", static:"Static Routes", ospf:"OSPF", bgp:"BGP",
+  acls:"ACLs", snmp:"SNMP", logging:"Logging",
+  vlans:"VLANs", trunks:"Trunks", stp:"Spanning-Tree",
+  zones:"Security Zones", policies:"Security Policies", nat:"NAT", vpn:"IPSec VPN"
+};
+
+const state = {
+  vendor:"cisco", os:"ios", role:"router", hostname:"R1", section:"interfaces",
+  interfaces:[
+    {name:"GigabitEthernet0/0", desc:"WAN uplink", ip:"10.0.0.1", mask:"255.255.255.252", prefix:30, enabled:true, mode:"routed", vlan:"", trunkVlans:""},
+    {name:"GigabitEthernet0/1", desc:"", ip:"", mask:"", prefix:24, enabled:false, mode:"routed", vlan:"", trunkVlans:""},
+    {name:"Loopback0", desc:"Router-ID", ip:"1.1.1.1", mask:"255.255.255.255", prefix:32, enabled:true, mode:"routed", vlan:"", trunkVlans:""},
+  ],
+  static:[{prefix:"0.0.0.0", mask:"0.0.0.0", nextHop:"10.0.0.2", distance:""}],
+  ospf:{processId:"1", routerId:"1.1.1.1", area:"0", networks:[{net:"10.0.0.0",wild:"0.0.0.255",area:"0"}], passiveDefault:true},
+  bgp:{asn:"65001", routerId:"1.1.1.1", neighbors:[{ip:"10.0.0.2",remoteAs:"65002",desc:"Upstream ISP"}], networks:[{net:"10.10.10.0",mask:"255.255.255.0"}]},
+  acls:[{name:"MGMT", rules:[{seq:10,action:"permit",proto:"tcp",src:"10.0.0.0/24",dst:"any",port:"22"},{seq:20,action:"deny",proto:"ip",src:"any",dst:"any",port:""}]}],
+  vlans:[{id:10,name:"USERS"},{id:20,name:"VOICE"},{id:99,name:"MGMT"}],
+  trunks:[{intf:"GigabitEthernet1/0/24", allowed:"10,20,99", native:"1"}],
+  stp:{mode:"rapid-pvst", priority:""},
+  zones:[{name:"trust",interfaces:"GigabitEthernet0/1"},{name:"untrust",interfaces:"GigabitEthernet0/0"}],
+  policies:[{name:"ALLOW-WEB",from:"untrust",to:"trust",src:"any",dst:"10.10.10.10/32",app:"HTTPS",action:"permit"}],
+  nat:[{type:"source",src:"10.10.10.0/24",translation:"interface",direction:"trust→untrust"}],
+  vpn:[{peer:"198.51.100.2", psk:"SECRET", local:"10.10.10.0/24", remote:"10.20.20.0/24"}],
+  snmp:{community:"", v3user:"monitor", v3auth:"AUTHPASS", v3priv:"PRIVPASS", host:"10.0.0.50"},
+  logging:{host:"10.0.0.50", level:"informational"},
+};
+
+const $ = id => document.getElementById(id);
+
+function el(tag,attrs={},...kids){
+  const e = document.createElement(tag);
+  for(const k in attrs){
+    if(k==="class") e.className = attrs[k];
+    else if(k.startsWith("on")) e.addEventListener(k.slice(2).toLowerCase(),attrs[k]);
+    else if(k==="value") e.value = attrs[k];
+    else if(k==="checked") e.checked = attrs[k];
+    else e.setAttribute(k,attrs[k]);
+  }
+  kids.flat().forEach(k=>{
+    if(k==null) return;
+    e.appendChild(typeof k==="string" ? document.createTextNode(k) : k);
+  });
+  return e;
+}
+function inputRow(label, value, onInput, placeholder=""){
+  const inp = el("input",{type:"text",value:value==null?"":value,placeholder,
+    onInput:e=>{onInput(e.target.value); generate();}});
+  return el("div",{class:"row"}, el("label",{},label), inp);
+}
+function selRow(label, value, options, onChange){
+  const sel = el("select",{onChange:e=>{onChange(e.target.value); generate();}});
+  options.forEach(o=>{
+    const v = Array.isArray(o)?o[0]:o, t = Array.isArray(o)?o[1]:o;
+    const op = el("option",{value:v}, t);
+    if(v===value) op.selected = true;
+    sel.appendChild(op);
+  });
+  return el("div",{class:"row"}, el("label",{},label), sel);
+}
+function checkRow(label, checked, onChange){
+  const inp = el("input",{type:"checkbox",checked,
+    onChange:e=>{onChange(e.target.checked); generate();}});
+  const box = el("div",{class:"check"}, inp, document.createTextNode(checked?"enabled":"disabled"));
+  return el("div",{class:"row"}, el("label",{},label), box);
+}
+function header(name, badges){
+  const h = el("div",{class:"head"}, el("div",{class:"name"},name));
+  const b = el("div",{class:"badges"});
+  (badges||[]).forEach(([cls,txt])=>b.appendChild(el("span",{class:"pill "+cls},txt)));
+  h.appendChild(b);
+  return h;
+}
+
+function renderOsSelect(){
+  const sel = $("osel");
+  sel.replaceChildren();
+  OS_MAP[state.vendor].forEach(([v,l])=>{
+    const o = el("option",{value:v},l);
+    sel.appendChild(o);
+  });
+  state.os = OS_MAP[state.vendor][0][0];
+  sel.value = state.os;
+}
+function renderNav(){
+  const nav = $("nav");
+  nav.replaceChildren();
+  SECTIONS[state.role].forEach(s=>{
+    const a = el("a",{},SECTION_LABELS[s]);
+    a.dataset.s = s;
+    if(s===state.section) a.classList.add("on");
+    a.addEventListener("click",()=>{state.section=s; renderNav(); renderContent();});
+    nav.appendChild(a);
+  });
+  if(!SECTIONS[state.role].includes(state.section)){
+    state.section = SECTIONS[state.role][0];
+    renderNav();
+  }
+}
+
+function renderContent(){
+  const c = $("content");
+  c.replaceChildren();
+  c.appendChild(el("h2",{class:"sec-title"}, SECTION_LABELS[state.section]));
+  switch(state.section){
+    case "interfaces": return renderInterfaces(c);
+    case "static":     return renderStatic(c);
+    case "ospf":       return renderOSPF(c);
+    case "bgp":        return renderBGP(c);
+    case "acls":       return renderACLs(c);
+    case "vlans":      return renderVLANs(c);
+    case "trunks":     return renderTrunks(c);
+    case "stp":        return renderSTP(c);
+    case "zones":      return renderZones(c);
+    case "policies":   return renderPolicies(c);
+    case "nat":        return renderNAT(c);
+    case "vpn":        return renderVPN(c);
+    case "snmp":       return renderSNMP(c);
+    case "logging":    return renderLogging(c);
+  }
+}
+
+function renderInterfaces(c){
+  state.interfaces.forEach((it,i)=>{
+    const wrap = el("div",{class:"entry"});
+    wrap.appendChild(header(it.name||"unnamed", [
+      it.enabled ? ["up","up"] : ["down","shutdown"],
+      ["",state.role]
+    ]));
+    wrap.appendChild(inputRow("Name", it.name, v=>it.name=v, "GigabitEthernet0/0 | ge-0/0/0 | Ethernet1"));
+    wrap.appendChild(inputRow("Description", it.desc, v=>it.desc=v, "optional"));
+    if(state.role==="switch"){
+      wrap.appendChild(selRow("Mode", it.mode||"access", [["access","Access"],["trunk","Trunk"],["routed","Routed (L3)"]], v=>{it.mode=v; renderContent();}));
+      if(it.mode==="trunk"){
+        wrap.appendChild(inputRow("Allowed VLANs", it.trunkVlans, v=>it.trunkVlans=v, "10,20,30"));
+      } else if(it.mode==="routed"){
+        wrap.appendChild(inputRow("IP Address", it.ip, v=>it.ip=v, "10.0.0.1"));
+        wrap.appendChild(inputRow("Subnet Mask", it.mask, v=>it.mask=v, "255.255.255.0"));
+      } else {
+        wrap.appendChild(inputRow("Access VLAN", it.vlan, v=>it.vlan=v, "10"));
+      }
+    } else {
+      wrap.appendChild(inputRow("IP Address", it.ip, v=>it.ip=v, "10.0.0.1"));
+      wrap.appendChild(inputRow("Subnet Mask", it.mask, v=>it.mask=v, "255.255.255.0"));
+      wrap.appendChild(inputRow("Prefix length", it.prefix, v=>it.prefix=v, "24"));
+    }
+    wrap.appendChild(checkRow("No Shutdown", it.enabled, v=>{it.enabled=v; renderContent();}));
+    wrap.querySelector(".badges").appendChild(el("button",{class:"btn-x",
+      onClick:()=>{state.interfaces.splice(i,1); renderContent(); generate();}}, "× remove"));
+    c.appendChild(wrap);
+  });
+  c.appendChild(el("button",{class:"add",onClick:()=>{
+    state.interfaces.push({name:"",desc:"",ip:"",mask:"",prefix:24,enabled:true,mode:"routed",vlan:"",trunkVlans:""});
+    renderContent(); generate();
+  }}, "+ Add Interface"));
+}
+
+function renderStatic(c){
+  state.static.forEach((r,i)=>{
+    const w = el("div",{class:"entry"});
+    w.appendChild(header(`route ${i+1}`, [["",(r.prefix||"?")+"/"+ (maskToPrefix(r.mask)||"?")]]));
+    w.appendChild(inputRow("Prefix",   r.prefix,   v=>r.prefix=v, "10.10.10.0"));
+    w.appendChild(inputRow("Mask",     r.mask,     v=>r.mask=v, "255.255.255.0"));
+    w.appendChild(inputRow("Next Hop", r.nextHop,  v=>r.nextHop=v, "10.0.0.2"));
+    w.appendChild(inputRow("Admin Distance (optional)", r.distance, v=>r.distance=v, "200 for floating"));
+    w.querySelector(".badges").appendChild(el("button",{class:"btn-x",
+      onClick:()=>{state.static.splice(i,1); renderContent(); generate();}}, "× remove"));
+    c.appendChild(w);
+  });
+  c.appendChild(el("button",{class:"add",onClick:()=>{state.static.push({prefix:"",mask:"",nextHop:"",distance:""}); renderContent(); generate();}},"+ Add Route"));
+}
+
+function renderOSPF(c){
+  const o = state.ospf;
+  const top = el("div",{class:"entry"});
+  top.appendChild(header("OSPF process"));
+  top.appendChild(inputRow("Process ID", o.processId, v=>o.processId=v, "1"));
+  top.appendChild(inputRow("Router-ID", o.routerId, v=>o.routerId=v, "1.1.1.1"));
+  top.appendChild(checkRow("passive-interface default", o.passiveDefault, v=>{o.passiveDefault=v;}));
+  c.appendChild(top);
+
+  o.networks.forEach((n,i)=>{
+    const w = el("div",{class:"entry"});
+    w.appendChild(header(`network ${i+1}`));
+    w.appendChild(inputRow("Network", n.net, v=>n.net=v, "10.0.0.0"));
+    w.appendChild(inputRow("Wildcard", n.wild, v=>n.wild=v, "0.0.0.255"));
+    w.appendChild(inputRow("Area", n.area, v=>n.area=v, "0"));
+    w.querySelector(".badges").appendChild(el("button",{class:"btn-x",
+      onClick:()=>{o.networks.splice(i,1); renderContent(); generate();}}, "× remove"));
+    c.appendChild(w);
+  });
+  c.appendChild(el("button",{class:"add",onClick:()=>{o.networks.push({net:"",wild:"0.0.0.255",area:"0"}); renderContent(); generate();}},"+ Add Network"));
+}
+
+function renderBGP(c){
+  const b = state.bgp;
+  const top = el("div",{class:"entry"});
+  top.appendChild(header("BGP global"));
+  top.appendChild(inputRow("Local AS", b.asn, v=>b.asn=v, "65001"));
+  top.appendChild(inputRow("Router-ID", b.routerId, v=>b.routerId=v, "1.1.1.1"));
+  c.appendChild(top);
+
+  b.neighbors.forEach((n,i)=>{
+    const w = el("div",{class:"entry"});
+    w.appendChild(header(`neighbor ${n.ip||"?"}`, [["",`AS ${n.remoteAs||"?"}`]]));
+    w.appendChild(inputRow("Peer IP", n.ip, v=>n.ip=v, "10.0.0.2"));
+    w.appendChild(inputRow("Remote AS", n.remoteAs, v=>n.remoteAs=v, "65002"));
+    w.appendChild(inputRow("Description", n.desc, v=>n.desc=v, "Upstream"));
+    w.querySelector(".badges").appendChild(el("button",{class:"btn-x",
+      onClick:()=>{b.neighbors.splice(i,1); renderContent(); generate();}}, "× remove"));
+    c.appendChild(w);
+  });
+  c.appendChild(el("button",{class:"add",onClick:()=>{b.neighbors.push({ip:"",remoteAs:"",desc:""}); renderContent(); generate();}},"+ Add Neighbor"));
+
+  const nh = el("div",{class:"entry"});
+  nh.appendChild(header("advertised networks"));
+  b.networks.forEach((n,i)=>{
+    nh.appendChild(inputRow(`Network ${i+1}`, n.net, v=>n.net=v, "10.10.10.0"));
+    nh.appendChild(inputRow(`Mask ${i+1}`, n.mask, v=>n.mask=v, "255.255.255.0"));
+  });
+  c.appendChild(nh);
+  c.appendChild(el("button",{class:"add",onClick:()=>{b.networks.push({net:"",mask:"255.255.255.0"}); renderContent(); generate();}},"+ Add Network"));
+}
+
+function renderACLs(c){
+  state.acls.forEach((a,ai)=>{
+    const w = el("div",{class:"entry"});
+    w.appendChild(header(a.name||"ACL", [["",`${a.rules.length} rules`]]));
+    w.appendChild(inputRow("Name", a.name, v=>a.name=v, "MGMT"));
+    a.rules.forEach((r,ri)=>{
+      w.appendChild(selRow(`Rule ${r.seq} action`, r.action, ["permit","deny"], v=>r.action=v));
+      w.appendChild(selRow(`Rule ${r.seq} proto`, r.proto, ["ip","tcp","udp","icmp"], v=>r.proto=v));
+      w.appendChild(inputRow(`Rule ${r.seq} src`, r.src, v=>r.src=v, "10.0.0.0/24 or any"));
+      w.appendChild(inputRow(`Rule ${r.seq} dst`, r.dst, v=>r.dst=v, "any or host 10.10.10.10"));
+      w.appendChild(inputRow(`Rule ${r.seq} port`, r.port, v=>r.port=v, "22 / 443"));
+    });
+    w.querySelector(".badges").appendChild(el("button",{class:"btn-x",
+      onClick:()=>{state.acls.splice(ai,1); renderContent(); generate();}}, "× remove"));
+    c.appendChild(w);
+    c.appendChild(el("button",{class:"add",onClick:()=>{
+      const next = (a.rules[a.rules.length-1]?.seq||0)+10;
+      a.rules.push({seq:next,action:"permit",proto:"ip",src:"any",dst:"any",port:""});
+      renderContent(); generate();
+    }},"+ Add Rule"));
+  });
+  c.appendChild(el("button",{class:"add",onClick:()=>{state.acls.push({name:"NEW_ACL",rules:[{seq:10,action:"permit",proto:"ip",src:"any",dst:"any",port:""}]}); renderContent(); generate();}},"+ Add ACL"));
+}
+
+function renderVLANs(c){
+  state.vlans.forEach((v,i)=>{
+    const w = el("div",{class:"entry"});
+    w.appendChild(header(`VLAN ${v.id} — ${v.name||""}`));
+    w.appendChild(inputRow("VLAN ID", v.id, x=>v.id=x, "10"));
+    w.appendChild(inputRow("Name", v.name, x=>v.name=x, "USERS"));
+    w.querySelector(".badges").appendChild(el("button",{class:"btn-x",
+      onClick:()=>{state.vlans.splice(i,1); renderContent(); generate();}},"× remove"));
+    c.appendChild(w);
+  });
+  c.appendChild(el("button",{class:"add",onClick:()=>{state.vlans.push({id:"",name:""}); renderContent(); generate();}},"+ Add VLAN"));
+}
+function renderTrunks(c){
+  state.trunks.forEach((t,i)=>{
+    const w = el("div",{class:"entry"});
+    w.appendChild(header(t.intf||"trunk port"));
+    w.appendChild(inputRow("Interface", t.intf, v=>t.intf=v, "Gi1/0/24 / ge-0/0/24 / Ethernet24"));
+    w.appendChild(inputRow("Allowed VLANs", t.allowed, v=>t.allowed=v, "10,20,30"));
+    w.appendChild(inputRow("Native VLAN", t.native, v=>t.native=v, "1"));
+    w.querySelector(".badges").appendChild(el("button",{class:"btn-x",
+      onClick:()=>{state.trunks.splice(i,1); renderContent(); generate();}},"× remove"));
+    c.appendChild(w);
+  });
+  c.appendChild(el("button",{class:"add",onClick:()=>{state.trunks.push({intf:"",allowed:"",native:"1"}); renderContent(); generate();}},"+ Add Trunk"));
+}
+function renderSTP(c){
+  const s = state.stp;
+  const w = el("div",{class:"entry"});
+  w.appendChild(header("Spanning-Tree"));
+  w.appendChild(selRow("Mode", s.mode, [["rapid-pvst","Rapid-PVST+"],["mst","MSTP"],["pvst","PVST+"]], v=>s.mode=v));
+  w.appendChild(inputRow("Bridge priority", s.priority, v=>s.priority=v, "4096 / 8192 / 16384 / 24576"));
+  c.appendChild(w);
+}
+function renderZones(c){
+  state.zones.forEach((z,i)=>{
+    const w = el("div",{class:"entry"});
+    w.appendChild(header(`zone ${z.name||"?"}`));
+    w.appendChild(inputRow("Name", z.name, v=>z.name=v, "trust / untrust / dmz"));
+    w.appendChild(inputRow("Interfaces", z.interfaces, v=>z.interfaces=v, "Gi0/1, Gi0/2"));
+    w.querySelector(".badges").appendChild(el("button",{class:"btn-x",
+      onClick:()=>{state.zones.splice(i,1); renderContent(); generate();}},"× remove"));
+    c.appendChild(w);
+  });
+  c.appendChild(el("button",{class:"add",onClick:()=>{state.zones.push({name:"",interfaces:""}); renderContent(); generate();}},"+ Add Zone"));
+}
+function renderPolicies(c){
+  state.policies.forEach((p,i)=>{
+    const w = el("div",{class:"entry"});
+    w.appendChild(header(p.name||"policy", [["",p.action]]));
+    w.appendChild(inputRow("Name", p.name, v=>p.name=v, "ALLOW-WEB"));
+    w.appendChild(inputRow("From zone", p.from, v=>p.from=v, "untrust"));
+    w.appendChild(inputRow("To zone", p.to, v=>p.to=v, "trust"));
+    w.appendChild(inputRow("Source", p.src, v=>p.src=v, "any / 10.0.0.0/24"));
+    w.appendChild(inputRow("Destination", p.dst, v=>p.dst=v, "10.10.10.10/32"));
+    w.appendChild(inputRow("Application", p.app, v=>p.app=v, "HTTPS / tcp/443"));
+    w.appendChild(selRow("Action", p.action, ["permit","deny"], v=>p.action=v));
+    w.querySelector(".badges").appendChild(el("button",{class:"btn-x",
+      onClick:()=>{state.policies.splice(i,1); renderContent(); generate();}},"× remove"));
+    c.appendChild(w);
+  });
+  c.appendChild(el("button",{class:"add",onClick:()=>{state.policies.push({name:"",from:"",to:"",src:"any",dst:"any",app:"any",action:"permit"}); renderContent(); generate();}},"+ Add Policy"));
+}
+function renderNAT(c){
+  state.nat.forEach((n,i)=>{
+    const w = el("div",{class:"entry"});
+    w.appendChild(header(`NAT rule ${i+1}`, [["",n.type]]));
+    w.appendChild(selRow("Type", n.type, [["source","Source NAT / PAT"],["destination","Destination NAT"],["static","Static 1:1"]], v=>n.type=v));
+    w.appendChild(inputRow("Source / Original", n.src, v=>n.src=v, "10.10.10.0/24 or 198.51.100.10"));
+    w.appendChild(inputRow("Translation", n.translation, v=>n.translation=v, "interface / 10.10.10.10"));
+    w.appendChild(inputRow("Direction (zones)", n.direction, v=>n.direction=v, "trust→untrust"));
+    w.querySelector(".badges").appendChild(el("button",{class:"btn-x",
+      onClick:()=>{state.nat.splice(i,1); renderContent(); generate();}},"× remove"));
+    c.appendChild(w);
+  });
+  c.appendChild(el("button",{class:"add",onClick:()=>{state.nat.push({type:"source",src:"",translation:"interface",direction:""}); renderContent(); generate();}},"+ Add NAT Rule"));
+}
+function renderVPN(c){
+  state.vpn.forEach((v,i)=>{
+    const w = el("div",{class:"entry"});
+    w.appendChild(header(`tunnel to ${v.peer||"?"}`));
+    w.appendChild(inputRow("Peer IP", v.peer, x=>v.peer=x, "198.51.100.2"));
+    w.appendChild(inputRow("Pre-shared key", v.psk, x=>v.psk=x, "SECRET"));
+    w.appendChild(inputRow("Local subnet", v.local, x=>v.local=x, "10.10.10.0/24"));
+    w.appendChild(inputRow("Remote subnet", v.remote, x=>v.remote=x, "10.20.20.0/24"));
+    w.querySelector(".badges").appendChild(el("button",{class:"btn-x",
+      onClick:()=>{state.vpn.splice(i,1); renderContent(); generate();}},"× remove"));
+    c.appendChild(w);
+  });
+  c.appendChild(el("button",{class:"add",onClick:()=>{state.vpn.push({peer:"",psk:"",local:"",remote:""}); renderContent(); generate();}},"+ Add Tunnel"));
+}
+function renderSNMP(c){
+  const s = state.snmp;
+  const w = el("div",{class:"entry"});
+  w.appendChild(header("SNMP"));
+  w.appendChild(inputRow("v2c community (optional)", s.community, v=>s.community=v, "RO-community"));
+  w.appendChild(inputRow("v3 user", s.v3user, v=>s.v3user=v, "monitor"));
+  w.appendChild(inputRow("v3 auth password", s.v3auth, v=>s.v3auth=v, "AUTHPASS"));
+  w.appendChild(inputRow("v3 priv password", s.v3priv, v=>s.v3priv=v, "PRIVPASS"));
+  w.appendChild(inputRow("Trap host", s.host, v=>s.host=v, "10.0.0.50"));
+  c.appendChild(w);
+}
+function renderLogging(c){
+  const s = state.logging;
+  const w = el("div",{class:"entry"});
+  w.appendChild(header("Syslog"));
+  w.appendChild(inputRow("Server", s.host, v=>s.host=v, "10.0.0.50"));
+  w.appendChild(selRow("Level", s.level, ["emergencies","alerts","critical","errors","warnings","notifications","informational","debugging"], v=>s.level=v));
+  c.appendChild(w);
+}
+
+/* ------------ helpers ------------ */
+function maskToPrefix(m){
+  if(m==null||m==="") return null;
+  m = String(m);
+  if(!m.includes(".")) return null;
+  const bits = m.split(".").map(x=>parseInt(x,10)).map(x=>x.toString(2).padStart(8,"0")).join("");
+  if(/^1*0*$/.test(bits)) return (bits.match(/1/g)||[]).length;
+  return null;
+}
+function pfx(mask, fallback){
+  const p = maskToPrefix(mask);
+  return p==null ? (fallback==null?24:fallback) : p;
+}
+function prefixToMask(p){
+  p = parseInt(p,10); if(isNaN(p)||p<0||p>32) return "";
+  const o = [0,0,0,0];
+  for(let i=0;i<p;i++) o[Math.floor(i/8)] |= 1<<(7-(i%8));
+  return o.join(".");
+}
+function netMatch(ip,net){
+  if(!ip||!net) return false;
+  return ip.split(".").slice(0,3).join(".") === net.split(".").slice(0,3).join(".");
+}
+
+/* ------------ generators ------------ */
+function genCisco(){
+  const out = [];
+  out.push(`! ${state.vendor.toUpperCase()} ${state.os.toUpperCase()} — ${state.role}`);
+  out.push(`hostname ${state.hostname||"R1"}`);
+  out.push(`!`);
+  if(state.interfaces.length){
+    out.push(`! --- Interfaces ---`);
+    state.interfaces.forEach(it=>{
+      if(!it.name) return;
+      out.push(`interface ${it.name}`);
+      if(it.desc) out.push(` description ${it.desc}`);
+      if(state.role==="switch" && it.mode!=="routed"){
+        if(it.mode==="trunk"){
+          if(state.os==="ios") out.push(` switchport trunk encapsulation dot1q`);
+          out.push(` switchport mode trunk`);
+          if(it.trunkVlans) out.push(` switchport trunk allowed vlan ${it.trunkVlans}`);
+        } else {
+          out.push(` switchport mode access`);
+          if(it.vlan) out.push(` switchport access vlan ${it.vlan}`);
+        }
+      } else {
+        if(state.role==="firewall" && state.os==="asa"){
+          const nameif = (it.name||"").toLowerCase().includes("0/0") ? "outside" : "inside";
+          out.push(` nameif ${nameif}`);
+          out.push(` security-level ${nameif==="outside"?0:100}`);
+        }
+        if(it.ip){
+          if(state.os==="nxos"){
+            const p = pfx(it.mask, it.prefix||24);
+            out.push(` no switchport`);
+            out.push(` ip address ${it.ip}/${p}`);
+          } else {
+            out.push(` ip address ${it.ip} ${it.mask||prefixToMask(it.prefix)}`);
+          }
+        }
+      }
+      out.push(it.enabled ? ` no shutdown` : ` shutdown`);
+      out.push(`!`);
+    });
+  }
+  if(state.role!=="switch" && state.static.length){
+    out.push(`! --- Static routes ---`);
+    state.static.forEach(r=>{
+      if(!r.prefix||!r.mask||!r.nextHop) return;
+      if(state.os==="nxos"){
+        const p = pfx(r.mask, 24);
+        out.push(`ip route ${r.prefix}/${p} ${r.nextHop}${r.distance?" "+r.distance:""}`);
+      } else {
+        out.push(`ip route ${r.prefix} ${r.mask} ${r.nextHop}${r.distance?" "+r.distance:""}`);
+      }
+    });
+    out.push(`!`);
+  }
+  if(state.role!=="firewall"){
+    const o = state.ospf;
+    if(o.networks.some(n=>n.net)){
+      out.push(`! --- OSPF ---`);
+      out.push(`router ospf ${o.processId||"1"}`);
+      if(o.routerId) out.push(` router-id ${o.routerId}`);
+      if(o.passiveDefault) out.push(` passive-interface default`);
+      o.networks.forEach(n=>{ if(n.net) out.push(` network ${n.net} ${n.wild||"0.0.0.255"} area ${n.area||"0"}`)});
+      out.push(`!`);
+    }
+    const b = state.bgp;
+    if(b.asn && (b.neighbors.some(n=>n.ip) || b.networks.some(n=>n.net))){
+      out.push(`! --- BGP ---`);
+      out.push(`router bgp ${b.asn}`);
+      if(b.routerId) out.push(` bgp router-id ${b.routerId}`);
+      b.neighbors.forEach(n=>{
+        if(!n.ip) return;
+        if(n.desc) out.push(` neighbor ${n.ip} description ${n.desc}`);
+        out.push(` neighbor ${n.ip} remote-as ${n.remoteAs}`);
+      });
+      out.push(` address-family ipv4`);
+      b.neighbors.forEach(n=>{ if(n.ip) out.push(`  neighbor ${n.ip} activate`)});
+      b.networks.forEach(n=>{ if(n.net){
+        if(state.os==="nxos") out.push(`  network ${n.net}/${pfx(n.mask,24)}`);
+        else out.push(`  network ${n.net} mask ${n.mask}`);
+      }});
+      out.push(` exit-address-family`);
+      out.push(`!`);
+    }
+  }
+  state.acls.forEach(a=>{
+    if(!a.name) return;
+    out.push(`! --- ACL ${a.name} ---`);
+    out.push(`ip access-list extended ${a.name}`);
+    a.rules.forEach(r=>{
+      const port = r.port ? ` eq ${r.port}` : "";
+      out.push(` ${r.seq} ${r.action} ${r.proto} ${r.src} ${r.dst}${port}`);
+    });
+    out.push(`!`);
+  });
+  if(state.role==="switch"){
+    if(state.vlans.length){
+      out.push(`! --- VLANs ---`);
+      state.vlans.forEach(v=>{ if(v.id){out.push(`vlan ${v.id}`); if(v.name) out.push(` name ${v.name}`)} });
+      out.push(`!`);
+    }
+    if(state.trunks.length){
+      out.push(`! --- Trunks ---`);
+      state.trunks.forEach(t=>{
+        if(!t.intf) return;
+        out.push(`interface ${t.intf}`);
+        if(state.os==="ios") out.push(` switchport trunk encapsulation dot1q`);
+        out.push(` switchport mode trunk`);
+        if(t.allowed) out.push(` switchport trunk allowed vlan ${t.allowed}`);
+        if(t.native)  out.push(` switchport trunk native vlan ${t.native}`);
+        out.push(`!`);
+      });
+    }
+    if(state.stp.mode){
+      out.push(`spanning-tree mode ${state.stp.mode}`);
+      if(state.stp.priority) out.push(`spanning-tree vlan 1-4094 priority ${state.stp.priority}`);
+      out.push(`!`);
+    }
+  }
+  if(state.role==="firewall" && state.os==="asa"){
+    state.policies.forEach((p,i)=>{
+      const aclName = p.name || `POL_${i}`;
+      out.push(`access-list ${aclName} extended ${p.action} ${guessAsaProto(p.app)} ${p.src} ${p.dst}${guessAsaPort(p.app)}`);
+      out.push(`access-group ${aclName} in interface ${p.from||"outside"}`);
+    });
+    state.nat.forEach((n,i)=>{
+      if(n.type==="source"){
+        out.push(`object network NAT_${i}`);
+        out.push(` subnet ${(n.src||"").replace("/"," ")}`);
+        out.push(` nat (inside,outside) dynamic interface`);
+      } else {
+        out.push(`object network NAT_${i}`);
+        out.push(` host ${n.translation}`);
+        out.push(` nat (inside,outside) static ${n.src}`);
+      }
+    });
+    out.push(`!`);
+  }
+  if(state.snmp.host || state.snmp.community){
+    out.push(`! --- SNMP ---`);
+    if(state.snmp.community) out.push(`snmp-server community ${state.snmp.community} RO`);
+    if(state.snmp.v3user){
+      out.push(`snmp-server group OPS v3 priv`);
+      out.push(`snmp-server user ${state.snmp.v3user} OPS v3 auth sha ${state.snmp.v3auth} priv aes 128 ${state.snmp.v3priv}`);
+    }
+    if(state.snmp.host) out.push(`snmp-server host ${state.snmp.host} version 3 priv ${state.snmp.v3user}`);
+    out.push(`!`);
+  }
+  if(state.logging.host){
+    out.push(`! --- Logging ---`);
+    out.push(`logging host ${state.logging.host}`);
+    out.push(`logging trap ${state.logging.level}`);
+    out.push(`!`);
+  }
+  out.push(`end`);
+  return out.join("\n");
+}
+function guessAsaProto(app){
+  const a=(app||"").toLowerCase();
+  if(a.includes("https")||a.includes("http")||a.includes("ssh")||a.includes("tcp")) return "tcp";
+  if(a.includes("udp")||a.includes("dns")||a.includes("snmp")) return "udp";
+  if(a.includes("icmp")||a.includes("ping")) return "icmp";
+  return "ip";
+}
+function guessAsaPort(app){
+  const a=(app||"").toLowerCase();
+  if(a.includes("https")) return " eq 443";
+  if(a.includes("http"))  return " eq 80";
+  if(a.includes("ssh"))   return " eq 22";
+  if(a.includes("dns"))   return " eq 53";
+  const m = a.match(/(tcp|udp)\/(\d+)/);
+  if(m) return " eq "+m[2];
+  return "";
+}
+
+function genJunos(){
+  const out = [];
+  out.push(`# Juniper Junos — ${state.role}`);
+  out.push(`set system host-name ${state.hostname||"R1"}`);
+  state.interfaces.forEach(it=>{
+    if(!it.name) return;
+    const ifn = it.name||"ge-0/0/0";
+    if(it.desc) out.push(`set interfaces ${ifn} description "${it.desc}"`);
+    if(state.role==="switch" && it.mode!=="routed"){
+      if(it.mode==="trunk"){
+        const vlans = (it.trunkVlans||"").split(",").map(x=>x.trim()).filter(Boolean).join(" ");
+        out.push(`set interfaces ${ifn} unit 0 family ethernet-switching interface-mode trunk vlan members [ ${vlans} ]`);
+      } else if(it.vlan){
+        out.push(`set interfaces ${ifn} unit 0 family ethernet-switching interface-mode access vlan members vlan${it.vlan}`);
+      }
+    } else if(it.ip){
+      const p = pfx(it.mask, it.prefix||24);
+      out.push(`set interfaces ${ifn} unit 0 family inet address ${it.ip}/${p}`);
+    }
+    if(!it.enabled) out.push(`set interfaces ${ifn} disable`);
+  });
+  if(state.role!=="switch"){
+    state.static.forEach(r=>{
+      if(!r.prefix||!r.nextHop) return;
+      const p = pfx(r.mask, 24);
+      out.push(`set routing-options static route ${r.prefix}/${p} next-hop ${r.nextHop}${r.distance?" preference "+r.distance:""}`);
+    });
+  }
+  if(state.role!=="firewall"){
+    const o = state.ospf;
+    if(o.routerId) out.push(`set routing-options router-id ${o.routerId}`);
+    o.networks.forEach(n=>{
+      if(!n.net) return;
+      const matchIf = state.interfaces.find(it=>it.ip && netMatch(it.ip,n.net));
+      const ifn = matchIf ? matchIf.name+".0" : "ge-0/0/0.0";
+      out.push(`set protocols ospf area 0.0.0.${n.area||"0"} interface ${ifn}`);
+    });
+    const b = state.bgp;
+    if(b.asn) out.push(`set routing-options autonomous-system ${b.asn}`);
+    b.neighbors.forEach(n=>{
+      if(!n.ip) return;
+      const grpName = n.remoteAs===b.asn ? "INTERNAL" : "EXTERNAL";
+      const grpType = n.remoteAs===b.asn ? "internal" : "external";
+      out.push(`set protocols bgp group ${grpName} type ${grpType}`);
+      out.push(`set protocols bgp group ${grpName} neighbor ${n.ip} peer-as ${n.remoteAs}`);
+      if(n.desc) out.push(`set protocols bgp group ${grpName} neighbor ${n.ip} description "${n.desc}"`);
+    });
+    b.networks.forEach((n,i)=>{
+      if(!n.net) return;
+      const p = pfx(n.mask, 24);
+      out.push(`set policy-options policy-statement EXPORT-${i} term 1 from route-filter ${n.net}/${p} exact`);
+      out.push(`set policy-options policy-statement EXPORT-${i} term 1 then accept`);
+    });
+  }
+  state.acls.forEach(a=>{
+    if(!a.name) return;
+    a.rules.forEach(r=>{
+      const t = `T${r.seq}`;
+      if(r.src!=="any") out.push(`set firewall family inet filter ${a.name} term ${t} from source-address ${r.src}`);
+      if(r.dst!=="any") out.push(`set firewall family inet filter ${a.name} term ${t} from destination-address ${r.dst}`);
+      if(r.proto!=="ip") out.push(`set firewall family inet filter ${a.name} term ${t} from protocol ${r.proto}`);
+      if(r.port)        out.push(`set firewall family inet filter ${a.name} term ${t} from destination-port ${r.port}`);
+      out.push(`set firewall family inet filter ${a.name} term ${t} then ${r.action==="permit"?"accept":"discard"}`);
+    });
+  });
+  if(state.role==="switch"){
+    state.vlans.forEach(v=>{ if(v.id) out.push(`set vlans vlan${v.id} vlan-id ${v.id}`) });
+    state.trunks.forEach(t=>{
+      if(!t.intf) return;
+      const vlans = (t.allowed||"").split(",").map(x=>"vlan"+x.trim()).filter(x=>x!=="vlan").join(" ");
+      out.push(`set interfaces ${t.intf} unit 0 family ethernet-switching interface-mode trunk vlan members [ ${vlans} ]`);
+      if(t.native) out.push(`set interfaces ${t.intf} native-vlan-id ${t.native}`);
+    });
+  }
+  if(state.role==="firewall"){
+    state.zones.forEach(z=>{
+      if(!z.name) return;
+      (z.interfaces||"").split(",").map(x=>x.trim()).filter(Boolean).forEach(ifc=>{
+        out.push(`set security zones security-zone ${z.name} interfaces ${ifc}.0`);
+      });
+    });
+    state.policies.forEach(p=>{
+      if(!p.name) return;
+      const path = `security policies from-zone ${p.from} to-zone ${p.to} policy ${p.name}`;
+      out.push(`set ${path} match source-address ${p.src==="any"?"any":p.name+"-src"}`);
+      out.push(`set ${path} match destination-address ${p.dst==="any"?"any":p.name+"-dst"}`);
+      out.push(`set ${path} match application ${p.app||"any"}`);
+      out.push(`set ${path} then ${p.action}`);
+    });
+    state.nat.forEach((n,i)=>{
+      const [fromZ,toZ] = (n.direction||"trust→untrust").split("→");
+      if(n.type==="source"){
+        const rs = `NAT-SRC-${i}`;
+        out.push(`set security nat source rule-set ${rs} from zone ${fromZ}`);
+        out.push(`set security nat source rule-set ${rs} to zone ${toZ||"untrust"}`);
+        out.push(`set security nat source rule-set ${rs} rule R${i} match source-address ${n.src}`);
+        out.push(`set security nat source rule-set ${rs} rule R${i} then source-nat ${n.translation==="interface"?"interface":"pool "+n.translation}`);
+      } else {
+        out.push(`set security nat destination pool DNAT-${i} address ${n.translation}`);
+        out.push(`set security nat destination rule-set DNAT from zone ${fromZ}`);
+        out.push(`set security nat destination rule-set DNAT rule R${i} match destination-address ${n.src}`);
+        out.push(`set security nat destination rule-set DNAT rule R${i} then destination-nat pool DNAT-${i}`);
+      }
+    });
+    state.vpn.forEach((v,i)=>{
+      if(!v.peer) return;
+      const id = `VPN-${i}`;
+      out.push(`set security ike proposal ${id}-P1 authentication-method pre-shared-keys`);
+      out.push(`set security ike proposal ${id}-P1 dh-group group14`);
+      out.push(`set security ike proposal ${id}-P1 authentication-algorithm sha-256`);
+      out.push(`set security ike proposal ${id}-P1 encryption-algorithm aes-256-cbc`);
+      out.push(`set security ike policy ${id}-POL proposals ${id}-P1`);
+      out.push(`set security ike policy ${id}-POL pre-shared-key ascii-text "${v.psk}"`);
+      out.push(`set security ike gateway ${id}-GW ike-policy ${id}-POL address ${v.peer}`);
+      out.push(`set security ipsec vpn ${id} ike gateway ${id}-GW`);
+    });
+  }
+  if(state.snmp.community) out.push(`set snmp community ${state.snmp.community} authorization read-only`);
+  if(state.snmp.v3user){
+    out.push(`set snmp v3 usm local-engine user ${state.snmp.v3user} authentication-sha authentication-password "${state.snmp.v3auth}"`);
+    out.push(`set snmp v3 usm local-engine user ${state.snmp.v3user} privacy-aes128 privacy-password "${state.snmp.v3priv}"`);
+  }
+  if(state.logging.host) out.push(`set system syslog host ${state.logging.host} any ${state.logging.level}`);
+  return out.join("\n");
+}
+
+function genEos(){
+  let lines = genCisco().split("\n");
+  lines = lines.map(l=>{
+    const m = l.match(/^( *)ip address (\d+\.\d+\.\d+\.\d+) (\d+\.\d+\.\d+\.\d+)$/);
+    if(m){ const p = maskToPrefix(m[3]); if(p!=null) return `${m[1]}ip address ${m[2]}/${p}`; }
+    const mr = l.match(/^ip route (\d+\.\d+\.\d+\.\d+) (\d+\.\d+\.\d+\.\d+) (.+)$/);
+    if(mr){ const p = maskToPrefix(mr[2]); if(p!=null) return `ip route ${mr[1]}/${p} ${mr[3]}`; }
+    const mn = l.match(/^( *)network (\d+\.\d+\.\d+\.\d+) mask (\d+\.\d+\.\d+\.\d+)$/);
+    if(mn){ const p = maskToPrefix(mn[3]); if(p!=null) return `${mn[1]}network ${mn[2]}/${p}`; }
+    return l;
+  });
+  lines[0] = `! Arista EOS — ${state.role}`;
+  return lines.join("\n");
+}
+
+/* ------------ live CLI render (DOM-safe colorize) ------------ */
+function generate(){
+  let txt;
+  if(state.vendor==="juniper") txt = genJunos();
+  else if(state.vendor==="arista") txt = genEos();
+  else txt = genCisco();
+  const pre = $("cli");
+  pre.replaceChildren();
+  txt.split("\n").forEach((line,idx)=>{
+    if(idx>0) pre.appendChild(document.createTextNode("\n"));
+    if(line.startsWith("!") || line.startsWith("#")){
+      const s = el("span",{class:"c"}, line);
+      pre.appendChild(s);
+      return;
+    }
+    const m = line.match(/^( *)(\S+)(.*)$/);
+    if(!m){ pre.appendChild(document.createTextNode(line)); return; }
+    if(m[1]) pre.appendChild(document.createTextNode(m[1]));
+    pre.appendChild(el("span",{class:"k"}, m[2]));
+    if(m[3]) pre.appendChild(el("span",{class:"v"}, m[3]));
+  });
+  pre._raw = txt;
+}
+
+/* ------------ wiring ------------ */
+$("vendor").addEventListener("change",e=>{ state.vendor=e.target.value; renderOsSelect(); renderNav(); renderContent(); generate(); });
+$("osel").addEventListener("change",e=>{ state.os=e.target.value; renderContent(); generate(); });
+$("hostname").addEventListener("input",e=>{ state.hostname=e.target.value; generate(); });
+document.querySelectorAll("#roleTabs .tab").forEach(t=>{
+  t.addEventListener("click",()=>{
+    document.querySelectorAll("#roleTabs .tab").forEach(x=>x.classList.remove("on"));
+    t.classList.add("on");
+    state.role = t.dataset.role;
+    renderNav(); renderContent(); generate();
+  });
+});
+$("btnCopy").addEventListener("click",()=>{ navigator.clipboard.writeText($("cli")._raw || $("cli").innerText); });
+$("btnDl").addEventListener("click",()=>{
+  const blob = new Blob([$("cli")._raw || $("cli").innerText],{type:"text/plain"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `${state.hostname||"config"}-${state.vendor}-${state.os}.txt`;
+  a.click();
+});
+$("actReset").addEventListener("click",()=>{
+  if(confirm("Reset all configuration?")){
+    Object.assign(state,{
+      interfaces:[],static:[],
+      ospf:{processId:"1",routerId:"",area:"0",networks:[],passiveDefault:true},
+      bgp:{asn:"",routerId:"",neighbors:[],networks:[]},
+      acls:[],vlans:[],trunks:[],zones:[],policies:[],nat:[],vpn:[]
+    });
+    renderContent(); generate();
+  }
+});
+$("actLoad").addEventListener("click",()=>location.reload());
+
+renderOsSelect();
+renderNav();
+renderContent();
+generate();
+</script>
+</body>
+</html>
