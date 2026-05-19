@@ -42,7 +42,9 @@ header{position:sticky;top:0;z-index:30;backdrop-filter:blur(10px);background:rg
 .stats{padding:0 16px 8px;color:var(--ink-dim);font:11px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;display:flex;gap:14px;align-items:center;flex-wrap:wrap;border-bottom:1px solid var(--line-2)}
 .stats b{color:var(--ink)}
 
-main{display:grid;grid-template-columns:240px 1fr;gap:16px;padding:14px;max-width:1700px;margin:0 auto}
+main{display:grid;grid-template-columns:var(--side-w,240px) 1fr;gap:16px;padding:14px;max-width:1700px;margin:0 auto;transition:grid-template-columns .15s}
+main.lcollapsed{grid-template-columns:0 1fr;gap:0}
+main.lcollapsed .side{display:none}
 
 .side{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:0;height:calc(100vh - 110px);overflow:auto;position:sticky;top:88px}
 .acc{border-bottom:1px solid var(--line-2)}
@@ -141,10 +143,42 @@ table.cmd tr:hover{background:var(--panel-2)}
 .compare-cell pre{margin:0;padding:6px 8px;background:var(--code-bg);border-radius:5px;font:11px/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--code-ink);overflow:auto;white-space:pre-wrap}
 .compare-cell.empty{color:var(--ink-muted);text-align:center;padding:18px;font-style:italic}
 
+/* concept-aligned compare table */
+.cmp-table{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:14px}
+.cmp-row{display:grid;grid-template-columns:140px 1fr 1fr 1fr;border-bottom:1px solid var(--line-2);min-height:36px}
+.cmp-row:last-child{border-bottom:0}
+.cmp-row.cmp-head{position:sticky;top:0;background:var(--panel-2);z-index:1;font:11px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:1.2px;text-transform:uppercase}
+.cmp-row.cmp-head .cmp-cell{padding:8px 10px;text-align:center;font-weight:600}
+.cmp-row.cmp-head .cmp-cell.cisco{color:var(--cisco)}
+.cmp-row.cmp-head .cmp-cell.juniper{color:var(--juniper)}
+.cmp-row.cmp-head .cmp-cell.arista{color:var(--arista)}
+.cmp-concept{padding:9px 10px;background:var(--panel-2);border-right:1px solid var(--line);color:var(--ink-dim);font:11px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-weight:500;display:flex;align-items:center}
+.cmp-cell{padding:8px;border-right:1px solid var(--line-2);min-width:0}
+.cmp-cell:last-child{border-right:0}
+.cmp-cell.cisco{border-left:3px solid var(--cisco)}
+.cmp-cell.juniper{border-left:3px solid var(--juniper)}
+.cmp-cell.arista{border-left:3px solid var(--arista)}
+.cmp-cell.empty{display:flex;align-items:center;justify-content:center;color:var(--ink-muted);font-style:italic}
+.cmp-cell.empty .dash{font-size:18px}
+.cmp-inner{margin-bottom:6px}
+.cmp-inner:last-child{margin-bottom:0}
+.cmp-inner .t{font-size:11.5px;font-weight:600;color:var(--ink);margin-bottom:3px;line-height:1.3}
+.cmp-inner pre{margin:0;padding:6px 8px;background:var(--code-bg);border-radius:5px;font:11px/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--code-ink);overflow:auto;white-space:pre-wrap;word-break:break-word}
+.cmp-acts{display:flex;gap:4px;margin-top:4px}
+.cmp-acts .actbtn{padding:2px 8px;font-size:10px}
+@media (max-width:900px){
+  .cmp-row{grid-template-columns:100px 1fr;grid-template-areas:"c c" "c1 c1" "c2 c2" "c3 c3"}
+  .cmp-row{display:flex;flex-direction:column}
+  .cmp-cell{border-left-width:3px !important}
+}
+
 .drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);opacity:0;visibility:hidden;transition:opacity .2s,visibility .2s;z-index:40}
 .drawer-overlay.open{opacity:1;visibility:visible}
-.drawer{position:fixed;top:0;right:-460px;bottom:0;width:440px;background:var(--panel);border-left:1px solid var(--line);transition:right .22s ease;z-index:50;display:flex;flex-direction:column;box-shadow:-10px 0 30px rgba(0,0,0,.4)}
+.drawer{position:fixed;top:0;right:calc(-1 * var(--drawer-w, 440px) - 20px);bottom:0;width:var(--drawer-w, 440px);min-width:320px;max-width:90vw;background:var(--panel);border-left:1px solid var(--line);transition:right .22s ease, width 0s;z-index:50;display:flex;flex-direction:column;box-shadow:-10px 0 30px rgba(0,0,0,.4)}
 .drawer.open{right:0}
+.drawer .resize-handle{position:absolute;left:-3px;top:0;bottom:0;width:6px;cursor:col-resize;background:transparent;z-index:2}
+.drawer .resize-handle:hover{background:var(--accent)}
+.drawer.resizing{transition:none;user-select:none}
 .drawer .dh{padding:12px 14px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;background:var(--panel-2)}
 .drawer .dh .t{font:12px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-dim)}
 .drawer .dh .live{color:var(--good);font:10px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:rgba(34,197,94,.12);border:1px solid var(--good);padding:1px 6px;border-radius:4px;margin-left:8px}
@@ -184,6 +218,14 @@ mark{background:rgba(34,211,238,.25);color:inherit;border-radius:3px;padding:0 2
 .helpcard table{width:100%;border-collapse:collapse}
 .helpcard td{padding:3px 0;font-size:11px}
 .helpcard td:first-child{color:var(--accent);font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.export-menu{display:none;position:absolute;right:0;top:calc(100% + 6px);background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px;min-width:280px;box-shadow:0 10px 30px rgba(0,0,0,.4);z-index:70}
+.export-menu.open{display:block}
+.export-menu .emh{font:11px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--ink-dim);padding:6px 10px 8px;border-bottom:1px solid var(--line-2);margin-bottom:4px}
+.export-menu .emh b{color:var(--accent)}
+.export-menu button{display:block;width:100%;text-align:left;background:transparent;border:0;color:var(--ink);padding:7px 10px;font:12px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;cursor:pointer;border-radius:5px}
+.export-menu button:hover{background:var(--chip-on);color:var(--accent)}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--good);color:#000;font:12px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;padding:9px 16px;border-radius:8px;opacity:0;pointer-events:none;transition:transform .2s, opacity .2s;z-index:200;font-weight:600;box-shadow:0 4px 20px rgba(0,0,0,.4)}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
 .toggle-btn{display:none}
 @media (max-width:1000px){
   main{grid-template-columns:1fr}
@@ -205,12 +247,22 @@ mark{background:rgba(34,211,238,.25);color:inherit;border-radius:3px;padding:0 2
       <input id="q" placeholder='Search… try "vendor:juniper ospf" or "cat:bgp role:router"' autocomplete="off" autofocus />
       <span class="kbd">/</span>
     </div>
-    <button class="tbtn toggle-btn" id="btn-side">☰</button>
+    <button class="tbtn" id="btn-side" title="Collapse/expand sidebar (S)">☰</button>
     <button class="tbtn" id="btn-theme" title="Toggle light/dark">◐</button>
     <button class="tbtn" id="btn-help" title="Keyboard shortcuts">?</button>
     <button class="tbtn" id="btn-clibuilder" title="Open CLI Builder (b)">⌘ CLI <span class="badge" id="cli-badge" style="display:none">0</span></button>
-    <button class="tbtn" id="btn-export" title="Export">Export</button>
+    <div class="export-wrap" style="position:relative;display:inline-block">
+      <button class="tbtn" id="btn-export" title="Export filtered results">Export ▾</button>
+      <div class="export-menu" id="export-menu">
+        <div class="emh">Export <b id="emcount">…</b> commands as:</div>
+        <button data-fmt="txt">TXT — plain text with comments</button>
+        <button data-fmt="md">Markdown — tables grouped by category</button>
+        <button data-fmt="csv">CSV — vendor,os,role,cat,title,cmd,desc</button>
+        <button data-fmt="json">JSON — full schema, machine-readable</button>
+      </div>
+    </div>
   </div>
+  <div id="toast" class="toast"></div>
   <div class="stats">
     <span><b id="stat-total">…</b> commands</span>
     <span>·</span><span><b id="stat-vendors">3</b> vendors</span>
@@ -261,6 +313,7 @@ mark{background:rgba(34,211,238,.25);color:inherit;border-radius:3px;padding:0 2
 
 <div class="drawer-overlay" id="drawer-overlay"></div>
 <aside class="drawer" id="drawer">
+  <div class="resize-handle" id="drawer-resize"></div>
   <div class="dh">
     <div><span class="t">CLI Builder</span><span class="live">● live</span></div>
     <button class="closex" id="drawer-close">✕</button>
@@ -694,7 +747,35 @@ function openEquivalents(d){
   });
 }
 
+function syncUrl(){
+  if(!DATA.length) return; // skip during boot
+  const p = new URLSearchParams();
+  if(state.vendor.size) p.set("v", [...state.vendor].join(","));
+  if(state.os.size) p.set("os", [...state.os].join(","));
+  if(state.role.size) p.set("role", [...state.role].join(","));
+  if(state.cat.size) p.set("cat", [...state.cat].join(","));
+  if(state.q) p.set("q", state.q);
+  if(state.view !== "cards") p.set("view", state.view);
+  if(state.showFavOnly) p.set("fav", "1");
+  const qs = p.toString();
+  const next = location.pathname + (qs ? "?"+qs : "") + location.hash;
+  if(next !== location.pathname + location.search + location.hash){
+    history.replaceState(null, "", next);
+  }
+}
+function restoreUrl(){
+  const p = new URLSearchParams(location.search);
+  if(p.get("v")) p.get("v").split(",").filter(Boolean).forEach(x=>state.vendor.add(x));
+  if(p.get("os")) p.get("os").split(",").filter(Boolean).forEach(x=>state.os.add(x));
+  if(p.get("role")) p.get("role").split(",").filter(Boolean).forEach(x=>state.role.add(x));
+  if(p.get("cat")) p.get("cat").split(",").filter(Boolean).forEach(x=>state.cat.add(x));
+  if(p.get("q")){ state.q = p.get("q"); qEl.value = state.q; }
+  if(p.get("view")) state.view = p.get("view");
+  if(p.get("fav") === "1") state.showFavOnly = true;
+}
+
 function render(){
+  syncUrl();
   const filtered = DATA.filter(matches);
   $("stat-shown").textContent = filtered.length;
   $("vb-shown").textContent = filtered.length;
@@ -786,38 +867,134 @@ function renderTable(filtered, results){
   results.appendChild(wrap);
 }
 
+// Concept-key: normalize a command title/cmd into a comparable slug.
+// Goal: "BGP eBGP peer" (Cisco), "BGP eBGP peer" (Juniper), "BGP (EOS)" (Arista)
+// all collapse to the same concept ("bgp peer") so they line up horizontally.
+const CONCEPT_STOPWORDS = new Set([
+  "show","set","run","config","configuration","configure","cfg","cli","cmd","command",
+  "router","switch","host","cisco","juniper","arista","ios","nxos","junos","eos","asa","srx","ex","mx",
+  "the","a","an","of","to","in","on","for","with","by","and","or","via",
+  "basic","quick","example","simple","detail","detailed","global","summary",
+  "modern","classic","named","numbered","plain","extended","optional",
+  "create","creating","add","adding","delete","deleting","remove","removing","clear","clearing"
+]);
+const CONCEPT_TOPIC_HINTS = {
+  // Map first hit of any of these substrings to a canonical concept token,
+  // so vendor-flavored words still line up.
+  "neighbor":"peer", "peer":"peer", "neighb":"peer",
+  "summary":"summary", "advertised":"advert", "received":"received",
+  "passive":"passive", "process":"process", "router-id":"routerid", "router id":"routerid",
+  "authentication":"auth", "md5":"auth", "psk":"auth", "pre-shared":"auth",
+  "loopback":"loopback", "subinter":"subif", "vlan tagging":"subif",
+  "trunk":"trunk", "access":"access",
+  "static":"static", "default":"default",
+  "policy":"policy", "filter":"filter", "prefix-list":"prefixlist", "route-map":"routemap",
+  "soft":"clear", "neighbor down":"clear",
+  "version":"version", "running":"running", "startup":"startup",
+  "lacp":"lag", "port-channel":"lag", "etherchannel":"lag", "aggregated":"lag", "channel-group":"lag",
+  "spanning":"stp", "stp ":"stp",
+  "hsrp":"fhrp", "vrrp":"fhrp", "varp":"fhrp", "anycast":"fhrp",
+  "ipsec":"vpn", "ike":"vpn", "tunnel":"vpn",
+  "nat source":"natsrc", "source nat":"natsrc", "pat":"natsrc", "overload":"natsrc",
+  "destination nat":"natdst", "port forward":"natdst", "static nat":"natstatic",
+  "zone":"zone", "policy zone":"zonepolicy",
+  "logging":"log", "syslog":"log",
+  "ntp":"ntp", "snmp":"snmp",
+};
+function conceptKey(d){
+  // strip prompt artifacts and parenthesized notes
+  let t = (d.title||"").toLowerCase();
+  t = t.replace(/^[\w@-]+[#>%]\s*/, "");
+  t = t.replace(/\([^)]+\)/g, " ");
+  t = t.replace(/[^\w\s-]/g, " ");
+  // Topic-hint match first (most stable across vendors)
+  for(const k in CONCEPT_TOPIC_HINTS){
+    if(t.includes(k)) return d.cat + ":" + CONCEPT_TOPIC_HINTS[k];
+  }
+  // Otherwise: 1-2 meaningful tokens
+  const tokens = t.split(/\s+/).filter(w=>w && !CONCEPT_STOPWORDS.has(w) && w.length>=2);
+  const sig = tokens.slice(0,2).join("-") || tokens[0] || "misc";
+  return d.cat + ":" + sig;
+}
+
 function renderCompare(filtered, results){
   $("vb-mode").textContent = "Compare view";
   const byCat = {};
   filtered.forEach(d=>{(byCat[d.cat] = byCat[d.cat] || []).push(d);});
   Object.keys(byCat).sort().forEach(cat=>{
+    const items = byCat[cat];
+    // Group by conceptKey
+    const conceptMap = new Map(); // key -> {Cisco:[],Juniper:[],Arista:[]}
+    items.forEach(d=>{
+      const k = conceptKey(d);
+      if(!conceptMap.has(k)) conceptMap.set(k, {Cisco:[],Juniper:[],Arista:[], label:null});
+      const slot = conceptMap.get(k);
+      if(slot[d.vendor]) slot[d.vendor].push(d);
+      if(!slot.label) slot.label = (d.title||"").replace(/^[\w@-]+[#>%]\s*/,"").slice(0,60);
+    });
+    const total = items.length;
+    const matched = [...conceptMap.values()].filter(s=>(s.Cisco.length>0?1:0)+(s.Juniper.length>0?1:0)+(s.Arista.length>0?1:0) >= 2).length;
     const hdr = el("div",{class:"cat-hdr"},
-      el("h3",{},cat),
-      el("span",{class:"ct"}, byCat[cat].length),
+      el("h3",{}, cat),
+      el("span",{class:"ct"}, total + " · " + matched + " aligned"),
       el("div",{class:"line"})
     );
     results.appendChild(hdr);
-    const grid = el("div",{class:"compare-grid"});
-    [{v:"Cisco",cls:"cisco"},{v:"Juniper",cls:"juniper"},{v:"Arista",cls:"arista"}].forEach(o=>{
-      const v = o.v; const cls = o.cls;
-      const col = el("div",{class:"compare-col "+cls});
-      col.appendChild(el("div",{class:"colhead"}, v));
-      const body = el("div",{class:"colbody"});
-      const items = byCat[cat].filter(d=>d.vendor === v).slice(0,30);
-      if(items.length===0){
-        body.appendChild(el("div",{class:"compare-cell empty"}, "— no commands"));
-      } else {
-        items.forEach(d=>{
-          const cell = el("div",{class:"compare-cell"});
-          cell.appendChild(el("div",{class:"t"}, d.title));
-          cell.appendChild(renderCmd(d.cmd));
-          body.appendChild(cell);
-        });
-      }
-      col.appendChild(body);
-      grid.appendChild(col);
+
+    // Row-aligned table where each row is one concept
+    const tbl = el("div",{class:"cmp-table"});
+    const head = el("div",{class:"cmp-row cmp-head"},
+      el("div",{class:"cmp-concept"}, "concept"),
+      el("div",{class:"cmp-cell cisco"}, "Cisco"),
+      el("div",{class:"cmp-cell juniper"}, "Juniper"),
+      el("div",{class:"cmp-cell arista"}, "Arista")
+    );
+    tbl.appendChild(head);
+
+    // Sort: concepts with the most vendors covered first, then alphabetically
+    const sorted = [...conceptMap.entries()].sort((a,b)=>{
+      const ca = (a[1].Cisco.length>0?1:0)+(a[1].Juniper.length>0?1:0)+(a[1].Arista.length>0?1:0);
+      const cb = (b[1].Cisco.length>0?1:0)+(b[1].Juniper.length>0?1:0)+(b[1].Arista.length>0?1:0);
+      if(ca !== cb) return cb - ca;
+      return a[0].localeCompare(b[0]);
     });
-    results.appendChild(grid);
+    sorted.slice(0,60).forEach(entry=>{
+      const slot = entry[1];
+      const row = el("div",{class:"cmp-row"});
+      row.appendChild(el("div",{class:"cmp-concept"}, slot.label || entry[0].split(":")[1]));
+      ["Cisco","Juniper","Arista"].forEach(v=>{
+        const cell = el("div",{class:"cmp-cell "+v.toLowerCase()});
+        const arr = slot[v];
+        if(!arr || arr.length === 0){
+          cell.classList.add("empty");
+          cell.appendChild(el("span",{class:"dash"}, "—"));
+        } else {
+          arr.slice(0,3).forEach(d=>{
+            const inner = el("div",{class:"cmp-inner"});
+            inner.appendChild(el("div",{class:"t"}, d.title));
+            inner.appendChild(renderCmd(d.cmd));
+            const acts = el("div",{class:"cmp-acts"});
+            const cp = el("button",{class:"actbtn",onClick:()=>{
+              navigator.clipboard.writeText(d.cmd).then(()=>{cp.textContent="✓"; setTimeout(()=>cp.textContent="Copy",1000);});
+            }}, "Copy");
+            const add = el("button",{class:"actbtn",onClick:()=>{
+              state.queue.push({title:d.title, cmd:d.cmd, vendor:d.vendor, os:d.os});
+              persistQueue(); updateCliBadge(); renderDrawer();
+              add.textContent="✓"; setTimeout(()=>add.textContent="+",1000);
+            }}, "+");
+            acts.appendChild(cp); acts.appendChild(add);
+            inner.appendChild(acts);
+            cell.appendChild(inner);
+          });
+        }
+        row.appendChild(cell);
+      });
+      tbl.appendChild(row);
+    });
+    if(sorted.length > 60){
+      tbl.appendChild(el("div",{class:"cmp-row"}, el("div",{style:"grid-column:1/-1;text-align:center;padding:10px;color:var(--ink-muted);font-size:11px"}, "showing top 60 of "+sorted.length+" concepts — refine filters to see more")));
+    }
+    results.appendChild(tbl);
   });
 }
 
@@ -892,6 +1069,7 @@ document.addEventListener("keydown",e=>{
   else if(e.key==="g"){setView("cards");}
   else if(e.key==="b"){ if($("drawer").classList.contains("open")) closeDrawer(); else openDrawer(); }
   else if(e.key==="f"){state.showFavOnly = !state.showFavOnly; renderFavoritesPanel(); renderActiveBar(); render();}
+  else if(e.key==="s"){$("btn-side").click();}
   else if(e.key==="?"){$("helpcard").classList.toggle("open");}
 });
 
@@ -920,12 +1098,97 @@ $("drawer-clear").addEventListener("click",()=>{
   }
 });
 $("equiv-close").addEventListener("click",closeEquiv);
-$("btn-export").addEventListener("click",()=>{
+
+// Drawer resize
+const savedDrawerW = localStorage.getItem("cli-drawer-w");
+if(savedDrawerW) document.documentElement.style.setProperty("--drawer-w", savedDrawerW+"px");
+(function(){
+  const h = $("drawer-resize"); if(!h) return;
+  let sx, sw;
+  h.addEventListener("mousedown",e=>{
+    e.preventDefault();
+    sx = e.clientX;
+    sw = $("drawer").getBoundingClientRect().width;
+    $("drawer").classList.add("resizing");
+    const move = (mv)=>{
+      const delta = sx - mv.clientX; // drag left → grows
+      const next = Math.max(320, Math.min(window.innerWidth*0.9, sw + delta));
+      document.documentElement.style.setProperty("--drawer-w", next+"px");
+    };
+    const up = ()=>{
+      document.removeEventListener("mousemove",move);
+      document.removeEventListener("mouseup",up);
+      $("drawer").classList.remove("resizing");
+      const curW = $("drawer").getBoundingClientRect().width;
+      localStorage.setItem("cli-drawer-w", Math.round(curW));
+    };
+    document.addEventListener("mousemove",move);
+    document.addEventListener("mouseup",up);
+  });
+})();
+function toast(msg){
+  const t = $("toast"); if(!t) return;
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(window._toastT);
+  window._toastT = setTimeout(()=>t.classList.remove("show"), 2200);
+}
+function csvEscape(s){
+  s = String(s==null?"":s);
+  if(/[",\n]/.test(s)) return '"'+s.replace(/"/g,'""')+'"';
+  return s;
+}
+function exportAs(fmt){
   const filtered = DATA.filter(matches);
-  const txt = filtered.map(d=>"# ["+d.vendor+"/"+(OSLABEL[d.os]||d.os)+"/"+d.role+"] "+d.title+"\n# "+d.desc+"\n"+d.cmd).join("\n\n");
-  const blob = new Blob([txt],{type:"text/plain"});
+  let content, mime, ext;
+  if(fmt === "json"){
+    content = JSON.stringify(filtered, null, 1);
+    mime = "application/json"; ext = "json";
+  } else if(fmt === "csv"){
+    const head = "vendor,os,role,cat,title,cmd,desc\n";
+    content = head + filtered.map(d=>[d.vendor,d.os,d.role,d.cat,d.title,d.cmd,d.desc].map(csvEscape).join(",")).join("\n");
+    mime = "text/csv"; ext = "csv";
+  } else if(fmt === "md"){
+    const byCat = {};
+    filtered.forEach(d=>{(byCat[d.cat]=byCat[d.cat]||[]).push(d);});
+    const parts = [];
+    parts.push("# Multivendor CLI export ("+filtered.length+" commands)\n");
+    Object.keys(byCat).sort().forEach(cat=>{
+      parts.push("## "+cat+"\n");
+      parts.push("| Vendor | OS | Role | Title | Command | Description |");
+      parts.push("|--------|----|------|-------|---------|-------------|");
+      byCat[cat].forEach(d=>{
+        const cmd = "`"+d.cmd.replace(/\n/g," ; ").replace(/\|/g,"\\|")+"`";
+        parts.push("| "+d.vendor+" | "+(OSLABEL[d.os]||d.os)+" | "+d.role+" | "+d.title.replace(/\|/g,"\\|")+" | "+cmd+" | "+(d.desc||"").replace(/\|/g,"\\|")+" |");
+      });
+      parts.push("");
+    });
+    content = parts.join("\n");
+    mime = "text/markdown"; ext = "md";
+  } else { // txt
+    content = filtered.map(d=>"# ["+d.vendor+"/"+(OSLABEL[d.os]||d.os)+"/"+d.role+"] "+d.title+(d.desc?"\n# "+d.desc:"")+"\n"+d.cmd).join("\n\n");
+    mime = "text/plain"; ext = "txt";
+  }
+  const blob = new Blob([content],{type:mime});
   const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob); a.download = "multivendor-cli-export.txt"; a.click();
+  a.href = URL.createObjectURL(blob);
+  a.download = "multivendor-cli-export-"+filtered.length+"."+ext;
+  a.click();
+  toast("✓ Exported "+filtered.length+" commands as ."+ext);
+  $("export-menu").classList.remove("open");
+}
+$("btn-export").addEventListener("click",e=>{
+  e.stopPropagation();
+  const m = $("export-menu");
+  $("emcount").textContent = DATA.filter(matches).length;
+  m.classList.toggle("open");
+});
+document.addEventListener("click",e=>{
+  if(!$("export-menu").contains(e.target) && e.target !== $("btn-export"))
+    $("export-menu").classList.remove("open");
+});
+$("export-menu").querySelectorAll("button").forEach(b=>{
+  b.addEventListener("click",()=>exportAs(b.dataset.fmt));
 });
 $("btn-theme").addEventListener("click",()=>{
   const cur = document.documentElement.getAttribute("data-theme");
@@ -936,7 +1199,14 @@ $("btn-theme").addEventListener("click",()=>{
 const savedTheme = localStorage.getItem("cli-theme");
 if(savedTheme) document.documentElement.setAttribute("data-theme", savedTheme);
 $("btn-help").addEventListener("click",()=>$("helpcard").classList.toggle("open"));
-$("btn-side").addEventListener("click",()=>$("side").classList.toggle("open"));
+$("btn-side").addEventListener("click",()=>{
+  const m = document.querySelector("main");
+  m.classList.toggle("lcollapsed");
+  localStorage.setItem("cli-side-collapsed", m.classList.contains("lcollapsed")?"1":"0");
+  // also toggle .open for mobile drawer fallback
+  $("side").classList.toggle("open");
+});
+if(localStorage.getItem("cli-side-collapsed")==="1") document.querySelector("main").classList.add("lcollapsed");
 
 ["acc-fav","acc-vendor","acc-os","acc-role","acc-cat"].forEach(id=>{
   $(id).querySelector(".acc-head").addEventListener("click",()=>{
@@ -950,6 +1220,10 @@ fetch("commands.json",{cache:"no-cache"})
   .then(r=>{ if(!r.ok) throw new Error("HTTP "+r.status); return r.json(); })
   .then(arr=>{
     DATA = arr;
+    restoreUrl();
+    ["vb-cards","vb-table","vb-compare"].forEach(id=>{
+      $(id).classList.toggle("on", id === "vb-"+state.view);
+    });
     refreshTopStats();
     renderChips();
     renderActiveBar();
