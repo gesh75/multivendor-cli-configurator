@@ -1,0 +1,3818 @@
+[
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "Switch>",
+  "cmd": "Switch>                # User EXEC mode\nSwitch> enable         # Privileged EXEC mode\nSwitch# configure terminal   # Global config mode\nSwitch(config)# interface fa0/1\nSwitch(config-if)# description Uplink-to-Router",
+  "desc": "Configuration Modes"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "show running-config",
+  "cmd": "show running-config        # Displays the active configuration in RAM\nshow startup-config        # Displays the saved config in NVRAM (loaded on boot)\nshow vlan brief            # Lists VLANs, names, status, and assigned ports\nshow interfaces status     # Shows interface status (UP/DOWN, VLAN, speed, duplex)\nshow mac address-table     # Displays learned MAC addresses and their ports\nshow spanning-tree         # Shows STP information (root bridge, port roles/states)",
+  "desc": "Important show Commands"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "show running-config | include vlan",
+  "cmd": "show running-config | include vlan        # Show only lines containing \"vlan\"\nshow interfaces | begin GigabitEthernet0/1   # Display output starting from Gi0/1\nshow mac address-table | exclude dynamic  # Hide all lines with the word \"dynamic\"",
+  "desc": "Filtering Information from show Commands"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "interface range gi0/1 - 10",
+  "cmd": "interface range gi0/1 - 10     # Select multiple interfaces at once (Gi0/1 to Gi0/10)\nswitchport mode access         # Set all selected ports to access mode\nswitchport access vlan 20      # Assign VLAN 20 to all selected ports",
+  "desc": "Managing Multiple Interfaces"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "vlan 10",
+  "cmd": "vlan 10              # Create VLAN 10\nname VLAN10           # Assign a name (\"VLAN10\") to the VLAN\nexit                 # Exit VLAN configuration mode",
+  "desc": "VLANs > Creating VLANs"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "no vlan 10",
+  "cmd": "no vlan 10           # Delete VLAN 10\ndelete flash:vlan.dat   # Delete the entire VLAN database from flash",
+  "desc": "VLANs > Deleting VLANs"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "interface gi0/1",
+  "cmd": "interface gi0/1             # Enter interface Gi0/1\nswitchport mode access       # Set port as access\nswitchport access vlan 10    # Assign VLAN 10 to the port",
+  "desc": "VLANs > Assigning Interfaces to a VLAN (Access)"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "interface gi0/24",
+  "cmd": "interface gi0/24                          # Enter trunk interface (Gi0/24)\nswitchport mode trunk                     # Set port as trunk\nswitchport trunk allowed vlan 10,20,30    # Allow only VLANs 10, 20, and 30\nswitchport trunk native vlan 99           # Set VLAN 99 as the native VLAN",
+  "desc": "Trunks > Configuring Trunks"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "switchport mode dynamic desirable",
+  "cmd": "switchport mode dynamic desirable   # Actively try to form a trunk\nswitchport mode dynamic auto        # Passively form a trunk if other side is trunk/desirable\nswitchport nonegotiate              # Disable DTP negotiation",
+  "desc": "Trunks > Dynamic Trunking Protocol (DTP)"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "show vlan brief",
+  "cmd": "show vlan brief             # Display all VLANs and their assigned ports\nshow interfaces trunk       # Verify trunk ports and allowed VLANs\nshow mac address-table      # View MAC addresses learned on the switch\nshow running-config         # Check VLAN and interface configurations",
+  "desc": "VLAN Troubleshooting"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "interface gi0/5",
+  "cmd": "interface gi0/5              # Enter interface Gi0/5\nswitchport mode access       # Set port as access\nswitchport access vlan 10    # Assign VLAN 10 for data\nswitchport voice vlan 20     # Assign VLAN 20 for voice traffic (IP phones)",
+  "desc": "Voice VLANs"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "VPN",
+  "title": "hostname Switch1",
+  "cmd": "hostname Switch1                        # Set device hostname  \nip domain-name example.com              # Define domain name (needed for RSA key)  \ncrypto key generate rsa                 # Generate RSA keys for SSH  \nusername admin privilege 15 secret cisco123   # Create local admin user  \nline vty 0 4                            # Enter VTY line configuration (remote access)  \n transport input ssh                    # Allow only SSH (disable Telnet)  \n login local                            # Use local user database for login",
+  "desc": "SSH > Initial SSH Setup"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "AAA",
+  "title": "ip ssh version 2",
+  "cmd": "ip ssh version 2                        # Enable SSH version 2 (more secure)  \nip ssh time-out 60                      # Set SSH idle timeout to 60 seconds  \nip ssh authentication-retries 3         # Allow max 3 login attempts",
+  "desc": "SSH > Modifying SSH Config"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "interface gi0/2",
+  "cmd": "interface gi0/2                              # Enter interface  \nswitchport mode access                       # Set interface to access mode  \nswitchport port-security                     # Enable port security  \nswitchport port-security maximum 2           # Allow max 2 MAC addresses  \nswitchport port-security violation shutdown  # Shutdown port if violation occurs",
+  "desc": "Port Security > Dynamic Port Security"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "interface gi0/2",
+  "cmd": "interface gi0/2                              # Enter interface  \nswitchport port-security mac-address sticky  # Learn & save MAC addresses dynamically",
+  "desc": "Port Security > Sticky Port Security"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "show port-security interface gi0/2",
+  "cmd": "show port-security interface gi0/2           # Check security settings for interface  \nshow port-security address                   # View secure MAC addresses learned",
+  "desc": "Port Security > Verifying Port Security"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "show interface status err-disabled",
+  "cmd": "show interface status err-disabled           # Show interfaces in error-disabled state  \nerrdisable recovery cause psecure-violation  # Enable automatic recovery for port-security violations  \nerrdisable recovery interval 300             # Set recovery interval (300 seconds)",
+  "desc": "Port Security > Err-Disabled Interfaces"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "vtp mode server",
+  "cmd": "vtp mode server                 # Set switch as VTP server (can create/modify VLANs)  \nvtp domain CCNA-Lab             # Define VTP domain name (must match across switches)  \nvtp password cisco123           # Set a password for VTP updates",
+  "desc": "VLAN Trunking Protocol > Configuring VTP"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "show vtp status",
+  "cmd": "show vtp status                 # Display VTP mode, domain, and revision number",
+  "desc": "VLAN Trunking Protocol > VTP Verification"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "System",
+  "title": "CDevice>enable",
+  "cmd": "CDevice>enable",
+  "desc": " | "
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "System",
+  "title": "CDevice#configure terminal",
+  "cmd": "CDevice#configure terminal",
+  "desc": " | "
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "System",
+  "title": "CDevice(config)#no ip domain-lookup",
+  "cmd": "CDevice(config)#no ip domain-lookup",
+  "desc": " | disable DNS lookup"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "System",
+  "title": "CDevice(config)#line console 0",
+  "cmd": "CDevice(config)#line console 0",
+  "desc": " | "
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Logging",
+  "title": "CDevice(config-line)#logging synchronous",
+  "cmd": "CDevice(config-line)#logging synchronous",
+  "desc": " | "
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "System",
+  "title": "CDevice(config-line)#history size [lines]",
+  "cmd": "CDevice(config-line)#history size [lines]",
+  "desc": " | specify the size (number of lines) for the history of executed commands (you can view your history with `R1#show history`)"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "System",
+  "title": "CDevice(config-line)#exec-timeout [minutes] [seconds]",
+  "cmd": "CDevice(config-line)#exec-timeout [minutes] [seconds]",
+  "desc": " | "
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "System",
+  "title": "CDevice(config-line)#end",
+  "cmd": "CDevice(config-line)#end",
+  "desc": " | exit to EXEC privileged mode, where the next command will be executed"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "System",
+  "title": "CDevice#copy running-config startup-config",
+  "cmd": "CDevice#copy running-config startup-config",
+  "desc": " | Saves the running configuration to the NVRAM"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Logging",
+  "title": "ena",
+  "cmd": "ena\nconf t\nno ip domain-lookup\ncdp run\nline con 0\nlogging syn\nhis size 50\nexec-timeout 25 0\nend\ncopy run start",
+  "desc": ""
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "System",
+  "title": "<< select and copy up to the line above this \"marker\" with your cursor",
+  "cmd": "<< select and copy up to the line above this \"marker\" with your cursor",
+  "desc": ""
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "erase startup-config",
+  "cmd": "erase startup-config\ndelete vlan.dat\nreload",
+  "desc": "Basic Networking > Setup > Intialize"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Logging",
+  "title": "configure terminal",
+  "cmd": "configure terminal\nno ip domain-lookup\nhostname S1\nline console 0\nlogging synchronous\nexit\nbanner motd $ Authorized Access Only! And Godzilla will beat Kong any day $\nexit\ncopy running-config startup-config",
+  "desc": "Basic Networking > Setup > Basic Switch Config"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Logging",
+  "title": "configure terminal",
+  "cmd": "configure terminal\nno ip domain-lookup\nhostname R1\nline console 0\nlogging synchronous\nexit\nbanner motd $ Authorized Access Only! And Godzilla will beat Kong any day $\nexit\ncopy running-config startup-config",
+  "desc": "Basic Networking > Setup > Basic Router Config"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Logging",
+  "title": "configure terminal",
+  "cmd": "configure terminal\nno ip domain-lookup\nhostname R1\nline console 0\nlogging synchronous\nexit\nbanner motd $ Authorized Access Only! And Godzilla will beat Kong any day $\nexit\ncopy running-config startup-config\nconf t\nenable secret class\nline console 0\npassword cisco\nlogin\nexit\nline vty 0 4\npassword cisco\nlogin\nexit\nservice password-encryption\nend\ncopy running-config startup-config",
+  "desc": "Basic Networking > Setup > Basic Config with Password Security"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "MPLS",
+  "title": "conf t",
+  "cmd": "conf t\nenable secret class\nline console 0\npassword cisco\nlogin\nexit\nline vty 0 4\npassword cisco\nlogin\nexit\nservice password-encryption\nend",
+  "desc": "Basic Networking > Setup > Basic Security"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "VPN",
+  "title": "show ip ssh",
+  "cmd": "show ip ssh\nconf t\nip domain-name cisco.com\ncrypto key generate rsa",
+  "desc": "Basic Networking > Setup > Configure SSH"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "System",
+  "title": "username admin secret ccna",
+  "cmd": "username admin secret ccna\nline vty 0 15\ntransport input ssh\nlogin local\nexit\nip ssh version 2\nexit",
+  "desc": "Basic Networking > Setup > Configure SSH"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "NTP",
+  "title": "show clock",
+  "cmd": "show clock",
+  "desc": "Basic Networking > Setup > Set Clock"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "AAA",
+  "title": "ip ssh time-out 60",
+  "cmd": "ip ssh time-out 60\nip ssh authentication-retries 3\nend",
+  "desc": "Basic Networking > Setup > Basic Hardening (Work Needed)"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "System",
+  "title": "copy running-config startup-config",
+  "cmd": "copy running-config startup-config\ncopy startup-config ftp://192.168.1.10/config.txt",
+  "desc": "Basic Networking > Setup > Backup config over FTP"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "System",
+  "title": "copy ftp://192.168.1.10/config.txt running-config",
+  "cmd": "copy ftp://192.168.1.10/config.txt running-config",
+  "desc": "Basic Networking > Setup > Restore Config"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "conf t",
+  "cmd": "conf t\nint f0/1\nip addr 192.168.10.11 255.255.255.0\nend",
+  "desc": "Basic Networking > Interfaces > Interface Selection"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "System",
+  "title": "cont t",
+  "cmd": "cont t\nint g0/0\nip addr 10.0.0.10 255.255.255.0",
+  "desc": "Basic Networking > Interfaces > Assign Static IP to Interface"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "conf t",
+  "cmd": "conf t\nint range f0/1-12\nswitchport mode access\nswitch access vlan 10\nend",
+  "desc": "Basic Networking > Interfaces > Interface Ranges"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "conf t",
+  "cmd": "conf t\nint range f0/13-24\nswitchport mode access\nswitchport access vlan 20\nend",
+  "desc": "Basic Networking > Interfaces > Interface Ranges"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "conf t",
+  "cmd": "conf t\nint range f0/1-4,g0/1,f0/16-20\nswitchport mode access\nswitchport access vlan 10\nend",
+  "desc": "Basic Networking > Interfaces > Interface Ranges"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "show ip interface brief",
+  "cmd": "show ip interface brief",
+  "desc": "Basic Networking > Interface Verification"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "show ip int br",
+  "cmd": "show ip int br",
+  "desc": "Basic Networking > Interface Verification"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "conf t",
+  "cmd": "conf t\nint f0/1\nno ip addr\nend",
+  "desc": "Basic Networking > Interface Verification > Remove IP Addresses"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "DHCP",
+  "title": "conf t",
+  "cmd": "conf t\nip domain name cisco.com\nip dhcp excluded-address 10.0.0.1\nip dhcp pool test\nnetwork 10.0.0.0 255.255.255.0\ndefault-router 10.0.0.1\nend",
+  "desc": "Basic Networking > DHCP > Snippet Enable Router DHCP Server"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "ip dhcp pool test",
+  "cmd": "ip dhcp pool test\nnetwork 10.0.0.0 255.255.255.0\ndomain-name cisco.com\ndefault-router 10.0.0.1\ndns-server 10.0.0.1\nlease 4\nip dhcp snooping\nip dhcp-server 10.0.0.3\ninterface vlan 1\nip address 10.0.0.3",
+  "desc": "Basic Networking > DHCP > Snippet Enable Switch DHCP Server"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "DHCP",
+  "title": "conf t",
+  "cmd": "conf t\nip domain name cisco.com\nip dhcp excluded-address 10.0.0.1\nip dhcp pool managementpool\nnetwork 10.0.0.1 255.255.255.0\ndefault-router 10.0.0.1\nend",
+  "desc": "Basic Networking > DHCP > Create DHCP Pool"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "DHCP",
+  "title": "conf t",
+  "cmd": "conf t\nip dhcp excluded-address 192.168.10.1\nip dhcp excluded-address 192.168.10.254\nip dhcp pool office-pool-1\nnetwork 192.168.10.0 255.255.255.0\ndefault-router 192.168.10.1\ndns-server 192.168.5.5\ndomain-name linux.org\nend",
+  "desc": "Basic Networking > DHCP > Create DHCP Pool"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "DHCP",
+  "title": "show running-config | section dhcp",
+  "cmd": "show running-config | section dhcp\nshow ip dhcp binding\nshow ip dhcp server statistics",
+  "desc": "Basic Networking > DHCP > DHCP Verification"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "conf t",
+  "cmd": "conf t\nvlan 10\nname Management\nvlan 20\nname Sales\nvlan 30\nname Operations\nend",
+  "desc": "Basic Networking > DHCP > Create VLAN DHCP"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "conf t",
+  "cmd": "conf t\nint vlan 10\nip address 192.168.10.254 255.255.255.0\nip default-gateway 192.168.10.1\nno shut",
+  "desc": "Basic Networking > DHCP > Create VLAN DHCP"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "int vlan 20",
+  "cmd": "int vlan 20\nip address 192.168.20.254 255.255.255.0\nip default-gateway 192.168.20.1\nno shut",
+  "desc": "Basic Networking > DHCP > Create VLAN DHCP"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "int vlan 30",
+  "cmd": "int vlan 30\nip address 192.168.30.254 255.255.255.0\nip default-gateway 192.168.30.1\nno shut\nend",
+  "desc": "Basic Networking > DHCP > Create VLAN DHCP"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "conf t",
+  "cmd": "conf t\nint range f0/1-7\nswitchport mode access\nswitchport access vlan 10",
+  "desc": "Basic Networking > DHCP > Create VLAN DHCP"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "int range f0/8-15",
+  "cmd": "int range f0/8-15\nswitchport mode access\nswitchport access vlan 20",
+  "desc": "Basic Networking > DHCP > Create VLAN DHCP"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "int range f0/16-24",
+  "cmd": "int range f0/16-24\nswitchport mode access\nswitchport access vlan 30\nend",
+  "desc": "Basic Networking > DHCP > Create VLAN DHCP"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "conf t",
+  "cmd": "conf t\nip domain name cisco.com\nip dhcp excluded-address 192.168.10.1\nip dhcp pool vlan10pool\nnetwork 192.168.10.0 255.255.255.0\ndefault-router 192.168.10.1\nimport all",
+  "desc": "Basic Networking > DHCP > Create VLAN DHCP"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "ip dhcp excluded-address 192.168.20.1",
+  "cmd": "ip dhcp excluded-address 192.168.20.1\nip dhcp pool vlan20pool\nnetwork 192.168.20.0 255.255.255.0\ndefault-router 192.168.20.1\nimport all",
+  "desc": "Basic Networking > DHCP > Create VLAN DHCP"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "ip dhcp excluded-address 192.168.30.1",
+  "cmd": "ip dhcp excluded-address 192.168.30.1\nip dhcp pool vlan30pool\nnetwork 192.168.30.0 255.255.255.0\ndefault-router 192.168.30.1\nimport all\nend",
+  "desc": "Basic Networking > DHCP > Create VLAN DHCP"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "DHCP",
+  "title": "show ip dhcp pool",
+  "cmd": "show ip dhcp pool",
+  "desc": "Basic Networking > DHCP > Verify DHCP Pool"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "DHCP",
+  "title": "conf t",
+  "cmd": "conf t\nno ip dhcp pool managementpool\nend",
+  "desc": "Basic Networking > DHCP > Delete DHCP Pool"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "conf t",
+  "cmd": "conf t\nvlan 10\nname Faculty\nexit",
+  "desc": "Intermediate Networking > VLANs > VLAN Creation"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "conf t",
+  "cmd": "conf t\nvlan 20\nname Students\nexit",
+  "desc": "Intermediate Networking > VLANs > VLAN Creation"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "conf t",
+  "cmd": "conf t\ninterface range Fa0/1-12\nswitchport mode access\nswitchport access vlan 10\nend",
+  "desc": "Intermediate Networking > VLANs > Port Assignment"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "conf t interface range Fa0/13-24",
+  "cmd": "conf t interface range Fa0/13-24\nswitchport mode access\nswitchport access vlan 20\nend",
+  "desc": "Intermediate Networking > VLANs > Port Assignment"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "conf t",
+  "cmd": "conf t\ninterface Gi0/1\nswitchport mode access\nswitchport access vlan 99\nend",
+  "desc": "Intermediate Networking > VLANs > Port Assignment"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "cont t",
+  "cmd": "cont t\nint vlan 99\nip address 10.0.0.1 255.255.255.0\nend",
+  "desc": "Intermediate Networking > VLANs > IP Assignemnt"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "show vlan brief",
+  "cmd": "show vlan brief",
+  "desc": "Intermediate Networking > VLANs > Verification"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "conf t",
+  "cmd": "conf t\nint Fa0/4\nswitchport mode access\nswitchport access vlan 10\nswitchport voice vlan 20\nend",
+  "desc": "Intermediate Networking > VLANs > Voice and Data VLAN"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "conf t",
+  "cmd": "conf t\nvlan 99\nname Management\nexit\ninterface Fa0/24\nswitchport mode access\nswitchport access vlan 99\nexit\nint vlan 99\nip addr 10.0.0.1 255.255.255.0\nend",
+  "desc": "Intermediate Networking > VLANs > Management VLAN"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "delete vlan.dat",
+  "cmd": "delete vlan.dat",
+  "desc": "Intermediate Networking > VLANs > Delete VLANS on file"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "conf t",
+  "cmd": "conf t\nno vlan 10\nno vlan 20\nend",
+  "desc": "Intermediate Networking > VLANs > Delete VLANS in memory"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "Static",
+  "title": "conf t",
+  "cmd": "conf t\ninterface G0/0/1.10\ndescription Default Gateway for VLAN 10\nencapsulation dot1Q 10\nip add 192.168.10.1 255.255.255.0\nexit",
+  "desc": "Intermediate Networking > VLANs > Inter-VLAN Routing"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "Static",
+  "title": "interface G0/0/1.20",
+  "cmd": "interface G0/0/1.20\ndescription Default Gateway for VLAN 20\nencapsulation dot1Q 20\nip addr 192.168.20.1 255.255.255.0\nexit",
+  "desc": "Intermediate Networking > VLANs > Inter-VLAN Routing"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "Static",
+  "title": "interface G0/0/1.99",
+  "cmd": "interface G0/0/1.99\ndescription Default Gateway for VLAN 99\nencapsulation dot1Q 99\nip addr 192.168.99.1 255.255.255.0\nexit",
+  "desc": "Intermediate Networking > VLANs > Inter-VLAN Routing"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "interface G0/0/1",
+  "cmd": "interface G0/0/1\ndescription Trunk link to S1\nno shut\nend",
+  "desc": "Intermediate Networking > VLANs > Inter-VLAN Routing"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "conf t",
+  "cmd": "conf t\ninterface Gi0/1\ndescription Trunk Line to S2 Gi0/1\nswitchport mode trunk\nswitchport trunk native vlan 99\nswitchport trunk allowed vlan 99\nend",
+  "desc": "Intermediate Networking > Trunks > Create multi-switch vlan trunk"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "show interface trunk",
+  "cmd": "show interface trunk\nshow interface g0/1 switchport",
+  "desc": "Intermediate Networking > Trunks > Trunk Verification"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "conf t",
+  "cmd": "conf t\nint range f0/1-2\nchannel-group 1 mode active\nexit\nint port-channel 1\nswitchport mode trunk\nswitchport trunk allowed vlan 1,2,20",
+  "desc": "Intermediate Networking > EtherChannel > Configure EtherChannel"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "show interfaces trunk",
+  "cmd": "show interfaces trunk\nshow etherchannel summary",
+  "desc": "Intermediate Networking > EtherChannel > Verify EtherChannel"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "conf t",
+  "cmd": "conf t\nint gi0/1\nswitchport mode dynamic auto\nend",
+  "desc": "Intermediate Networking > DTP (Dynamic Trunking Protocol) > Configure DTP"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "conf t",
+  "cmd": "conf t\nint gi0/1\nswitchport mode dynamic desirable\nend",
+  "desc": "Intermediate Networking > DTP (Dynamic Trunking Protocol) > Configure DTP"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "conf t",
+  "cmd": "conf t\nint gi0/1\nswitchport mode trunk\nswitchport nonegotiate\nend",
+  "desc": "Intermediate Networking > DTP (Dynamic Trunking Protocol) > Disable DTP"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "show dtp interface gi0/1",
+  "cmd": "show dtp interface gi0/1",
+  "desc": "Intermediate Networking > DTP (Dynamic Trunking Protocol) > Verify DTP"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "show ip ospf neighbor",
+  "cmd": "show ip ospf neighbor\nshow ip ospf database",
+  "desc": "Advanced Networking > OSPFv2 > OSPF Router IDs > All Commands"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "enable",
+  "cmd": "enable\nconf t\nrouter ospf 10",
+  "desc": "Advanced Networking > OSPFv2 > OSPF Router IDs > Enable router OSPF process"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "enable",
+  "cmd": "enable\nconf t\ninterface Loopback 1\nip addr 1.1.1.1 255.255.255.255\nend",
+  "desc": "Advanced Networking > OSPFv2 > OSPF Router IDs > Configure Loopback"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "conf t",
+  "cmd": "conf t\nrouter ospf 10\nrouter-id 1.1.1.1\nend",
+  "desc": "Advanced Networking > OSPFv2 > OSPF Router IDs > Configure OSPF Router ID"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "conf t",
+  "cmd": "conf t\nrouter ospf 10\nrouter-id 1.1.1.2\nend\nclear ip ospf process",
+  "desc": "Advanced Networking > OSPFv2 > OSPF Router IDs > Modify OSPF router ID"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "show ip proto | include Router ID",
+  "cmd": "show ip proto | include Router ID",
+  "desc": "Advanced Networking > OSPFv2 > OSPF Router IDs > Modify OSPF router ID"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "conf t",
+  "cmd": "conf t\nrouter ospf 10\nnetwork 10.10.1.0 0.0.0.255 area 0\nnetwork 10.10.1.4 0.0.0.3 area 0\nnetwork 10.10.1.12 0.0.0.3 area 0\nend",
+  "desc": "Advanced Networking > OSPFv2 > OSPF - Point-to-Point Networks > Configure OSPF With Network Command"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "conf t",
+  "cmd": "conf t\nrouter ospf 10\nnetwork 10.10.1.1 0.0.0.0 area 0\nnetwork 10.10.1.5 0.0.0.0 area 0\nnetwork 10.10.1.14 0.0.0.0 area 0\nend",
+  "desc": "Advanced Networking > OSPFv2 > OSPF - Point-to-Point Networks > Use Entire Gigabit Interfaces"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "R1(config)# router ospf 10",
+  "cmd": "R1(config)# router ospf 10\nR1(config-router)# no network 10.10.1.1 0.0.0.0 area 0\nR1(config-router)# no network 10.1.1.5 0.0.0.0 area 0\nR1(config-router)# no network 10.1.1.14 0.0.0.0 area 0\nR1(config-router)# interface GigabitEthernet 0/0/0\nR1(config-if)# ip ospf 10 area 0\nR1(config-if)# interface GigabitEthernet 0/0/1 \nR1(config-if)# ip ospf 10 area 0\nR1(config-if)# interface Loopback 0\nR1(config-if)# ip ospf 10 area 0\nR1(config-if)#",
+  "desc": "Advanced Networking > OSPFv2 > OSPF - Point-to-Point Networks > Configure OSPF with ip ospf"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "conf t",
+  "cmd": "conf t\nrouter ospf 10\npassive-interface loopback 0\nend",
+  "desc": "Advanced Networking > OSPFv2 > OSPF - Point-to-Point Networks > OSPF Passive Interfaces"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "conf t",
+  "cmd": "conf t\nrouter ospf 10\npassive-interface Gi0/0/0\nend",
+  "desc": "Advanced Networking > OSPFv2 > OSPF - Point-to-Point Networks > OSPF Passive Interfaces"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "show ip ospf interface GigabitEthernet 0/0/0",
+  "cmd": "show ip ospf interface GigabitEthernet 0/0/0",
+  "desc": "Advanced Networking > OSPFv2 > OSPF - Point-to-Point Networks > Find Designated Router and Backup"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "conf t",
+  "cmd": "conf t\ninterface GigabitEthernet 0/0/0\nip ospf network point-to-point",
+  "desc": "Advanced Networking > OSPFv2 > OSPF - Point-to-Point Networks > Change OSPF from Broadcast to Point-to-Point"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "conf t",
+  "cmd": "conf t\ninterface Loopback 0\nip ospf network point-to-point",
+  "desc": "Advanced Networking > OSPFv2 > OSPF - Point-to-Point Networks > Loopback and P2P Networks"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "show ip route | include 10.10.1",
+  "cmd": "show ip route | include 10.10.1",
+  "desc": "Advanced Networking > OSPFv2 > OSPF - Point-to-Point Networks > Loopback and P2P Networks"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "conf t",
+  "cmd": "conf t\nint g0/0/1\nip ospf priority 255\nend",
+  "desc": "Advanced Networking > OSPFv2 > Multiaccess OSPF Networks > Configure OSPF Priority"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "Router# router ospf 10",
+  "cmd": "Router# router ospf 10\nRouter(config-router) auto-cost reference bandwidth 1000",
+  "desc": "Advanced Networking > OSPFv2 > Modifying Single Area OSPF > Adjusting Reference Bandwidth"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "conf t",
+  "cmd": "conf t\nint g0/0/1\nip ospf cost 25\ninterface l0\nip ospf cost 15\nend",
+  "desc": "Advanced Networking > OSPFv2 > Modifying Single Area OSPF > Manually Set OSPF Link Cost"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "show ip ospf int g0/0/1",
+  "cmd": "show ip ospf int g0/0/1",
+  "desc": "Advanced Networking > OSPFv2 > Modifying Single Area OSPF > Show OSPF Hello Packet Intervals"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "Router(config-if)# ip ospf hello-interval <seconds>",
+  "cmd": "Router(config-if)# ip ospf hello-interval <seconds>",
+  "desc": "Advanced Networking > OSPFv2 > Modifying Single Area OSPF > Set OSPF Hello Packet Intervals"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "conf t",
+  "cmd": "conf t\nint g0/0/1\nip ospf hello-interval 30\nend",
+  "desc": "Advanced Networking > OSPFv2 > Modifying Single Area OSPF > Set OSPF Hello Packet Intervals"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "conf t",
+  "cmd": "conf t\nip route 0.0.0.0 0.0.0.0 loopback 1\nrouter ospf 10\ndefault-information originate",
+  "desc": "Advanced Networking > OSPFv2 > OSPF Default Routes > Propogate Default Route"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "show ip route | begin Gateway",
+  "cmd": "show ip route | begin Gateway",
+  "desc": "Advanced Networking > OSPFv2 > OSPF Default Routes > Verify Propogated Default Route"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "show ip ospf neighbor",
+  "cmd": "show ip ospf neighbor",
+  "desc": "Advanced Networking > OSPFv2 > Verify Single-Area OSPF > Verify OSPF Neighbors"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "show ip protocols",
+  "cmd": "show ip protocols",
+  "desc": "Advanced Networking > OSPFv2 > Verify Single-Area OSPF > Verify OSPF Protocols"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "show ip ospf",
+  "cmd": "show ip ospf",
+  "desc": "Advanced Networking > OSPFv2 > Verify Single-Area OSPF > Verify OSPF Process Info"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "show ip ospf int g0/0/1",
+  "cmd": "show ip ospf int g0/0/1\nshow ip ospf int brief",
+  "desc": "Advanced Networking > OSPFv2 > Verify Single-Area OSPF > Verify OSPF Interface Setting"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "conf t",
+  "cmd": "conf t\nint g0/0/1\nip ospf dead-interval 100\nend",
+  "desc": "Advanced Networking > OSPFv2 > Verify Single-Area OSPF > Verify OSPF Interface Setting"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "System",
+  "title": "show running-config",
+  "cmd": "show running-config",
+  "desc": "Important show commands | display config saved in RAM (and the currently running configuration in the device)"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "System",
+  "title": "show startup-config",
+  "cmd": "show startup-config",
+  "desc": "Important show commands | display config saved in NVRAM"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "System",
+  "title": "show history",
+  "cmd": "show history",
+  "desc": "Important show commands | "
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Static",
+  "title": "ip route [network-address] [subnet-mask] ....",
+  "cmd": "ip route [network-address] [subnet-mask] ....",
+  "desc": "Static routing"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Static",
+  "title": "ip route [network-address] [subnet-mask] ([next-hop-ip] [exit-int])",
+  "cmd": "ip route [network-address] [subnet-mask] ([next-hop-ip] [exit-int])",
+  "desc": "Static routing > Standard Static Route"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Static",
+  "title": "ip route 0.0.0.0 0.0.0.0 ([next-hop-ip] [exit-int])",
+  "cmd": "ip route 0.0.0.0 0.0.0.0 ([next-hop-ip] [exit-int])",
+  "desc": "Static routing > Default Static Route"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Static",
+  "title": "ip route [network-address] [subnet-mask] ([next-hop-ip] [exit-int])...",
+  "cmd": "ip route [network-address] [subnet-mask] ([next-hop-ip] [exit-int]) [AD]",
+  "desc": "Static routing > Floating Static Route"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Static",
+  "title": "ip route [network-address] [subnet-mask*] ([next-hop-ip] [exit-int])",
+  "cmd": "ip route [network-address] [subnet-mask*] ([next-hop-ip] [exit-int])",
+  "desc": "Static routing > Summary Static Route"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "router ospf [PID]",
+  "cmd": "router ospf [PID]",
+  "desc": "Dynamic routing OSPF > OSPF configuration | create OSPF process with Process ID [PID] (1 - 65535)"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "router-id [a.b.c.d]",
+  "cmd": "router-id [a.b.c.d]",
+  "desc": "Dynamic routing OSPF > OSPF configuration | manually assign the router an ID, in an IPv4 address format."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "show ip route",
+  "cmd": "show ip route",
+  "desc": "Dynamic routing OSPF > OSPF verification | adfa. Additionally, issue `shw ip route ospf` to see only the OSPF-learned networks (entries) on the routing table."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "show ip ospf interface brief",
+  "cmd": "show ip ospf interface brief",
+  "desc": "Dynamic routing OSPF > OSPF verification | summary of router's OSPF-enabled interfaces. :warning: This command does NOT seem to work on Packet Tracer 7.3"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "show ip ospf interface",
+  "cmd": "show ip ospf interface",
+  "desc": "Dynamic routing OSPF > OSPF verification | in-detail list of every OSPF-enabled interface"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "show ip ospf interface [int-id]",
+  "cmd": "show ip ospf interface [int-id]",
+  "desc": "Dynamic routing OSPF > OSPF verification | in-detail information for a particular OSPF-enabled interface"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "interface g0/0.[vlan-id]",
+  "cmd": "interface g0/0.[vlan-id]",
+  "desc": "Configuring Router-on-a-stick inter-VLAN routing | create the `.[vlan-id]` **subinterface** on interface Gigabit Ethernet 0/0"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "encapsulation dot1q [vlan-id]",
+  "cmd": "encapsulation dot1q [vlan-id]",
+  "desc": "Configuring Router-on-a-stick inter-VLAN routing | configure subinterface to operate on a specified VLAN"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "encapsulation dot1q [vlan-id] native",
+  "cmd": "encapsulation dot1q [vlan-id] native",
+  "desc": "Configuring Router-on-a-stick inter-VLAN routing | must be configured on the subinterfaace belonging to the **native** VLAN"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "ip address [ip-address] [subnet-mask]",
+  "cmd": "ip address [ip-address] [subnet-mask]",
+  "desc": "Configuring Router-on-a-stick inter-VLAN routing | :exclamation: don't forget to assign the subinterface an IP address!"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "interface g0/0",
+  "cmd": "interface g0/0",
+  "desc": "Configuring Router-on-a-stick inter-VLAN routing | access the Gigabit0/0 interface (i.e., the actual physical interface) to enable it"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "no shutdown",
+  "cmd": "no shutdown",
+  "desc": "Configuring Router-on-a-stick inter-VLAN routing | enable the physical interface. This enables **all** configured subinterfaces **on that interface**"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "ACL",
+  "title": "access-list [number] [permit/deny] [address] [wildcard mask]",
+  "cmd": "access-list [number] [permit/deny] [address] [wildcard mask]",
+  "desc": "nopedestrians Access Control Lists (ACL) > Procedure for configuring Standard Numbered ACLs | create entry in standard IPv4 ACL with specified number"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface [int-id]",
+  "cmd": "interface [int-id]",
+  "desc": "nopedestrians Access Control Lists (ACL) > Procedure for configuring Standard Numbered ACLs | select the interface to which the ACL will be applied"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "ACL",
+  "title": "ip access-group [number] [in/out]",
+  "cmd": "ip access-group [number] [in/out]",
+  "desc": "nopedestrians Access Control Lists (ACL) > Procedure for configuring Standard Numbered ACLs | activate the ACL on the selected interface"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "ACL",
+  "title": "no access-list [number]",
+  "cmd": "no access-list [number]",
+  "desc": "nopedestrians Access Control Lists (ACL) > Procedure for configuring Standard Numbered ACLs | :warning: This **ERASES** the ACL, i.e., **EVERY ACE** (Access Control entry) **that makes it up**"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "ACL",
+  "title": "ip access-list [standard] [name]",
+  "cmd": "ip access-list [standard] [name]",
+  "desc": "nopedestrians Access Control Lists (ACL) > Procedure for configuring Standard Named ACLs | creates a standard named ACL. Will take you to standard (`std) named ACL (nacl`) configuration mode after entering it"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "DHCP",
+  "title": "ip dhcp excludded-address [start-address (end-address)]",
+  "cmd": "ip dhcp excludded-address [start-address (end-address)]",
+  "desc": "DHCPv4 > Configure a Cisco router as a DHCPv4 server | exclude a single or a range of IPv4 addresses, i.e., these addresses will not be available for DHCP assignment to hosts"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "DHCP",
+  "title": "ip dhcp pool [pool name]",
+  "cmd": "ip dhcp pool [pool name]",
+  "desc": "DHCPv4 > Configure a Cisco router as a DHCPv4 server | create and name the pool of available addresses to assign. Takes you to **DHCP config mode**."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Static",
+  "title": "R1(dhcp-config)#default-router [address]",
+  "cmd": "R1(dhcp-config)#default-router [address]",
+  "desc": "DHCPv4 > Configure a Cisco router as a DHCPv4 server | specify the IPv4 address of the default gateway (router) the hosts will use"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "DHCP",
+  "title": "ip helper address [DHCP-server-address]",
+  "cmd": "ip helper address [DHCP-server-address]",
+  "desc": "DHCPv4 > The ip helper address | indicates the router to relay (instead of discarding) DHCP messages to the DHCP server's address."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "NAT",
+  "title": "ip nat inside source static [local-add] [global-add]",
+  "cmd": "ip nat inside source static [local-add] [global-add]",
+  "desc": "NAT > Configuring Static NAT | configure static nat, specifying the local address that will be mapped to a global address"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "NAT",
+  "title": "ip nat inside",
+  "cmd": "ip nat inside",
+  "desc": "NAT > Inside and outside interfaces | "
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "NAT",
+  "title": "ip nat outside",
+  "cmd": "ip nat outside",
+  "desc": "NAT > Inside and outside interfaces | "
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "NAT",
+  "title": "ip nat pool [pool-name] [start-address] [end-address] {netmask [mas...",
+  "cmd": "ip nat pool [pool-name] [start-address] [end-address] {netmask [mask] \\",
+  "desc": "NAT > Configuring Dynamic NAT | prefix-length [prefix-length]}``"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "NAT",
+  "title": "access-list [number] {permit \\",
+  "cmd": "access-list [number] {permit \\",
+  "desc": "NAT > Configuring Dynamic NAT | deny} [source] [wildcard mask]``"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "NAT",
+  "title": "ip nat inside source list [acl-number] pool [pool name]",
+  "cmd": "ip nat inside source list [acl-number] pool [pool name]",
+  "desc": "NAT > Configuring Dynamic NAT | we now bind the pool to the ACL"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "standby version 2",
+  "cmd": "standby version 2",
+  "desc": "HSRP | (optional) specify HSRP version 2 will be used. Otherwise, your HSRP instance will be running in version 1 by default."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "standby [group] ip [virtual-ip]",
+  "cmd": "standby [group] ip [virtual-ip]",
+  "desc": "HSRP | specify the router group and the virtual gateway's IP address"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "standby [group] priority [0-255]",
+  "cmd": "standby [group] priority [0-255]",
+  "desc": "HSRP | (optional) specify each router a priority for **active router** election"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "standby [group] preempt",
+  "cmd": "standby [group] preempt",
+  "desc": "HSRP | (optional) enables **preemption**, i.e., a router with higher priority will take the active role if current active router's priority is lower"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "standby [group] timers [hello-timer] [hold-timer]",
+  "cmd": "standby [group] timers [hello-timer] [hold-timer]",
+  "desc": "HSRP | specify hello and hold (dead) timers. HSRP automatically ensures that the hold timer value is greater than the hello timer value to avoid incorrect behavior."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "System",
+  "title": "router rip",
+  "cmd": "router rip",
+  "desc": "Dynamic routing RIP > RIPv1 configuration | enter router configuration mode, with RIP as the routing protocol"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "passive-interface [int-id]",
+  "cmd": "passive-interface [int-id]",
+  "desc": "Dynamic routing RIP > RIPv1 configuration | (optional) - prevent an interface from sending RIP updates"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "System",
+  "title": "no auto-summary",
+  "cmd": "no auto-summary",
+  "desc": "Dynamic routing RIP > RIPv2 configuration | disable network auto summarization"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "EIGRP",
+  "title": "router eigrp [AS-number]",
+  "cmd": "router eigrp [AS-number]",
+  "desc": "Dynamic routing EIGRP > EIGRP Configuration | [AS-number] value range: 1-65535."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "eigrp router-id [a.b.c.d]",
+  "cmd": "eigrp router-id [a.b.c.d]",
+  "desc": "Dynamic routing EIGRP > EIGRP Configuration | (optional) manually configure a **router ID**, in an IPv4 address format"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "EIGRP",
+  "title": "show ip eigrp neighbors",
+  "cmd": "show ip eigrp neighbors",
+  "desc": "Dynamic routing EIGRP > EIGRP Verification | displays the nighbor table. Use it to verify the router recognizes its neighbors."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "EIGRP",
+  "title": "show ip route eigrp",
+  "cmd": "show ip route eigrp",
+  "desc": "Dynamic routing EIGRP > EIGRP Verification | display **only EIGRP** entries in the routing table"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "EIGRP",
+  "title": "show ip eigrp interface",
+  "cmd": "show ip eigrp interface",
+  "desc": "Dynamic routing EIGRP > EIGRP Verification | verifies which interface are enabled for EIGRP, number of peers, and transmit queues"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "EIGRP",
+  "title": "ip hello-interval eigrp [AS-number] [time in seconds]",
+  "cmd": "ip hello-interval eigrp [AS-number] [time in seconds]",
+  "desc": "Dynamic routing EIGRP > EIGRP Fine tuning | modify hello interval on IPv4. :warning: this is done in **interface configuration mode**"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "EIGRP",
+  "title": "ipv6 hello-interval eigrp [AS-number] [time in seconds]",
+  "cmd": "ipv6 hello-interval eigrp [AS-number] [time in seconds]",
+  "desc": "Dynamic routing EIGRP > EIGRP Fine tuning | modify hello interval on IPv6. :warning: this is done in **interface configuration mode**"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "EIGRP",
+  "title": "ip hold-time eigrp [AS-number] [time in seconds]",
+  "cmd": "ip hold-time eigrp [AS-number] [time in seconds]",
+  "desc": "Dynamic routing EIGRP > EIGRP Fine tuning | modify hold timer length on IPv4 :warning: this is done in **interface configuration mode**"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "EIGRP",
+  "title": "ipv6 hold-time eigrp [AS-number] [time in seconds]",
+  "cmd": "ipv6 hold-time eigrp [AS-number] [time in seconds]",
+  "desc": "Dynamic routing EIGRP > EIGRP Fine tuning | modify hold timer length on IPv6 :warning: this is done in **interface configuration mode**"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "EIGRP",
+  "title": "ipv6 unicast-routing",
+  "cmd": "ipv6 unicast-routing",
+  "desc": "Dynamic routing EIGRP for IPv6 > Configuration | this **global configuration command** enables the router to forward IPv6 packets"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "EIGRP",
+  "title": "ipv6 router eigrp [AS-number]",
+  "cmd": "ipv6 router eigrp [AS-number]",
+  "desc": "Dynamic routing EIGRP for IPv6 > Configuration | enter router configuration mode for EIGRP for IPv6, specifying the AS number"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "EIGRP",
+  "title": "ipv6 eigrp [AS-number]",
+  "cmd": "ipv6 eigrp [AS-number]",
+  "desc": "Dynamic routing EIGRP for IPv6 > Configuration | use this command with the AS-number you used when configuring EIGRP for IPv6 on **each desired interface**"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "EIGRP",
+  "title": "show ipv6 protocols",
+  "cmd": "show ipv6 protocols",
+  "desc": "Dynamic routing EIGRP for IPv6 > Verification | verifies the current configured values for EIGRP (and any additional enabled routing protocol on the device)"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "EIGRP",
+  "title": "show ipv6 eigrp neighbors",
+  "cmd": "show ipv6 eigrp neighbors",
+  "desc": "Dynamic routing EIGRP for IPv6 > Verification | displays the nighbor table. Use it to verify the router recognizes its neighbors."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "EIGRP",
+  "title": "show ipv6 route eigrp",
+  "cmd": "show ipv6 route eigrp",
+  "desc": "Dynamic routing EIGRP for IPv6 > Verification | display **only EIGRP** entries in the routing table"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "EIGRP",
+  "title": "show ipv6 eigrp interface",
+  "cmd": "show ipv6 eigrp interface",
+  "desc": "Dynamic routing EIGRP for IPv6 > Verification | verifies which interface are enabled for EIGRP, number of peers, and transmit queues"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "System",
+  "title": "S1#show running-config",
+  "cmd": "S1#show running-config",
+  "desc": "Important show commands | N/A"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "System",
+  "title": "S1#show history",
+  "cmd": "S1#show history",
+  "desc": "Important show commands | "
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "S1#show interface [int-id]",
+  "cmd": "S1#show interface [int-id]",
+  "desc": "Important show commands | useful to detect errors or verify packets are being sent and received"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "System",
+  "title": "S1#show mac address-table",
+  "cmd": "S1#show mac address-table",
+  "desc": "Important show commands | "
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Security",
+  "title": "S1#show port-security",
+  "cmd": "S1#show port-security",
+  "desc": "Important show commands | displays Port Security configuration for all interfaces"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "S1#show port-security interface [int-id]",
+  "cmd": "S1#show port-security interface [int-id]",
+  "desc": "Important show commands | display Port Security configuration of an interface"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "S1#show vlan",
+  "cmd": "S1#show vlan",
+  "desc": "Important show commands | "
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "S1#show vlan brief",
+  "cmd": "S1#show vlan brief",
+  "desc": "Important show commands | **only** displays VLANs, statuses, names, and assigned ports"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "S1#show interface vlan [id]",
+  "cmd": "S1#show interface vlan [id]",
+  "desc": "Important show commands | "
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "S1#show interfaces trunk",
+  "cmd": "S1#show interfaces trunk",
+  "desc": "Important show commands | "
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "S1(config)#vlan [vlan-ID]",
+  "cmd": "S1(config)#vlan [vlan-ID]",
+  "desc": "VLANs > Configuring VLANs | create VLAN and assign its VLAN number"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "S1(config-vlan)#name [someName]",
+  "cmd": "S1(config-vlan)#name [someName]",
+  "desc": "VLANs > Configuring VLANs | assign a name to the VLAN"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "S1(config)#interface [int-id]",
+  "cmd": "S1(config)#interface [int-id]",
+  "desc": "VLANs > Configuring VLANs | remember, `interface range` might be useful"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "S1(config-if)#switchport mode access",
+  "cmd": "S1(config-if)#switchport mode access",
+  "desc": "VLANs > Configuring VLANs | "
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "S1(config-if)#switchport access vlan [vlan-id]",
+  "cmd": "S1(config-if)#switchport access vlan [vlan-id]",
+  "desc": "VLANs > Configuring VLANs | assign/change port VLAN"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "S1(config)#no vlan [vlan-id]",
+  "cmd": "S1(config)#no vlan [vlan-id]",
+  "desc": "VLANs > Deleting a VLAN | :warning: deletes specified VLAN"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "S1(config)#delete flash:vlan.dat",
+  "cmd": "S1(config)#delete flash:vlan.dat",
+  "desc": "VLANs > Deleting a VLAN | :warning: erases **the whole VLAN database**"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "S1(config-if)#no switchport access vlan [vlan-id]",
+  "cmd": "S1(config-if)#no switchport access vlan [vlan-id]",
+  "desc": "VLANs > Removing interface(s) from a VLAN | remove the VLAN from the port"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "S1(config-if)#switchport mode trunk",
+  "cmd": "S1(config-if)#switchport mode trunk",
+  "desc": "VLANs > Configuring IEEE 802.1q trunk links | "
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "S1(config-if)#switchport trunk native vlan [vlan-id]",
+  "cmd": "S1(config-if)#switchport trunk native vlan [vlan-id]",
+  "desc": "VLANs > Configuring IEEE 802.1q trunk links | "
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "S1(config-if)#switchport trunk allowed vlan [vlan-list]",
+  "cmd": "S1(config-if)#switchport trunk allowed vlan [vlan-list]",
+  "desc": "VLANs > Configuring IEEE 802.1q trunk links | **All** allowed VLAN IDs."
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "S1(config-if)#switchport trunk allowed vlan remove [vlan-id]",
+  "cmd": "S1(config-if)#switchport trunk allowed vlan remove [vlan-id]",
+  "desc": "VLANs > Configuring IEEE 802.1q trunk links | :no_pedestrians: **PROHIBITS ONLY** the VLAN with the specified ID on the trunk interface"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "S1(config-if)#switchport mode dynamic auto",
+  "cmd": "S1(config-if)#switchport mode dynamic auto",
+  "desc": "VLANs > Dynamic Trunking Protocol (DTP) | interface will convert into a **trunk interface** if its neighboring interface is in **mode `trunk or desirable` ONLY**"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "S1(config-if)#switchport mode dynamic desirable",
+  "cmd": "S1(config-if)#switchport mode dynamic desirable",
+  "desc": "VLANs > Dynamic Trunking Protocol (DTP) | interface will convert into a **trunk interface** if its neighboring interface is in **mode `trunk, dynamic auto, or dynamic desirable` ONLY**"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "S1(config-if)#switchport nonegotiate",
+  "cmd": "S1(config-if)#switchport nonegotiate",
+  "desc": "VLANs > Dynamic Trunking Protocol (DTP) | :no_entry: stops DTP negotiation, in which interfaces may engage, as you saw above, i.e.,  an interface will NOT change its mode even if the neighboring interface could change it through negotiation"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "S1#show interfaces [int-id] switchport",
+  "cmd": "S1#show interfaces [int-id] switchport",
+  "desc": "VLANs > Troubleshooting VLANs | helpful in verifying an inactive VLAN is assigned to a port"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "S1(config-if)#switchport voice vlan [vlan-id]",
+  "cmd": "S1(config-if)#switchport voice vlan [vlan-id]",
+  "desc": "VLANs > Voice VLANs | assign a voice VLAN to that port"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "System",
+  "title": "S1#show ip ssh",
+  "cmd": "S1#show ip ssh",
+  "desc": "Configuring SSH | Use it to verify that the switch supports SSH"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "System",
+  "title": "S1(config)#ip domain-name [domain-name]",
+  "cmd": "S1(config)#ip domain-name [domain-name]",
+  "desc": "Configuring SSH | "
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "VPN",
+  "title": "S1(config)#crypto key generate rsa",
+  "cmd": "S1(config)#crypto key generate rsa",
+  "desc": "Configuring SSH | "
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "System",
+  "title": "S1(config)#line vty 0 15",
+  "cmd": "S1(config)#line vty 0 15",
+  "desc": "Configuring SSH | "
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "System",
+  "title": "S1(config-line)#transport input ssh",
+  "cmd": "S1(config-line)#transport input ssh",
+  "desc": "Configuring SSH | "
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "System",
+  "title": "S1(config-line)#login local",
+  "cmd": "S1(config-line)#login local",
+  "desc": "Configuring SSH | "
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "System",
+  "title": "S1(config-line)#exit",
+  "cmd": "S1(config-line)#exit",
+  "desc": "Configuring SSH | "
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "System",
+  "title": "S1(config)#ip ssh version 2",
+  "cmd": "S1(config)#ip ssh version 2",
+  "desc": "Configuring SSH | enable SSH version 2"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "VPN",
+  "title": "S1(config)#crypto key zeroise rsa",
+  "cmd": "S1(config)#crypto key zeroise rsa",
+  "desc": "Configuring SSH | :warning: use to **delete** RSA key pair"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "System",
+  "title": "S1(config)#ip ssh time-out [time]",
+  "cmd": "S1(config)#ip ssh time-out [time]",
+  "desc": "Configuring SSH > Modifying SSH configuration | Change timeout setting (time in seconds)"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "AAA",
+  "title": "S1(config)#ip ssh authentication-retries [retries]",
+  "cmd": "S1(config)#ip ssh authentication-retries [retries]",
+  "desc": "Configuring SSH > Modifying SSH configuration | Change number of allowed authentication attempts"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "S1(config-if)#switchport port-security",
+  "cmd": "S1(config-if)#switchport port-security",
+  "desc": "Port Security > closedlockwithkey Configuring Dynamic Port Security | Enable port security on the interface"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "S1(config-if)#switchport port-security violation [violation-mode]",
+  "cmd": "S1(config-if)#switchport port-security violation [violation-mode]",
+  "desc": "Port Security > closedlockwithkey Configuring Dynamic Port Security | set violation mode (`protect, restrict, shutdown`)"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "S1(config-if)#switchport port-security maximum [max-addresses]",
+  "cmd": "S1(config-if)#switchport port-security maximum [max-addresses]",
+  "desc": "Port Security > closedlockwithkey Configuring Sticky Port Security | Set maximum number of secure MAC addresses allowed on port"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "S1(config-if)#switchport port-security mac-address sticky",
+  "cmd": "S1(config-if)#switchport port-security mac-address sticky",
+  "desc": "Port Security > closedlockwithkey Configuring Sticky Port Security | Enable sticky learning"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Security",
+  "title": "S1#show port-security address",
+  "cmd": "S1#show port-security address",
+  "desc": "Port Security > closedlockwithkey whitecheckmark Verifying Port Security  secure MAC addresses | displays secure MAC addresses configured on **all switch interfaces**"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "S1#show interface [int-id] status",
+  "cmd": "S1#show interface [int-id] status",
+  "desc": "Port Security > closedlockwithkey whitecheckmark Verifying Port Security  secure MAC addresses | displays port status. Useful to verify if an interface is in `err-disabled` status."
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "S1#show vtp status",
+  "cmd": "S1#show vtp status",
+  "desc": "VLAN trunking protocol (VTP) > VTP verification | verify your configuration and the status of VTP on the device"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "S1#show vtp password",
+  "cmd": "S1#show vtp password",
+  "desc": "VLAN trunking protocol (VTP) > VTP verification | verify the configured VTP password"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "S1(config)#spanning-tree vlan [vlan-id] root primary",
+  "cmd": "S1(config)#spanning-tree vlan [vlan-id] root primary",
+  "desc": "Spanning Tree Protocol > Bridge ID configuration | ensures this switch has the lowest priority value"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "S1(config)#spanning-tree vlan [vlan-id] root secondary",
+  "cmd": "S1(config)#spanning-tree vlan [vlan-id] root secondary",
+  "desc": "Spanning Tree Protocol > Bridge ID configuration | Use if the configuration of an alternative bridge is desired. Sets the switch priority value to ensure it becomes the root bridge if the primary root bridge fails."
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "S1(config)#spanning-tree vlan [vlan-id] priority [priority]",
+  "cmd": "S1(config)#spanning-tree vlan [vlan-id] priority [priority]",
+  "desc": "Spanning Tree Protocol > Bridge ID configuration | manually configure the bridge's priority value"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "Spanning-Tree",
+  "title": "S1#show spanning-tree",
+  "cmd": "S1#show spanning-tree",
+  "desc": "Spanning Tree Protocol > Bridge ID Verification | verify current spanning-tree instances and root bridges"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Spanning-Tree",
+  "title": "S1(config)#interface range [int-type][lowest-id]-[highest-id]",
+  "cmd": "S1(config)#interface range [int-type][lowest-id]-[highest-id]",
+  "desc": "Spanning Tree Protocol > PortFast and BPDU guard | access a range of contiguous interfaces if necessary"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "Spanning-Tree",
+  "title": "S1(config-if)#spanning-tree portfast",
+  "cmd": "S1(config-if)#spanning-tree portfast",
+  "desc": "Spanning Tree Protocol > PortFast and BPDU guard | enables PortFast on the access port(s)"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "Spanning-Tree",
+  "title": "S1(config-if)#spanning-tree bpduguard enable",
+  "cmd": "S1(config-if)#spanning-tree bpduguard enable",
+  "desc": "Spanning Tree Protocol > PortFast and BPDU guard | enables BPDU Guard on the access port(s)"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "Spanning-Tree",
+  "title": "S1(config)#spanning-tree portfast default",
+  "cmd": "S1(config)#spanning-tree portfast default",
+  "desc": "Spanning Tree Protocol > PortFast and BPDU guard | :warning: configures PortFast to be the default for all switch interfaces"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "Spanning-Tree",
+  "title": "S1(config)#spanning-tree bpduguard default",
+  "cmd": "S1(config)#spanning-tree bpduguard default",
+  "desc": "Spanning Tree Protocol > PortFast and BPDU guard | :warning: configures BPDU Guard to be the default for all switch interfaces"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Spanning-Tree",
+  "title": "S1#show running-config interface [int-id]",
+  "cmd": "S1#show running-config interface [int-id]",
+  "desc": "Spanning Tree Protocol > PortFast and BPDU guard verification | display the current configuration portion corresponding to the interface"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "Spanning-Tree",
+  "title": "S1(config)#spanning-tree mode rapid-pvst",
+  "cmd": "S1(config)#spanning-tree mode rapid-pvst",
+  "desc": "Spanning Tree Protocol > Configuring Rapid PVST | configure Rapid PVST+ as the STP mode on the switch"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "Spanning-Tree",
+  "title": "S1(config-if)#spanning-tree link-type point-to-point",
+  "cmd": "S1(config-if)#spanning-tree link-type point-to-point",
+  "desc": "Spanning Tree Protocol > Configuring Rapid PVST | specify that a link is point-to-point"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "Spanning-Tree",
+  "title": "S1#clear spanning-tree detected-protocols (interface [int-id])",
+  "cmd": "S1#clear spanning-tree detected-protocols (interface [int-id])",
+  "desc": "Spanning Tree Protocol > Configuring Rapid PVST | forces renegotiation with neighboring switches on all interfaces or the specified interface"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "Spanning-Tree",
+  "title": "S1#show spanning-tree active",
+  "cmd": "S1#show spanning-tree active",
+  "desc": "Spanning Tree Protocol > General STP verification commands | display STP information for active interfaces only"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "Spanning-Tree",
+  "title": "S1#show spanning-tree brief",
+  "cmd": "S1#show spanning-tree brief",
+  "desc": "Spanning Tree Protocol > General STP verification commands | at-a-glance information for all STP instances running on the switch"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "Spanning-Tree",
+  "title": "S1#show spanning-tree detail",
+  "cmd": "S1#show spanning-tree detail",
+  "desc": "Spanning Tree Protocol > General STP verification commands | detailed information for all STP instances running on the switch"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "Spanning-Tree",
+  "title": "S1#show spanning-tree interface [int-id]",
+  "cmd": "S1#show spanning-tree interface [int-id]",
+  "desc": "Spanning Tree Protocol > General STP verification commands | STP information for the specified interface"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "S1#show spanning-tree vlan [vlan-id]",
+  "cmd": "S1#show spanning-tree vlan [vlan-id]",
+  "desc": "Spanning Tree Protocol > General STP verification commands | STP information for the specified VLAN"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "Spanning-Tree",
+  "title": "S1#show spanning-tree summary",
+  "cmd": "S1#show spanning-tree summary",
+  "desc": "Spanning Tree Protocol > General STP verification commands | summary of STP port states"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "EtherChannel",
+  "title": "S1(config)#interface range [start-int]-[end-int]",
+  "cmd": "S1(config)#interface range [start-int]-[end-int]",
+  "desc": "EtherChannel | start by selecting the interfaces to be bundled into a **single logical link**, i.e., the EtherChannel."
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "EtherChannel",
+  "title": "S1(config)#interface port-channel [number]",
+  "cmd": "S1(config)#interface port-channel [number]",
+  "desc": "EtherChannel | enter the **port channel interface configuration mode** to change settings"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "S1(config-if)#switchport trunk native vlan [native-vlan-id]",
+  "cmd": "S1(config-if)#switchport trunk native vlan [native-vlan-id]",
+  "desc": "EtherChannel > PortChannel interface additional configuration | specify the link's native VLAN"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "S1(config-if)#switchport trunk allowed vlan [vlan-id-1 (,vlan-id-2,...",
+  "cmd": "S1(config-if)#switchport trunk allowed vlan [vlan-id-1 (,vlan-id-2,...)]",
+  "desc": "EtherChannel > PortChannel interface additional configuration | specify allowed VLANs (VLAN IDs) on trunk link"
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "S1(config-if)#switchport trunk allowed vlan add [vlan-id-1 (,vlan-i...",
+  "cmd": "S1(config-if)#switchport trunk allowed vlan add [vlan-id-1 (,vlan-id-2,...)]",
+  "desc": "EtherChannel > PortChannel interface additional configuration | **add** VLANs to the list of **already allowed** VLANs on the trunk link"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "System",
+  "title": "Save config",
+  "cmd": "copy running-config startup-config\n! short form: write memory",
+  "desc": "Persist running config to NVRAM."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "System",
+  "title": "Reload device",
+  "cmd": "reload\n! schedule reload: reload in 30",
+  "desc": "Reboot the device (with optional schedule)."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "System",
+  "title": "Show version",
+  "cmd": "show version",
+  "desc": "Hardware, IOS version, uptime, license."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "System",
+  "title": "Show inventory",
+  "cmd": "show inventory",
+  "desc": "Chassis, line cards, SFP/transceiver inventory."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "System",
+  "title": "Show environment",
+  "cmd": "show environment all",
+  "desc": "PSU, fans, temperature sensors."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "System",
+  "title": "Show CPU",
+  "cmd": "show processes cpu sorted | exclude 0.00",
+  "desc": "Top processes by CPU usage."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "System",
+  "title": "Show memory",
+  "cmd": "show memory statistics",
+  "desc": "Memory pools and free/used."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "System",
+  "title": "Set hostname",
+  "cmd": "configure terminal\nhostname R1",
+  "desc": "Configure device hostname."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "System",
+  "title": "Set clock / timezone",
+  "cmd": "clock timezone UTC 0\nclock set 12:00:00 1 Jan 2026",
+  "desc": "Configure system time and timezone."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "System",
+  "title": "Show file system",
+  "cmd": "show file systems\ndir flash:",
+  "desc": "List storage devices and contents."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "System",
+  "title": "Copy file (TFTP/SCP)",
+  "cmd": "copy tftp: flash:\ncopy scp: flash:",
+  "desc": "Transfer files via TFTP/SCP."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "System",
+  "title": "Enable mode / privilege",
+  "cmd": "enable\ndisable\nconfigure terminal",
+  "desc": "Privilege escalation and config mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "System",
+  "title": "Show boot variable",
+  "cmd": "show boot",
+  "desc": "Configured boot image and config-register."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "System",
+  "title": "Show license",
+  "cmd": "show license\nshow license udi",
+  "desc": "License status (Smart Licensing / classic)."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "Show interfaces",
+  "cmd": "show interfaces\nshow interfaces GigabitEthernet0/0",
+  "desc": "Interface status, counters, errors."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "Show interface description",
+  "cmd": "show interfaces description",
+  "desc": "Per-interface descriptions and status."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "Configure IP address",
+  "cmd": "interface GigabitEthernet0/0\n description WAN-uplink\n ip address 10.0.0.1 255.255.255.252\n no shutdown",
+  "desc": "Assign IPv4 address and enable interface."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "Configure IPv6 address",
+  "cmd": "interface GigabitEthernet0/0\n ipv6 address 2001:db8::1/64\n ipv6 enable",
+  "desc": "Assign IPv6 address."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "Subinterface (802.1Q)",
+  "cmd": "interface GigabitEthernet0/0.10\n encapsulation dot1Q 10\n ip address 192.168.10.1 255.255.255.0",
+  "desc": "VLAN-tagged subinterface for router-on-a-stick."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "Loopback",
+  "cmd": "interface Loopback0\n ip address 1.1.1.1 255.255.255.255",
+  "desc": "Logical loopback interface (router-id, BGP source)."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "MTU / IP MTU",
+  "cmd": "interface Gi0/0\n mtu 9216\n ip mtu 9000\n ipv6 mtu 9000",
+  "desc": "L2 MTU and L3 MTU."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "Speed / duplex",
+  "cmd": "interface Gi0/0\n speed 1000\n duplex full",
+  "desc": "Force speed and duplex."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "Clear counters",
+  "cmd": "clear counters\nclear counters GigabitEthernet0/0",
+  "desc": "Reset interface statistics."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "Shutdown / no shutdown",
+  "cmd": "interface Gi0/1\n shutdown\n no shutdown",
+  "desc": "Administratively disable/enable interface."
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "Etherchannel / Port-channel",
+  "cmd": "interface range Gi1/0/1-2\n channel-group 1 mode active\ninterface Port-channel1\n switchport mode trunk",
+  "desc": "LACP bundle of two interfaces."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "Show optics / transceiver",
+  "cmd": "show interfaces transceiver detail",
+  "desc": "SFP/QSFP DDM (RX/TX power, temp)."
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "Create VLAN",
+  "cmd": "vlan 100\n name USERS",
+  "desc": "Create a VLAN with a name."
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "Access port",
+  "cmd": "interface Gi1/0/1\n switchport mode access\n switchport access vlan 100",
+  "desc": "Tag-untagged single-VLAN port."
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "Trunk port",
+  "cmd": "interface Gi1/0/24\n switchport trunk encapsulation dot1q\n switchport mode trunk\n switchport trunk allowed vlan 100,200,300",
+  "desc": "802.1Q trunk allowing specific VLANs."
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "Voice VLAN",
+  "cmd": "interface Gi1/0/2\n switchport mode access\n switchport access vlan 10\n switchport voice vlan 20",
+  "desc": "Data + voice VLAN on the same port."
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "Show MAC address-table",
+  "cmd": "show mac address-table\nshow mac address-table dynamic vlan 100",
+  "desc": "L2 forwarding table."
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "Spanning-tree show",
+  "cmd": "show spanning-tree\nshow spanning-tree vlan 100",
+  "desc": "STP roles, state, root info."
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "Rapid-PVST / MST",
+  "cmd": "spanning-tree mode rapid-pvst\n! or:\nspanning-tree mode mst",
+  "desc": "Select STP mode."
+ },
+ {
+  "os": "ios",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "Portfast / BPDU guard",
+  "cmd": "interface Gi1/0/5\n spanning-tree portfast\n spanning-tree bpduguard enable",
+  "desc": "Edge-port hardening."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Static",
+  "title": "Static route",
+  "cmd": "ip route 10.10.10.0 255.255.255.0 10.0.0.2\nipv6 route 2001:db8:10::/64 2001:db8::2",
+  "desc": "IPv4/IPv6 static routes."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Static",
+  "title": "Default route",
+  "cmd": "ip route 0.0.0.0 0.0.0.0 10.0.0.2",
+  "desc": "Quad-zero default."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Static",
+  "title": "Floating static",
+  "cmd": "ip route 10.10.10.0 255.255.255.0 10.0.0.6 200",
+  "desc": "Backup route with higher administrative distance."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Routing",
+  "title": "Show IP route",
+  "cmd": "show ip route\nshow ip route bgp\nshow ip route 10.10.10.0",
+  "desc": "Routing table by protocol or prefix."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Routing",
+  "title": "Show route summary",
+  "cmd": "show ip route summary",
+  "desc": "Counts of routes per protocol."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "OSPF basic config",
+  "cmd": "router ospf 1\n router-id 1.1.1.1\n network 10.0.0.0 0.0.0.255 area 0\n passive-interface default\n no passive-interface Gi0/0",
+  "desc": "Single-process OSPF v2."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "OSPF on interface (modern)",
+  "cmd": "interface Gi0/0\n ip ospf 1 area 0\n ip ospf network point-to-point\n ip ospf hello-interval 5\n ip ospf dead-interval 20",
+  "desc": "Per-interface OSPF (preferred for clarity)."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "OSPFv3 (IPv6)",
+  "cmd": "ipv6 router ospf 1\n router-id 1.1.1.1\ninterface Gi0/0\n ipv6 ospf 1 area 0",
+  "desc": "OSPFv3 for IPv6."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "Show OSPF neighbors",
+  "cmd": "show ip ospf neighbor\nshow ipv6 ospf neighbor",
+  "desc": "OSPF adjacencies."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "Show OSPF database",
+  "cmd": "show ip ospf database",
+  "desc": "LSDB summary."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "OSPF authentication",
+  "cmd": "interface Gi0/0\n ip ospf authentication message-digest\n ip ospf message-digest-key 1 md5 SECRET",
+  "desc": "MD5 authentication."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "EIGRP",
+  "title": "EIGRP classic",
+  "cmd": "router eigrp 100\n network 10.0.0.0 0.0.0.255\n no auto-summary",
+  "desc": "Classic EIGRP autonomous system."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "EIGRP",
+  "title": "EIGRP named",
+  "cmd": "router eigrp CORP\n address-family ipv4 unicast autonomous-system 100\n  network 10.0.0.0 0.0.0.255",
+  "desc": "Named EIGRP (recommended modern form)."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "EIGRP",
+  "title": "Show EIGRP neighbors",
+  "cmd": "show ip eigrp neighbors\nshow ip eigrp topology",
+  "desc": "Neighbors and topology table."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "BGP",
+  "title": "BGP basic config",
+  "cmd": "router bgp 65001\n bgp router-id 1.1.1.1\n neighbor 10.0.0.2 remote-as 65002\n address-family ipv4\n  network 10.10.10.0 mask 255.255.255.0\n  neighbor 10.0.0.2 activate",
+  "desc": "Single eBGP peer."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "BGP",
+  "title": "BGP iBGP + loopback",
+  "cmd": "router bgp 65001\n neighbor 2.2.2.2 remote-as 65001\n neighbor 2.2.2.2 update-source Loopback0\n neighbor 2.2.2.2 next-hop-self",
+  "desc": "iBGP peering sourced from loopback."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "BGP",
+  "title": "Show BGP summary",
+  "cmd": "show ip bgp summary\nshow bgp ipv4 unicast summary",
+  "desc": "Neighbor uptime + prefix counts."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "BGP",
+  "title": "Show BGP routes",
+  "cmd": "show ip bgp\nshow ip bgp 10.10.10.0/24\nshow ip bgp neighbors 10.0.0.2 advertised-routes",
+  "desc": "BGP table and advertised/received per neighbor."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "BGP",
+  "title": "Clear BGP neighbor (soft)",
+  "cmd": "clear ip bgp 10.0.0.2 soft\nclear ip bgp * soft in",
+  "desc": "Soft-reset to re-apply policy without dropping session."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "BGP",
+  "title": "BGP prefix-list filter",
+  "cmd": "ip prefix-list ALLOW seq 5 permit 10.10.10.0/24\nrouter bgp 65001\n neighbor 10.0.0.2 prefix-list ALLOW out",
+  "desc": "Outbound prefix filter."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "BGP",
+  "title": "BGP route-map (set local-pref)",
+  "cmd": "route-map PREF permit 10\n set local-preference 200\nrouter bgp 65001\n neighbor 10.0.0.2 route-map PREF in",
+  "desc": "Influence inbound path selection."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "BGP",
+  "title": "BGP MD5 auth",
+  "cmd": "router bgp 65001\n neighbor 10.0.0.2 password 7 SECRET",
+  "desc": "TCP MD5 authentication."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "ACL",
+  "title": "Standard ACL",
+  "cmd": "access-list 10 permit 10.10.10.0 0.0.0.255\naccess-list 10 deny any log",
+  "desc": "Numbered standard ACL."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "ACL",
+  "title": "Extended (named) ACL",
+  "cmd": "ip access-list extended WEB\n permit tcp any host 10.10.10.10 eq 443\n deny ip any any log\ninterface Gi0/0\n ip access-group WEB in",
+  "desc": "Named L3/L4 ACL applied to an interface."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "ACL",
+  "title": "Show ACL hit counts",
+  "cmd": "show access-lists\nshow ip access-lists WEB",
+  "desc": "Per-line counters."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "ACL",
+  "title": "VTY access control",
+  "cmd": "line vty 0 4\n access-class MGMT in\n transport input ssh\n login local",
+  "desc": "Restrict management plane access."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "NAT",
+  "title": "Static NAT (1:1)",
+  "cmd": "ip nat inside source static 10.10.10.10 198.51.100.10\ninterface Gi0/0\n ip nat outside\ninterface Gi0/1\n ip nat inside",
+  "desc": "1-to-1 mapping insideâoutside."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "NAT",
+  "title": "PAT (overload)",
+  "cmd": "access-list 1 permit 10.10.10.0 0.0.0.255\nip nat inside source list 1 interface Gi0/0 overload",
+  "desc": "Many-to-one with port reuse."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "NAT",
+  "title": "Show NAT translations",
+  "cmd": "show ip nat translations\nshow ip nat statistics",
+  "desc": "Active translations and counters."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "Class-map / policy-map",
+  "cmd": "class-map match-any VOICE\n match dscp ef\npolicy-map WAN-OUT\n class VOICE\n  priority percent 30\ninterface Gi0/0\n service-policy output WAN-OUT",
+  "desc": "MQC: classify, mark, queue."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "Show policy-map",
+  "cmd": "show policy-map interface Gi0/0",
+  "desc": "Per-class counters and drops."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "HSRP",
+  "cmd": "interface Vlan10\n ip address 10.10.10.2 255.255.255.0\n standby 10 ip 10.10.10.1\n standby 10 priority 110\n standby 10 preempt",
+  "desc": "Cisco-proprietary first-hop redundancy."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "VRRP",
+  "cmd": "interface Vlan10\n vrrp 10 ip 10.10.10.1\n vrrp 10 priority 110\n vrrp 10 preempt",
+  "desc": "Standards-based FHRP."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "Show HSRP / VRRP",
+  "cmd": "show standby brief\nshow vrrp brief",
+  "desc": "State and active/standby roles."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Logging",
+  "title": "Logging to syslog",
+  "cmd": "logging host 10.0.0.50\nlogging trap informational\nservice timestamps log datetime msec localtime",
+  "desc": "Remote syslog."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "SNMP",
+  "title": "SNMPv3 user",
+  "cmd": "snmp-server group OPS v3 priv\nsnmp-server user monitor OPS v3 auth sha AUTHPASS priv aes 128 PRIVPASS",
+  "desc": "SNMPv3 user with auth+priv."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "NTP",
+  "title": "NTP client + auth",
+  "cmd": "ntp server 10.0.0.5 prefer\nntp authenticate\nntp authentication-key 1 md5 NTPKEY\nntp trusted-key 1",
+  "desc": "Authenticated NTP."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "AAA",
+  "title": "AAA + TACACS+",
+  "cmd": "aaa new-model\ntacacs server TAC1\n address ipv4 10.0.0.20\n key 0 SECRET\naaa authentication login default group tacacs+ local\naaa authorization exec default group tacacs+ local",
+  "desc": "Centralized auth."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Troubleshooting",
+  "title": "Ping / extended ping",
+  "cmd": "ping 10.10.10.1\nping 10.10.10.1 source Loopback0 size 1500 df-bit repeat 100",
+  "desc": "Reachability + MTU/PMTU test."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Troubleshooting",
+  "title": "Traceroute",
+  "cmd": "traceroute 10.10.10.1\ntraceroute 10.10.10.1 source Loopback0 numeric",
+  "desc": "Hop-by-hop path."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Troubleshooting",
+  "title": "Debug template",
+  "cmd": "terminal monitor\ndebug ip ospf adj\nundebug all",
+  "desc": "Console-level debugging â use with caution."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Troubleshooting",
+  "title": "Show logging",
+  "cmd": "show logging\nshow logging | include LINK",
+  "desc": "In-memory log buffer."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Troubleshooting",
+  "title": "Show tech-support",
+  "cmd": "show tech-support",
+  "desc": "Comprehensive diagnostic dump."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Troubleshooting",
+  "title": "Embedded packet capture",
+  "cmd": "monitor capture CAP interface Gi0/0 both match ipv4 any any\nmonitor capture CAP start\nshow monitor capture CAP buffer brief\nmonitor capture CAP stop",
+  "desc": "On-device packet capture (IOS-XE)."
+ },
+ {
+  "os": "nxos",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "System",
+  "title": "Save config",
+  "cmd": "copy running-config startup-config",
+  "desc": "Persist config."
+ },
+ {
+  "os": "nxos",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "System",
+  "title": "Feature enable",
+  "cmd": "feature ospf\nfeature bgp\nfeature interface-vlan\nfeature lacp\nfeature vpc",
+  "desc": "Enable NX-OS features (must precede config)."
+ },
+ {
+  "os": "nxos",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "L3 interface",
+  "cmd": "interface Ethernet1/1\n no switchport\n ip address 10.0.0.1/30\n no shutdown",
+  "desc": "Routed port."
+ },
+ {
+  "os": "nxos",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "vPC peer-link",
+  "cmd": "vpc domain 1\n peer-keepalive destination 10.0.0.2\ninterface port-channel1\n vpc peer-link",
+  "desc": "Virtual port-channel between two N9K/N7K."
+ },
+ {
+  "os": "nxos",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "BGP",
+  "title": "BGP (NX-OS)",
+  "cmd": "router bgp 65001\n router-id 1.1.1.1\n neighbor 10.0.0.2 remote-as 65002\n  address-family ipv4 unicast",
+  "desc": "NX-OS BGP with explicit AF nesting."
+ },
+ {
+  "os": "nxos",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "OSPF (NX-OS)",
+  "cmd": "router ospf 1\n router-id 1.1.1.1\ninterface Ethernet1/1\n ip router ospf 1 area 0",
+  "desc": "NX-OS OSPF requires `feature ospf`."
+ },
+ {
+  "os": "nxos",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "Troubleshooting",
+  "title": "Ethanalyzer (NX-OS sniffer)",
+  "cmd": "ethanalyzer local interface inband display-filter \"bgp\" limit-captured-frames 0",
+  "desc": "Built-in tcpdump-like CPU capture."
+ },
+ {
+  "os": "asa",
+  "role": "firewall",
+  "vendor": "Cisco",
+  "cat": "System",
+  "title": "Save config",
+  "cmd": "write memory",
+  "desc": "Persist ASA config."
+ },
+ {
+  "os": "asa",
+  "role": "firewall",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "Interface + nameif + security-level",
+  "cmd": "interface GigabitEthernet0/0\n nameif outside\n security-level 0\n ip address 198.51.100.1 255.255.255.0\n no shutdown",
+  "desc": "ASA interface requires nameif & security-level."
+ },
+ {
+  "os": "asa",
+  "role": "firewall",
+  "vendor": "Cisco",
+  "cat": "Firewall",
+  "title": "Access-list + access-group",
+  "cmd": "access-list OUT_IN extended permit tcp any host 10.10.10.10 eq 443\naccess-group OUT_IN in interface outside",
+  "desc": "Stateless ACL applied to interface."
+ },
+ {
+  "os": "asa",
+  "role": "firewall",
+  "vendor": "Cisco",
+  "cat": "NAT",
+  "title": "Static NAT (object)",
+  "cmd": "object network WEB\n host 10.10.10.10\n nat (inside,outside) static 198.51.100.10",
+  "desc": "Auto NAT 1:1."
+ },
+ {
+  "os": "asa",
+  "role": "firewall",
+  "vendor": "Cisco",
+  "cat": "NAT",
+  "title": "Dynamic PAT",
+  "cmd": "object network INSIDE_NET\n subnet 10.10.10.0 255.255.255.0\n nat (inside,outside) dynamic interface",
+  "desc": "Many-to-one PAT to outside interface."
+ },
+ {
+  "os": "asa",
+  "role": "firewall",
+  "vendor": "Cisco",
+  "cat": "Firewall",
+  "title": "Show xlate / connections",
+  "cmd": "show xlate\nshow conn\nshow conn long",
+  "desc": "NAT translations and stateful connections."
+ },
+ {
+  "os": "asa",
+  "role": "firewall",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "Failover (active/standby)",
+  "cmd": "failover\nfailover lan unit primary\nfailover lan interface FAILOVER GigabitEthernet0/3\nfailover key SECRET",
+  "desc": "Stateful HA pair."
+ },
+ {
+  "os": "asa",
+  "role": "firewall",
+  "vendor": "Cisco",
+  "cat": "Troubleshooting",
+  "title": "Packet-tracer",
+  "cmd": "packet-tracer input outside tcp 1.1.1.1 1024 10.10.10.10 443",
+  "desc": "Simulate packet through policy."
+ },
+ {
+  "os": "asa",
+  "role": "firewall",
+  "vendor": "Cisco",
+  "cat": "Troubleshooting",
+  "title": "Capture",
+  "cmd": "capture CAP interface outside match ip any host 10.10.10.10\nshow capture CAP\nno capture CAP",
+  "desc": "On-box capture per interface."
+ },
+ {
+  "os": "asa",
+  "role": "firewall",
+  "vendor": "Cisco",
+  "cat": "Firewall",
+  "title": "VPN site-to-site (IKEv2)",
+  "cmd": "crypto ikev2 policy 10\n encryption aes-256\n integrity sha256\n group 14\n prf sha256\ntunnel-group 198.51.100.2 type ipsec-l2l\ntunnel-group 198.51.100.2 ipsec-attributes\n ikev2 remote-authentication pre-shared-key SECRET\n ikev2 local-authentication pre-shared-key SECRET",
+  "desc": "IKEv2 L2L tunnel setup."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "System",
+  "title": "Show version",
+  "cmd": "show version\nshow version detail",
+  "desc": "Junos version and component versions."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "System",
+  "title": "Show chassis hardware",
+  "cmd": "show chassis hardware\nshow chassis routing-engine",
+  "desc": "FRU inventory & RE status."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "System",
+  "title": "Show config",
+  "cmd": "show configuration\nshow configuration | display set",
+  "desc": "Display config (hierarchical or set form)."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "System",
+  "title": "Edit/commit workflow",
+  "cmd": "configure\nedit interfaces ge-0/0/0\nset description WAN\nshow | compare\ncommit check\ncommit confirmed 5\ncommit and-quit",
+  "desc": "Junos candidate-config + commit confirmed (auto-rollback)."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "System",
+  "title": "Rollback",
+  "cmd": "configure\nrollback 1\ncommit",
+  "desc": "Revert to a previous committed configuration."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "System",
+  "title": "Set hostname / system",
+  "cmd": "set system host-name R1\nset system time-zone UTC\nset system root-authentication plain-text-password",
+  "desc": "Basic system identity."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "System",
+  "title": "Show system uptime",
+  "cmd": "show system uptime\nshow system processes extensive | match cpu",
+  "desc": "Uptime and process load."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "System",
+  "title": "Show system storage",
+  "cmd": "show system storage",
+  "desc": "Filesystem usage."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "System",
+  "title": "Request reboot",
+  "cmd": "request system reboot\nrequest system reboot at 22:00",
+  "desc": "Reboot now or scheduled."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "System",
+  "title": "Software upgrade",
+  "cmd": "request system software add /var/tmp/jinstall.tgz no-validate reboot",
+  "desc": "Install Junos package and reboot."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "Interfaces",
+  "title": "Show interfaces terse",
+  "cmd": "show interfaces terse\nshow interfaces ge-0/0/0 extensive",
+  "desc": "Status quick view and detailed counters."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "Interfaces",
+  "title": "Configure interface IPv4/IPv6",
+  "cmd": "set interfaces ge-0/0/0 description WAN\nset interfaces ge-0/0/0 unit 0 family inet address 10.0.0.1/30\nset interfaces ge-0/0/0 unit 0 family inet6 address 2001:db8::1/64",
+  "desc": "Logical unit 0 with inet/inet6 families."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "Interfaces",
+  "title": "VLAN tagging / subinterface",
+  "cmd": "set interfaces ge-0/0/0 vlan-tagging\nset interfaces ge-0/0/0 unit 10 vlan-id 10 family inet address 192.168.10.1/24",
+  "desc": "802.1Q on a Junos router subinterface."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "Interfaces",
+  "title": "Aggregated Ethernet (LACP)",
+  "cmd": "set chassis aggregated-devices ethernet device-count 4\nset interfaces ge-0/0/0 gigether-options 802.3ad ae0\nset interfaces ge-0/0/1 gigether-options 802.3ad ae0\nset interfaces ae0 aggregated-ether-options lacp active",
+  "desc": "AE bundle with LACP active."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "Interfaces",
+  "title": "Loopback (lo0)",
+  "cmd": "set interfaces lo0 unit 0 family inet address 1.1.1.1/32",
+  "desc": "Router-id and protocol source."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "Interfaces",
+  "title": "MTU",
+  "cmd": "set interfaces ge-0/0/0 mtu 9192\nset interfaces ge-0/0/0 unit 0 family inet mtu 9000",
+  "desc": "Physical and family MTU."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "Interfaces",
+  "title": "Optics / DDM",
+  "cmd": "show interfaces diagnostics optics ge-0/0/0",
+  "desc": "Transceiver readings."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "Interfaces",
+  "title": "Clear interface stats",
+  "cmd": "clear interfaces statistics all\nclear interfaces statistics ge-0/0/0",
+  "desc": "Reset counters."
+ },
+ {
+  "os": "junos",
+  "role": "switch",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "VLAN â ELS (EX/QFX)",
+  "cmd": "set vlans USERS vlan-id 100\nset interfaces ge-0/0/1 unit 0 family ethernet-switching interface-mode access vlan members USERS\nset interfaces ge-0/0/24 unit 0 family ethernet-switching interface-mode trunk vlan members [ USERS GUEST ]",
+  "desc": "ELS-style VLAN + access/trunk."
+ },
+ {
+  "os": "junos",
+  "role": "switch",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "Show VLANs / MAC",
+  "cmd": "show vlans\nshow ethernet-switching table",
+  "desc": "VLAN database & MAC table."
+ },
+ {
+  "os": "junos",
+  "role": "switch",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "Spanning-tree (RSTP)",
+  "cmd": "set protocols rstp\nshow spanning-tree bridge\nshow spanning-tree interface",
+  "desc": "RSTP global + status."
+ },
+ {
+  "os": "junos",
+  "role": "switch",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "Virtual Chassis (EX)",
+  "cmd": "show virtual-chassis\nshow virtual-chassis status",
+  "desc": "VC member roles and state."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "Static",
+  "title": "Static route",
+  "cmd": "set routing-options static route 10.10.10.0/24 next-hop 10.0.0.2",
+  "desc": "IPv4 static."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "Static",
+  "title": "Default route",
+  "cmd": "set routing-options static route 0.0.0.0/0 next-hop 10.0.0.2",
+  "desc": "Default."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "Routing",
+  "title": "Show route",
+  "cmd": "show route\nshow route 10.10.10.0/24 exact\nshow route protocol bgp",
+  "desc": "FIB/RIB queries."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "Routing",
+  "title": "Show route summary",
+  "cmd": "show route summary",
+  "desc": "Per-protocol prefix counts."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "OSPF",
+  "title": "OSPF basic",
+  "cmd": "set routing-options router-id 1.1.1.1\nset protocols ospf area 0.0.0.0 interface ge-0/0/0.0\nset protocols ospf area 0.0.0.0 interface lo0.0 passive",
+  "desc": "Single-area OSPF."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "OSPF",
+  "title": "OSPF neighbor / database",
+  "cmd": "show ospf neighbor\nshow ospf database\nshow ospf interface",
+  "desc": "State, LSDB, intf table."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "OSPF",
+  "title": "OSPFv3 (IPv6)",
+  "cmd": "set protocols ospf3 area 0.0.0.0 interface ge-0/0/0.0",
+  "desc": "OSPFv3 for IPv6."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "BGP eBGP peer",
+  "cmd": "set routing-options autonomous-system 65001\nset protocols bgp group EXT type external\nset protocols bgp group EXT neighbor 10.0.0.2 peer-as 65002",
+  "desc": "External BGP neighbor."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "BGP iBGP + loopback",
+  "cmd": "set protocols bgp group INT type internal\nset protocols bgp group INT local-address 1.1.1.1\nset protocols bgp group INT neighbor 2.2.2.2",
+  "desc": "iBGP sourced from lo0."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "Show BGP summary",
+  "cmd": "show bgp summary",
+  "desc": "Neighbors, uptime, prefixes."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "Show BGP neighbor / route",
+  "cmd": "show bgp neighbor 10.0.0.2\nshow route advertising-protocol bgp 10.0.0.2\nshow route receive-protocol bgp 10.0.0.2",
+  "desc": "Detailed state and per-peer adverts/received."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "Clear BGP (soft)",
+  "cmd": "clear bgp neighbor 10.0.0.2 soft\nclear bgp neighbor all soft",
+  "desc": "Refresh policy without dropping session."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "Policy: prefix-list + policy-statement",
+  "cmd": "set policy-options prefix-list ALLOW 10.10.10.0/24\nset policy-options policy-statement EXPORT term 1 from prefix-list ALLOW\nset policy-options policy-statement EXPORT term 1 then accept\nset policy-options policy-statement EXPORT term 99 then reject\nset protocols bgp group EXT neighbor 10.0.0.2 export EXPORT",
+  "desc": "Policy chain for outbound filtering."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "MPLS",
+  "title": "MPLS + LDP",
+  "cmd": "set protocols mpls interface ge-0/0/0.0\nset protocols ldp interface ge-0/0/0.0\nset protocols ldp interface lo0.0",
+  "desc": "Enable MPLS + LDP."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "MPLS",
+  "title": "L3VPN VRF (routing-instance)",
+  "cmd": "set routing-instances CUST-A instance-type vrf\nset routing-instances CUST-A interface ge-0/0/1.0\nset routing-instances CUST-A route-distinguisher 65001:1\nset routing-instances CUST-A vrf-target target:65001:1",
+  "desc": "Per-customer VRF."
+ },
+ {
+  "os": "junos",
+  "role": "firewall",
+  "vendor": "Juniper",
+  "cat": "Firewall",
+  "title": "Security zones",
+  "cmd": "set security zones security-zone trust interfaces ge-0/0/1.0\nset security zones security-zone untrust interfaces ge-0/0/0.0\nset security zones security-zone trust host-inbound-traffic system-services [ ssh ping ]",
+  "desc": "Map interfaces to zones."
+ },
+ {
+  "os": "junos",
+  "role": "firewall",
+  "vendor": "Juniper",
+  "cat": "Firewall",
+  "title": "Address book + application",
+  "cmd": "set security zones security-zone trust address-book address WEB 10.10.10.10/32\nset applications application HTTPS protocol tcp destination-port 443",
+  "desc": "Reusable objects."
+ },
+ {
+  "os": "junos",
+  "role": "firewall",
+  "vendor": "Juniper",
+  "cat": "Firewall",
+  "title": "Security policy",
+  "cmd": "set security policies from-zone untrust to-zone trust policy ALLOW-WEB match source-address any\nset security policies from-zone untrust to-zone trust policy ALLOW-WEB match destination-address WEB\nset security policies from-zone untrust to-zone trust policy ALLOW-WEB match application HTTPS\nset security policies from-zone untrust to-zone trust policy ALLOW-WEB then permit",
+  "desc": "Inter-zone permit policy."
+ },
+ {
+  "os": "junos",
+  "role": "firewall",
+  "vendor": "Juniper",
+  "cat": "Firewall",
+  "title": "Show security policies / sessions",
+  "cmd": "show security policies\nshow security flow session\nshow security flow session destination-prefix 10.10.10.10",
+  "desc": "Active sessions & policy hits."
+ },
+ {
+  "os": "junos",
+  "role": "firewall",
+  "vendor": "Juniper",
+  "cat": "NAT",
+  "title": "Source NAT (PAT)",
+  "cmd": "set security nat source rule-set TRUST-OUT from zone trust\nset security nat source rule-set TRUST-OUT to zone untrust\nset security nat source rule-set TRUST-OUT rule R1 match source-address 10.10.10.0/24\nset security nat source rule-set TRUST-OUT rule R1 then source-nat interface",
+  "desc": "PAT to egress interface."
+ },
+ {
+  "os": "junos",
+  "role": "firewall",
+  "vendor": "Juniper",
+  "cat": "NAT",
+  "title": "Destination NAT (port-forward)",
+  "cmd": "set security nat destination pool WEB address 10.10.10.10/32 port 443\nset security nat destination rule-set DNAT from zone untrust\nset security nat destination rule-set DNAT rule WEB match destination-address 198.51.100.10/32\nset security nat destination rule-set DNAT rule WEB match destination-port 443\nset security nat destination rule-set DNAT rule WEB then destination-nat pool WEB",
+  "desc": "Inbound port-forward."
+ },
+ {
+  "os": "junos",
+  "role": "firewall",
+  "vendor": "Juniper",
+  "cat": "Firewall",
+  "title": "IPSec VPN (IKEv2)",
+  "cmd": "set security ike proposal P1 authentication-method pre-shared-keys\nset security ike proposal P1 dh-group group14\nset security ike proposal P1 authentication-algorithm sha-256\nset security ike proposal P1 encryption-algorithm aes-256-cbc\nset security ike policy POL proposals P1\nset security ike gateway GW1 ike-policy POL address 198.51.100.2 external-interface ge-0/0/0.0\nset security ipsec vpn VPN1 ike gateway GW1",
+  "desc": "Phase 1 / Phase 2 skeleton."
+ },
+ {
+  "os": "junos",
+  "role": "firewall",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "SRX chassis cluster",
+  "cmd": "set chassis cluster cluster-id 1 node 0 reboot\nshow chassis cluster status\nshow chassis cluster interfaces",
+  "desc": "Active/passive HA pair."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "Logging",
+  "title": "Syslog",
+  "cmd": "set system syslog host 10.0.0.50 any info\nset system syslog file messages any notice",
+  "desc": "Remote and local syslog."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "SNMP",
+  "title": "SNMPv3",
+  "cmd": "set snmp v3 usm local-engine user monitor authentication-sha authentication-password AUTHPASS privacy-aes128 privacy-password PRIVPASS\nset snmp v3 vacm security-to-group security-model usm security-name monitor group OPS",
+  "desc": "SNMPv3 user + VACM mapping."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "NTP",
+  "title": "NTP",
+  "cmd": "set system ntp server 10.0.0.5 prefer\nset system time-zone UTC",
+  "desc": "NTP client."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "AAA",
+  "title": "TACACS+ / RADIUS",
+  "cmd": "set system tacplus-server 10.0.0.20 secret SECRET\nset system authentication-order [ tacplus password ]",
+  "desc": "AAA with local fallback."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "Troubleshooting",
+  "title": "Ping / traceroute",
+  "cmd": "ping 10.10.10.1 source 1.1.1.1 count 5 size 1500 do-not-fragment\ntraceroute 10.10.10.1 source 1.1.1.1",
+  "desc": "Reachability/MTU tests."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "Troubleshooting",
+  "title": "Monitor traffic (tcpdump)",
+  "cmd": "monitor traffic interface ge-0/0/0 matching \"port 179\" no-resolve extensive",
+  "desc": "Inline tcpdump on PFE-CPU traffic."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "Troubleshooting",
+  "title": "Request support information",
+  "cmd": "request support information | save /var/tmp/rsi.txt",
+  "desc": "Tech-support dump for TAC."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "Troubleshooting",
+  "title": "Show log messages",
+  "cmd": "show log messages | last 100\nshow log messages | match \"ospf|bgp\"",
+  "desc": "Tail and grep logs."
+ },
+ {
+  "os": "eos",
+  "role": "switch",
+  "vendor": "Arista",
+  "cat": "System",
+  "title": "Save config",
+  "cmd": "copy running-config startup-config\n! short: write",
+  "desc": "Persist config."
+ },
+ {
+  "os": "eos",
+  "role": "switch",
+  "vendor": "Arista",
+  "cat": "System",
+  "title": "Show inventory / environment",
+  "cmd": "show inventory\nshow environment all",
+  "desc": "FRUs, fans, PSU, temp."
+ },
+ {
+  "os": "eos",
+  "role": "switch",
+  "vendor": "Arista",
+  "cat": "System",
+  "title": "Configure session (atomic commit)",
+  "cmd": "configure session UPGRADE\n  interface Ethernet1\n   description NEW\ncommit\n! or: abort",
+  "desc": "EOS atomic config sessions."
+ },
+ {
+  "os": "eos",
+  "role": "switch",
+  "vendor": "Arista",
+  "cat": "System",
+  "title": "Reload / config replace",
+  "cmd": "reload\n! safe upgrade:\nconfig replace flash:backup.conf",
+  "desc": "Reboot or atomic replace."
+ },
+ {
+  "os": "eos",
+  "role": "switch",
+  "vendor": "Arista",
+  "cat": "Interfaces",
+  "title": "Show interfaces status",
+  "cmd": "show interfaces status\nshow interfaces description\nshow interfaces counters errors",
+  "desc": "Status + error counters."
+ },
+ {
+  "os": "eos",
+  "role": "switch",
+  "vendor": "Arista",
+  "cat": "Interfaces",
+  "title": "L3 interface",
+  "cmd": "interface Ethernet1\n no switchport\n ip address 10.0.0.1/30\n no shutdown",
+  "desc": "Routed port (EOS uses CIDR)."
+ },
+ {
+  "os": "eos",
+  "role": "switch",
+  "vendor": "Arista",
+  "cat": "Interfaces",
+  "title": "Port-Channel (LACP)",
+  "cmd": "interface Ethernet1-2\n channel-group 1 mode active\ninterface Port-Channel1\n switchport mode trunk",
+  "desc": "LACP bundle, trunk."
+ },
+ {
+  "os": "eos",
+  "role": "switch",
+  "vendor": "Arista",
+  "cat": "Interfaces",
+  "title": "Show transceiver",
+  "cmd": "show interfaces transceiver\nshow interfaces transceiver detail",
+  "desc": "DDM optics readings."
+ },
+ {
+  "os": "eos",
+  "role": "switch",
+  "vendor": "Arista",
+  "cat": "Interfaces",
+  "title": "MTU",
+  "cmd": "interface Ethernet1\n mtu 9214",
+  "desc": "Set jumbo MTU."
+ },
+ {
+  "os": "eos",
+  "role": "switch",
+  "vendor": "Arista",
+  "cat": "VLAN",
+  "title": "VLAN config",
+  "cmd": "vlan 100\n name USERS\ninterface Ethernet5\n switchport mode access\n switchport access vlan 100\ninterface Ethernet24\n switchport mode trunk\n switchport trunk allowed vlan 100,200",
+  "desc": "Create + access/trunk."
+ },
+ {
+  "os": "eos",
+  "role": "switch",
+  "vendor": "Arista",
+  "cat": "VLAN",
+  "title": "MLAG (Arista MC-LAG)",
+  "cmd": "mlag configuration\n domain-id MLAG1\n local-interface Vlan4094\n peer-address 10.255.255.2\n peer-link Port-Channel999",
+  "desc": "Dual-active multi-chassis link aggregation."
+ },
+ {
+  "os": "eos",
+  "role": "switch",
+  "vendor": "Arista",
+  "cat": "VLAN",
+  "title": "Show MAC / Spanning-tree",
+  "cmd": "show mac address-table\nshow spanning-tree\nshow spanning-tree blockedports",
+  "desc": "L2 status."
+ },
+ {
+  "os": "eos",
+  "role": "switch",
+  "vendor": "Arista",
+  "cat": "Routing",
+  "title": "Show ip route",
+  "cmd": "show ip route\nshow ip route bgp\nshow ipv6 route",
+  "desc": "FIB by protocol."
+ },
+ {
+  "os": "eos",
+  "role": "switch",
+  "vendor": "Arista",
+  "cat": "Static",
+  "title": "Static route",
+  "cmd": "ip route 10.10.10.0/24 10.0.0.2\nip route 0.0.0.0/0 10.0.0.2",
+  "desc": "IPv4 static + default."
+ },
+ {
+  "os": "eos",
+  "role": "switch",
+  "vendor": "Arista",
+  "cat": "OSPF",
+  "title": "OSPF (EOS)",
+  "cmd": "router ospf 1\n router-id 1.1.1.1\n network 10.0.0.0/30 area 0\n passive-interface default\n no passive-interface Ethernet1",
+  "desc": "Single-area OSPF."
+ },
+ {
+  "os": "eos",
+  "role": "switch",
+  "vendor": "Arista",
+  "cat": "OSPF",
+  "title": "OSPF status",
+  "cmd": "show ip ospf neighbor\nshow ip ospf database\nshow ip ospf interface",
+  "desc": "Adjacency, LSDB, intf table."
+ },
+ {
+  "os": "eos",
+  "role": "switch",
+  "vendor": "Arista",
+  "cat": "BGP",
+  "title": "BGP (EOS)",
+  "cmd": "router bgp 65001\n router-id 1.1.1.1\n neighbor 10.0.0.2 remote-as 65002\n neighbor 10.0.0.2 send-community\n address-family ipv4\n  neighbor 10.0.0.2 activate\n  network 10.10.10.0/24",
+  "desc": "eBGP peer."
+ },
+ {
+  "os": "eos",
+  "role": "switch",
+  "vendor": "Arista",
+  "cat": "BGP",
+  "title": "BGP show / clear",
+  "cmd": "show ip bgp summary\nshow ip bgp\nshow ip bgp neighbors 10.0.0.2 advertised-routes\nclear ip bgp 10.0.0.2 soft",
+  "desc": "State, table, soft-reset."
+ },
+ {
+  "os": "eos",
+  "role": "switch",
+  "vendor": "Arista",
+  "cat": "BGP",
+  "title": "EVPN-VXLAN (Type-2/Type-5)",
+  "cmd": "service routing protocols model multi-agent\nrouter bgp 65001\n neighbor EVPN peer group\n neighbor EVPN remote-as 65000\n neighbor EVPN update-source Loopback0\n address-family evpn\n  neighbor EVPN activate",
+  "desc": "Arista BGP-EVPN underlay/overlay base."
+ },
+ {
+  "os": "eos",
+  "role": "switch",
+  "vendor": "Arista",
+  "cat": "ACL",
+  "title": "IP ACL",
+  "cmd": "ip access-list WEB\n 10 permit tcp any host 10.10.10.10 eq 443\n 20 deny ip any any log\ninterface Ethernet1\n ip access-group WEB in",
+  "desc": "Named L3/L4 ACL."
+ },
+ {
+  "os": "eos",
+  "role": "switch",
+  "vendor": "Arista",
+  "cat": "ACL",
+  "title": "MAC ACL",
+  "cmd": "mac access-list MAC1\n 10 permit any host 0050.5601.0001 0xffff\ninterface Ethernet1\n mac access-group MAC1 in",
+  "desc": "Layer-2 filter."
+ },
+ {
+  "os": "eos",
+  "role": "switch",
+  "vendor": "Arista",
+  "cat": "HA",
+  "title": "VRRP",
+  "cmd": "interface Vlan10\n ip address 10.10.10.2/24\n vrrp 10 ip 10.10.10.1\n vrrp 10 priority 110\n vrrp 10 preempt",
+  "desc": "Standards FHRP."
+ },
+ {
+  "os": "eos",
+  "role": "switch",
+  "vendor": "Arista",
+  "cat": "HA",
+  "title": "VARP (anycast gateway)",
+  "cmd": "ip virtual-router mac-address 00:00:00:00:00:01\ninterface Vlan10\n ip address 10.10.10.2/24\n ip virtual-router address 10.10.10.1",
+  "desc": "Arista anycast GW for MLAG/EVPN."
+ },
+ {
+  "os": "eos",
+  "role": "switch",
+  "vendor": "Arista",
+  "cat": "Logging",
+  "title": "Syslog",
+  "cmd": "logging host 10.0.0.50\nlogging level all informational",
+  "desc": "Remote syslog."
+ },
+ {
+  "os": "eos",
+  "role": "switch",
+  "vendor": "Arista",
+  "cat": "NTP",
+  "title": "NTP",
+  "cmd": "ntp server 10.0.0.5 prefer iburst",
+  "desc": "Single NTP server with iburst."
+ },
+ {
+  "os": "eos",
+  "role": "switch",
+  "vendor": "Arista",
+  "cat": "AAA",
+  "title": "AAA + TACACS+",
+  "cmd": "tacacs-server host 10.0.0.20 key SECRET\naaa authentication login default group tacacs+ local\naaa authorization commands all default group tacacs+ local",
+  "desc": "Centralized auth + command authz."
+ },
+ {
+  "os": "eos",
+  "role": "switch",
+  "vendor": "Arista",
+  "cat": "Troubleshooting",
+  "title": "Ping / traceroute",
+  "cmd": "ping 10.10.10.1 source 1.1.1.1 size 1500 df-bit repeat 100\ntraceroute 10.10.10.1 source 1.1.1.1",
+  "desc": "With DF-bit for MTU verify."
+ },
+ {
+  "os": "eos",
+  "role": "switch",
+  "vendor": "Arista",
+  "cat": "Troubleshooting",
+  "title": "Capture (EOS tcpdump)",
+  "cmd": "bash sudo tcpdump -i ma1 -nn host 10.10.10.10\n! or: bash sudo tcpdump -i et1",
+  "desc": "Drops to bash to use Linux tcpdump."
+ },
+ {
+  "os": "eos",
+  "role": "switch",
+  "vendor": "Arista",
+  "cat": "Troubleshooting",
+  "title": "Show logging",
+  "cmd": "show logging\nshow logging last 30 minutes",
+  "desc": "Live + time-windowed."
+ },
+ {
+  "os": "eos",
+  "role": "switch",
+  "vendor": "Arista",
+  "cat": "System",
+  "title": "EOS eAPI (JSON-RPC)",
+  "cmd": "management api http-commands\n no shutdown\n protocol https",
+  "desc": "Enable JSON-RPC API for automation."
+ }
+]
