@@ -65,6 +65,13 @@ button,select,input{font-family:inherit}
 .nav a .stbadge.filled{color:var(--good)}
 .nav a .stbadge.partial{color:var(--warn)}
 .nav a.hidden{display:none}
+.nav a.disabled{opacity:.4}
+.nav a.disabled .stbadge{color:var(--ink-muted) !important}
+.nav a .navright{display:flex;align-items:center;gap:6px}
+.nav a .togsec{appearance:none;width:14px;height:14px;border:1px solid var(--line);border-radius:3px;background:transparent;cursor:pointer;position:relative;flex-shrink:0;margin:0}
+.nav a .togsec:checked{background:var(--accent);border-color:var(--accent)}
+.nav a .togsec:checked::after{content:"✓";position:absolute;top:-3px;left:1px;color:#000;font-size:11px;font-weight:bold;line-height:1}
+.nav a .togsec:hover{border-color:var(--accent)}
 .side .footer{margin-top:auto;padding:8px 10px;border-top:1px solid var(--line-2);display:flex;flex-direction:column;gap:6px}
 
 /* Canvas */
@@ -126,7 +133,7 @@ button,select,input{font-family:inherit}
 .cli pre{margin:0;padding:14px;flex:1;overflow:auto;color:var(--ink);font:12.5px/1.6 inherit;text-shadow:0 0 1px rgba(57,255,20,.15);white-space:pre;tab-size:2;min-width:0}
 .cli .splitcol{flex:1;min-width:0;display:flex;flex-direction:column;border-left:1px solid var(--line-2)}
 .cli .splitcol:first-child{border-left:0}
-.cli .splitcol .colhdr{padding:6px 12px;background:var(--panel-2);border-bottom:1px solid var(--line-2);font:11px inherit;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-dim);position:sticky;top:0}
+.cli .splitcol .colhdr{padding:6px 10px;background:var(--panel-2);border-bottom:1px solid var(--line-2);font:10.5px inherit;letter-spacing:.8px;text-transform:uppercase;color:var(--ink-dim);position:sticky;top:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .cli .splitcol.cisco .colhdr{color:var(--cisco)}
 .cli .splitcol.juniper .colhdr{color:var(--juniper)}
 .cli .splitcol.arista .colhdr{color:var(--arista)}
@@ -173,8 +180,9 @@ button,select,input{font-family:inherit}
       <option value="juniper">vs Juniper</option>
       <option value="arista">vs Arista</option>
     </select>
+    <button class="tbtn" id="btnImport" title="Paste an existing CLI config and parse it back into the form">⇪ Import</button>
     <button class="tbtn" id="btnLcollapse" title="Collapse sidebar (s)">◧</button>
-    <button class="tbtn" id="btnTheme" title="Light/dark">◐</button>
+    <button class="tbtn" id="btnTheme" title="Toggle light/dark theme">◐ <span id="themeLabel">Dark</span></button>
     <button class="tbtn" id="btnReset">Reset</button>
   </div>
 </div>
@@ -210,6 +218,22 @@ button,select,input{font-family:inherit}
     </div>
     <div class="ftr"><span id="cliStats">0 lines</span></div>
   </aside>
+</div>
+
+<!-- Import dialog -->
+<div id="importOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:100;align-items:center;justify-content:center">
+  <div style="background:var(--panel);border:1px solid var(--accent);border-radius:8px;width:min(720px,92vw);max-height:80vh;display:flex;flex-direction:column">
+    <div style="padding:12px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center">
+      <div><b style="color:var(--accent)">⇪ Import existing CLI config</b><br/><span style="font-size:11px;color:var(--ink-dim)">Paste IOS / IOS-XE config below. Parser will pull out interfaces, static routes, OSPF, BGP basics, VLANs, ACLs.</span></div>
+      <button class="tbtn" id="importClose">✕</button>
+    </div>
+    <textarea id="importText" placeholder="hostname R1&#10;!&#10;interface GigabitEthernet0/0&#10; ip address 10.0.0.1 255.255.255.252&#10; no shutdown&#10;!&#10;router ospf 1&#10; router-id 1.1.1.1&#10; network 10.0.0.0 0.0.0.255 area 0&#10;…" style="flex:1;min-height:280px;background:var(--code-bg);color:var(--ink);border:0;border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2);padding:12px;font:12px ui-monospace,SFMono-Regular,Menlo,monospace;outline:0;resize:none"></textarea>
+    <div style="padding:10px 16px;display:flex;gap:6px;justify-content:flex-end;align-items:center">
+      <span id="importStats" style="font-size:11px;color:var(--ink-dim);margin-right:auto"></span>
+      <button class="tbtn" id="importPreview">Preview parse</button>
+      <button class="tbtn on" id="importApply">Apply (replaces current config)</button>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -251,6 +275,11 @@ const SECTION_KEYWORDS = {
 const state = {
   vendor:"cisco", os:"ios", role:"router", hostname:"R1", section:"interfaces",
   diff:false, diffVendor:"juniper",
+  // per-section emit toggle (true = include in CLI). Auto-init to all-on.
+  enabled: JSON.parse(localStorage.getItem("cfg-enabled")||"null") || {
+    interfaces:true, static:true, ospf:true, bgp:true, acls:true, snmp:true, logging:true,
+    vlans:true, trunks:true, stp:true, zones:true, policies:true, nat:true, vpn:true
+  },
   interfaces:[
     {name:"GigabitEthernet0/0", desc:"WAN uplink", ip:"10.0.0.1", mask:"255.255.255.252", prefix:30, enabled:true, mode:"routed", vlan:"", trunkVlans:""},
     {name:"GigabitEthernet0/1", desc:"", ip:"", mask:"", prefix:24, enabled:false, mode:"routed", vlan:"", trunkVlans:""},
@@ -357,6 +386,8 @@ function refreshNav(){
   document.querySelectorAll(".nav a").forEach(a=>{
     const s = a.dataset.s;
     if(!s) return;
+    const isEnabled = state.enabled[s] !== false;
+    a.classList.toggle("disabled", !isEnabled);
     const badge = a.querySelector(".stbadge");
     if(badge){
       const st = (FILL_STATUS[s]||(()=>"empty"))();
@@ -369,9 +400,24 @@ function renderNav(){
   const nav = $("nav");
   nav.replaceChildren();
   SECTIONS[state.role].forEach(s=>{
-    const a = el("a",{}, el("span",{}, SECTION_LABELS[s]), el("span",{class:"stbadge empty"}, "○"));
+    const isEnabled = state.enabled[s] !== false;
+    const right = el("span",{class:"navright"},
+      el("span",{class:"stbadge empty"}, "○"),
+      (()=>{
+        const cb = el("input",{type:"checkbox",class:"togsec",title:"Emit this section to CLI",checked:isEnabled});
+        cb.addEventListener("click",(e)=>{e.stopPropagation();});
+        cb.addEventListener("change",()=>{
+          state.enabled[s] = cb.checked;
+          localStorage.setItem("cfg-enabled", JSON.stringify(state.enabled));
+          generate(); refreshNav();
+        });
+        return cb;
+      })()
+    );
+    const a = el("a",{}, el("span",{}, SECTION_LABELS[s]), right);
     a.dataset.s = s;
     if(s===state.section) a.classList.add("on");
+    if(!isEnabled) a.classList.add("disabled");
     a.addEventListener("click",()=>{state.section=s; renderNav(); renderContent();});
     nav.appendChild(a);
   });
@@ -531,14 +577,19 @@ function renderACLs(c){
     card.appendChild(entryHeader(a.name||"ACL", [["",a.rules.length+" rules"]]));
     card.appendChild(inputRow("ACL name", a.name, v=>a.name=v, "MGMT"));
     const tbl = el("table",{class:"acl-table"});
+    const mkTh = (txt, cls, tip)=>{
+      const th = el("th",{class:cls||""}, txt);
+      if(tip) th.appendChild(el("span",{class:"tip","data-tip":tip,style:"margin-left:4px"}, "?"));
+      return th;
+    };
     const thead = el("thead", {}, el("tr",{},
-      el("th",{class:"colw-seq"},"Seq"),
-      el("th",{class:"colw-act"},"Action"),
-      el("th",{class:"colw-pr"},"Proto"),
-      el("th",{},"Source"),
-      el("th",{},"Destination"),
-      el("th",{class:"colw-port"},"Port"),
-      el("th",{class:"colw-x"},"")));
+      mkTh("Seq","colw-seq","Sequence number — controls match order. ACLs evaluate top-to-bottom and stop at first match."),
+      mkTh("Action","colw-act","permit=allow matching traffic, deny=drop it. Implicit 'deny ip any any' at the end of every ACL."),
+      mkTh("Proto","colw-pr","ip=all IP traffic, tcp/udp=specify L4, icmp=ping/traceroute"),
+      mkTh("Source",null,"Source IP/subnet. 'any'=0.0.0.0/0. 'host 10.1.1.1'=single host. '10.0.0.0/24' or '10.0.0.0 0.0.0.255' (wildcard) for subnets."),
+      mkTh("Destination",null,"Destination IP/subnet. Same syntax as Source."),
+      mkTh("Port","colw-port","L4 port (TCP/UDP only). E.g. 22 (ssh), 443 (https), 'range 1024 65535'. Ignored for ip/icmp."),
+      mkTh("","colw-x","")));
     tbl.appendChild(thead);
     const tbody = el("tbody");
     a.rules.forEach((r,ri)=>{
@@ -721,7 +772,8 @@ function genCisco(forceOs){
   out.push("! "+state.vendor.toUpperCase()+" "+useOs.toUpperCase()+" — "+state.role);
   out.push("hostname "+(state.hostname||"R1"));
   out.push("!");
-  if(state.interfaces.length){
+  const en = state.enabled || {};
+  if(state.interfaces.length && en.interfaces !== false){
     out.push("! --- Interfaces ---");
     state.interfaces.forEach(it=>{
       if(!it.name) return;
@@ -756,7 +808,7 @@ function genCisco(forceOs){
       out.push("!");
     });
   }
-  if(state.role!=="switch" && state.static.length){
+  if(state.role!=="switch" && state.static.length && en.static !== false){
     out.push("! --- Static routes ---");
     state.static.forEach(r=>{
       if(!r.prefix||!r.mask||!r.nextHop) return;
@@ -771,7 +823,7 @@ function genCisco(forceOs){
   }
   if(state.role!=="firewall"){
     const o = state.ospf;
-    if(o.networks.some(n=>n.net)){
+    if(o.networks.some(n=>n.net) && en.ospf !== false){
       out.push("! --- OSPF ---");
       out.push("router ospf "+(o.processId||"1"));
       if(o.routerId) out.push(" router-id "+o.routerId);
@@ -780,7 +832,7 @@ function genCisco(forceOs){
       out.push("!");
     }
     const b = state.bgp;
-    if(b.asn && (b.neighbors.some(n=>n.ip) || b.networks.some(n=>n.net))){
+    if(b.asn && (b.neighbors.some(n=>n.ip) || b.networks.some(n=>n.net)) && en.bgp !== false){
       out.push("! --- BGP ---");
       out.push("router bgp "+b.asn);
       if(b.routerId) out.push(" bgp router-id "+b.routerId);
@@ -799,7 +851,7 @@ function genCisco(forceOs){
       out.push("!");
     }
   }
-  state.acls.forEach(a=>{
+  if(en.acls !== false) state.acls.forEach(a=>{
     if(!a.name) return;
     out.push("! --- ACL "+a.name+" ---");
     out.push("ip access-list extended "+a.name);
@@ -810,12 +862,12 @@ function genCisco(forceOs){
     out.push("!");
   });
   if(state.role==="switch"){
-    if(state.vlans.length){
+    if(state.vlans.length && en.vlans !== false){
       out.push("! --- VLANs ---");
       state.vlans.forEach(v=>{ if(v.id){out.push("vlan "+v.id); if(v.name) out.push(" name "+v.name);}});
       out.push("!");
     }
-    if(state.trunks.length){
+    if(state.trunks.length && en.trunks !== false){
       out.push("! --- Trunks ---");
       state.trunks.forEach(t=>{
         if(!t.intf) return;
@@ -827,19 +879,19 @@ function genCisco(forceOs){
         out.push("!");
       });
     }
-    if(state.stp.mode){
+    if(state.stp.mode && en.stp !== false){
       out.push("spanning-tree mode "+state.stp.mode);
       if(state.stp.priority) out.push("spanning-tree vlan 1-4094 priority "+state.stp.priority);
       out.push("!");
     }
   }
   if(state.role==="firewall" && useOs==="asa"){
-    state.policies.forEach((p,i)=>{
+    if(en.policies !== false) state.policies.forEach((p,i)=>{
       const aclName = p.name || ("POL_"+i);
       out.push("access-list "+aclName+" extended "+p.action+" "+guessAsaProto(p.app)+" "+p.src+" "+p.dst+guessAsaPort(p.app));
       out.push("access-group "+aclName+" in interface "+(p.from||"outside"));
     });
-    state.nat.forEach((n,i)=>{
+    if(en.nat !== false) state.nat.forEach((n,i)=>{
       if(n.type==="source"){
         out.push("object network NAT_"+i);
         out.push(" subnet "+(n.src||"").replace("/"," "));
@@ -852,7 +904,7 @@ function genCisco(forceOs){
     });
     out.push("!");
   }
-  if(state.snmp.host || state.snmp.community){
+  if((state.snmp.host || state.snmp.community) && en.snmp !== false){
     out.push("! --- SNMP ---");
     if(state.snmp.community) out.push("snmp-server community "+state.snmp.community+" RO");
     if(state.snmp.v3user){
@@ -862,7 +914,7 @@ function genCisco(forceOs){
     if(state.snmp.host) out.push("snmp-server host "+state.snmp.host+" version 3 priv "+state.snmp.v3user);
     out.push("!");
   }
-  if(state.logging.host){
+  if(state.logging.host && en.logging !== false){
     out.push("! --- Logging ---");
     out.push("logging host "+state.logging.host);
     out.push("logging trap "+state.logging.level);
@@ -890,9 +942,10 @@ function guessAsaPort(app){
 }
 function genJunos(){
   const out = [];
+  const en = state.enabled || {};
   out.push("# Juniper Junos — "+state.role);
   out.push("set system host-name "+(state.hostname||"R1"));
-  state.interfaces.forEach(it=>{
+  if(en.interfaces !== false) state.interfaces.forEach(it=>{
     if(!it.name) return;
     const ifn = it.name||"ge-0/0/0";
     if(it.desc) out.push('set interfaces '+ifn+' description "'+it.desc+'"');
@@ -909,7 +962,7 @@ function genJunos(){
     }
     if(!it.enabled) out.push("set interfaces "+ifn+" disable");
   });
-  if(state.role!=="switch"){
+  if(state.role!=="switch" && en.static !== false){
     state.static.forEach(r=>{
       if(!r.prefix||!r.nextHop) return;
       const p = pfx(r.mask, 24);
@@ -918,6 +971,7 @@ function genJunos(){
   }
   if(state.role!=="firewall"){
     const o = state.ospf;
+    if(en.ospf !== false){
     if(o.routerId) out.push("set routing-options router-id "+o.routerId);
     o.networks.forEach(n=>{
       if(!n.net) return;
@@ -925,7 +979,9 @@ function genJunos(){
       const ifn = matchIf ? matchIf.name+".0" : "ge-0/0/0.0";
       out.push("set protocols ospf area 0.0.0."+(n.area||"0")+" interface "+ifn);
     });
+    }
     const b = state.bgp;
+    if(en.bgp !== false){
     if(b.asn) out.push("set routing-options autonomous-system "+b.asn);
     b.neighbors.forEach(n=>{
       if(!n.ip) return;
@@ -941,8 +997,9 @@ function genJunos(){
       out.push("set policy-options policy-statement EXPORT-"+i+" term 1 from route-filter "+n.net+"/"+p+" exact");
       out.push("set policy-options policy-statement EXPORT-"+i+" term 1 then accept");
     });
+    }
   }
-  state.acls.forEach(a=>{
+  if(en.acls !== false) state.acls.forEach(a=>{
     if(!a.name) return;
     a.rules.forEach(r=>{
       const t = "T"+r.seq;
@@ -954,8 +1011,8 @@ function genJunos(){
     });
   });
   if(state.role==="switch"){
-    state.vlans.forEach(v=>{ if(v.id) out.push("set vlans vlan"+v.id+" vlan-id "+v.id); });
-    state.trunks.forEach(t=>{
+    if(en.vlans !== false) state.vlans.forEach(v=>{ if(v.id) out.push("set vlans vlan"+v.id+" vlan-id "+v.id); });
+    if(en.trunks !== false) state.trunks.forEach(t=>{
       if(!t.intf) return;
       const vlans = (t.allowed||"").split(",").map(x=>"vlan"+x.trim()).filter(x=>x!=="vlan").join(" ");
       out.push("set interfaces "+t.intf+" unit 0 family ethernet-switching interface-mode trunk vlan members [ "+vlans+" ]");
@@ -963,13 +1020,13 @@ function genJunos(){
     });
   }
   if(state.role==="firewall"){
-    state.zones.forEach(z=>{
+    if(en.zones !== false) state.zones.forEach(z=>{
       if(!z.name) return;
       (z.interfaces||"").split(",").map(x=>x.trim()).filter(Boolean).forEach(ifc=>{
         out.push("set security zones security-zone "+z.name+" interfaces "+ifc+".0");
       });
     });
-    state.policies.forEach(p=>{
+    if(en.policies !== false) state.policies.forEach(p=>{
       if(!p.name) return;
       const path = "security policies from-zone "+p.from+" to-zone "+p.to+" policy "+p.name;
       out.push("set "+path+" match source-address "+(p.src==="any"?"any":p.name+"-src"));
@@ -977,7 +1034,7 @@ function genJunos(){
       out.push("set "+path+" match application "+(p.app||"any"));
       out.push("set "+path+" then "+p.action);
     });
-    state.nat.forEach((n,i)=>{
+    if(en.nat !== false) state.nat.forEach((n,i)=>{
       const dir = (n.direction||"trust→untrust").split("→");
       const fromZ = dir[0]; const toZ = dir[1]||"untrust";
       if(n.type==="source"){
@@ -993,7 +1050,7 @@ function genJunos(){
         out.push("set security nat destination rule-set DNAT rule R"+i+" then destination-nat pool DNAT-"+i);
       }
     });
-    state.vpn.forEach((v,i)=>{
+    if(en.vpn !== false) state.vpn.forEach((v,i)=>{
       if(!v.peer) return;
       const id = "VPN-"+i;
       out.push("set security ike proposal "+id+"-P1 authentication-method pre-shared-keys");
@@ -1006,12 +1063,14 @@ function genJunos(){
       out.push("set security ipsec vpn "+id+" ike gateway "+id+"-GW");
     });
   }
-  if(state.snmp.community) out.push("set snmp community "+state.snmp.community+" authorization read-only");
-  if(state.snmp.v3user){
-    out.push('set snmp v3 usm local-engine user '+state.snmp.v3user+' authentication-sha authentication-password "'+state.snmp.v3auth+'"');
-    out.push('set snmp v3 usm local-engine user '+state.snmp.v3user+' privacy-aes128 privacy-password "'+state.snmp.v3priv+'"');
+  if(en.snmp !== false){
+    if(state.snmp.community) out.push("set snmp community "+state.snmp.community+" authorization read-only");
+    if(state.snmp.v3user){
+      out.push('set snmp v3 usm local-engine user '+state.snmp.v3user+' authentication-sha authentication-password "'+state.snmp.v3auth+'"');
+      out.push('set snmp v3 usm local-engine user '+state.snmp.v3user+' privacy-aes128 privacy-password "'+state.snmp.v3priv+'"');
+    }
   }
-  if(state.logging.host) out.push("set system syslog host "+state.logging.host+" any "+state.logging.level);
+  if(state.logging.host && en.logging !== false) out.push("set system syslog host "+state.logging.host+" any "+state.logging.level);
   return out.join("\n");
 }
 function genEos(){
@@ -1182,14 +1241,20 @@ $("btnReset").addEventListener("click",()=>{
   }
 });
 $("actLoad").addEventListener("click",()=>location.reload());
+function applyThemeLabel(){
+  const cur = document.documentElement.getAttribute("data-theme") || "dark";
+  $("themeLabel").textContent = cur === "dark" ? "Dark" : "Light";
+}
 $("btnTheme").addEventListener("click",()=>{
   const cur = document.documentElement.getAttribute("data-theme");
   const next = cur === "dark" ? "light" : "dark";
   document.documentElement.setAttribute("data-theme", next);
   localStorage.setItem("cfg-theme", next);
+  applyThemeLabel();
 });
 const savedTheme = localStorage.getItem("cfg-theme");
 if(savedTheme) document.documentElement.setAttribute("data-theme", savedTheme);
+applyThemeLabel();
 $("btnLcollapse").addEventListener("click",()=>$("shell").classList.toggle("lcollapsed"));
 $("navsearch").addEventListener("input",applyNavSearch);
 
@@ -1229,10 +1294,133 @@ makeResizer($("gutterR"), false);
 
 document.addEventListener("keydown",e=>{
   const tgt = document.activeElement;
-  if(tgt && (tgt.tagName==="INPUT" || tgt.tagName==="SELECT" || tgt.tagName==="TEXTAREA")) return;
+  const inField = tgt && (tgt.tagName==="INPUT" || tgt.tagName==="SELECT" || tgt.tagName==="TEXTAREA");
+  // Cmd/Ctrl shortcuts work even inside fields
+  if((e.metaKey||e.ctrlKey) && e.key.toLowerCase()==="k"){
+    e.preventDefault(); $("navsearch").focus(); $("navsearch").select(); return;
+  }
+  if((e.metaKey||e.ctrlKey) && e.key === "Enter"){
+    e.preventDefault(); $("btnCopy").click(); return;
+  }
+  if(e.key === "Escape" && $("importOverlay").style.display !== "none"){
+    $("importOverlay").style.display = "none"; return;
+  }
+  if(inField) return;
   if(e.key === "s"){ $("shell").classList.toggle("lcollapsed"); }
   else if(e.key === "/"){ e.preventDefault(); $("navsearch").focus(); }
   else if(e.key === "d"){ $("btnDiff").click(); }
+  else if(e.key === "i"){ openImport(); }
+});
+
+/* ── Import (paste & parse) ── */
+function openImport(){
+  const ov = $("importOverlay");
+  ov.style.display = "flex";
+  setTimeout(()=>$("importText").focus(), 50);
+  $("importStats").textContent = "";
+}
+function parseCiscoLike(txt){
+  const out = {interfaces:[], static:[], ospf:null, bgp:null, acls:[], vlans:[], hostname:null};
+  const lines = txt.split(/\r?\n/);
+  let i = 0, curIf = null, curAcl = null, curOspf = null, curBgp = null;
+  while(i < lines.length){
+    const raw = lines[i]; const L = raw.trim();
+    // hostname
+    let m = L.match(/^hostname\s+(\S+)/i);
+    if(m){ out.hostname = m[1]; i++; continue; }
+    // interface block
+    m = L.match(/^interface\s+(\S.+)$/i);
+    if(m){
+      if(curIf) out.interfaces.push(curIf);
+      curIf = {name:m[1], desc:"", ip:"", mask:"", prefix:24, enabled:true, mode:"routed", vlan:"", trunkVlans:""};
+      i++; continue;
+    }
+    if(curIf){
+      m = L.match(/^description\s+(.+)$/i);                    if(m){curIf.desc=m[1]; i++; continue;}
+      m = L.match(/^ip address\s+(\d+\.\d+\.\d+\.\d+)\s+(\d+\.\d+\.\d+\.\d+)/i);
+      if(m){curIf.ip=m[1]; curIf.mask=m[2]; i++; continue;}
+      m = L.match(/^ip address\s+(\d+\.\d+\.\d+\.\d+)\/(\d+)/i);
+      if(m){curIf.ip=m[1]; curIf.prefix=+m[2]; curIf.mask=prefixToMask(+m[2]); i++; continue;}
+      if(/^no shutdown$/i.test(L)){ curIf.enabled = true; i++; continue; }
+      if(/^shutdown$/i.test(L)){ curIf.enabled = false; i++; continue; }
+      m = L.match(/^switchport mode\s+(access|trunk)/i);       if(m){curIf.mode=m[1]; i++; continue;}
+      m = L.match(/^switchport access vlan\s+(\d+)/i);          if(m){curIf.vlan=m[1]; curIf.mode="access"; i++; continue;}
+      m = L.match(/^switchport trunk allowed vlan\s+(.+)/i);    if(m){curIf.trunkVlans=m[1]; curIf.mode="trunk"; i++; continue;}
+      if(L === "!" || L === ""){ out.interfaces.push(curIf); curIf=null; i++; continue; }
+    }
+    // static route
+    m = L.match(/^ip route\s+(\d+\.\d+\.\d+\.\d+)\s+(\d+\.\d+\.\d+\.\d+)\s+(\S+)(?:\s+(\d+))?/i);
+    if(m){ out.static.push({prefix:m[1], mask:m[2], nextHop:m[3], distance:m[4]||""}); i++; continue; }
+    m = L.match(/^ip route\s+(\d+\.\d+\.\d+\.\d+)\/(\d+)\s+(\S+)(?:\s+(\d+))?/i);
+    if(m){ out.static.push({prefix:m[1], mask:prefixToMask(+m[2]), nextHop:m[3], distance:m[4]||""}); i++; continue; }
+    // OSPF block
+    m = L.match(/^router ospf\s+(\d+)/i);
+    if(m){ curOspf = {processId:m[1], routerId:"", area:"0", networks:[], passiveDefault:false}; out.ospf = curOspf; i++; continue; }
+    if(curOspf){
+      m = L.match(/^router-id\s+(\S+)/i);                       if(m){curOspf.routerId=m[1]; i++; continue;}
+      if(/^passive-interface default/i.test(L)){ curOspf.passiveDefault=true; i++; continue; }
+      m = L.match(/^network\s+(\d+\.\d+\.\d+\.\d+)\s+(\d+\.\d+\.\d+\.\d+)\s+area\s+(\S+)/i);
+      if(m){ curOspf.networks.push({net:m[1], wild:m[2], area:m[3]}); i++; continue; }
+      if(L === "!" || (L.startsWith("router") && !L.startsWith("router ospf"))){ curOspf=null; continue; }
+    }
+    // BGP block
+    m = L.match(/^router bgp\s+(\d+)/i);
+    if(m){ curBgp = {asn:m[1], routerId:"", neighbors:[], networks:[]}; out.bgp = curBgp; i++; continue; }
+    if(curBgp){
+      m = L.match(/^bgp router-id\s+(\S+)/i);                   if(m){curBgp.routerId=m[1]; i++; continue;}
+      m = L.match(/^neighbor\s+(\S+)\s+remote-as\s+(\d+)/i);    if(m){curBgp.neighbors.push({ip:m[1],remoteAs:m[2],desc:""}); i++; continue;}
+      m = L.match(/^neighbor\s+(\S+)\s+description\s+(.+)/i);
+      if(m){ const n=curBgp.neighbors.find(x=>x.ip===m[1]); if(n) n.desc=m[2]; i++; continue; }
+      m = L.match(/^network\s+(\d+\.\d+\.\d+\.\d+)\s+mask\s+(\d+\.\d+\.\d+\.\d+)/i);
+      if(m){ curBgp.networks.push({net:m[1],mask:m[2]}); i++; continue; }
+      if(L === "exit-address-family" || L === "!"){ if(L==="!"){ curBgp=null; } i++; continue; }
+    }
+    // ACL named extended
+    m = L.match(/^ip access-list extended\s+(\S+)/i);
+    if(m){ curAcl = {name:m[1], rules:[]}; out.acls.push(curAcl); i++; continue; }
+    if(curAcl){
+      m = L.match(/^(\d+)\s+(permit|deny)\s+(\S+)\s+(\S+(?:\s+\S+)?)\s+(\S+(?:\s+\S+)?)(?:\s+eq\s+(\S+))?/i);
+      if(m){ curAcl.rules.push({seq:+m[1], action:m[2], proto:m[3], src:m[4], dst:m[5], port:m[6]||""}); i++; continue; }
+      if(L === "!"){ curAcl=null; i++; continue; }
+    }
+    // VLAN database
+    m = L.match(/^vlan\s+(\d+)$/i);
+    if(m){ const v={id:+m[1], name:""}; out.vlans.push(v);
+      if(i+1 < lines.length){
+        const nm = lines[i+1].trim().match(/^name\s+(\S+)/i);
+        if(nm){ v.name = nm[1]; i++; }
+      }
+      i++; continue;
+    }
+    i++;
+  }
+  if(curIf) out.interfaces.push(curIf);
+  return out;
+}
+function applyImport(parsed){
+  if(parsed.hostname){ state.hostname = parsed.hostname; $("hostname").value = parsed.hostname; }
+  if(parsed.interfaces.length) state.interfaces = parsed.interfaces;
+  if(parsed.static.length) state.static = parsed.static;
+  if(parsed.ospf) state.ospf = parsed.ospf;
+  if(parsed.bgp) state.bgp = parsed.bgp;
+  if(parsed.acls.length) state.acls = parsed.acls;
+  if(parsed.vlans.length) state.vlans = parsed.vlans;
+  renderContent(); generate(); refreshNav();
+}
+$("btnImport").addEventListener("click",openImport);
+$("importClose").addEventListener("click",()=>$("importOverlay").style.display="none");
+$("importPreview").addEventListener("click",()=>{
+  const parsed = parseCiscoLike($("importText").value);
+  $("importStats").textContent = `parsed: ${parsed.interfaces.length} interfaces · ${parsed.static.length} static · ${parsed.ospf?1:0} ospf · ${parsed.bgp?1:0} bgp · ${parsed.acls.length} acls · ${parsed.vlans.length} vlans`;
+});
+$("importApply").addEventListener("click",()=>{
+  const txt = $("importText").value.trim();
+  if(!txt){ alert("Paste a config first."); return; }
+  const parsed = parseCiscoLike(txt);
+  const counts = `${parsed.interfaces.length} interfaces, ${parsed.static.length} static routes, ${parsed.ospf?"OSPF":""}${parsed.bgp?" BGP":""} ${parsed.acls.length} ACLs, ${parsed.vlans.length} VLANs`;
+  if(!confirm("Apply parsed config (replaces current)?\n\n"+counts)) return;
+  applyImport(parsed);
+  $("importOverlay").style.display = "none";
 });
 
 /* Init */
