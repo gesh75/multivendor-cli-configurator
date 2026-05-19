@@ -245,6 +245,8 @@ def strip_prompt(s: str) -> str:
 def main():
     raw = []
     for md in sorted(SRC_DIR.glob("*.md")):
+        # ENCOR/ENARSI has its own dedicated parser → encor.json
+        if "encor" in md.name.lower(): continue
         try:
             items = parse_markdown(md)
             raw.extend(items)
@@ -286,6 +288,17 @@ def main():
             if key not in seen:
                 seen.add(key); cmds.append(s)
         print(f"  merged seed: {len(seed)} curated entries", file=sys.stderr)
+
+    # Merge ENCOR/ENARSI Cisco Press dataset (1,391 commands)
+    encor_path = pathlib.Path(__file__).parent / "encor.json"
+    if encor_path.exists():
+        encor = json.loads(encor_path.read_text())
+        added = 0
+        for s in encor:
+            key = re.sub(r"\s+", " ", s["cmd"]).lower()
+            if key not in seen:
+                seen.add(key); cmds.append(s); added += 1
+        print(f"  merged ENCOR: {added} new entries (deduped from {len(encor)})", file=sys.stderr)
 
     OUT_FILE.write_text(json.dumps(cmds, indent=1, ensure_ascii=False))
     print(f"\nwrote {len(cmds)} commands -> {OUT_FILE}")
