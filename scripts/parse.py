@@ -37,17 +37,28 @@ CAT_KEYWORDS = [
 ]
 
 # OS inference heuristic
-def detect_os(cmd: str, hint: str = "") -> str:
-    c = (cmd + " " + hint).lower()
-    if any(k in c for k in ["set interfaces", "set protocols", "set system", "show configuration", "commit"]):
+def detect_os(cmd: str, hint: str = "", src: str = "") -> str:
+    s = (src or "").lower()
+    # Strongest signal: source filename
+    if "junos" in s or "juniper" in s or "srx" in s or "mx-" in s:
         return "junos"
-    if "no switchport" in c and "/" in c and "ip address" in c:
-        return "nxos"  # NX-OS uses CIDR on physical, requires no switchport
-    if "feature " in c.split("\n")[0] if c else False:
+    if "arista" in s or "/eos" in s or "alista" in s:
+        return "eos"
+    if "nxos" in s or "nexus" in s or "nx-os" in s or "nx9k" in s or "9k" in s:
         return "nxos"
-    if "nameif" in c or "security-level" in c:
+    if "asa" in s or "firepower" in s or "ftd" in s:
         return "asa"
-    if "configure session" in c or "ip virtual-router" in c:
+    c = (cmd + " " + hint).lower()
+    if any(k in c for k in ["set interfaces", "set protocols", "set system", "show configuration |", "commit confirmed", "set routing-options", "set security zones"]):
+        return "junos"
+    first_word = c.split("\n", 1)[0].split(" ", 1)[0] if c else ""
+    if first_word == "feature" or " feature vpc" in c or " feature ospf" in c:
+        return "nxos"
+    if "no switchport" in c and "/" in c and "ip address" in c:
+        return "nxos"
+    if "nameif" in c or "security-level " in c or "packet-tracer input" in c:
+        return "asa"
+    if "configure session" in c or "ip virtual-router" in c or "mlag configuration" in c or "service routing protocols model" in c:
         return "eos"
     return "ios"
 
@@ -164,14 +175,72 @@ def parse_markdown(path: pathlib.Path):
         bq = re.match(r"^>\s*`{1,2}([^`]+)`{1,2}\s*$", line)
         if bq:
             raw_cmd = bq.group(1).strip()
-            cmd = re.sub(r"^[Rr]\d+(\(config[^)]*\))?[#>]\s*", "", raw_cmd)
-            cmd = re.sub(r"^[Ss]witch(\(config[^)]*\))?[#>]\s*", "", cmd)
-            cmd = cmd.strip()
+            cmd = strip_prompt(raw_cmd)
             if cmd and re.search(r"\b(show|interface|ip|ipv6|router|vlan|set|access-list|hostname|configure|switchport|spanning-tree|crypto|snmp|logging|ntp|aaa|debug|enable|copy|write|reload|monitor|clear|ping|traceroute|no )\b", cmd, re.I):
+                section = " > ".join(headings.get(k, "") for k in sorted(headings) if headings.get(k))
+                items.append({"src": path.name, "section": section, "cmd": cmd})
+            i += 1
+            continue
+        # AsciiDoc table: [cols=...] ... |=== |Cmd| Desc |=== — rows are alternating |cell lines
+        if line.strip() == "|===":
+            i += 1
+            # consume table until next |===
+            rows = []
+            cur_row = []
+            while i < n and lines[i].strip() != "|===":
+                ln = lines[i]
+                m_cell = re.match(r"^\|\s?(.*)$", ln)
+                if m_cell:
+                    if cur_row and (len(cur_row) >= 2 or ln.startswith("|")):
+                        # new cell starts → row of 2 cells = command + desc
+                        if len(cur_row) >= 2:
+                            rows.append(cur_row)
+                            cur_row = []
+                    cur_row.append(m_cell.group(1))
+                else:
+                    # continuation of last cell
+                    if cur_row:
+                        cur_row[-1] += "\n" + ln
+                i += 1
+            if cur_row and len(cur_row) >= 2:
+                rows.append(cur_row)
+            i += 1  # skip closing |===
+            # skip first row if it looks like header (Command/Description)
+            for r in rows:
+                raw_cmd, desc = r[0].strip(), r[1].strip() if len(r) > 1 else ""
+                if re.match(r"^\s*command\s*$", raw_cmd, re.I): continue
+                if re.match(r"^\s*descritp?tion\s*$", desc, re.I): continue
+                # strip asciidoc emphasis (*x* or _x_) and backticks
+                cmd = re.sub(r"[*`_]", "", raw_cmd).strip()
+                cmd = strip_prompt(cmd)
+                if cmd and len(cmd) < 300 and re.search(r"\b(show|interface|ip|ipv6|router|vlan|set|access-list|hostname|configure|switchport|spanning-tree|crypto|snmp|logging|ntp|aaa|debug|enable|copy|write|reload|monitor|clear|ping|traceroute|no |request|commit|delete|run)\b", cmd, re.I):
+                    section = " > ".join(headings.get(k, "") for k in sorted(headings) if headings.get(k))
+                    items.append({"src": path.name, "section": section + " | " + desc[:120], "cmd": cmd})
+            continue
+        # Plain prompt lines anywhere: "Switch# show ...", "Router(config)# ip route ...", "user@JunOS> show ..."
+        pm = re.match(r"^\s*(?:user@\w+|R\d+|Switch|Router|Host|sw\d+|[A-Z][\w-]*?)(\(config[^)]*\))?[#>%]\s+(.+?)\s*$", line)
+        if pm and len(pm.group(2)) > 3 and len(pm.group(2)) < 200:
+            cmd = pm.group(2).strip()
+            # filter out non-config lines (output text)
+            if re.search(r"^\s*(?:show|interface|ip |ipv6|router|vlan|set |access-list|hostname|configure|conf t|switchport|spanning-tree|crypto|snmp|logging|ntp|aaa|debug|enable|copy|write|reload|monitor|clear|ping|traceroute|no |request|commit|delete|run|edit|exit|end|description|mtu|speed|duplex|shutdown|sh )", cmd, re.I):
+                section = " > ".join(headings.get(k, "") for k in sorted(headings) if headings.get(k))
+                items.append({"src": path.name, "section": section, "cmd": cmd})
+        # Indented (4-space) code lines that look like commands
+        if line.startswith("    ") and not line.strip().startswith(("//", "#", "--", "|", "*", "-")):
+            inner = line.strip()
+            # match: optional `quoted` cmd or prompt+cmd or bare command
+            inner = re.sub(r'^"([^"]+)"\s*(#.*)?$', r"\1", inner)
+            cmd = strip_prompt(inner)
+            cmd = cmd.split("#")[0].strip()  # strip inline cisco-style comment
+            if cmd and 6 <= len(cmd) <= 200 and re.match(r"^(?:show|interface|ip|ipv6|router|vlan|set|access-list|hostname|configure|switchport|spanning-tree|crypto|snmp|logging|ntp|aaa|debug|enable|copy|write|reload|monitor|clear|ping|traceroute|no |service|request|commit|delete|edit|description)\b", cmd, re.I):
                 section = " > ".join(headings.get(k, "") for k in sorted(headings) if headings.get(k))
                 items.append({"src": path.name, "section": section, "cmd": cmd})
         i += 1
     return items
+
+def strip_prompt(s: str) -> str:
+    s = re.sub(r"^(?:user@\w+|R\d+|Switch|Router|Host|sw\d+|S\d+|[A-Z][\w-]*?)(\(config[^)]*\))?[#>%]\s*", "", s)
+    return s.strip()
 
 def main():
     raw = []
@@ -193,9 +262,13 @@ def main():
         key = re.sub(r"\s+", " ", cmd).lower()
         if key in seen: continue
         seen.add(key)
-        os = detect_os(cmd, sec)
+        os = detect_os(cmd, sec, it["src"])
         role = detect_role(cmd, sec)
         vendor = detect_vendor(cmd, it["src"])
+        # vendor override from filename
+        sf = it["src"].lower()
+        if "arista" in sf or "alista" in sf or "eos" in sf: vendor = "Arista"
+        elif "junos" in sf or "juniper" in sf or "srx" in sf: vendor = "Juniper"
         cat = categorize(cmd, sec)
         title = short_title(cmd, sec.split(" > ")[-1] if sec else "")
         cmds.append({
