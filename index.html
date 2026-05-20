@@ -47,7 +47,14 @@ main{display:grid;grid-template-columns:var(--side-w,240px) 1fr;gap:16px;padding
 main.lcollapsed{grid-template-columns:0 1fr;gap:0}
 main.lcollapsed .side{display:none}
 
-.side{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:0;height:calc(100vh - 110px);overflow:auto;position:sticky;top:88px}
+.side{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:0;height:calc(100vh - 110px);overflow:auto;position:sticky;top:88px;
+  /* Subtle bottom-edge fade hints there's more content to scroll */
+  mask-image:linear-gradient(to bottom, #000 0, #000 calc(100% - 26px), rgba(0,0,0,.4) 100%);
+  -webkit-mask-image:linear-gradient(to bottom, #000 0, #000 calc(100% - 26px), rgba(0,0,0,.4) 100%);
+  scrollbar-width:thin;scrollbar-color:var(--line-2) transparent}
+.side::-webkit-scrollbar{width:8px}
+.side::-webkit-scrollbar-thumb{background:var(--line-2);border-radius:4px}
+.side::-webkit-scrollbar-thumb:hover{background:var(--ink-muted)}
 .acc{border-bottom:1px solid var(--line-2)}
 .acc:last-child{border-bottom:0}
 .acc-head{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;cursor:pointer;user-select:none;font:11px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:1.5px;color:var(--ink-dim);text-transform:uppercase}
@@ -188,7 +195,7 @@ table.cmd tr:hover{background:var(--panel-2)}
 
 .drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);opacity:0;visibility:hidden;transition:opacity .2s,visibility .2s;z-index:40}
 .drawer-overlay.open{opacity:1;visibility:visible}
-.drawer{position:fixed;top:0;right:calc(-1 * var(--drawer-w, 440px) - 20px);bottom:0;width:var(--drawer-w, 440px);min-width:320px;max-width:90vw;background:var(--panel);border-left:1px solid var(--line);transition:right .22s ease, width 0s;z-index:50;display:flex;flex-direction:column;box-shadow:-10px 0 30px rgba(0,0,0,.4)}
+.drawer{position:fixed;top:0;right:calc(-1 * var(--drawer-w, 440px) - 20px);bottom:0;width:min(var(--drawer-w, 440px), calc(100vw - 48px));min-width:280px;max-width:calc(100vw - 48px);background:var(--panel);border-left:1px solid var(--line);transition:right .22s ease, width 0s;z-index:50;display:flex;flex-direction:column;box-shadow:-10px 0 30px rgba(0,0,0,.4)}
 .drawer.open{right:0}
 .drawer .resize-handle{position:absolute;left:-3px;top:0;bottom:0;width:6px;cursor:col-resize;background:transparent;z-index:2}
 .drawer .resize-handle:hover{background:var(--accent)}
@@ -208,7 +215,7 @@ table.cmd tr:hover{background:var(--panel-2)}
 .queue-item .qrm:hover{color:var(--bad)}
 .queue-empty{text-align:center;color:var(--ink-muted);padding:30px 12px;font-size:12px;line-height:1.6}
 
-.equiv-drawer{position:fixed;top:0;right:-560px;bottom:0;width:540px;background:var(--panel);border-left:1px solid var(--line);transition:right .22s ease;z-index:51;display:flex;flex-direction:column;box-shadow:-10px 0 30px rgba(0,0,0,.4)}
+.equiv-drawer{position:fixed;top:0;right:-560px;bottom:0;width:min(540px,calc(100vw - 48px));max-width:96vw;background:var(--panel);border-left:1px solid var(--line);transition:right .22s ease;z-index:51;display:flex;flex-direction:column;box-shadow:-10px 0 30px rgba(0,0,0,.4)}
 .equiv-drawer.open{right:0}
 .equiv-drawer .dh{padding:12px 14px;border-bottom:1px solid var(--line);background:var(--panel-2)}
 .equiv-drawer .db{flex:1;overflow:auto;padding:14px}
@@ -224,7 +231,7 @@ table.cmd tr:hover{background:var(--panel-2)}
 .equiv-card .nocmd{color:var(--ink-muted);font-style:italic;padding:8px}
 
 /* Automation drawer */
-.auto-drawer{position:fixed;top:0;right:-720px;bottom:0;width:700px;max-width:96vw;background:var(--panel);border-left:1px solid var(--line);transition:right .22s ease;z-index:52;display:flex;flex-direction:column;box-shadow:-10px 0 30px rgba(0,0,0,.4)}
+.auto-drawer{position:fixed;top:0;right:-720px;bottom:0;width:min(700px,calc(100vw - 48px));max-width:96vw;background:var(--panel);border-left:1px solid var(--line);transition:right .22s ease;z-index:52;display:flex;flex-direction:column;box-shadow:-10px 0 30px rgba(0,0,0,.4)}
 .auto-drawer.open{right:0}
 .auto-drawer .dh{padding:12px 14px;border-bottom:1px solid var(--line);background:var(--panel-2)}
 .auto-drawer .dh-top{display:flex;justify-content:space-between;align-items:center}
@@ -309,7 +316,7 @@ table.cmd tr:hover{background:var(--panel-2)}
 footer{padding:20px;color:var(--ink-dim);font-size:11px;text-align:center}
 .empty{padding:40px;text-align:center;color:var(--ink-dim);border:1px dashed var(--line);border-radius:12px;margin-top:20px}
 mark{background:rgba(34,211,238,.25);color:inherit;border-radius:3px;padding:0 2px}
-.helpcard{position:fixed;top:60px;right:14px;width:300px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;font-size:12px;z-index:60;box-shadow:0 10px 30px rgba(0,0,0,.4);display:none}
+.helpcard{position:fixed;top:60px;right:14px;width:min(320px, calc(100vw - 28px));max-width:calc(100vw - 28px);background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;font-size:12px;z-index:60;box-shadow:0 10px 30px rgba(0,0,0,.4);display:none}
 .helpcard.open{display:block}
 .helpcard h4{margin:0 0 8px;font-size:12px;color:var(--accent);letter-spacing:1px;text-transform:uppercase}
 .helpcard table{width:100%;border-collapse:collapse}
@@ -448,7 +455,7 @@ mark{background:rgba(34,211,238,.25);color:inherit;border-radius:3px;padding:0 2
         <button data-view="compare" id="vb-compare">Compare</button>
       </div>
       <span class="pill">Showing <b id="vb-shown">0</b> / <b id="vb-total">0</b></span>
-      <span class="pill" id="vb-mode">Cards view</span>
+      <button id="vb-clear" class="tbtn" style="display:none;border-color:var(--bad);color:var(--bad)" title="Clear all active filters and search">✕ Clear filters</button>
     </div>
     <div id="results"></div>
   </section>
@@ -2985,6 +2992,9 @@ function renderFavoritesPanel(){
 function renderActiveBar(){
   const bar = $("active-bar"); bar.replaceChildren();
   const total = state.vendor.size + state.os.size + state.role.size + state.cat.size + (state.showFavOnly?1:0);
+  // Mirror the "any filter active" state to the viewbar's Clear button
+  const vbClear = $("vb-clear");
+  if(vbClear) vbClear.style.display = (total > 0 || (state.q || "").trim()) ? "inline-flex" : "none";
   if(total === 0){ bar.style.display = "none"; return; }
   bar.style.display = "flex";
   bar.appendChild(el("span",{class:"lbl"}, "active filters:"));
@@ -3069,7 +3079,7 @@ function buildCard(d){
       ? "Show NETCONF/YANG/Ansible equivalents (model-driven, values extracted from this command)"
       : "Show Netmiko/Ansible/NAPALM equivalents (CLI-wrapper fallback)",
     onClick:()=>{ openAutomation(d); pushRecent(d); }
-  }, hasNative ? "⚡ Automate" : "🔧 Automate*");
+  }, hasNative ? "⚡ Automate (YANG)" : "🔧 Automate (SSH)");
   actions.appendChild(autoBtn);
   actions.appendChild(equivBtn);
   body.appendChild(actions);
@@ -3401,7 +3411,6 @@ function render(){
 }
 
 function renderCards(filtered, results){
-  $("vb-mode").textContent = "Cards view";
   const groups = {};
   filtered.forEach(d=>{ (groups[d.cat] = groups[d.cat] || []).push(d); });
   Object.keys(groups).sort().forEach(k=>{
@@ -3418,7 +3427,6 @@ function renderCards(filtered, results){
 }
 
 function renderTable(filtered, results){
-  $("vb-mode").textContent = "Table view";
   const wrap = el("div",{class:"tblwrap"});
   const tbl = el("table",{class:"cmd"});
   const cols = [
@@ -3558,7 +3566,24 @@ function conceptKey(d){
 }
 
 function renderCompare(filtered, results){
-  $("vb-mode").textContent = "Compare view";
+  // Compare view only works with all 3 vendors visible.
+  // If the user has narrowed to 1-2 vendors, surface a one-click "show all vendors" tip.
+  if(state.vendor.size > 0 && state.vendor.size < 3){
+    const missing = ["Cisco","Juniper","Arista"].filter(v => !state.vendor.has(v));
+    const tip = el("div", {class:"empty",
+      style:"margin-bottom:14px;border-color:var(--accent);color:var(--ink);text-align:left;padding:14px 18px"});
+    tip.appendChild(el("div",{style:"font-weight:600;margin-bottom:6px"},
+      "💡 Compare view works best with all 3 vendors enabled"));
+    tip.appendChild(el("div",{style:"font-size:12px;color:var(--ink-dim);margin-bottom:10px"},
+      "You currently have only " + [...state.vendor].join(" + ") +
+      " enabled. Showing " + missing.join(" / ") + " columns will reveal cross-vendor equivalents."));
+    tip.appendChild(el("button",{
+      class:"tbtn",
+      style:"background:var(--accent);color:#000;border-color:var(--accent);font-weight:600",
+      onClick:()=>{ state.vendor.clear(); renderChips(); renderActiveBar(); render(); }
+    }, "Show all vendors"));
+    results.appendChild(tip);
+  }
   const byCat = {};
   filtered.forEach(d=>{(byCat[d.cat] = byCat[d.cat] || []).push(d);});
   Object.keys(byCat).sort().forEach(cat=>{
@@ -3843,6 +3868,12 @@ $("vb-table").addEventListener("click",()=>setView("table"));
 $("vb-compare").addEventListener("click",()=>setView("compare"));
 $("btn-clibuilder").addEventListener("click",openDrawer);
 $("cli-dock").addEventListener("click",openDrawer);
+$("vb-clear").addEventListener("click",()=>{
+  state.vendor.clear(); state.os.clear(); state.role.clear(); state.cat.clear();
+  state.showFavOnly = false; state.q = "";
+  const qEl2 = document.getElementById("q"); if(qEl2) qEl2.value = "";
+  renderChips(); renderActiveBar(); render();
+});
 $("drawer-close").addEventListener("click",closeDrawer);
 $("drawer-overlay").addEventListener("click",closeDrawer);
 $("drawer-copy").addEventListener("click",()=>navigator.clipboard.writeText(buildAllText()));
@@ -3993,10 +4024,18 @@ syncThemeIcon();
 $("btn-help").addEventListener("click",()=>$("helpcard").classList.toggle("open"));
 $("btn-side").addEventListener("click",()=>{
   const m = document.querySelector("main");
-  m.classList.toggle("lcollapsed");
-  localStorage.setItem("cli-side-collapsed", m.classList.contains("lcollapsed")?"1":"0");
-  // also toggle .open for mobile drawer fallback
-  $("side").classList.toggle("open");
+  // At mobile widths, .side is a fixed slide-over: toggle .open ONLY.
+  // At desktop widths, .side participates in the grid: toggle .lcollapsed
+  // so the results column reflows to fill the freed space.
+  const mobile = window.matchMedia("(max-width: 1000px)").matches;
+  if(mobile){
+    $("side").classList.toggle("open");
+  } else {
+    m.classList.toggle("lcollapsed");
+    localStorage.setItem("cli-side-collapsed", m.classList.contains("lcollapsed")?"1":"0");
+    // Ensure mobile-drawer class is cleared at desktop so it can't leak state
+    $("side").classList.remove("open");
+  }
 });
 if(localStorage.getItem("cli-side-collapsed")==="1") document.querySelector("main").classList.add("lcollapsed");
 
