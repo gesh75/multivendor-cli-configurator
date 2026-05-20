@@ -3,304 +3,1514 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Multivendor GUI Configurator — Cisco · Juniper · Arista</title>
+<title>Multivendor CLI Reference — Cisco · Juniper · Arista</title>
+<meta name="description" content="889 commands across Cisco IOS / IOS-XE / NX-OS / ASA, Juniper Junos (MX/EX/QFX/SRX), and Arista EOS. Searchable, comparable, exportable." />
 <style>
 :root[data-theme="dark"]{
-  --bg:#000;--panel:#0a0f0a;--panel-2:#0d140d;--line:#1a3d1a;--line-2:#0e2810;
-  --ink:#c8ffc8;--ink-dim:#5e8a5e;--ink-muted:#3d5d3d;
-  --accent:#39ff14;--accent-2:#22d3ee;--warn:#ffb020;--bad:#ff5050;--good:#0aff0a;
-  --code-bg:#000;
-  --kw:#39ff14;--ip:#ffb020;--num:#ffb020;--str:#c8ffc8;--cmt:#4a7d4d;--ifname:#a78bfa;
+  --bg:#0b1020;--panel:#0f1530;--panel-2:#121a3a;--ink:#cfd6f5;--ink-dim:#8892b8;--ink-muted:#5b6a99;
+  --accent:#22d3ee;--accent-2:#a78bfa;--good:#22c55e;--warn:#f59e0b;--bad:#ef4444;
+  --line:#1f2a55;--line-2:#19234a;--chip:#16204a;--chip-on:#1e2a66;
+  --code-bg:#070b1e;--code-ink:#e2e8f0;
   --cisco:#3b82f6;--juniper:#22c55e;--arista:#a855f7;
+  --kw:#22d3ee;--param:#ffb020;--cmt:#5b7c5e;--str:#9cffa0;--placeholder:#fbbf24;
 }
 :root[data-theme="light"]{
-  --bg:#f8faf6;--panel:#ffffff;--panel-2:#eef6ee;--line:#cbe0cb;--line-2:#dceadc;
-  --ink:#0e3812;--ink-dim:#3d6b3d;--ink-muted:#8aa78a;
-  --accent:#0e7c2c;--accent-2:#0e7490;--warn:#b45309;--bad:#dc2626;--good:#15803d;
-  --code-bg:#06190a;
-  --kw:#9cffa0;--ip:#ffb020;--num:#ffb020;--str:#c8ffc8;--cmt:#7da77f;--ifname:#a78bfa;
+  --bg:#f5f7fb;--panel:#ffffff;--panel-2:#f0f3fa;--ink:#1e2a48;--ink-dim:#4f5d7e;--ink-muted:#8b97b8;
+  --accent:#0891b2;--accent-2:#7c3aed;--good:#16a34a;--warn:#d97706;--bad:#dc2626;
+  --line:#dde3ee;--line-2:#e8edf6;--chip:#f0f3fa;--chip-on:#e0e9fb;
+  --code-bg:#0b1430;--code-ink:#e2e8f0;
   --cisco:#1d4ed8;--juniper:#15803d;--arista:#7e22ce;
+  --kw:#0e7490;--param:#b45309;--cmt:#64748b;--str:#15803d;--placeholder:#b45309;
 }
 *{box-sizing:border-box}
-html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font:13.5px/1.5 'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;transition:background .15s,color .15s}
-button,select,input{font-family:inherit}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;transition:background .15s,color .15s}
+button{font-family:inherit}
 
-/* Topbar */
-.topbar{background:var(--panel);border-bottom:1px solid var(--line);padding:8px 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;position:sticky;top:0;z-index:50}
-.brand{font-weight:700;color:var(--accent);letter-spacing:1px;font-size:14px}
-.brand small{color:var(--ink-dim);margin-left:8px;font-weight:400}
-.field{display:flex;align-items:center;gap:6px}
-.field label{color:var(--ink-dim);font-size:11px;text-transform:uppercase;letter-spacing:1px}
-.field input,.field select{background:var(--bg);color:var(--ink);border:1px solid var(--line);padding:5px 8px;font:12px var(--mono,'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace);outline:0;border-radius:4px}
-.field input:focus,.field select:focus{border-color:var(--accent);box-shadow:0 0 4px rgba(57,255,20,.35)}
-.tabs{display:flex;gap:0}
-.tab{padding:5px 12px;border:1px solid var(--line);background:transparent;color:var(--ink-dim);cursor:pointer;font:11px inherit;letter-spacing:1px;text-transform:uppercase}
-.tab+.tab{border-left:0}
-.tab.on{color:var(--accent);border-color:var(--accent);background:rgba(57,255,20,.06)}
-.tab:hover{color:var(--ink)}
-.tbtn{background:var(--bg);border:1px solid var(--line);color:var(--ink);padding:5px 10px;border-radius:5px;cursor:pointer;font:11px inherit;letter-spacing:.5px}
+header{position:sticky;top:0;z-index:30;backdrop-filter:blur(10px);background:rgba(0,0,0,.18);border-bottom:1px solid var(--line)}
+:root[data-theme="light"] header{background:rgba(255,255,255,.7)}
+.bar{display:flex;align-items:center;gap:12px;padding:10px 16px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.3px;flex-shrink:0}
+.brand .dot{width:10px;height:10px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));box-shadow:0 0 10px var(--accent)}
+.brand small{color:var(--ink-dim);font-weight:500;margin-left:4px}
+.search{flex:1;display:flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--line);padding:7px 10px;border-radius:10px;min-width:280px}
+.search input{flex:1;background:transparent;border:0;outline:0;color:var(--ink);font:13px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.kbd{font:11px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:var(--chip);border:1px solid var(--line);padding:2px 6px;border-radius:6px;color:var(--ink-dim)}
+.tbtn{background:var(--panel);border:1px solid var(--line);color:var(--ink);padding:7px 10px;border-radius:8px;cursor:pointer;font:12px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;display:inline-flex;align-items:center;gap:6px}
 .tbtn:hover{border-color:var(--accent);color:var(--accent)}
-.tbtn.on{background:rgba(57,255,20,.08);border-color:var(--accent);color:var(--accent)}
+.tbtn.on{background:var(--chip-on);color:var(--accent);border-color:var(--accent)}
+.tbtn .badge{background:var(--accent);color:#000;border-radius:999px;padding:1px 7px;font-weight:600;font-size:10px;min-width:18px;text-align:center}
+.stats{padding:0 16px 8px;color:var(--ink-dim);font:11px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;display:flex;gap:14px;align-items:center;flex-wrap:wrap;border-bottom:1px solid var(--line-2)}
+.stats b{color:var(--ink)}
 
-/* Three-zone shell with CSS resizers */
-.shell{display:grid;grid-template-columns:var(--lcol,200px) 6px 1fr 6px var(--rcol,460px);height:calc(100vh - 49px)}
-.shell.lcollapsed{grid-template-columns:0 0 1fr 6px var(--rcol,460px)}
-.shell.diff{--rcol:760px}
-.gutter{background:var(--line-2);cursor:col-resize;position:relative}
-.gutter:hover{background:var(--accent)}
-.gutter::after{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:2px;height:24px;background:var(--ink-muted);border-radius:1px}
+main{display:grid;grid-template-columns:var(--side-w,240px) 1fr;gap:16px;padding:14px;max-width:1700px;margin:0 auto;transition:grid-template-columns .15s}
+main.lcollapsed{grid-template-columns:0 1fr;gap:0}
+main.lcollapsed .side{display:none}
 
-/* Sidebar */
-.side{background:var(--panel);overflow:auto;display:flex;flex-direction:column;min-width:0}
-.side .ssearch{padding:8px 10px;border-bottom:1px solid var(--line-2);position:sticky;top:0;background:var(--panel);z-index:2}
-.side .ssearch input{width:100%;background:var(--bg);color:var(--ink);border:1px solid var(--line);padding:5px 8px;border-radius:4px;outline:0;font-size:12px}
-.side .ssearch input:focus{border-color:var(--accent)}
-.side h4{margin:12px 12px 4px;font-size:10px;color:var(--ink-dim);letter-spacing:2px;text-transform:uppercase;font-weight:600}
-.nav{display:flex;flex-direction:column}
-.nav a{padding:7px 12px;color:var(--ink-dim);cursor:pointer;border-left:2px solid transparent;text-decoration:none;font-size:12.5px;display:flex;align-items:center;justify-content:space-between;gap:6px;user-select:none}
-.nav a:hover{color:var(--ink);background:rgba(57,255,20,.04)}
-.nav a.on{color:var(--accent);border-left-color:var(--accent);background:rgba(57,255,20,.08)}
-.nav a .stbadge{font-size:11px;width:14px;text-align:center}
-.nav a .stbadge.empty{color:var(--ink-muted)}
-.nav a .stbadge.filled{color:var(--good)}
-.nav a .stbadge.partial{color:var(--warn)}
-.nav a.hidden{display:none}
-.nav a.disabled{opacity:.4}
-.nav a.disabled .stbadge{color:var(--ink-muted) !important}
-.nav a .navright{display:flex;align-items:center;gap:6px}
-.nav a .togsec{appearance:none;width:14px;height:14px;border:1px solid var(--line);border-radius:3px;background:transparent;cursor:pointer;position:relative;flex-shrink:0;margin:0}
-.nav a .togsec:checked{background:var(--accent);border-color:var(--accent)}
-.nav a .togsec:checked::after{content:"✓";position:absolute;top:-3px;left:1px;color:#000;font-size:11px;font-weight:bold;line-height:1}
-.nav a .togsec:hover{border-color:var(--accent)}
-.side .footer{margin-top:auto;padding:8px 10px;border-top:1px solid var(--line-2);display:flex;flex-direction:column;gap:6px}
+.side{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:0;height:calc(100vh - 110px);overflow:auto;position:sticky;top:88px}
+.acc{border-bottom:1px solid var(--line-2)}
+.acc:last-child{border-bottom:0}
+.acc-head{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;cursor:pointer;user-select:none;font:11px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:1.5px;color:var(--ink-dim);text-transform:uppercase}
+.acc-head:hover{color:var(--ink)}
+.acc-head .ct{color:var(--accent);font-size:10px}
+.acc-head .caret{transition:transform .15s}
+.acc.collapsed .acc-head .caret{transform:rotate(-90deg)}
+.acc.collapsed .acc-body{display:none}
+.acc-body{padding:0 12px 12px}
+.chips{display:flex;flex-wrap:wrap;gap:5px}
+.chip{background:var(--chip);border:1px solid var(--line);color:var(--ink);padding:4px 8px;border-radius:999px;font:11px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;cursor:pointer;user-select:none;display:inline-flex;align-items:center;gap:4px}
+.chip:hover{border-color:var(--accent)}
+.chip.on{background:var(--chip-on);border-color:var(--accent);color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+.chip .v{opacity:.65;font-size:9px}
+.chip.cisco.on{border-color:var(--cisco);color:var(--cisco);box-shadow:0 0 0 1px var(--cisco) inset}
+.chip.juniper.on{border-color:var(--juniper);color:var(--juniper);box-shadow:0 0 0 1px var(--juniper) inset}
+.chip.arista.on{border-color:var(--arista);color:var(--arista);box-shadow:0 0 0 1px var(--arista) inset}
+.cat-group{margin-top:8px}
+.cat-group h6{margin:8px 0 4px;font-size:9px;color:var(--ink-muted);letter-spacing:1.2px;text-transform:uppercase;font-weight:600}
 
-/* Canvas */
-.canvas{overflow:auto;padding:16px 22px;min-width:0;background:var(--bg)}
-.sec-title{color:var(--accent);font-size:14px;letter-spacing:1px;margin:0 0 14px;font-weight:500;display:flex;align-items:center;gap:8px}
-.sec-title::before{content:"# ";color:var(--ink-dim)}
-.sec-sub{font-size:11px;color:var(--ink-muted);text-transform:none;letter-spacing:0;margin-left:auto;font-weight:400}
+.active-bar{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:10px 12px;background:var(--panel-2);border:1px solid var(--line);border-radius:10px;margin-bottom:12px}
+.active-bar .lbl{color:var(--ink-dim);font:11px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.active-chip{background:var(--chip-on);border:1px solid var(--accent);color:var(--accent);padding:3px 7px;border-radius:999px;font:11px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;display:inline-flex;align-items:center;gap:5px}
+.active-chip button{background:none;border:0;color:inherit;cursor:pointer;font-size:14px;line-height:1;padding:0}
+.active-chip button:hover{color:var(--bad)}
+.clear-all{margin-left:auto;background:transparent;border:1px solid var(--bad);color:var(--bad);padding:3px 9px;border-radius:6px;font:11px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;cursor:pointer}
+.clear-all:hover{background:var(--bad);color:#fff}
 
-/* Cards (group separators) */
-.card{background:var(--panel);border:1px solid var(--line-2);border-radius:6px;padding:14px;margin-bottom:12px}
-.card .card-title{font-size:12px;color:var(--ink-dim);text-transform:uppercase;letter-spacing:1.2px;margin:0 0 10px;display:flex;align-items:center;gap:6px}
-.entry{border-top:1px solid var(--line-2);padding:12px 0;position:relative}
-.entry:first-of-type{border-top:0;padding-top:0}
-.entry .head{display:flex;align-items:center;gap:10px;margin-bottom:8px}
-.entry .name{color:var(--accent);font-weight:600;letter-spacing:.5px;font-size:13px}
-.entry .badges{display:flex;gap:6px;margin-left:auto;align-items:center}
-.pill{font-size:10px;padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--ink-dim);background:var(--bg)}
-.pill.up{color:var(--good);border-color:var(--good);background:rgba(10,255,10,.08)}
-.pill.down{color:var(--bad);border-color:#5a1010;background:rgba(255,80,80,.08)}
+.viewbar{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.viewbar .seg{display:inline-flex;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:2px;gap:0}
+.viewbar .seg button{background:transparent;border:0;color:var(--ink-dim);padding:5px 10px;font:11px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;cursor:pointer;border-radius:6px;letter-spacing:.5px;text-transform:uppercase}
+.viewbar .seg button.on{background:var(--chip-on);color:var(--accent)}
+.viewbar .pill{padding:4px 9px;border-radius:999px;font:11px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:var(--panel);border:1px solid var(--line);color:var(--ink-dim)}
+.viewbar .pill b{color:var(--ink)}
 
-.row{display:grid;grid-template-columns:160px 1fr;align-items:center;gap:10px;padding:4px 0;font-size:13px}
-.row label{color:var(--ink-dim);font-size:12px;display:flex;align-items:center;gap:5px}
-.row input,.row select{background:var(--bg);color:var(--ink);border:1px solid var(--line);padding:5px 9px;font:12.5px inherit;outline:0;border-radius:4px;width:100%}
-.row input::placeholder{color:var(--ink-muted)}
-.row input:focus,.row select:focus{border-color:var(--accent);box-shadow:0 0 4px rgba(57,255,20,.2)}
-.row .check{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink-dim)}
-.row .check input{width:auto}
+.cat-hdr{margin:18px 0 10px;display:flex;align-items:center;gap:10px}
+.cat-hdr h3{margin:0;font-size:13px;letter-spacing:.4px;color:var(--ink)}
+.cat-hdr .ct{font:11px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--ink-dim);background:var(--panel);border:1px solid var(--line);padding:2px 8px;border-radius:999px}
+.cat-hdr .line{flex:1;height:1px;background:var(--line-2)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:10px;align-items:start}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;display:flex;flex-direction:column;gap:8px;position:relative;overflow:hidden;transition:border-color .15s}
+.card:hover{border-color:var(--accent)}
+.card .stripe{position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--ink-muted)}
+.card.cisco .stripe{background:var(--cisco)}
+.card.juniper .stripe{background:var(--juniper)}
+.card.arista .stripe{background:var(--arista)}
+.card .body{padding:11px 12px 10px 15px;display:flex;flex-direction:column;gap:7px}
+.card .head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.card .title{font-weight:600;font-size:13px;line-height:1.35;color:var(--ink)}
+.card .icons{display:inline-flex;gap:4px;align-items:center;flex-shrink:0}
+.card .icons button{background:transparent;border:0;color:var(--ink-muted);cursor:pointer;font-size:14px;padding:2px 4px;border-radius:4px;line-height:1}
+.card .icons button:hover{color:var(--accent)}
+.card .icons .star.on{color:var(--warn)}
+.card .desc{color:var(--ink-dim);font-size:11.5px;line-height:1.4}
+.card pre{margin:0;padding:9px 10px;background:var(--code-bg);border:1px solid var(--line-2);border-radius:8px;font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--code-ink);overflow:auto;white-space:pre-wrap;word-break:break-word}
+.card pre .k{color:var(--kw)}
+.card pre .p{color:var(--param)}
+.card pre .c{color:var(--cmt)}
+.card pre .ph{background:rgba(251,191,36,.18);color:var(--placeholder);padding:0 4px;border-radius:3px;font-weight:500}
+.card .tags{display:flex;gap:5px;flex-wrap:wrap;align-items:center}
+.tag{font:10px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;padding:2px 6px;border-radius:5px;border:1px solid var(--line);color:var(--ink-dim);background:transparent}
+.tag.v.cisco{color:var(--cisco);border-color:var(--cisco)}
+.tag.v.juniper{color:var(--juniper);border-color:var(--juniper)}
+.tag.v.arista{color:var(--arista);border-color:var(--arista)}
+.tag.v::before{content:"●";margin-right:4px;font-size:9px}
+.tag.cat{color:var(--accent);border-color:var(--accent)}
+.card .actions{display:flex;gap:5px;align-items:center;flex-wrap:wrap;margin-top:2px}
+.actbtn{background:transparent;border:1px solid var(--line);color:var(--ink);padding:4px 9px;border-radius:6px;cursor:pointer;font:11px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.actbtn:hover{border-color:var(--accent);color:var(--accent)}
+.actbtn.primary{background:var(--chip-on);color:var(--accent);border-color:var(--accent)}
+.actbtn.copied{background:var(--good);color:#000;border-color:var(--good)}
+.actbtn.equiv{margin-left:auto}
 
-/* Tooltip */
-.tip{cursor:help;color:var(--ink-muted);font-size:11px;border:1px solid var(--line);border-radius:999px;width:14px;height:14px;display:inline-flex;align-items:center;justify-content:center;line-height:1}
-.tip:hover{color:var(--accent);border-color:var(--accent)}
-.tip[data-tip]{position:relative}
-.tip[data-tip]:hover::after{content:attr(data-tip);position:absolute;left:18px;top:-4px;background:var(--panel-2);color:var(--ink);border:1px solid var(--accent);padding:5px 9px;border-radius:5px;font-size:11px;white-space:nowrap;z-index:100;box-shadow:0 4px 12px rgba(0,0,0,.4)}
+.tblwrap{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:auto;max-height:calc(100vh - 220px)}
+table.cmd{width:100%;border-collapse:collapse;font:12px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+table.cmd thead{position:sticky;top:0;background:var(--panel-2);z-index:1}
+table.cmd th{text-align:left;padding:9px 10px;font-size:11px;color:var(--ink-dim);letter-spacing:.8px;text-transform:uppercase;border-bottom:1px solid var(--line);cursor:pointer;user-select:none}
+table.cmd th:hover{color:var(--accent)}
+table.cmd th .sort{opacity:.4;font-size:9px;margin-left:3px}
+table.cmd td{padding:8px 10px;border-bottom:1px solid var(--line-2);vertical-align:top}
+table.cmd td.cmd-cell{max-width:480px;color:var(--code-ink)}
+table.cmd tr:hover{background:var(--panel-2)}
 
-.add{margin-top:12px;background:transparent;border:1px dashed var(--line);color:var(--ink-dim);padding:8px 12px;cursor:pointer;font:12px inherit;width:100%;border-radius:4px}
-.add:hover{border-color:var(--accent);color:var(--accent)}
-.btn-x{background:transparent;border:1px solid var(--line-2);color:var(--ink-dim);cursor:pointer;font:11px inherit;padding:3px 7px;border-radius:4px}
-.btn-x:hover{color:var(--bad);border-color:var(--bad)}
+.compare-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.compare-col{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.compare-col .colhead{padding:9px 12px;border-bottom:1px solid var(--line);font:12px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:1px;text-transform:uppercase;text-align:center;font-weight:600}
+.compare-col.cisco .colhead{background:rgba(59,130,246,.12);color:var(--cisco)}
+.compare-col.juniper .colhead{background:rgba(34,197,94,.12);color:var(--juniper)}
+.compare-col.arista .colhead{background:rgba(168,85,247,.12);color:var(--arista)}
+.compare-col .colbody{padding:8px}
+.compare-cell{padding:7px 9px;border-bottom:1px solid var(--line-2);font-size:12px}
+.compare-cell:last-child{border-bottom:0}
+.compare-cell .t{font-weight:600;font-size:11.5px;margin-bottom:3px;color:var(--ink)}
+.compare-cell pre{margin:0;padding:6px 8px;background:var(--code-bg);border-radius:5px;font:11px/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--code-ink);overflow:auto;white-space:pre-wrap}
+.compare-cell.empty{color:var(--ink-muted);text-align:center;padding:18px;font-style:italic}
 
-/* ACL row table */
-.acl-table{width:100%;border-collapse:separate;border-spacing:0 4px;font-size:12px;margin-top:8px}
-.acl-table th{text-align:left;color:var(--ink-dim);font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:0 6px 4px;font-weight:600}
-.acl-table td{padding:0 4px}
-.acl-table td input,.acl-table td select{width:100%;background:var(--bg);color:var(--ink);border:1px solid var(--line);padding:4px 6px;font:12px inherit;border-radius:4px;outline:0}
-.acl-table td input:focus,.acl-table td select:focus{border-color:var(--accent)}
-.acl-table td.seq{color:var(--ink-muted);text-align:right;font-size:11px;padding-right:8px}
-.acl-table .colw-seq{width:42px}.acl-table .colw-act{width:80px}.acl-table .colw-pr{width:70px}.acl-table .colw-port{width:90px}.acl-table .colw-x{width:30px}
-.acl-table tr:hover td{background:var(--panel-2)}
-
-/* CLI panel */
-.cli{background:var(--code-bg);display:flex;flex-direction:column;min-width:0;position:relative}
-.cli .hdr{padding:8px 12px;border-bottom:1px solid var(--line);background:var(--panel);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;position:sticky;top:0;z-index:3}
-.cli .hdr .t{color:var(--ink-dim);font-size:11px;letter-spacing:2px;text-transform:uppercase}
-.cli .hdr .live{color:var(--good);font-size:10px;background:rgba(10,255,10,.08);border:1px solid var(--good);padding:1px 6px;border-radius:3px;animation:pulse 2s infinite;margin-left:6px}
-@keyframes pulse{50%{opacity:.55}}
-.cli .hdr .right{display:flex;gap:5px;align-items:center}
-.cli .body{flex:1;overflow:auto;display:flex;flex-direction:column;min-height:0}
-.cli .body.split{flex-direction:row}
-.cli pre{margin:0;padding:14px;flex:1;overflow:auto;color:var(--ink);font:12.5px/1.6 inherit;text-shadow:0 0 1px rgba(57,255,20,.15);white-space:pre;tab-size:2;min-width:0}
-.cli .splitcol{flex:1;min-width:0;display:flex;flex-direction:column;border-left:1px solid var(--line-2)}
-.cli .splitcol:first-child{border-left:0}
-.cli .splitcol .colhdr{padding:6px 10px;background:var(--panel-2);border-bottom:1px solid var(--line-2);font:10.5px inherit;letter-spacing:.8px;text-transform:uppercase;color:var(--ink-dim);position:sticky;top:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.cli .splitcol.cisco .colhdr{color:var(--cisco)}
-.cli .splitcol.juniper .colhdr{color:var(--juniper)}
-.cli .splitcol.arista .colhdr{color:var(--arista)}
-.cli pre .c{color:var(--cmt);font-style:italic;cursor:pointer;text-decoration:underline dotted transparent;text-underline-offset:3px}
-.cli pre .c.anchor:hover{color:var(--accent);text-decoration-color:var(--accent)}
-.cli pre .k{color:var(--kw);font-weight:500}
-.cli pre .ip{color:var(--ip)}
-.cli pre .num{color:var(--num)}
-.cli pre .if{color:var(--ifname)}
-.cli pre .v{color:var(--ink)}
-.cli .ftr{padding:6px 10px;border-top:1px solid var(--line);background:var(--panel);display:flex;gap:5px;font-size:11px;color:var(--ink-muted)}
-
-/* Responsive */
-@media (max-width:1100px){
-  .shell{grid-template-columns:1fr;height:auto}
-  .gutter{display:none}
-  .side{height:auto;max-height:200px;border-bottom:1px solid var(--line)}
-  .cli{height:60vh}
+/* concept-aligned compare table */
+.cmp-table{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:14px}
+.cmp-row{display:grid;grid-template-columns:140px 1fr 1fr 1fr;border-bottom:1px solid var(--line-2);min-height:36px}
+.cmp-row:last-child{border-bottom:0}
+.cmp-row.cmp-head{position:sticky;top:0;background:var(--panel-2);z-index:1;font:11px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:1.2px;text-transform:uppercase}
+.cmp-row.cmp-head .cmp-cell{padding:8px 10px;text-align:center;font-weight:600}
+.cmp-row.cmp-head .cmp-cell.cisco{color:var(--cisco)}
+.cmp-row.cmp-head .cmp-cell.juniper{color:var(--juniper)}
+.cmp-row.cmp-head .cmp-cell.arista{color:var(--arista)}
+.cmp-concept{padding:9px 10px;background:var(--panel-2);border-right:1px solid var(--line);color:var(--ink-dim);font:11px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-weight:500;display:flex;align-items:center}
+.cmp-cell{padding:8px;border-right:1px solid var(--line-2);min-width:0}
+.cmp-cell:last-child{border-right:0}
+.cmp-cell.cisco{border-left:3px solid var(--cisco)}
+.cmp-cell.juniper{border-left:3px solid var(--juniper)}
+.cmp-cell.arista{border-left:3px solid var(--arista)}
+.cmp-cell.empty{display:flex;align-items:center;justify-content:center;color:var(--ink-muted);font-style:italic}
+.cmp-cell.empty .dash{font-size:18px}
+.cmp-inner{margin-bottom:6px}
+.cmp-inner:last-child{margin-bottom:0}
+.cmp-inner .t{font-size:11.5px;font-weight:600;color:var(--ink);margin-bottom:3px;line-height:1.3}
+.cmp-inner pre{margin:0;padding:6px 8px;background:var(--code-bg);border-radius:5px;font:11px/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--code-ink);overflow:auto;white-space:pre-wrap;word-break:break-word}
+.cmp-acts{display:flex;gap:4px;margin-top:4px}
+.cmp-acts .actbtn{padding:2px 8px;font-size:10px}
+@media (max-width:900px){
+  .cmp-row{grid-template-columns:100px 1fr;grid-template-areas:"c c" "c1 c1" "c2 c2" "c3 c3"}
+  .cmp-row{display:flex;flex-direction:column}
+  .cmp-cell{border-left-width:3px !important}
 }
+
+.drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);opacity:0;visibility:hidden;transition:opacity .2s,visibility .2s;z-index:40}
+.drawer-overlay.open{opacity:1;visibility:visible}
+.drawer{position:fixed;top:0;right:calc(-1 * var(--drawer-w, 440px) - 20px);bottom:0;width:var(--drawer-w, 440px);min-width:320px;max-width:90vw;background:var(--panel);border-left:1px solid var(--line);transition:right .22s ease, width 0s;z-index:50;display:flex;flex-direction:column;box-shadow:-10px 0 30px rgba(0,0,0,.4)}
+.drawer.open{right:0}
+.drawer .resize-handle{position:absolute;left:-3px;top:0;bottom:0;width:6px;cursor:col-resize;background:transparent;z-index:2}
+.drawer .resize-handle:hover{background:var(--accent)}
+.drawer.resizing{transition:none;user-select:none}
+.drawer .dh{padding:12px 14px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;background:var(--panel-2)}
+.drawer .dh .t{font:12px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-dim)}
+.drawer .dh .live{color:var(--good);font:10px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:rgba(34,197,94,.12);border:1px solid var(--good);padding:1px 6px;border-radius:4px;margin-left:8px}
+.drawer .dh .closex{background:transparent;border:0;color:var(--ink-dim);cursor:pointer;font-size:18px;padding:2px 8px;border-radius:5px}
+.drawer .dh .closex:hover{color:var(--bad)}
+.drawer .db{flex:1;overflow:auto;padding:10px}
+.drawer .dbar{padding:10px 14px;border-top:1px solid var(--line);display:flex;gap:6px;background:var(--panel-2);flex-wrap:wrap}
+.queue-item{background:var(--panel-2);border:1px solid var(--line);border-radius:8px;padding:9px 10px;margin-bottom:8px}
+.queue-item .qh{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;font-size:11px;color:var(--ink-dim)}
+.queue-item .qh .qt{color:var(--ink);font-weight:500;font-size:12px}
+.queue-item pre{margin:0;padding:6px 8px;background:var(--code-bg);border-radius:5px;font:11px/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--code-ink);overflow:auto;white-space:pre-wrap;word-break:break-word}
+.queue-item .qrm{background:transparent;border:0;color:var(--ink-muted);cursor:pointer;font-size:14px;padding:0 4px}
+.queue-item .qrm:hover{color:var(--bad)}
+.queue-empty{text-align:center;color:var(--ink-muted);padding:30px 12px;font-size:12px;line-height:1.6}
+
+.equiv-drawer{position:fixed;top:0;right:-560px;bottom:0;width:540px;background:var(--panel);border-left:1px solid var(--line);transition:right .22s ease;z-index:51;display:flex;flex-direction:column;box-shadow:-10px 0 30px rgba(0,0,0,.4)}
+.equiv-drawer.open{right:0}
+.equiv-drawer .dh{padding:12px 14px;border-bottom:1px solid var(--line);background:var(--panel-2)}
+.equiv-drawer .db{flex:1;overflow:auto;padding:14px}
+.equiv-section{margin-bottom:18px}
+.equiv-section .sh{font:11px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.equiv-section .sh.cisco{color:var(--cisco)}
+.equiv-section .sh.juniper{color:var(--juniper)}
+.equiv-section .sh.arista{color:var(--arista)}
+.equiv-section .sh::before{content:"●"}
+.equiv-card{background:var(--panel-2);border:1px solid var(--line);border-radius:8px;padding:9px 10px;margin-bottom:6px}
+.equiv-card .et{font-size:11.5px;font-weight:600;margin-bottom:4px;color:var(--ink)}
+.equiv-card pre{margin:0;padding:6px 8px;background:var(--code-bg);border-radius:5px;font:11px/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--code-ink);overflow:auto;white-space:pre-wrap}
+.equiv-card .nocmd{color:var(--ink-muted);font-style:italic;padding:8px}
+
+/* Automation drawer */
+.auto-drawer{position:fixed;top:0;right:-720px;bottom:0;width:700px;max-width:96vw;background:var(--panel);border-left:1px solid var(--line);transition:right .22s ease;z-index:52;display:flex;flex-direction:column;box-shadow:-10px 0 30px rgba(0,0,0,.4)}
+.auto-drawer.open{right:0}
+.auto-drawer .dh{padding:12px 14px;border-bottom:1px solid var(--line);background:var(--panel-2)}
+.auto-drawer .dh-top{display:flex;justify-content:space-between;align-items:center}
+.auto-drawer .dh-top .t{font:11px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-dim)}
+.auto-drawer .dh-top .closex{background:transparent;border:0;color:var(--ink-dim);cursor:pointer;font-size:18px;padding:2px 8px;border-radius:5px}
+.auto-drawer .dh-top .closex:hover{color:var(--bad)}
+.auto-drawer .dh .title{margin-top:6px;font-size:14px;font-weight:600;color:var(--ink)}
+.auto-drawer .dh .vals{margin-top:6px;display:flex;flex-wrap:wrap;gap:6px;font:11px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.auto-drawer .dh .vals .vchip{background:var(--code-bg);color:var(--accent);padding:2px 8px;border-radius:5px;border:1px solid var(--line)}
+.auto-drawer .dh .vals .vchip b{color:var(--ink-dim);font-weight:400;margin-right:4px}
+.auto-drawer .db{flex:1;overflow:auto;padding:12px 14px}
+.auto-tabs{display:flex;gap:0;border-bottom:1px solid var(--line);margin-bottom:10px;position:sticky;top:0;background:var(--panel);padding-top:2px;z-index:1}
+.auto-tabs button{background:transparent;border:0;color:var(--ink-dim);padding:8px 14px;cursor:pointer;font:12px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.5px;border-bottom:2px solid transparent}
+.auto-tabs button.on{color:var(--accent);border-bottom-color:var(--accent)}
+.auto-tabs button:hover{color:var(--ink)}
+.auto-tabs .tab-cisco.on{color:var(--cisco);border-bottom-color:var(--cisco)}
+.auto-tabs .tab-juniper.on{color:var(--juniper);border-bottom-color:var(--juniper)}
+.auto-tabs .tab-arista.on{color:var(--arista);border-bottom-color:var(--arista)}
+.auto-block{margin-bottom:14px;background:var(--panel-2);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.auto-block .bhdr{padding:8px 11px;background:var(--code-bg);display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line)}
+.auto-block .bhdr .label{font:11px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--ink-dim);letter-spacing:1.2px;text-transform:uppercase}
+.auto-block .bhdr .label b{color:var(--accent)}
+.auto-block .bhdr .copyb{background:transparent;border:1px solid var(--line);color:var(--ink-dim);cursor:pointer;font:10px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;padding:3px 10px;border-radius:4px}
+.auto-block .bhdr .copyb:hover{color:var(--accent);border-color:var(--accent)}
+.auto-block .bhdr .copyb.copied{background:var(--good);color:#000;border-color:var(--good)}
+.auto-block pre{margin:0;padding:11px;background:var(--code-bg);font:11.5px/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--code-ink);overflow:auto;white-space:pre;max-height:340px}
+.auto-block pre.netconf .x{color:var(--cisco)}
+.auto-info{padding:10px 12px;background:var(--panel-2);border:1px dashed var(--line);border-radius:8px;font-size:11.5px;color:var(--ink-dim);margin-bottom:12px;line-height:1.5}
+.auto-info b{color:var(--ink)}
+.auto-info code{background:var(--code-bg);color:var(--accent);padding:1px 5px;border-radius:3px;font-size:11px}
+.actbtn.auto{background:transparent;border:1px solid var(--accent-2);color:var(--accent-2)}
+.actbtn.auto:hover{background:rgba(167,139,250,.1)}
+
+footer{padding:20px;color:var(--ink-dim);font-size:11px;text-align:center}
+.empty{padding:40px;text-align:center;color:var(--ink-dim);border:1px dashed var(--line);border-radius:12px;margin-top:20px}
+mark{background:rgba(34,211,238,.25);color:inherit;border-radius:3px;padding:0 2px}
+.helpcard{position:fixed;top:60px;right:14px;width:300px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;font-size:12px;z-index:60;box-shadow:0 10px 30px rgba(0,0,0,.4);display:none}
+.helpcard.open{display:block}
+.helpcard h4{margin:0 0 8px;font-size:12px;color:var(--accent);letter-spacing:1px;text-transform:uppercase}
+.helpcard table{width:100%;border-collapse:collapse}
+.helpcard td{padding:3px 0;font-size:11px}
+.helpcard td:first-child{color:var(--accent);font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.export-menu{display:none;position:absolute;right:0;top:calc(100% + 6px);background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px;min-width:280px;box-shadow:0 10px 30px rgba(0,0,0,.4);z-index:70}
+.export-menu.open{display:block}
+.export-menu .emh{font:11px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--ink-dim);padding:6px 10px 8px;border-bottom:1px solid var(--line-2);margin-bottom:4px}
+.export-menu .emh b{color:var(--accent)}
+.export-menu button{display:block;width:100%;text-align:left;background:transparent;border:0;color:var(--ink);padding:7px 10px;font:12px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;cursor:pointer;border-radius:5px}
+.export-menu button:hover{background:var(--chip-on);color:var(--accent)}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--good);color:#000;font:12px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;padding:9px 16px;border-radius:8px;opacity:0;pointer-events:none;transition:transform .2s, opacity .2s;z-index:200;font-weight:600;box-shadow:0 4px 20px rgba(0,0,0,.4)}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+.toggle-btn{display:none}
+@media (max-width:1000px){
+  main{grid-template-columns:1fr}
+  .side{position:fixed;left:-280px;top:60px;height:calc(100vh - 60px);width:260px;z-index:25;transition:left .2s}
+  .side.open{left:0}
+  .toggle-btn{display:inline-block}
+  .compare-grid{grid-template-columns:1fr}
+}
+@media (max-width:560px){.drawer{width:100%;right:-100%}.equiv-drawer{width:100%;right:-100%}}
 </style>
 </head>
 <body>
 
-<div class="topbar">
-  <div class="brand">CONFIG.GEN <small>multivendor CLI builder · v2</small></div>
-  <div class="field"><label>Vendor</label>
-    <select id="vendor">
-      <option value="cisco">Cisco</option>
-      <option value="juniper">Juniper</option>
-      <option value="arista">Arista</option>
-    </select>
-  </div>
-  <div class="field"><label>OS</label><select id="osel"></select></div>
-  <div class="field"><label>Host</label><input id="hostname" value="R1" style="width:110px"/></div>
-  <div class="tabs" id="roleTabs">
-    <button class="tab on" data-role="router">Router</button>
-    <button class="tab" data-role="switch">Switch</button>
-    <button class="tab" data-role="firewall">Firewall</button>
-  </div>
-  <div style="margin-left:auto;display:flex;gap:6px">
-    <button class="tbtn" id="btnDiff" title="Compare with another vendor side-by-side">⇄ Compare</button>
-    <select id="diffVendor" style="display:none">
-      <option value="cisco">vs Cisco</option>
-      <option value="juniper">vs Juniper</option>
-      <option value="arista">vs Arista</option>
-    </select>
-    <button class="tbtn" id="btnImport" title="Paste an existing CLI config and parse it back into the form">⇪ Import</button>
-    <button class="tbtn" id="btnLcollapse" title="Collapse sidebar (s)">◧</button>
-    <button class="tbtn" id="btnTheme" title="Toggle light/dark theme">◐ <span id="themeLabel">Dark</span></button>
-    <button class="tbtn" id="btnReset">Reset</button>
-  </div>
-</div>
-
-<div class="shell" id="shell">
-  <aside class="side" id="side">
-    <div class="ssearch">
-      <input id="navsearch" placeholder="Search sections / fields…" autocomplete="off"/>
+<header>
+  <div class="bar">
+    <div class="brand"><span class="dot"></span>Multivendor CLI <small>Cisco · Juniper · Arista</small></div>
+    <div class="search">
+      <span style="color:var(--ink-dim)">⌕</span>
+      <input id="q" placeholder='Search… try "vendor:juniper ospf" or "cat:bgp role:router"' autocomplete="off" autofocus />
+      <span class="kbd">/</span>
     </div>
-    <h4>Configuration</h4>
-    <nav class="nav" id="nav"></nav>
-    <div class="footer">
-      <button class="tbtn" id="actLoad" title="Reload sample defaults">⟲ Reload sample</button>
-    </div>
-  </aside>
-
-  <div class="gutter" id="gutterL"></div>
-
-  <section class="canvas" id="canvas"></section>
-
-  <div class="gutter" id="gutterR"></div>
-
-  <aside class="cli">
-    <div class="hdr">
-      <div><span class="t">CLI Preview</span><span class="live">● live</span></div>
-      <div class="right">
-        <button class="tbtn" id="btnCopy" title="Copy to clipboard">Copy</button>
-        <button class="tbtn" id="btnDl" title="Download .txt">↓</button>
+    <button class="tbtn" id="btn-side" title="Collapse/expand sidebar (S)">☰</button>
+    <button class="tbtn" id="btn-theme" title="Toggle light/dark">◐</button>
+    <button class="tbtn" id="btn-help" title="Keyboard shortcuts">?</button>
+    <button class="tbtn" id="btn-clibuilder" title="Open CLI Builder (b)">⌘ CLI <span class="badge" id="cli-badge" style="display:none">0</span></button>
+    <div class="export-wrap" style="position:relative;display:inline-block">
+      <button class="tbtn" id="btn-export" title="Export filtered results">Export ▾</button>
+      <div class="export-menu" id="export-menu">
+        <div class="emh">Export <b id="emcount">…</b> commands as:</div>
+        <button data-fmt="txt">TXT — plain text with comments</button>
+        <button data-fmt="md">Markdown — tables grouped by category</button>
+        <button data-fmt="csv">CSV — vendor,os,role,cat,title,cmd,desc</button>
+        <button data-fmt="json">JSON — full schema, machine-readable</button>
       </div>
     </div>
-    <div class="body" id="cliBody">
-      <pre id="cli"></pre>
+  </div>
+  <div id="toast" class="toast"></div>
+  <div class="stats">
+    <span><b id="stat-total">…</b> commands</span>
+    <span>·</span><span><b id="stat-vendors">3</b> vendors</span>
+    <span>·</span><span><b id="stat-cats">25</b> categories</span>
+    <span>·</span><span style="color:var(--accent)">Showing <b id="stat-shown">…</b></span>
+    <span style="margin-left:auto;color:var(--ink-muted)">Use <span class="kbd">/</span> search · <span class="kbd">c</span> compare · <span class="kbd">t</span> table · <span class="kbd">b</span> builder · <span class="kbd">?</span> help</span>
+  </div>
+</header>
+
+<main>
+  <aside class="side" id="side">
+    <div class="acc" id="acc-fav">
+      <div class="acc-head"><span>Favorites <span class="ct" id="fav-ct">0</span></span><span class="caret">▾</span></div>
+      <div class="acc-body" id="fav-body"></div>
     </div>
-    <div class="ftr"><span id="cliStats">0 lines</span></div>
+    <div class="acc" id="acc-vendor">
+      <div class="acc-head"><span>Vendor <span class="ct" id="ct-vendor"></span></span><span class="caret">▾</span></div>
+      <div class="acc-body"><div class="chips" id="chips-vendor"></div></div>
+    </div>
+    <div class="acc" id="acc-os">
+      <div class="acc-head"><span>Operating System <span class="ct" id="ct-os"></span></span><span class="caret">▾</span></div>
+      <div class="acc-body"><div class="chips" id="chips-os"></div></div>
+    </div>
+    <div class="acc" id="acc-role">
+      <div class="acc-head"><span>Role <span class="ct" id="ct-role"></span></span><span class="caret">▾</span></div>
+      <div class="acc-body"><div class="chips" id="chips-role"></div></div>
+    </div>
+    <div class="acc" id="acc-cat">
+      <div class="acc-head"><span>Category <span class="ct" id="ct-cat"></span></span><span class="caret">▾</span></div>
+      <div class="acc-body" id="chips-cat"></div>
+    </div>
   </aside>
+
+  <section class="content">
+    <div class="active-bar" id="active-bar" style="display:none"></div>
+    <div class="viewbar">
+      <div class="seg">
+        <button data-view="cards" class="on" id="vb-cards">Cards</button>
+        <button data-view="table" id="vb-table">Table</button>
+        <button data-view="compare" id="vb-compare">Compare</button>
+      </div>
+      <span class="pill">Showing <b id="vb-shown">0</b> / <b id="vb-total">0</b></span>
+      <span class="pill" id="vb-mode">Cards view</span>
+    </div>
+    <div id="results"></div>
+  </section>
+</main>
+
+<div class="drawer-overlay" id="drawer-overlay"></div>
+<aside class="drawer" id="drawer">
+  <div class="resize-handle" id="drawer-resize"></div>
+  <div class="dh">
+    <div><span class="t">CLI Builder</span><span class="live">● live</span></div>
+    <button class="closex" id="drawer-close">✕</button>
+  </div>
+  <div class="db" id="drawer-body"></div>
+  <div class="dbar">
+    <button class="tbtn" id="drawer-copy">Copy all</button>
+    <button class="tbtn" id="drawer-download">Download .txt</button>
+    <button class="tbtn" id="drawer-clear">Clear</button>
+  </div>
+</aside>
+
+<aside class="equiv-drawer" id="equiv-drawer">
+  <div class="dh">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <div><span style="font:12px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-dim)">Cross-vendor equivalents</span></div>
+      <button id="equiv-close" style="background:transparent;border:0;color:var(--ink-dim);cursor:pointer;font-size:18px;padding:2px 8px;border-radius:5px">✕</button>
+    </div>
+    <div id="equiv-title" style="margin-top:6px;font-size:13px;color:var(--ink)"></div>
+  </div>
+  <div class="db" id="equiv-body"></div>
+</aside>
+
+<!-- Automation drawer (NETCONF/YANG/Ansible per command) -->
+<aside class="auto-drawer" id="auto-drawer">
+  <div class="dh">
+    <div class="dh-top">
+      <span class="t">🔧 Automate this command</span>
+      <button class="closex" id="auto-close">✕</button>
+    </div>
+    <div class="title" id="auto-title">…</div>
+    <div class="vals" id="auto-vals"></div>
+  </div>
+  <div class="db" id="auto-body"></div>
+</aside>
+
+<div class="helpcard" id="helpcard">
+  <h4>Keyboard shortcuts</h4>
+  <table>
+    <tr><td>/</td><td>Jump to search</td></tr>
+    <tr><td>c</td><td>Compare view</td></tr>
+    <tr><td>t</td><td>Table view</td></tr>
+    <tr><td>g</td><td>Cards (grid) view</td></tr>
+    <tr><td>b</td><td>Toggle CLI Builder</td></tr>
+    <tr><td>f</td><td>Toggle Favorites filter</td></tr>
+    <tr><td>Esc</td><td>Clear search / close drawers</td></tr>
+  </table>
+  <h4 style="margin-top:12px">Search operators</h4>
+  <table>
+    <tr><td>vendor:juniper</td><td>Filter by vendor</td></tr>
+    <tr><td>os:eos</td><td>Filter by OS</td></tr>
+    <tr><td>role:firewall</td><td>Filter by role</td></tr>
+    <tr><td>cat:bgp</td><td>Filter by category</td></tr>
+    <tr><td>fav:</td><td>Show only favorites</td></tr>
+  </table>
 </div>
 
-<!-- Import dialog -->
-<div id="importOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:100;align-items:center;justify-content:center">
-  <div style="background:var(--panel);border:1px solid var(--accent);border-radius:8px;width:min(720px,92vw);max-height:80vh;display:flex;flex-direction:column">
-    <div style="padding:12px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center">
-      <div><b style="color:var(--accent)">⇪ Import existing CLI config</b><br/><span style="font-size:11px;color:var(--ink-dim)">Paste IOS / IOS-XE config below. Parser will pull out interfaces, static routes, OSPF, BGP basics, VLANs, ACLs.</span></div>
-      <button class="tbtn" id="importClose">✕</button>
-    </div>
-    <textarea id="importText" placeholder="hostname R1&#10;!&#10;interface GigabitEthernet0/0&#10; ip address 10.0.0.1 255.255.255.252&#10; no shutdown&#10;!&#10;router ospf 1&#10; router-id 1.1.1.1&#10; network 10.0.0.0 0.0.0.255 area 0&#10;…" style="flex:1;min-height:280px;background:var(--code-bg);color:var(--ink);border:0;border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2);padding:12px;font:12px ui-monospace,SFMono-Regular,Menlo,monospace;outline:0;resize:none"></textarea>
-    <div style="padding:10px 16px;display:flex;gap:6px;justify-content:flex-end;align-items:center">
-      <span id="importStats" style="font-size:11px;color:var(--ink-dim);margin-right:auto"></span>
-      <button class="tbtn" id="importPreview">Preview parse</button>
-      <button class="tbtn on" id="importApply">Apply (replaces current config)</button>
-    </div>
-  </div>
-</div>
+<footer>
+  Public artifact · sourced from community markdown cheatsheets and parsed by an open pipeline.
+  <a href="https://github.com/gesh75/multivendor-cli-configurator" style="color:var(--accent)">github</a>
+</footer>
 
 <script>
 "use strict";
 
-const OS_MAP = {
-  cisco:   [["ios","IOS / IOS-XE"],["nxos","NX-OS"],["asa","ASA"]],
-  juniper: [["junos","Junos"]],
-  arista:  [["eos","EOS"]],
+const OSLABEL = {ios:"IOS / IOS-XE",iosxe:"IOS-XE",nxos:"NX-OS",asa:"ASA",junos:"Junos",eos:"EOS"};
+const VENDOR_KEY = v => (v||"").toLowerCase();
+
+/* ─────────────────────────────────────────────────────────────────────
+   NETCONF / YANG / Ansible automation mappings (10 high-value patterns)
+   For each pattern, we extract values from the user's actual command
+   and inject them into NETCONF XML, ncclient Python, and Ansible YAML
+   templates per vendor. Shows real automation for their real config.
+─────────────────────────────────────────────────────────────────────── */
+const AUTOMATION_MAPPINGS = [
+  {
+    id: "iface-ipv4",
+    title: "Configure interface IPv4 address",
+    matchAny: [
+      /^interface\s+(\S+)[\s\S]*?ip address\s+(\d+\.\d+\.\d+\.\d+)[\s\/]+(\d+\.\d+\.\d+\.\d+|\d+)/im,
+      /^set interfaces\s+(\S+)\s+(?:unit\s+0\s+)?family inet address\s+(\d+\.\d+\.\d+\.\d+)\/(\d+)/im,
+    ],
+    extract: cmd => {
+      let m = cmd.match(/^interface\s+(\S+)[\s\S]*?ip address\s+(\d+\.\d+\.\d+\.\d+)[\s\/]+(\d+\.\d+\.\d+\.\d+|\d+)/im);
+      if(m) return {ifname:m[1], ip:m[2], mask:m[3], cidr: m[3].includes(".") ? maskToCidr(m[3]) : m[3]};
+      m = cmd.match(/^set interfaces\s+(\S+)\s+(?:unit\s+0\s+)?family inet address\s+(\d+\.\d+\.\d+\.\d+)\/(\d+)/im);
+      if(m) return {ifname:m[1], ip:m[2], mask:cidrToMask(m[3]), cidr:m[3]};
+      return null;
+    },
+    render: (vendor, v) => AUTO_IFACE_IPV4[vendor](v),
+  },
+  {
+    id: "static-route",
+    title: "Configure IPv4 static route",
+    matchAny: [
+      /^ip route\s+(\d+\.\d+\.\d+\.\d+)\s+(\d+\.\d+\.\d+\.\d+)\s+(\S+)/im,
+      /^ip route\s+(\d+\.\d+\.\d+\.\d+)\/(\d+)\s+(\S+)/im,
+      /^set routing-options static route\s+(\d+\.\d+\.\d+\.\d+)\/(\d+)\s+next-hop\s+(\S+)/im,
+    ],
+    extract: cmd => {
+      let m = cmd.match(/^ip route\s+(\d+\.\d+\.\d+\.\d+)\s+(\d+\.\d+\.\d+\.\d+)\s+(\S+)/im);
+      if(m) return {prefix:m[1], mask:m[2], cidr:maskToCidr(m[2]), nh:m[3]};
+      m = cmd.match(/^ip route\s+(\d+\.\d+\.\d+\.\d+)\/(\d+)\s+(\S+)/im);
+      if(m) return {prefix:m[1], cidr:m[2], mask:cidrToMask(m[2]), nh:m[3]};
+      m = cmd.match(/^set routing-options static route\s+(\d+\.\d+\.\d+\.\d+)\/(\d+)\s+next-hop\s+(\S+)/im);
+      if(m) return {prefix:m[1], cidr:m[2], mask:cidrToMask(m[2]), nh:m[3]};
+      return null;
+    },
+    render: (vendor, v) => AUTO_STATIC[vendor](v),
+  },
+  {
+    id: "ospf-network",
+    title: "OSPF — enable on network in area",
+    matchAny: [
+      /^router ospf\s+(\d+)[\s\S]*?network\s+(\d+\.\d+\.\d+\.\d+)\s+(\d+\.\d+\.\d+\.\d+)\s+area\s+(\S+)/im,
+      /^network\s+(\d+\.\d+\.\d+\.\d+)\s+(\d+\.\d+\.\d+\.\d+)\s+area\s+(\S+)/im,
+      /^set protocols ospf area\s+(\S+)\s+interface\s+(\S+)/im,
+    ],
+    extract: cmd => {
+      let m = cmd.match(/^router ospf\s+(\d+)[\s\S]*?network\s+(\d+\.\d+\.\d+\.\d+)\s+(\d+\.\d+\.\d+\.\d+)\s+area\s+(\S+)/im);
+      if(m) return {pid:m[1], net:m[2], wild:m[3], area:m[4]};
+      m = cmd.match(/^network\s+(\d+\.\d+\.\d+\.\d+)\s+(\d+\.\d+\.\d+\.\d+)\s+area\s+(\S+)/im);
+      if(m) return {pid:"1", net:m[1], wild:m[2], area:m[3]};
+      m = cmd.match(/^set protocols ospf area\s+(\S+)\s+interface\s+(\S+)/im);
+      if(m) return {pid:"1", area:m[1], ifname:m[2], net:"10.0.0.0", wild:"0.0.0.255"};
+      return null;
+    },
+    render: (vendor, v) => AUTO_OSPF[vendor](v),
+  },
+  {
+    id: "bgp-neighbor",
+    title: "BGP — configure neighbor",
+    matchAny: [
+      /^router bgp\s+(\d+)[\s\S]*?neighbor\s+(\d+\.\d+\.\d+\.\d+)\s+remote-as\s+(\d+)/im,
+      /^neighbor\s+(\d+\.\d+\.\d+\.\d+)\s+remote-as\s+(\d+)/im,
+      /^set protocols bgp group\s+\S+\s+neighbor\s+(\d+\.\d+\.\d+\.\d+)\s+peer-as\s+(\d+)/im,
+    ],
+    extract: cmd => {
+      let m = cmd.match(/^router bgp\s+(\d+)[\s\S]*?neighbor\s+(\d+\.\d+\.\d+\.\d+)\s+remote-as\s+(\d+)/im);
+      if(m) return {local_as:m[1], peer:m[2], remote_as:m[3]};
+      m = cmd.match(/^neighbor\s+(\d+\.\d+\.\d+\.\d+)\s+remote-as\s+(\d+)/im);
+      if(m) return {local_as:"65001", peer:m[1], remote_as:m[2]};
+      m = cmd.match(/^set protocols bgp group\s+\S+\s+neighbor\s+(\d+\.\d+\.\d+\.\d+)\s+peer-as\s+(\d+)/im);
+      if(m) return {local_as:"65001", peer:m[1], remote_as:m[2]};
+      return null;
+    },
+    render: (vendor, v) => AUTO_BGP[vendor](v),
+  },
+  {
+    id: "vlan",
+    title: "VLAN — create and name",
+    matchAny: [
+      /^vlan\s+(\d+)\s*\n\s*name\s+(\S+)/im,
+      /^vlan\s+(\d+)\b\s*$/im,
+      /^set vlans\s+(\S+)\s+vlan-id\s+(\d+)/im,
+    ],
+    extract: cmd => {
+      let m = cmd.match(/^vlan\s+(\d+)\s*\n\s*name\s+(\S+)/im);
+      if(m) return {id:m[1], name:m[2]};
+      m = cmd.match(/^vlan\s+(\d+)\b/im);
+      if(m) return {id:m[1], name:"VLAN"+m[1]};
+      m = cmd.match(/^set vlans\s+(\S+)\s+vlan-id\s+(\d+)/im);
+      if(m) return {id:m[2], name:m[1]};
+      return null;
+    },
+    render: (vendor, v) => AUTO_VLAN[vendor](v),
+  },
+  {
+    id: "switchport-access",
+    title: "Switchport access — assign to VLAN",
+    matchAny: [
+      /^interface\s+(\S+)[\s\S]*?switchport access vlan\s+(\d+)/im,
+      /^set interfaces\s+(\S+)\s+unit 0 family ethernet-switching interface-mode access vlan members\s+(\S+)/im,
+    ],
+    extract: cmd => {
+      let m = cmd.match(/^interface\s+(\S+)[\s\S]*?switchport access vlan\s+(\d+)/im);
+      if(m) return {ifname:m[1], vlan:m[2]};
+      m = cmd.match(/^set interfaces\s+(\S+)\s+unit 0 family ethernet-switching interface-mode access vlan members\s+(\S+)/im);
+      if(m) return {ifname:m[1], vlan:m[2].replace(/^vlan/,"")};
+      return null;
+    },
+    render: (vendor, v) => AUTO_SWITCHPORT[vendor](v),
+  },
+  {
+    id: "ntp-server",
+    title: "NTP — configure server",
+    matchAny: [
+      /^ntp server\s+(\d+\.\d+\.\d+\.\d+)/im,
+      /^set system ntp server\s+(\d+\.\d+\.\d+\.\d+)/im,
+    ],
+    extract: cmd => {
+      const m = cmd.match(/^(?:set system\s+)?ntp server\s+(\d+\.\d+\.\d+\.\d+)/im);
+      return m ? {server:m[1]} : null;
+    },
+    render: (vendor, v) => AUTO_NTP[vendor](v),
+  },
+  {
+    id: "syslog-host",
+    title: "Syslog — configure server",
+    matchAny: [
+      /^logging host\s+(\d+\.\d+\.\d+\.\d+)/im,
+      /^logging\s+(\d+\.\d+\.\d+\.\d+)/im,
+      /^set system syslog host\s+(\d+\.\d+\.\d+\.\d+)/im,
+    ],
+    extract: cmd => {
+      const m = cmd.match(/^(?:set system\s+)?logging(?:\s+host)?\s+(\d+\.\d+\.\d+\.\d+)/im) ||
+                cmd.match(/^set system syslog host\s+(\d+\.\d+\.\d+\.\d+)/im);
+      return m ? {host:m[1]} : null;
+    },
+    render: (vendor, v) => AUTO_SYSLOG[vendor](v),
+  },
+  {
+    id: "hostname",
+    title: "System — set hostname",
+    matchAny: [
+      /^hostname\s+(\S+)/im,
+      /^set system host-name\s+(\S+)/im,
+    ],
+    extract: cmd => {
+      const m = cmd.match(/^(?:set system\s+)?(?:hostname|host-name)\s+(\S+)/im);
+      return m ? {hostname:m[1]} : null;
+    },
+    render: (vendor, v) => AUTO_HOSTNAME[vendor](v),
+  },
+  {
+    id: "interface-desc",
+    title: "Interface — set description",
+    matchAny: [
+      /^interface\s+(\S+)[\s\S]*?description\s+(.+?)(?:\n|$)/im,
+      /^set interfaces\s+(\S+)\s+description\s+"?(.+?)"?\s*$/im,
+    ],
+    extract: cmd => {
+      let m = cmd.match(/^interface\s+(\S+)[\s\S]*?description\s+(.+?)(?:\n|$)/im);
+      if(m) return {ifname:m[1], desc:m[2].trim()};
+      m = cmd.match(/^set interfaces\s+(\S+)\s+description\s+"?(.+?)"?\s*$/im);
+      if(m) return {ifname:m[1], desc:m[2]};
+      return null;
+    },
+    render: (vendor, v) => AUTO_IFDESC[vendor](v),
+  },
+];
+
+function maskToCidr(m){
+  if(!m||!m.includes(".")) return parseInt(m,10)||24;
+  return m.split(".").map(x=>parseInt(x,10).toString(2).padStart(8,"0")).join("").replace(/0+$/,"").length;
+}
+function cidrToMask(c){
+  c = parseInt(c,10); const o=[0,0,0,0];
+  for(let i=0;i<c;i++) o[i>>3] |= 1<<(7-(i&7));
+  return o.join(".");
+}
+function escXml(s){ return String(s).replace(/[<>&"']/g, c => ({"<":"&lt;",">":"&gt;","&":"&amp;",'"':"&quot;","'":"&apos;"})[c]); }
+
+/* Per-vendor template renderers — return {netconf, ncclient, ansible} */
+const AUTO_IFACE_IPV4 = {
+  Cisco: v => ({
+    netconf: `<config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
+    <interface>
+      <GigabitEthernet>
+        <name>${escXml(v.ifname.replace(/^GigabitEthernet/,""))}</name>
+        <ip>
+          <address>
+            <primary>
+              <address>${v.ip}</address>
+              <mask>${v.mask}</mask>
+            </primary>
+          </address>
+        </ip>
+      </GigabitEthernet>
+    </interface>
+  </native>
+</config>`,
+    ncclient: `from ncclient import manager
+with manager.connect(host="10.0.0.1", username="admin", password="cisco",
+                     hostkey_verify=False, device_params={"name":"iosxe"}) as m:
+    payload = """<config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
+    <interface><GigabitEthernet>
+      <name>${v.ifname.replace(/^GigabitEthernet/,"")}</name>
+      <ip><address><primary>
+        <address>${v.ip}</address>
+        <mask>${v.mask}</mask>
+      </primary></address></ip>
+    </GigabitEthernet></interface>
+  </native>
+</config>"""
+    result = m.edit_config(target="running", config=payload)
+    print(result)`,
+    ansible: `- name: Configure ${v.ifname} with IPv4 ${v.ip}/${v.cidr}
+  cisco.ios.ios_l3_interfaces:
+    config:
+      - name: ${v.ifname}
+        ipv4:
+          - address: ${v.ip}/${v.cidr}
+    state: merged`,
+  }),
+  Juniper: v => ({
+    netconf: `<configuration>
+  <interfaces>
+    <interface>
+      <name>${escXml(v.ifname.replace(/\.\d+$/,""))}</name>
+      <unit>
+        <name>0</name>
+        <family>
+          <inet>
+            <address>
+              <name>${v.ip}/${v.cidr}</name>
+            </address>
+          </inet>
+        </family>
+      </unit>
+    </interface>
+  </interfaces>
+</configuration>`,
+    ncclient: `from ncclient import manager
+with manager.connect(host="10.0.0.1", username="root", password="juniper",
+                     hostkey_verify=False, device_params={"name":"junos"}) as m:
+    payload = """<configuration>
+  <interfaces><interface>
+    <name>${v.ifname.replace(/\.\d+$/,"")}</name>
+    <unit><name>0</name>
+      <family><inet>
+        <address><name>${v.ip}/${v.cidr}</name></address>
+      </inet></family>
+    </unit>
+  </interface></interfaces>
+</configuration>"""
+    m.lock("candidate")
+    m.edit_config(target="candidate", config=payload)
+    m.commit()
+    m.unlock("candidate")`,
+    ansible: `- name: Configure ${v.ifname} with IPv4 ${v.ip}/${v.cidr}
+  junipernetworks.junos.junos_l3_interfaces:
+    config:
+      - name: ${v.ifname.replace(/\.\d+$/,"")}
+        unit: 0
+        ipv4:
+          - address: ${v.ip}/${v.cidr}
+    state: merged`,
+  }),
+  Arista: v => ({
+    netconf: `<config>
+  <interfaces xmlns="http://openconfig.net/yang/interfaces">
+    <interface>
+      <name>${escXml(v.ifname)}</name>
+      <subinterfaces>
+        <subinterface>
+          <index>0</index>
+          <ipv4 xmlns="http://openconfig.net/yang/interfaces/ip">
+            <addresses>
+              <address>
+                <ip>${v.ip}</ip>
+                <config>
+                  <ip>${v.ip}</ip>
+                  <prefix-length>${v.cidr}</prefix-length>
+                </config>
+              </address>
+            </addresses>
+          </ipv4>
+        </subinterface>
+      </subinterfaces>
+    </interface>
+  </interfaces>
+</config>`,
+    ncclient: `# Arista EOS supports OpenConfig + eAPI (REST). NETCONF less common; eAPI usually preferred:
+import jsonrpclib
+switch = jsonrpclib.Server("https://admin:admin@10.0.0.1/command-api")
+switch.runCmds(1, ["enable",
+                   "configure",
+                   "interface ${v.ifname}",
+                   "ip address ${v.ip}/${v.cidr}",
+                   "no shutdown"])`,
+    ansible: `- name: Configure ${v.ifname} with IPv4 ${v.ip}/${v.cidr}
+  arista.eos.eos_l3_interfaces:
+    config:
+      - name: ${v.ifname}
+        ipv4:
+          - address: ${v.ip}/${v.cidr}
+    state: merged`,
+  }),
 };
-const SECTIONS = {
-  router:   ["interfaces","static","ospf","bgp","acls","snmp","logging"],
-  switch:   ["interfaces","vlans","trunks","stp","ospf","bgp","acls","snmp"],
-  firewall: ["interfaces","zones","policies","nat","vpn","static","logging"],
+
+const AUTO_STATIC = {
+  Cisco: v => ({
+    netconf: `<config>
+  <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
+    <ip>
+      <route>
+        <ip-route-interface-forwarding-list>
+          <prefix>${v.prefix}</prefix>
+          <mask>${v.mask}</mask>
+          <fwd-list>
+            <fwd>${v.nh}</fwd>
+          </fwd-list>
+        </ip-route-interface-forwarding-list>
+      </route>
+    </ip>
+  </native>
+</config>`,
+    ncclient: `# Add static route ${v.prefix}/${v.cidr} via ${v.nh}
+from ncclient import manager
+m = manager.connect(host="...", username="admin", password="cisco",
+                    hostkey_verify=False, device_params={"name":"iosxe"})
+m.edit_config(target="running", config=open("static-route.xml").read())`,
+    ansible: `- name: Static route ${v.prefix}/${v.cidr} via ${v.nh}
+  cisco.ios.ios_static_routes:
+    config:
+      - vrf: default
+        address_families:
+          - afi: ipv4
+            routes:
+              - dest: ${v.prefix}/${v.cidr}
+                next_hops:
+                  - forward_router_address: ${v.nh}
+    state: merged`,
+  }),
+  Juniper: v => ({
+    netconf: `<configuration>
+  <routing-options>
+    <static>
+      <route>
+        <name>${v.prefix}/${v.cidr}</name>
+        <next-hop>${v.nh}</next-hop>
+      </route>
+    </static>
+  </routing-options>
+</configuration>`,
+    ncclient: `from ncclient import manager
+m = manager.connect(host="...", username="root", password="juniper",
+                    hostkey_verify=False, device_params={"name":"junos"})
+m.lock("candidate")
+m.edit_config(target="candidate", config="""<configuration><routing-options><static>
+  <route><name>${v.prefix}/${v.cidr}</name><next-hop>${v.nh}</next-hop></route>
+</static></routing-options></configuration>""")
+m.commit(); m.unlock("candidate")`,
+    ansible: `- name: Static route ${v.prefix}/${v.cidr} via ${v.nh}
+  junipernetworks.junos.junos_static_routes:
+    config:
+      - address_families:
+          - afi: ipv4
+            routes:
+              - dest: ${v.prefix}/${v.cidr}
+                next_hops:
+                  - forward_router_address: ${v.nh}
+    state: merged`,
+  }),
+  Arista: v => ({
+    netconf: `<config>
+  <network-instances xmlns="http://openconfig.net/yang/network-instance">
+    <network-instance>
+      <name>default</name>
+      <protocols><protocol>
+        <identifier xmlns:oc-pol-types="http://openconfig.net/yang/policy-types">oc-pol-types:STATIC</identifier>
+        <name>STATIC</name>
+        <static-routes><static>
+          <prefix>${v.prefix}/${v.cidr}</prefix>
+          <config><prefix>${v.prefix}/${v.cidr}</prefix></config>
+          <next-hops><next-hop>
+            <index>0</index>
+            <config><index>0</index><next-hop>${v.nh}</next-hop></config>
+          </next-hop></next-hops>
+        </static></static-routes>
+      </protocol></protocols>
+    </network-instance>
+  </network-instances>
+</config>`,
+    ncclient: `# Arista — typically via eAPI
+import jsonrpclib
+sw = jsonrpclib.Server("https://admin:admin@10.0.0.1/command-api")
+sw.runCmds(1, ["enable","configure","ip route ${v.prefix}/${v.cidr} ${v.nh}"])`,
+    ansible: `- name: Static route ${v.prefix}/${v.cidr} via ${v.nh}
+  arista.eos.eos_static_routes:
+    config:
+      - address_families:
+          - afi: ipv4
+            routes:
+              - dest: ${v.prefix}/${v.cidr}
+                next_hops:
+                  - forward_router_address: ${v.nh}
+    state: merged`,
+  }),
 };
-const SECTION_LABELS = {
-  interfaces:"Interfaces", static:"Static Routes", ospf:"OSPF", bgp:"BGP",
-  acls:"ACLs", snmp:"SNMP", logging:"Logging",
-  vlans:"VLANs", trunks:"Trunks", stp:"Spanning-Tree",
-  zones:"Security Zones", policies:"Security Policies", nat:"NAT", vpn:"IPSec VPN"
+
+const AUTO_OSPF = {
+  Cisco: v => ({
+    netconf: `<config>
+  <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
+    <router>
+      <ospf xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-ospf">
+        <id>${v.pid}</id>
+        <network>
+          <ip>${v.net}</ip>
+          <mask>${v.wild}</mask>
+          <area>${v.area}</area>
+        </network>
+      </ospf>
+    </router>
+  </native>
+</config>`,
+    ncclient: `# OSPF process ${v.pid}, network ${v.net} ${v.wild} area ${v.area}
+from ncclient import manager
+m = manager.connect(host="...", port=830, username="admin", password="cisco",
+                    hostkey_verify=False, device_params={"name":"iosxe"})
+m.edit_config(target="running", config=open("ospf.xml").read())`,
+    ansible: `- name: OSPF process ${v.pid}
+  cisco.ios.ios_ospfv2:
+    config:
+      processes:
+        - process_id: ${v.pid}
+          networks:
+            - address: ${v.net}
+              wildcard_bits: ${v.wild}
+              area: ${v.area}
+    state: merged`,
+  }),
+  Juniper: v => ({
+    netconf: `<configuration>
+  <protocols>
+    <ospf>
+      <area>
+        <name>0.0.0.${v.area}</name>
+        <interface>
+          <name>${v.ifname || "ge-0/0/0.0"}</name>
+        </interface>
+      </area>
+    </ospf>
+  </protocols>
+</configuration>`,
+    ncclient: `# Junos uses per-interface OSPF, not network statements
+from ncclient import manager
+m = manager.connect(host="...", username="root", password="juniper",
+                    hostkey_verify=False, device_params={"name":"junos"})
+m.lock("candidate")
+m.edit_config(target="candidate", config="""<configuration><protocols><ospf>
+  <area><name>0.0.0.${v.area}</name>
+    <interface><name>${v.ifname || "ge-0/0/0.0"}</name></interface>
+  </area>
+</ospf></protocols></configuration>""")
+m.commit(); m.unlock("candidate")`,
+    ansible: `- name: OSPF area ${v.area}
+  junipernetworks.junos.junos_ospfv2:
+    config:
+      - areas:
+          - area_id: 0.0.0.${v.area}
+            interfaces:
+              - name: ${v.ifname || "ge-0/0/0.0"}
+    state: merged`,
+  }),
+  Arista: v => ({
+    netconf: `<config>
+  <network-instances xmlns="http://openconfig.net/yang/network-instance">
+    <network-instance><name>default</name>
+      <protocols><protocol>
+        <identifier xmlns:oc-pol-types="http://openconfig.net/yang/policy-types">oc-pol-types:OSPF</identifier>
+        <name>${v.pid}</name>
+        <ospfv2><areas><area>
+          <identifier>${v.area}</identifier>
+        </area></areas></ospfv2>
+      </protocol></protocols>
+    </network-instance>
+  </network-instances>
+</config>`,
+    ncclient: `import jsonrpclib
+sw = jsonrpclib.Server("https://admin:admin@10.0.0.1/command-api")
+sw.runCmds(1, ["enable","configure",
+               "router ospf ${v.pid}",
+               "network ${v.net}/${maskToCidr(v.wild.replace(/\./g,m=>m).split(".").map(x=>255-parseInt(x,10)).join("."))} area ${v.area}"])`,
+    ansible: `- name: OSPF process ${v.pid}
+  arista.eos.eos_ospfv2:
+    config:
+      processes:
+        - process_id: ${v.pid}
+          areas:
+            - area_id: ${v.area}
+              networks:
+                - prefix: ${v.net}
+                  mask: ${v.wild}
+    state: merged`,
+  }),
 };
-const SECTION_KEYWORDS = {
-  interfaces:"interface ip address mask prefix description shutdown vlan trunk subnet mtu",
-  static:"route prefix mask gateway next hop distance default floating",
-  ospf:"ospf area router-id wildcard network process passive lsa",
-  bgp:"bgp neighbor asn peer router-id as remote network advertised",
-  acls:"acl access list permit deny rule src dst port tcp udp icmp",
-  snmp:"snmp v3 community user auth priv trap host",
-  logging:"logging syslog server level severity facility",
-  vlans:"vlan id name",
-  trunks:"trunk allowed native vlan interface dot1q",
-  stp:"spanning-tree mode priority rapid pvst mst",
-  zones:"zone trust untrust dmz interface",
-  policies:"policy zone match source destination application action permit deny",
-  nat:"nat source destination static interface pool port-forward",
-  vpn:"vpn ipsec ike phase psk pre-shared key peer local remote subnet"
+
+const AUTO_BGP = {
+  Cisco: v => ({
+    netconf: `<config>
+  <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
+    <router>
+      <bgp xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-bgp">
+        <id>${v.local_as}</id>
+        <neighbor>
+          <id>${v.peer}</id>
+          <remote-as>${v.remote_as}</remote-as>
+        </neighbor>
+      </bgp>
+    </router>
+  </native>
+</config>`,
+    ncclient: `# BGP AS${v.local_as}, neighbor ${v.peer} remote-as ${v.remote_as}
+from ncclient import manager
+m = manager.connect(host="...", username="admin", password="cisco",
+                    hostkey_verify=False, device_params={"name":"iosxe"})
+m.edit_config(target="running", config=open("bgp.xml").read())`,
+    ansible: `- name: BGP AS ${v.local_as} neighbor ${v.peer}
+  cisco.ios.ios_bgp_global:
+    config:
+      as_number: ${v.local_as}
+      neighbors:
+        - neighbor_address: ${v.peer}
+          remote_as: ${v.remote_as}
+    state: merged`,
+  }),
+  Juniper: v => {
+    const grpType = v.local_as === v.remote_as ? "internal" : "external";
+    const grpName = grpType === "internal" ? "INTERNAL" : "EXTERNAL";
+    return {
+    netconf: `<configuration>
+  <routing-options>
+    <autonomous-system><as-number>${v.local_as}</as-number></autonomous-system>
+  </routing-options>
+  <protocols>
+    <bgp>
+      <group>
+        <name>${grpName}</name>
+        <type>${grpType}</type>
+        <neighbor>
+          <name>${v.peer}</name>
+          <peer-as>${v.remote_as}</peer-as>
+        </neighbor>
+      </group>
+    </bgp>
+  </protocols>
+</configuration>`,
+    ncclient: `from ncclient import manager
+m = manager.connect(host="...", username="root", password="juniper",
+                    hostkey_verify=False, device_params={"name":"junos"})
+m.lock("candidate")
+m.edit_config(target="candidate", config="""<configuration>
+  <routing-options><autonomous-system><as-number>${v.local_as}</as-number></autonomous-system></routing-options>
+  <protocols><bgp><group><name>${grpName}</name><type>${grpType}</type>
+    <neighbor><name>${v.peer}</name><peer-as>${v.remote_as}</peer-as></neighbor>
+  </group></bgp></protocols>
+</configuration>""")
+m.commit(); m.unlock("candidate")`,
+    ansible: `- name: BGP AS ${v.local_as} neighbor ${v.peer}
+  junipernetworks.junos.junos_bgp_global:
+    config:
+      as_number: ${v.local_as}
+      groups:
+        - name: ${grpName}
+          type: ${grpType}
+          neighbors:
+            - neighbor_address: ${v.peer}
+              peer_as: ${v.remote_as}
+    state: merged`,
+  };},
+  Arista: v => ({
+    netconf: `<config>
+  <network-instances xmlns="http://openconfig.net/yang/network-instance">
+    <network-instance><name>default</name>
+      <protocols><protocol>
+        <identifier xmlns:oc-pol-types="http://openconfig.net/yang/policy-types">oc-pol-types:BGP</identifier>
+        <name>bgp</name>
+        <bgp><global><config><as>${v.local_as}</as></config></global>
+          <neighbors><neighbor>
+            <neighbor-address>${v.peer}</neighbor-address>
+            <config><neighbor-address>${v.peer}</neighbor-address><peer-as>${v.remote_as}</peer-as></config>
+          </neighbor></neighbors>
+        </bgp>
+      </protocol></protocols>
+    </network-instance>
+  </network-instances>
+</config>`,
+    ncclient: `import jsonrpclib
+sw = jsonrpclib.Server("https://admin:admin@10.0.0.1/command-api")
+sw.runCmds(1, ["enable","configure",
+               "router bgp ${v.local_as}",
+               "neighbor ${v.peer} remote-as ${v.remote_as}",
+               "address-family ipv4",
+               "neighbor ${v.peer} activate"])`,
+    ansible: `- name: BGP AS ${v.local_as} neighbor ${v.peer}
+  arista.eos.eos_bgp_global:
+    config:
+      as_number: ${v.local_as}
+      neighbor:
+        - neighbor_address: ${v.peer}
+          remote_as: ${v.remote_as}
+    state: merged`,
+  }),
 };
+
+const AUTO_VLAN = {
+  Cisco: v => ({
+    netconf: `<config>
+  <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
+    <vlan>
+      <vlan-list xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-vlan">
+        <id>${v.id}</id>
+        <name>${escXml(v.name)}</name>
+      </vlan-list>
+    </vlan>
+  </native>
+</config>`,
+    ncclient: `# Create VLAN ${v.id} (${v.name})
+from ncclient import manager
+m = manager.connect(host="...", username="admin", password="cisco",
+                    hostkey_verify=False, device_params={"name":"iosxe"})
+m.edit_config(target="running", config=open("vlan.xml").read())`,
+    ansible: `- name: Create VLAN ${v.id}
+  cisco.ios.ios_vlans:
+    config:
+      - name: ${v.name}
+        vlan_id: ${v.id}
+        state: active
+    state: merged`,
+  }),
+  Juniper: v => ({
+    netconf: `<configuration>
+  <vlans>
+    <vlan>
+      <name>${escXml(v.name)}</name>
+      <vlan-id>${v.id}</vlan-id>
+    </vlan>
+  </vlans>
+</configuration>`,
+    ncclient: `from ncclient import manager
+m = manager.connect(host="...", username="root", password="juniper",
+                    hostkey_verify=False, device_params={"name":"junos"})
+m.lock("candidate")
+m.edit_config(target="candidate", config="""<configuration>
+  <vlans><vlan><name>${v.name}</name><vlan-id>${v.id}</vlan-id></vlan></vlans>
+</configuration>""")
+m.commit(); m.unlock("candidate")`,
+    ansible: `- name: Create VLAN ${v.id} (${v.name})
+  junipernetworks.junos.junos_vlans:
+    config:
+      - name: ${v.name}
+        vlan_id: ${v.id}
+    state: merged`,
+  }),
+  Arista: v => ({
+    netconf: `<config>
+  <network-instances xmlns="http://openconfig.net/yang/network-instance">
+    <network-instance><name>default</name>
+      <vlans><vlan>
+        <vlan-id>${v.id}</vlan-id>
+        <config>
+          <vlan-id>${v.id}</vlan-id>
+          <name>${escXml(v.name)}</name>
+          <status>ACTIVE</status>
+        </config>
+      </vlan></vlans>
+    </network-instance>
+  </network-instances>
+</config>`,
+    ncclient: `import jsonrpclib
+sw = jsonrpclib.Server("https://admin:admin@10.0.0.1/command-api")
+sw.runCmds(1, ["enable","configure","vlan ${v.id}","name ${v.name}"])`,
+    ansible: `- name: Create VLAN ${v.id}
+  arista.eos.eos_vlans:
+    config:
+      - vlan_id: ${v.id}
+        name: ${v.name}
+        state: active
+    state: merged`,
+  }),
+};
+
+const AUTO_SWITCHPORT = {
+  Cisco: v => ({
+    netconf: `<config>
+  <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
+    <interface><GigabitEthernet>
+      <name>${escXml(v.ifname.replace(/^GigabitEthernet/,""))}</name>
+      <switchport-config><switchport>
+        <mode><access/></mode>
+        <access><vlan><vlan>${v.vlan}</vlan></vlan></access>
+      </switchport></switchport-config>
+    </GigabitEthernet></interface>
+  </native>
+</config>`,
+    ncclient: `# Set ${v.ifname} to access VLAN ${v.vlan}
+from ncclient import manager
+m = manager.connect(host="...", username="admin", password="cisco",
+                    hostkey_verify=False, device_params={"name":"iosxe"})
+m.edit_config(target="running", config=open("switchport.xml").read())`,
+    ansible: `- name: ${v.ifname} access VLAN ${v.vlan}
+  cisco.ios.ios_l2_interfaces:
+    config:
+      - name: ${v.ifname}
+        mode: access
+        access:
+          vlan: ${v.vlan}
+    state: merged`,
+  }),
+  Juniper: v => ({
+    netconf: `<configuration>
+  <interfaces><interface>
+    <name>${escXml(v.ifname.replace(/\.\d+$/,""))}</name>
+    <unit><name>0</name>
+      <family><ethernet-switching>
+        <interface-mode>access</interface-mode>
+        <vlan><members>${escXml(v.vlan)}</members></vlan>
+      </ethernet-switching></family>
+    </unit>
+  </interface></interfaces>
+</configuration>`,
+    ncclient: `# Junos access port for VLAN ${v.vlan}
+from ncclient import manager
+m = manager.connect(host="...", username="root", password="juniper",
+                    hostkey_verify=False, device_params={"name":"junos"})
+m.lock("candidate")
+m.edit_config(target="candidate", config="""<configuration>
+  <interfaces><interface><name>${v.ifname.replace(/\.\d+$/,"")}</name>
+    <unit><name>0</name><family><ethernet-switching>
+      <interface-mode>access</interface-mode>
+      <vlan><members>${v.vlan}</members></vlan>
+    </ethernet-switching></family></unit>
+  </interface></interfaces>
+</configuration>""")
+m.commit(); m.unlock("candidate")`,
+    ansible: `- name: ${v.ifname} access VLAN ${v.vlan}
+  junipernetworks.junos.junos_l2_interfaces:
+    config:
+      - name: ${v.ifname.replace(/\.\d+$/,"")}
+        unit: 0
+        access:
+          vlan: ${v.vlan}
+    state: merged`,
+  }),
+  Arista: v => ({
+    netconf: `<config>
+  <interfaces xmlns="http://openconfig.net/yang/interfaces">
+    <interface>
+      <name>${escXml(v.ifname)}</name>
+      <ethernet xmlns="http://openconfig.net/yang/interfaces/ethernet">
+        <switched-vlan xmlns="http://openconfig.net/yang/vlan">
+          <config>
+            <interface-mode>ACCESS</interface-mode>
+            <access-vlan>${v.vlan}</access-vlan>
+          </config>
+        </switched-vlan>
+      </ethernet>
+    </interface>
+  </interfaces>
+</config>`,
+    ncclient: `import jsonrpclib
+sw = jsonrpclib.Server("https://admin:admin@10.0.0.1/command-api")
+sw.runCmds(1, ["enable","configure",
+               "interface ${v.ifname}",
+               "switchport mode access",
+               "switchport access vlan ${v.vlan}"])`,
+    ansible: `- name: ${v.ifname} access VLAN ${v.vlan}
+  arista.eos.eos_l2_interfaces:
+    config:
+      - name: ${v.ifname}
+        mode: access
+        access:
+          vlan: ${v.vlan}
+    state: merged`,
+  }),
+};
+
+const AUTO_NTP = {
+  Cisco: v => ({
+    netconf: `<config>
+  <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
+    <ntp xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-ntp">
+      <server><server-list><ip-address>${v.server}</ip-address></server-list></server>
+    </ntp>
+  </native>
+</config>`,
+    ncclient: `# Add NTP server ${v.server}
+from ncclient import manager
+m = manager.connect(host="...", username="admin", password="cisco",
+                    hostkey_verify=False, device_params={"name":"iosxe"})
+m.edit_config(target="running", config=open("ntp.xml").read())`,
+    ansible: `- name: NTP server ${v.server}
+  cisco.ios.ios_ntp_global:
+    config:
+      servers:
+        - server: ${v.server}
+    state: merged`,
+  }),
+  Juniper: v => ({
+    netconf: `<configuration>
+  <system>
+    <ntp>
+      <server>
+        <name>${v.server}</name>
+      </server>
+    </ntp>
+  </system>
+</configuration>`,
+    ncclient: `from ncclient import manager
+m = manager.connect(host="...", username="root", password="juniper",
+                    hostkey_verify=False, device_params={"name":"junos"})
+m.lock("candidate")
+m.edit_config(target="candidate", config="""<configuration><system><ntp>
+  <server><name>${v.server}</name></server>
+</ntp></system></configuration>""")
+m.commit(); m.unlock("candidate")`,
+    ansible: `- name: NTP server ${v.server}
+  junipernetworks.junos.junos_ntp_global:
+    config:
+      servers:
+        - server: ${v.server}
+    state: merged`,
+  }),
+  Arista: v => ({
+    netconf: `<config>
+  <system xmlns="http://openconfig.net/yang/system">
+    <ntp><servers><server>
+      <address>${v.server}</address>
+      <config><address>${v.server}</address></config>
+    </server></servers></ntp>
+  </system>
+</config>`,
+    ncclient: `import jsonrpclib
+sw = jsonrpclib.Server("https://admin:admin@10.0.0.1/command-api")
+sw.runCmds(1, ["enable","configure","ntp server ${v.server}"])`,
+    ansible: `- name: NTP server ${v.server}
+  arista.eos.eos_ntp_global:
+    config:
+      servers:
+        - server: ${v.server}
+    state: merged`,
+  }),
+};
+
+const AUTO_SYSLOG = {
+  Cisco: v => ({
+    netconf: `<config>
+  <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
+    <logging>
+      <host><ipv4-host-list><ipv4-host>${v.host}</ipv4-host></ipv4-host-list></host>
+    </logging>
+  </native>
+</config>`,
+    ncclient: `# Syslog to ${v.host}
+from ncclient import manager
+m = manager.connect(host="...", username="admin", password="cisco",
+                    hostkey_verify=False, device_params={"name":"iosxe"})
+m.edit_config(target="running", config=open("syslog.xml").read())`,
+    ansible: `- name: Logging host ${v.host}
+  cisco.ios.ios_logging_global:
+    config:
+      hosts:
+        - host: ${v.host}
+    state: merged`,
+  }),
+  Juniper: v => ({
+    netconf: `<configuration>
+  <system>
+    <syslog>
+      <host>
+        <name>${v.host}</name>
+        <contents><name>any</name><any/></contents>
+      </host>
+    </syslog>
+  </system>
+</configuration>`,
+    ncclient: `from ncclient import manager
+m = manager.connect(host="...", username="root", password="juniper",
+                    hostkey_verify=False, device_params={"name":"junos"})
+m.lock("candidate")
+m.edit_config(target="candidate", config="""<configuration><system><syslog>
+  <host><name>${v.host}</name><contents><name>any</name><any/></contents></host>
+</syslog></system></configuration>""")
+m.commit(); m.unlock("candidate")`,
+    ansible: `- name: Syslog host ${v.host}
+  junipernetworks.junos.junos_logging_global:
+    config:
+      files:
+        - name: messages
+          contents:
+            - facility: any
+              severity: info
+      hosts:
+        - name: ${v.host}
+    state: merged`,
+  }),
+  Arista: v => ({
+    netconf: `<config>
+  <system xmlns="http://openconfig.net/yang/system">
+    <logging><remote-servers><remote-server>
+      <host>${v.host}</host>
+      <config><host>${v.host}</host></config>
+    </remote-server></remote-servers></logging>
+  </system>
+</config>`,
+    ncclient: `import jsonrpclib
+sw = jsonrpclib.Server("https://admin:admin@10.0.0.1/command-api")
+sw.runCmds(1, ["enable","configure","logging host ${v.host}"])`,
+    ansible: `- name: Logging host ${v.host}
+  arista.eos.eos_logging_global:
+    config:
+      hosts:
+        - name: ${v.host}
+    state: merged`,
+  }),
+};
+
+const AUTO_HOSTNAME = {
+  Cisco: v => ({
+    netconf: `<config>
+  <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
+    <hostname>${escXml(v.hostname)}</hostname>
+  </native>
+</config>`,
+    ncclient: `from ncclient import manager
+m = manager.connect(host="...", username="admin", password="cisco",
+                    hostkey_verify=False, device_params={"name":"iosxe"})
+m.edit_config(target="running", config="""<config>
+  <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
+    <hostname>${v.hostname}</hostname>
+  </native>
+</config>""")`,
+    ansible: `- name: Set hostname to ${v.hostname}
+  cisco.ios.ios_hostname:
+    config:
+      hostname: ${v.hostname}
+    state: merged`,
+  }),
+  Juniper: v => ({
+    netconf: `<configuration>
+  <system>
+    <host-name>${escXml(v.hostname)}</host-name>
+  </system>
+</configuration>`,
+    ncclient: `from ncclient import manager
+m = manager.connect(host="...", username="root", password="juniper",
+                    hostkey_verify=False, device_params={"name":"junos"})
+m.lock("candidate")
+m.edit_config(target="candidate", config="""<configuration><system>
+  <host-name>${v.hostname}</host-name>
+</system></configuration>""")
+m.commit(); m.unlock("candidate")`,
+    ansible: `- name: Set hostname to ${v.hostname}
+  junipernetworks.junos.junos_system:
+    hostname: ${v.hostname}`,
+  }),
+  Arista: v => ({
+    netconf: `<config>
+  <system xmlns="http://openconfig.net/yang/system">
+    <config><hostname>${escXml(v.hostname)}</hostname></config>
+  </system>
+</config>`,
+    ncclient: `import jsonrpclib
+sw = jsonrpclib.Server("https://admin:admin@10.0.0.1/command-api")
+sw.runCmds(1, ["enable","configure","hostname ${v.hostname}"])`,
+    ansible: `- name: Set hostname to ${v.hostname}
+  arista.eos.eos_hostname:
+    config:
+      hostname: ${v.hostname}
+    state: merged`,
+  }),
+};
+
+const AUTO_IFDESC = {
+  Cisco: v => ({
+    netconf: `<config>
+  <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
+    <interface><GigabitEthernet>
+      <name>${escXml(v.ifname.replace(/^GigabitEthernet/,""))}</name>
+      <description>${escXml(v.desc)}</description>
+    </GigabitEthernet></interface>
+  </native>
+</config>`,
+    ncclient: `# Description on ${v.ifname}
+from ncclient import manager
+m = manager.connect(host="...", username="admin", password="cisco",
+                    hostkey_verify=False, device_params={"name":"iosxe"})
+m.edit_config(target="running", config=open("desc.xml").read())`,
+    ansible: `- name: Description on ${v.ifname}
+  cisco.ios.ios_interfaces:
+    config:
+      - name: ${v.ifname}
+        description: "${v.desc}"
+    state: merged`,
+  }),
+  Juniper: v => ({
+    netconf: `<configuration>
+  <interfaces><interface>
+    <name>${escXml(v.ifname.replace(/\.\d+$/,""))}</name>
+    <description>${escXml(v.desc)}</description>
+  </interface></interfaces>
+</configuration>`,
+    ncclient: `from ncclient import manager
+m = manager.connect(host="...", username="root", password="juniper",
+                    hostkey_verify=False, device_params={"name":"junos"})
+m.lock("candidate")
+m.edit_config(target="candidate", config="""<configuration><interfaces><interface>
+  <name>${v.ifname.replace(/\.\d+$/,"")}</name>
+  <description>${v.desc}</description>
+</interface></interfaces></configuration>""")
+m.commit(); m.unlock("candidate")`,
+    ansible: `- name: Description on ${v.ifname}
+  junipernetworks.junos.junos_interfaces:
+    config:
+      - name: ${v.ifname.replace(/\.\d+$/,"")}
+        description: "${v.desc}"
+    state: merged`,
+  }),
+  Arista: v => ({
+    netconf: `<config>
+  <interfaces xmlns="http://openconfig.net/yang/interfaces">
+    <interface>
+      <name>${escXml(v.ifname)}</name>
+      <config>
+        <name>${escXml(v.ifname)}</name>
+        <description>${escXml(v.desc)}</description>
+      </config>
+    </interface>
+  </interfaces>
+</config>`,
+    ncclient: `import jsonrpclib
+sw = jsonrpclib.Server("https://admin:admin@10.0.0.1/command-api")
+sw.runCmds(1, ["enable","configure","interface ${v.ifname}","description ${v.desc}"])`,
+    ansible: `- name: Description on ${v.ifname}
+  arista.eos.eos_interfaces:
+    config:
+      - name: ${v.ifname}
+        description: "${v.desc}"
+    state: merged`,
+  }),
+};
+
+function findAutomationMapping(d){
+  for(const m of AUTOMATION_MAPPINGS){
+    for(const re of m.matchAny){
+      if(re.test(d.cmd)){
+        const vals = m.extract(d.cmd);
+        if(vals) return {mapping:m, vals};
+      }
+    }
+  }
+  return null;
+}
+
+const CAT_GROUPS = [
+  ["Management", ["System","AAA","Logging","SNMP","NTP"]],
+  ["L2",         ["Interfaces","VLAN","EtherChannel","Spanning-Tree"]],
+  ["L3 / Routing",["Routing","Static","OSPF","BGP","EIGRP","MPLS","Multicast"]],
+  ["Security",   ["ACL","Firewall","NAT","VPN","Security"]],
+  ["Operations", ["Troubleshooting","DHCP","HA","QoS"]],
+];
 
 const state = {
-  vendor:"cisco", os:"ios", role:"router", hostname:"R1", section:"interfaces",
-  diff:false, diffVendor:"juniper",
-  // per-section emit toggle (true = include in CLI). Auto-init to all-on.
-  enabled: JSON.parse(localStorage.getItem("cfg-enabled")||"null") || {
-    interfaces:true, static:true, ospf:true, bgp:true, acls:true, snmp:true, logging:true,
-    vlans:true, trunks:true, stp:true, zones:true, policies:true, nat:true, vpn:true
-  },
-  interfaces:[
-    {name:"GigabitEthernet0/0", desc:"WAN uplink", ip:"10.0.0.1", mask:"255.255.255.252", prefix:30, enabled:true, mode:"routed", vlan:"", trunkVlans:""},
-    {name:"GigabitEthernet0/1", desc:"", ip:"", mask:"", prefix:24, enabled:false, mode:"routed", vlan:"", trunkVlans:""},
-    {name:"Loopback0", desc:"Router-ID", ip:"1.1.1.1", mask:"255.255.255.255", prefix:32, enabled:true, mode:"routed", vlan:"", trunkVlans:""},
-  ],
-  static:[{prefix:"0.0.0.0", mask:"0.0.0.0", nextHop:"10.0.0.2", distance:""}],
-  ospf:{processId:"1", routerId:"1.1.1.1", area:"0", networks:[{net:"10.0.0.0",wild:"0.0.0.255",area:"0"}], passiveDefault:true},
-  bgp:{asn:"65001", routerId:"1.1.1.1", neighbors:[{ip:"10.0.0.2",remoteAs:"65002",desc:"Upstream ISP"}], networks:[{net:"10.10.10.0",mask:"255.255.255.0"}]},
-  acls:[{name:"MGMT", rules:[{seq:10,action:"permit",proto:"tcp",src:"10.0.0.0/24",dst:"any",port:"22"},{seq:20,action:"deny",proto:"ip",src:"any",dst:"any",port:""}]}],
-  vlans:[{id:10,name:"USERS"},{id:20,name:"VOICE"},{id:99,name:"MGMT"}],
-  trunks:[{intf:"GigabitEthernet1/0/24", allowed:"10,20,99", native:"1"}],
-  stp:{mode:"rapid-pvst", priority:""},
-  zones:[{name:"trust",interfaces:"GigabitEthernet0/1"},{name:"untrust",interfaces:"GigabitEthernet0/0"}],
-  policies:[{name:"ALLOW-WEB",from:"untrust",to:"trust",src:"any",dst:"10.10.10.10/32",app:"HTTPS",action:"permit"}],
-  nat:[{type:"source",src:"10.10.10.0/24",translation:"interface",direction:"trust→untrust"}],
-  vpn:[{peer:"198.51.100.2", psk:"SECRET", local:"10.10.10.0/24", remote:"10.20.20.0/24"}],
-  snmp:{community:"", v3user:"monitor", v3auth:"AUTHPASS", v3priv:"PRIVPASS", host:"10.0.0.50"},
-  logging:{host:"10.0.0.50", level:"informational"},
+  vendor:new Set(), os:new Set(), role:new Set(), cat:new Set(),
+  q:"", view:"cards",
+  fav: new Set(JSON.parse(localStorage.getItem("cli-fav")||"[]")),
+  queue: JSON.parse(localStorage.getItem("cli-queue")||"[]"),
+  table_sort:{col:"cat",dir:1},
+  collapsed:new Set(JSON.parse(localStorage.getItem("cli-acc")||'["acc-os","acc-role"]')),
+  showFavOnly:false,
 };
+let DATA = [];
 
 const $ = id => document.getElementById(id);
+const persistFav = ()=>localStorage.setItem("cli-fav",JSON.stringify([...state.fav]));
+const persistQueue = ()=>localStorage.setItem("cli-queue",JSON.stringify(state.queue));
+const persistAcc = ()=>localStorage.setItem("cli-acc",JSON.stringify([...state.collapsed]));
 
 function el(tag,attrs,...kids){
   attrs = attrs || {};
@@ -318,1116 +1528,906 @@ function el(tag,attrs,...kids){
   });
   return e;
 }
-function inputRow(label, value, onInput, placeholder, tip){
-  const inp = el("input",{type:"text",value:value==null?"":value,placeholder:placeholder||"",
-    onInput:e=>{onInput(e.target.value); generate(); refreshNav();}});
-  const lbl = el("label",{},label);
-  if(tip) lbl.appendChild(el("span",{class:"tip","data-tip":tip}, "?"));
-  return el("div",{class:"row"}, lbl, inp);
-}
-function selRow(label, value, options, onChange, tip){
-  const sel = el("select",{onChange:e=>{onChange(e.target.value); generate(); refreshNav();}});
-  options.forEach(o=>{
-    const v = Array.isArray(o)?o[0]:o, t = Array.isArray(o)?o[1]:o;
-    const op = el("option",{value:v}, t);
-    if(v===value) op.selected = true;
-    sel.appendChild(op);
+
+function uniq(arr){return [...new Set(arr)]}
+function countBy(field,val){return DATA.filter(d=>d[field]===val).length}
+function fkey(d){return d.vendor+"|"+d.cat+"|"+d.title+"|"+(d.cmd||"").slice(0,32)}
+
+function parseQuery(q){
+  q = (q||"").trim().toLowerCase();
+  const ops = {vendor:[], os:[], role:[], cat:[], fav:false};
+  const rest = [];
+  q.split(/\s+/).forEach(tok=>{
+    const m = tok.match(/^(vendor|os|role|cat|category|fav):(.*)$/);
+    if(m){
+      const k = m[1]==="category" ? "cat" : m[1];
+      const v = m[2];
+      if(k === "fav") ops.fav = true;
+      else if(v) ops[k].push(v);
+    } else if(tok){
+      rest.push(tok);
+    }
   });
-  const lbl = el("label",{},label);
-  if(tip) lbl.appendChild(el("span",{class:"tip","data-tip":tip}, "?"));
-  return el("div",{class:"row"}, lbl, sel);
-}
-function checkRow(label, checked, onChange){
-  const inp = el("input",{type:"checkbox",checked,
-    onChange:e=>{onChange(e.target.checked); generate(); refreshNav();}});
-  return el("div",{class:"row"}, el("label",{},label),
-    el("div",{class:"check"}, inp, document.createTextNode(checked?"enabled":"disabled")));
-}
-function entryHeader(name, badges){
-  const h = el("div",{class:"head"}, el("div",{class:"name"},name));
-  const b = el("div",{class:"badges"});
-  (badges||[]).forEach(p=>b.appendChild(el("span",{class:"pill "+p[0]}, p[1])));
-  h.appendChild(b);
-  return h;
-}
-function cardBlock(title, ...kids){
-  return el("div",{class:"card"}, el("div",{class:"card-title"}, title), ...kids);
+  return {ops, text:rest.join(" ")};
 }
 
-/* ── Section status (○ / ✓) ── */
-const FILL_STATUS = {
-  interfaces:()=>{const n=state.interfaces.filter(i=>i.name && (i.ip||i.vlan||i.trunkVlans));return n.length===0?"empty":"filled";},
-  static:()=>{const n=state.static.filter(r=>r.prefix&&r.nextHop);return n.length===0?"empty":"filled";},
-  ospf:()=>{const n=state.ospf.networks.filter(o=>o.net);return n.length===0?"empty":"filled";},
-  bgp:()=>{return (state.bgp.asn && (state.bgp.neighbors.some(n=>n.ip) || state.bgp.networks.some(n=>n.net))) ? "filled":"empty";},
-  acls:()=>{const n=state.acls.filter(a=>a.name && a.rules.length);return n.length===0?"empty":"filled";},
-  snmp:()=>(state.snmp.community||state.snmp.host)?"filled":"empty",
-  logging:()=>state.logging.host?"filled":"empty",
-  vlans:()=>state.vlans.filter(v=>v.id).length?"filled":"empty",
-  trunks:()=>state.trunks.filter(t=>t.intf).length?"filled":"empty",
-  stp:()=>state.stp.mode?"filled":"empty",
-  zones:()=>state.zones.filter(z=>z.name).length?"filled":"empty",
-  policies:()=>state.policies.filter(p=>p.name).length?"filled":"empty",
-  nat:()=>state.nat.filter(n=>n.src).length?"filled":"empty",
-  vpn:()=>state.vpn.filter(v=>v.peer).length?"filled":"empty",
-};
-
-function renderOsSelect(){
-  const sel = $("osel");
-  sel.replaceChildren();
-  OS_MAP[state.vendor].forEach(o=>{
-    const opt = el("option",{value:o[0]}, o[1]);
-    sel.appendChild(opt);
-  });
-  state.os = OS_MAP[state.vendor][0][0];
-  sel.value = state.os;
-}
-function refreshNav(){
-  document.querySelectorAll(".nav a").forEach(a=>{
-    const s = a.dataset.s;
-    if(!s) return;
-    const isEnabled = state.enabled[s] !== false;
-    a.classList.toggle("disabled", !isEnabled);
-    const badge = a.querySelector(".stbadge");
-    if(badge){
-      const st = (FILL_STATUS[s]||(()=>"empty"))();
-      badge.className = "stbadge "+st;
-      badge.textContent = st==="filled" ? "✓" : "○";
-    }
-  });
-}
-function renderNav(){
-  const nav = $("nav");
-  nav.replaceChildren();
-  SECTIONS[state.role].forEach(s=>{
-    const isEnabled = state.enabled[s] !== false;
-    const right = el("span",{class:"navright"},
-      el("span",{class:"stbadge empty"}, "○"),
-      (()=>{
-        const cb = el("input",{type:"checkbox",class:"togsec",title:"Emit this section to CLI",checked:isEnabled});
-        cb.addEventListener("click",(e)=>{e.stopPropagation();});
-        cb.addEventListener("change",()=>{
-          state.enabled[s] = cb.checked;
-          localStorage.setItem("cfg-enabled", JSON.stringify(state.enabled));
-          generate(); refreshNav();
-        });
-        return cb;
-      })()
-    );
-    const a = el("a",{}, el("span",{}, SECTION_LABELS[s]), right);
-    a.dataset.s = s;
-    if(s===state.section) a.classList.add("on");
-    if(!isEnabled) a.classList.add("disabled");
-    a.addEventListener("click",()=>{state.section=s; renderNav(); renderContent();});
-    nav.appendChild(a);
-  });
-  if(!SECTIONS[state.role].includes(state.section)){
-    state.section = SECTIONS[state.role][0];
-    renderNav();
+function matches(d){
+  const parsed = parseQuery(state.q);
+  const ops = parsed.ops;
+  const text = parsed.text;
+  if(state.vendor.size && !state.vendor.has(d.vendor)) return false;
+  if(state.os.size && !state.os.has(d.os)) return false;
+  if(state.role.size && !state.role.has(d.role)) return false;
+  if(state.cat.size && !state.cat.has(d.cat)) return false;
+  if(state.showFavOnly && !state.fav.has(fkey(d))) return false;
+  if(ops.fav && !state.fav.has(fkey(d))) return false;
+  if(ops.vendor.length && !ops.vendor.some(v=>d.vendor.toLowerCase().includes(v))) return false;
+  if(ops.os.length && !ops.os.some(v=>d.os.toLowerCase().includes(v) || (OSLABEL[d.os]||"").toLowerCase().includes(v))) return false;
+  if(ops.role.length && !ops.role.some(v=>d.role.toLowerCase().includes(v))) return false;
+  if(ops.cat.length && !ops.cat.some(v=>d.cat.toLowerCase().includes(v))) return false;
+  if(text){
+    const hay = (d.title+" "+d.cmd+" "+d.desc+" "+d.cat+" "+d.os+" "+d.vendor+" "+d.role).toLowerCase();
+    if(!hay.includes(text)) return false;
   }
-  refreshNav();
-  applyNavSearch();
-}
-function applyNavSearch(){
-  const q = ($("navsearch").value||"").trim().toLowerCase();
-  document.querySelectorAll(".nav a").forEach(a=>{
-    const s = a.dataset.s;
-    if(!q){ a.classList.remove("hidden"); return; }
-    const hay = (SECTION_LABELS[s]+" "+(SECTION_KEYWORDS[s]||"")).toLowerCase();
-    a.classList.toggle("hidden", !hay.includes(q));
-  });
+  return true;
 }
 
-/* ── Section renderers ── */
-function renderContent(){
-  const c = $("canvas");
-  c.replaceChildren();
-  const subhint = el("span",{class:"sec-sub"}, "role: "+state.role+" · "+state.vendor.toUpperCase()+" "+state.os.toUpperCase());
-  c.appendChild(el("h2",{class:"sec-title"}, SECTION_LABELS[state.section], subhint));
-  switch(state.section){
-    case "interfaces": return renderInterfaces(c);
-    case "static":     return renderStatic(c);
-    case "ospf":       return renderOSPF(c);
-    case "bgp":        return renderBGP(c);
-    case "acls":       return renderACLs(c);
-    case "vlans":      return renderVLANs(c);
-    case "trunks":     return renderTrunks(c);
-    case "stp":        return renderSTP(c);
-    case "zones":      return renderZones(c);
-    case "policies":   return renderPolicies(c);
-    case "nat":        return renderNAT(c);
-    case "vpn":        return renderVPN(c);
-    case "snmp":       return renderSNMP(c);
-    case "logging":    return renderLogging(c);
-  }
-}
+const CMD_KEYWORDS = new Set([
+  "show","interface","ip","ipv6","router","vlan","set","access-list","hostname","configure",
+  "switchport","spanning-tree","crypto","snmp-server","logging","ntp","aaa","debug","enable",
+  "copy","write","reload","monitor","clear","ping","traceroute","no","service","line","standby",
+  "vrrp","hsrp","feature","commit","rollback","delete","edit","run","top","up","exit","end",
+  "neighbor","network","address","mask","permit","deny","subnet","host","any","eq","lt","gt",
+  "in","out","both","mtu","speed","duplex","description","shutdown","ssh","telnet","key",
+  "password","priority","preempt","timers","ftp","tftp","tacacs","radius","route","static",
+  "vrf","gateway","tunnel","group","peer-as","local-as","redistribute","summary",
+  "system","name","authentication","destination","source","global","table","encapsulation",
+  "allowed","trunk","access","mode","native"
+]);
+const PLACEHOLDER_RE = /(\[[^\]]+\]|<[^>]+>|\bIPADDRESS\b|\bVLAN_NO\b|\bGROUPNUMBER\b|\bGROUPNAME\b|\bHELLOTIME\b|\bHOLDTIME\b|\bDECREASEVALUE\b|\bSECOND\b|\bSECRET\b|\bDISCRIPTION\b|\bPRIORITY\b|\bVRFNAME\b|\bPORT\b|\bINTERFACE\b)/g;
 
-function renderInterfaces(c){
-  state.interfaces.forEach((it,i)=>{
-    const card = el("div",{class:"card"});
-    card.appendChild(entryHeader(it.name||"unnamed", [
-      it.enabled ? ["up","up"] : ["down","shutdown"],
-      ["", state.role]
-    ]));
-    card.appendChild(inputRow("Name", it.name, v=>it.name=v, "GigabitEthernet0/0 | ge-0/0/0 | Ethernet1", "Vendor-specific name: e.g. Gi0/0 (Cisco), ge-0/0/0 (Junos), Ethernet1 (Arista)"));
-    card.appendChild(inputRow("Description", it.desc, v=>it.desc=v, "optional"));
-    if(state.role==="switch"){
-      card.appendChild(selRow("Mode", it.mode||"access", [["access","Access"],["trunk","Trunk"],["routed","Routed (L3)"]], v=>{it.mode=v; renderContent();}));
-      if(it.mode==="trunk"){
-        card.appendChild(inputRow("Allowed VLANs", it.trunkVlans, v=>it.trunkVlans=v, "10,20,30", "Comma-separated list. Use '-' for ranges (e.g. 10,20-30)"));
-      } else if(it.mode==="routed"){
-        card.appendChild(inputRow("IP Address", it.ip, v=>it.ip=v, "10.0.0.1"));
-        card.appendChild(inputRow("Subnet Mask", it.mask, v=>it.mask=v, "255.255.255.0", "Dotted-quad mask. NX-OS/EOS/Junos use CIDR prefix instead (auto-converted)."));
-      } else {
-        card.appendChild(inputRow("Access VLAN", it.vlan, v=>it.vlan=v, "10"));
-      }
-    } else {
-      card.appendChild(inputRow("IP Address", it.ip, v=>it.ip=v, "10.0.0.1"));
-      card.appendChild(inputRow("Subnet Mask", it.mask, v=>it.mask=v, "255.255.255.0", "Dotted-quad mask. /30=252  /29=248  /24=0"));
-      card.appendChild(inputRow("Prefix length", it.prefix, v=>it.prefix=v, "24", "Used when mask is empty. 0-32 for IPv4."));
-    }
-    card.appendChild(checkRow("No Shutdown", it.enabled, v=>{it.enabled=v; renderContent();}));
-    card.querySelector(".badges").appendChild(el("button",{class:"btn-x",
-      onClick:()=>{state.interfaces.splice(i,1); renderContent(); generate(); refreshNav();}}, "× remove"));
-    c.appendChild(card);
-  });
-  c.appendChild(el("button",{class:"add",onClick:()=>{
-    state.interfaces.push({name:"",desc:"",ip:"",mask:"",prefix:24,enabled:true,mode:"routed",vlan:"",trunkVlans:""});
-    renderContent(); generate(); refreshNav();
-  }}, "+ Add Interface"));
-}
-
-function renderStatic(c){
-  state.static.forEach((r,i)=>{
-    const card = el("div",{class:"card"});
-    card.appendChild(entryHeader("route "+(i+1), [["",(r.prefix||"?")+"/"+(maskToPrefix(r.mask)||"?")]]));
-    card.appendChild(inputRow("Prefix",   r.prefix,   v=>r.prefix=v, "10.10.10.0  or  0.0.0.0 for default"));
-    card.appendChild(inputRow("Mask",     r.mask,     v=>r.mask=v, "255.255.255.0", "Dotted-quad. 0.0.0.0 = default route."));
-    card.appendChild(inputRow("Next Hop", r.nextHop,  v=>r.nextHop=v, "10.0.0.2"));
-    card.appendChild(inputRow("Admin Distance", r.distance, v=>r.distance=v, "200 for floating backup", "1 = directly attached. Higher = lower priority. Use 200+ for floating backup routes."));
-    card.querySelector(".badges").appendChild(el("button",{class:"btn-x",
-      onClick:()=>{state.static.splice(i,1); renderContent(); generate(); refreshNav();}}, "× remove"));
-    c.appendChild(card);
-  });
-  c.appendChild(el("button",{class:"add",onClick:()=>{state.static.push({prefix:"",mask:"",nextHop:"",distance:""}); renderContent(); generate(); refreshNav();}},"+ Add Route"));
-}
-
-function renderOSPF(c){
-  const o = state.ospf;
-  const top = cardBlock("OSPF Process — global settings");
-  top.appendChild(inputRow("Process ID", o.processId, v=>o.processId=v, "1", "Cisco-only. Junos doesn't use process IDs."));
-  top.appendChild(inputRow("Router-ID", o.routerId, v=>o.routerId=v, "1.1.1.1", "Manually assigned router-ID (IPv4 format). Best practice: matches a loopback."));
-  top.appendChild(checkRow("passive-interface default", o.passiveDefault, v=>{o.passiveDefault=v;}));
-  c.appendChild(top);
-
-  const netBlock = cardBlock("Advertised networks");
-  o.networks.forEach((n,i)=>{
-    const w = el("div",{class:"entry"});
-    w.appendChild(entryHeader("network "+(i+1)));
-    w.appendChild(inputRow("Network", n.net, v=>n.net=v, "10.0.0.0"));
-    w.appendChild(inputRow("Wildcard", n.wild, v=>n.wild=v, "0.0.0.255", "Inverse of subnet mask. /24=0.0.0.255, /16=0.0.255.255, /8=0.255.255.255"));
-    w.appendChild(inputRow("Area", n.area, v=>n.area=v, "0", "Area ID. 0 = backbone. Can be decimal or A.B.C.D form."));
-    w.querySelector(".badges").appendChild(el("button",{class:"btn-x",
-      onClick:()=>{o.networks.splice(i,1); renderContent(); generate(); refreshNav();}}, "× remove"));
-    netBlock.appendChild(w);
-  });
-  netBlock.appendChild(el("button",{class:"add",onClick:()=>{o.networks.push({net:"",wild:"0.0.0.255",area:"0"}); renderContent(); generate(); refreshNav();}},"+ Add Network"));
-  c.appendChild(netBlock);
-}
-
-function renderBGP(c){
-  const b = state.bgp;
-  const g = cardBlock("BGP — global settings");
-  g.appendChild(inputRow("Local AS", b.asn, v=>b.asn=v, "65001", "2-byte (1-65535) or 4-byte ASN. Private: 64512-65534, 4200000000-4294967294"));
-  g.appendChild(inputRow("Router-ID", b.routerId, v=>b.routerId=v, "1.1.1.1"));
-  c.appendChild(g);
-
-  const nb = cardBlock("Neighbors (peers)");
-  b.neighbors.forEach((n,i)=>{
-    const w = el("div",{class:"entry"});
-    w.appendChild(entryHeader("neighbor "+(n.ip||"?"), [["", "AS "+(n.remoteAs||"?")]]));
-    w.appendChild(inputRow("Peer IP", n.ip, v=>n.ip=v, "10.0.0.2"));
-    w.appendChild(inputRow("Remote AS", n.remoteAs, v=>n.remoteAs=v, "65002", "Same as Local AS = iBGP. Different = eBGP."));
-    w.appendChild(inputRow("Description", n.desc, v=>n.desc=v, "Upstream"));
-    w.querySelector(".badges").appendChild(el("button",{class:"btn-x",
-      onClick:()=>{b.neighbors.splice(i,1); renderContent(); generate(); refreshNav();}}, "× remove"));
-    nb.appendChild(w);
-  });
-  nb.appendChild(el("button",{class:"add",onClick:()=>{b.neighbors.push({ip:"",remoteAs:"",desc:""}); renderContent(); generate(); refreshNav();}},"+ Add Neighbor"));
-  c.appendChild(nb);
-
-  const nh = cardBlock("Advertised networks");
-  b.networks.forEach((n,i)=>{
-    const w = el("div",{class:"entry"});
-    w.appendChild(entryHeader("network "+(i+1)));
-    w.appendChild(inputRow("Network", n.net, v=>n.net=v, "10.10.10.0"));
-    w.appendChild(inputRow("Mask", n.mask, v=>n.mask=v, "255.255.255.0"));
-    w.querySelector(".badges").appendChild(el("button",{class:"btn-x",
-      onClick:()=>{b.networks.splice(i,1); renderContent(); generate(); refreshNav();}}, "× remove"));
-    nh.appendChild(w);
-  });
-  nh.appendChild(el("button",{class:"add",onClick:()=>{b.networks.push({net:"",mask:"255.255.255.0"}); renderContent(); generate(); refreshNav();}},"+ Add Network"));
-  c.appendChild(nh);
-}
-
-/* ── ACL — compact inline table rows (biggest UX change) ── */
-function renderACLs(c){
-  state.acls.forEach((a,ai)=>{
-    const card = el("div",{class:"card"});
-    card.appendChild(entryHeader(a.name||"ACL", [["",a.rules.length+" rules"]]));
-    card.appendChild(inputRow("ACL name", a.name, v=>a.name=v, "MGMT"));
-    const tbl = el("table",{class:"acl-table"});
-    const mkTh = (txt, cls, tip)=>{
-      const th = el("th",{class:cls||""}, txt);
-      if(tip) th.appendChild(el("span",{class:"tip","data-tip":tip,style:"margin-left:4px"}, "?"));
-      return th;
-    };
-    const thead = el("thead", {}, el("tr",{},
-      mkTh("Seq","colw-seq","Sequence number — controls match order. ACLs evaluate top-to-bottom and stop at first match."),
-      mkTh("Action","colw-act","permit=allow matching traffic, deny=drop it. Implicit 'deny ip any any' at the end of every ACL."),
-      mkTh("Proto","colw-pr","ip=all IP traffic, tcp/udp=specify L4, icmp=ping/traceroute"),
-      mkTh("Source",null,"Source IP/subnet. 'any'=0.0.0.0/0. 'host 10.1.1.1'=single host. '10.0.0.0/24' or '10.0.0.0 0.0.0.255' (wildcard) for subnets."),
-      mkTh("Destination",null,"Destination IP/subnet. Same syntax as Source."),
-      mkTh("Port","colw-port","L4 port (TCP/UDP only). E.g. 22 (ssh), 443 (https), 'range 1024 65535'. Ignored for ip/icmp."),
-      mkTh("","colw-x","")));
-    tbl.appendChild(thead);
-    const tbody = el("tbody");
-    a.rules.forEach((r,ri)=>{
-      const row = el("tr");
-      row.appendChild(el("td",{class:"seq"}, r.seq));
-      // action
-      const act = el("select",{onChange:e=>{r.action=e.target.value; generate(); refreshNav();}});
-      ["permit","deny"].forEach(v=>{const o=el("option",{value:v},v); if(v===r.action)o.selected=true; act.appendChild(o);});
-      row.appendChild(el("td",{},act));
-      // proto
-      const pr = el("select",{onChange:e=>{r.proto=e.target.value; generate(); refreshNav();}});
-      ["ip","tcp","udp","icmp"].forEach(v=>{const o=el("option",{value:v},v); if(v===r.proto)o.selected=true; pr.appendChild(o);});
-      row.appendChild(el("td",{},pr));
-      // src
-      row.appendChild(el("td",{}, el("input",{type:"text",value:r.src||"",placeholder:"any | 10.0.0.0/24",
-        onInput:e=>{r.src=e.target.value; generate(); refreshNav();}})));
-      // dst
-      row.appendChild(el("td",{}, el("input",{type:"text",value:r.dst||"",placeholder:"any | host 10.10.10.10",
-        onInput:e=>{r.dst=e.target.value; generate(); refreshNav();}})));
-      // port
-      row.appendChild(el("td",{}, el("input",{type:"text",value:r.port||"",placeholder:"22, 443, 80",
-        onInput:e=>{r.port=e.target.value; generate(); refreshNav();}})));
-      // remove
-      row.appendChild(el("td",{}, el("button",{class:"btn-x",onClick:()=>{
-        a.rules.splice(ri,1); renderContent(); generate(); refreshNav();
-      }}, "×")));
-      tbody.appendChild(row);
-    });
-    tbl.appendChild(tbody);
-    card.appendChild(tbl);
-    card.appendChild(el("button",{class:"add",onClick:()=>{
-      const next = (a.rules[a.rules.length-1]?.seq||0)+10;
-      a.rules.push({seq:next,action:"permit",proto:"ip",src:"any",dst:"any",port:""});
-      renderContent(); generate(); refreshNav();
-    }},"+ Add Rule"));
-    card.querySelector(".badges").appendChild(el("button",{class:"btn-x",
-      onClick:()=>{state.acls.splice(ai,1); renderContent(); generate(); refreshNav();}}, "× remove ACL"));
-    c.appendChild(card);
-  });
-  c.appendChild(el("button",{class:"add",onClick:()=>{
-    state.acls.push({name:"NEW_ACL",rules:[{seq:10,action:"permit",proto:"ip",src:"any",dst:"any",port:""}]});
-    renderContent(); generate(); refreshNav();
-  }},"+ Add ACL"));
-}
-
-function renderVLANs(c){
-  const card = cardBlock("VLAN database");
-  state.vlans.forEach((v,i)=>{
-    const w = el("div",{class:"entry"});
-    w.appendChild(entryHeader("VLAN "+v.id+(v.name?" — "+v.name:"")));
-    w.appendChild(inputRow("VLAN ID", v.id, x=>v.id=x, "10", "1-4094. 1 is default, 1002-1005 reserved on legacy Cisco."));
-    w.appendChild(inputRow("Name", v.name, x=>v.name=x, "USERS"));
-    w.querySelector(".badges").appendChild(el("button",{class:"btn-x",
-      onClick:()=>{state.vlans.splice(i,1); renderContent(); generate(); refreshNav();}}, "× remove"));
-    card.appendChild(w);
-  });
-  c.appendChild(card);
-  c.appendChild(el("button",{class:"add",onClick:()=>{state.vlans.push({id:"",name:""}); renderContent(); generate(); refreshNav();}},"+ Add VLAN"));
-}
-function renderTrunks(c){
-  state.trunks.forEach((t,i)=>{
-    const card = el("div",{class:"card"});
-    card.appendChild(entryHeader(t.intf||"trunk port"));
-    card.appendChild(inputRow("Interface", t.intf, v=>t.intf=v, "Gi1/0/24 / ge-0/0/24 / Ethernet24"));
-    card.appendChild(inputRow("Allowed VLANs", t.allowed, v=>t.allowed=v, "10,20,30", "Use '-' for ranges. all = all VLANs (Cisco: 'all')"));
-    card.appendChild(inputRow("Native VLAN", t.native, v=>t.native=v, "1", "Untagged VLAN. Default = 1. Change for security best practice."));
-    card.querySelector(".badges").appendChild(el("button",{class:"btn-x",
-      onClick:()=>{state.trunks.splice(i,1); renderContent(); generate(); refreshNav();}}, "× remove"));
-    c.appendChild(card);
-  });
-  c.appendChild(el("button",{class:"add",onClick:()=>{state.trunks.push({intf:"",allowed:"",native:"1"}); renderContent(); generate(); refreshNav();}},"+ Add Trunk"));
-}
-function renderSTP(c){
-  const s = state.stp;
-  const card = cardBlock("Spanning-Tree");
-  card.appendChild(selRow("Mode", s.mode, [["rapid-pvst","Rapid-PVST+"],["mst","MSTP"],["pvst","PVST+"]], v=>s.mode=v, "Rapid-PVST is the modern Cisco default. MSTP is IEEE 802.1s standard."));
-  card.appendChild(inputRow("Bridge priority", s.priority, v=>s.priority=v, "4096 / 8192 / 16384 / 24576", "Must be a multiple of 4096. Lower = more likely to be root bridge."));
-  c.appendChild(card);
-}
-function renderZones(c){
-  state.zones.forEach((z,i)=>{
-    const card = el("div",{class:"card"});
-    card.appendChild(entryHeader("zone "+(z.name||"?")));
-    card.appendChild(inputRow("Name", z.name, v=>z.name=v, "trust / untrust / dmz"));
-    card.appendChild(inputRow("Interfaces", z.interfaces, v=>z.interfaces=v, "Gi0/1, Gi0/2", "Comma-separated. Each interface can only be in one zone."));
-    card.querySelector(".badges").appendChild(el("button",{class:"btn-x",
-      onClick:()=>{state.zones.splice(i,1); renderContent(); generate(); refreshNav();}}, "× remove"));
-    c.appendChild(card);
-  });
-  c.appendChild(el("button",{class:"add",onClick:()=>{state.zones.push({name:"",interfaces:""}); renderContent(); generate(); refreshNav();}},"+ Add Zone"));
-}
-function renderPolicies(c){
-  state.policies.forEach((p,i)=>{
-    const card = el("div",{class:"card"});
-    card.appendChild(entryHeader(p.name||"policy", [["",p.action]]));
-    card.appendChild(inputRow("Policy name", p.name, v=>p.name=v, "ALLOW-WEB"));
-    card.appendChild(inputRow("From zone", p.from, v=>p.from=v, "untrust"));
-    card.appendChild(inputRow("To zone", p.to, v=>p.to=v, "trust"));
-    card.appendChild(inputRow("Source", p.src, v=>p.src=v, "any / 10.0.0.0/24"));
-    card.appendChild(inputRow("Destination", p.dst, v=>p.dst=v, "10.10.10.10/32"));
-    card.appendChild(inputRow("Application", p.app, v=>p.app=v, "HTTPS / tcp/443", "Junos uses application names; Cisco ASA uses protocol+port"));
-    card.appendChild(selRow("Action", p.action, ["permit","deny"], v=>p.action=v));
-    card.querySelector(".badges").appendChild(el("button",{class:"btn-x",
-      onClick:()=>{state.policies.splice(i,1); renderContent(); generate(); refreshNav();}}, "× remove"));
-    c.appendChild(card);
-  });
-  c.appendChild(el("button",{class:"add",onClick:()=>{state.policies.push({name:"",from:"",to:"",src:"any",dst:"any",app:"any",action:"permit"}); renderContent(); generate(); refreshNav();}},"+ Add Policy"));
-}
-function renderNAT(c){
-  state.nat.forEach((n,i)=>{
-    const card = el("div",{class:"card"});
-    card.appendChild(entryHeader("NAT rule "+(i+1), [["",n.type]]));
-    card.appendChild(selRow("Type", n.type, [["source","Source NAT / PAT"],["destination","Destination NAT"],["static","Static 1:1"]], v=>n.type=v, "Source = outbound (many→1). Destination = port-forward. Static = 1:1 mapping."));
-    card.appendChild(inputRow("Source / Original", n.src, v=>n.src=v, "10.10.10.0/24 or 198.51.100.10"));
-    card.appendChild(inputRow("Translation", n.translation, v=>n.translation=v, "interface / 10.10.10.10", "'interface' = use egress IP. Or specify a pool/IP."));
-    card.appendChild(inputRow("Direction (zones)", n.direction, v=>n.direction=v, "trust→untrust"));
-    card.querySelector(".badges").appendChild(el("button",{class:"btn-x",
-      onClick:()=>{state.nat.splice(i,1); renderContent(); generate(); refreshNav();}}, "× remove"));
-    c.appendChild(card);
-  });
-  c.appendChild(el("button",{class:"add",onClick:()=>{state.nat.push({type:"source",src:"",translation:"interface",direction:""}); renderContent(); generate(); refreshNav();}},"+ Add NAT Rule"));
-}
-function renderVPN(c){
-  state.vpn.forEach((v,i)=>{
-    const card = el("div",{class:"card"});
-    card.appendChild(entryHeader("tunnel to "+(v.peer||"?")));
-    card.appendChild(inputRow("Peer IP", v.peer, x=>v.peer=x, "198.51.100.2"));
-    card.appendChild(inputRow("Pre-shared key", v.psk, x=>v.psk=x, "SECRET", "Avoid weak/dictionary words in production. Use 20+ random chars."));
-    card.appendChild(inputRow("Local subnet", v.local, x=>v.local=x, "10.10.10.0/24"));
-    card.appendChild(inputRow("Remote subnet", v.remote, x=>v.remote=x, "10.20.20.0/24"));
-    card.querySelector(".badges").appendChild(el("button",{class:"btn-x",
-      onClick:()=>{state.vpn.splice(i,1); renderContent(); generate(); refreshNav();}}, "× remove"));
-    c.appendChild(card);
-  });
-  c.appendChild(el("button",{class:"add",onClick:()=>{state.vpn.push({peer:"",psk:"",local:"",remote:""}); renderContent(); generate(); refreshNav();}},"+ Add Tunnel"));
-}
-function renderSNMP(c){
-  const s = state.snmp;
-  const card = cardBlock("SNMP");
-  card.appendChild(inputRow("v2c community (optional)", s.community, v=>s.community=v, "RO-community", "v2c is unencrypted. Prefer v3 in production."));
-  card.appendChild(inputRow("v3 user", s.v3user, v=>s.v3user=v, "monitor"));
-  card.appendChild(inputRow("v3 auth password", s.v3auth, v=>s.v3auth=v, "AUTHPASS"));
-  card.appendChild(inputRow("v3 priv password", s.v3priv, v=>s.v3priv=v, "PRIVPASS"));
-  card.appendChild(inputRow("Trap host", s.host, v=>s.host=v, "10.0.0.50"));
-  c.appendChild(card);
-}
-function renderLogging(c){
-  const s = state.logging;
-  const card = cardBlock("Syslog");
-  card.appendChild(inputRow("Server", s.host, v=>s.host=v, "10.0.0.50"));
-  card.appendChild(selRow("Level", s.level, ["emergencies","alerts","critical","errors","warnings","notifications","informational","debugging"], v=>s.level=v, "Syslog severity. informational is a sensible default."));
-  c.appendChild(card);
-}
-
-/* ── Helpers ── */
-function maskToPrefix(m){
-  if(m==null||m==="") return null;
-  m = String(m);
-  if(!m.includes(".")) return null;
-  const bits = m.split(".").map(x=>parseInt(x,10)).map(x=>x.toString(2).padStart(8,"0")).join("");
-  if(/^1*0*$/.test(bits)) return (bits.match(/1/g)||[]).length;
-  return null;
-}
-function pfx(mask, fallback){ const p = maskToPrefix(mask); return p==null ? (fallback==null?24:fallback) : p; }
-function prefixToMask(p){
-  p = parseInt(p,10); if(isNaN(p)||p<0||p>32) return "";
-  const o = [0,0,0,0];
-  for(let i=0;i<p;i++) o[Math.floor(i/8)] |= 1<<(7-(i%8));
-  return o.join(".");
-}
-function netMatch(ip,net){
-  if(!ip||!net) return false;
-  return ip.split(".").slice(0,3).join(".") === net.split(".").slice(0,3).join(".");
-}
-
-/* ── Generators (kept intact from v1) ── */
-function genCisco(forceOs){
-  const useOs = forceOs || state.os;
-  const out = [];
-  out.push("! "+state.vendor.toUpperCase()+" "+useOs.toUpperCase()+" — "+state.role);
-  out.push("hostname "+(state.hostname||"R1"));
-  out.push("!");
-  const en = state.enabled || {};
-  if(state.interfaces.length && en.interfaces !== false){
-    out.push("! --- Interfaces ---");
-    state.interfaces.forEach(it=>{
-      if(!it.name) return;
-      out.push("interface "+it.name);
-      if(it.desc) out.push(" description "+it.desc);
-      if(state.role==="switch" && it.mode!=="routed"){
-        if(it.mode==="trunk"){
-          if(useOs==="ios") out.push(" switchport trunk encapsulation dot1q");
-          out.push(" switchport mode trunk");
-          if(it.trunkVlans) out.push(" switchport trunk allowed vlan "+it.trunkVlans);
-        } else {
-          out.push(" switchport mode access");
-          if(it.vlan) out.push(" switchport access vlan "+it.vlan);
-        }
-      } else {
-        if(state.role==="firewall" && useOs==="asa"){
-          const nameif = (it.name||"").toLowerCase().includes("0/0") ? "outside" : "inside";
-          out.push(" nameif "+nameif);
-          out.push(" security-level "+(nameif==="outside"?0:100));
-        }
-        if(it.ip){
-          if(useOs==="nxos"){
-            const p = pfx(it.mask, it.prefix||24);
-            out.push(" no switchport");
-            out.push(" ip address "+it.ip+"/"+p);
-          } else {
-            out.push(" ip address "+it.ip+" "+(it.mask||prefixToMask(it.prefix)));
-          }
-        }
-      }
-      out.push(it.enabled ? " no shutdown" : " shutdown");
-      out.push("!");
-    });
-  }
-  if(state.role!=="switch" && state.static.length && en.static !== false){
-    out.push("! --- Static routes ---");
-    state.static.forEach(r=>{
-      if(!r.prefix||!r.mask||!r.nextHop) return;
-      if(useOs==="nxos"){
-        const p = pfx(r.mask, 24);
-        out.push("ip route "+r.prefix+"/"+p+" "+r.nextHop+(r.distance?" "+r.distance:""));
-      } else {
-        out.push("ip route "+r.prefix+" "+r.mask+" "+r.nextHop+(r.distance?" "+r.distance:""));
-      }
-    });
-    out.push("!");
-  }
-  if(state.role!=="firewall"){
-    const o = state.ospf;
-    if(o.networks.some(n=>n.net) && en.ospf !== false){
-      out.push("! --- OSPF ---");
-      out.push("router ospf "+(o.processId||"1"));
-      if(o.routerId) out.push(" router-id "+o.routerId);
-      if(o.passiveDefault) out.push(" passive-interface default");
-      o.networks.forEach(n=>{ if(n.net) out.push(" network "+n.net+" "+(n.wild||"0.0.0.255")+" area "+(n.area||"0"))});
-      out.push("!");
-    }
-    const b = state.bgp;
-    if(b.asn && (b.neighbors.some(n=>n.ip) || b.networks.some(n=>n.net)) && en.bgp !== false){
-      out.push("! --- BGP ---");
-      out.push("router bgp "+b.asn);
-      if(b.routerId) out.push(" bgp router-id "+b.routerId);
-      b.neighbors.forEach(n=>{
-        if(!n.ip) return;
-        if(n.desc) out.push(" neighbor "+n.ip+" description "+n.desc);
-        out.push(" neighbor "+n.ip+" remote-as "+n.remoteAs);
-      });
-      out.push(" address-family ipv4");
-      b.neighbors.forEach(n=>{ if(n.ip) out.push("  neighbor "+n.ip+" activate")});
-      b.networks.forEach(n=>{ if(n.net){
-        if(useOs==="nxos") out.push("  network "+n.net+"/"+pfx(n.mask,24));
-        else out.push("  network "+n.net+" mask "+n.mask);
-      }});
-      out.push(" exit-address-family");
-      out.push("!");
-    }
-  }
-  if(en.acls !== false) state.acls.forEach(a=>{
-    if(!a.name) return;
-    out.push("! --- ACL "+a.name+" ---");
-    out.push("ip access-list extended "+a.name);
-    a.rules.forEach(r=>{
-      const port = r.port ? " eq "+r.port : "";
-      out.push(" "+r.seq+" "+r.action+" "+r.proto+" "+r.src+" "+r.dst+port);
-    });
-    out.push("!");
-  });
-  if(state.role==="switch"){
-    if(state.vlans.length && en.vlans !== false){
-      out.push("! --- VLANs ---");
-      state.vlans.forEach(v=>{ if(v.id){out.push("vlan "+v.id); if(v.name) out.push(" name "+v.name);}});
-      out.push("!");
-    }
-    if(state.trunks.length && en.trunks !== false){
-      out.push("! --- Trunks ---");
-      state.trunks.forEach(t=>{
-        if(!t.intf) return;
-        out.push("interface "+t.intf);
-        if(useOs==="ios") out.push(" switchport trunk encapsulation dot1q");
-        out.push(" switchport mode trunk");
-        if(t.allowed) out.push(" switchport trunk allowed vlan "+t.allowed);
-        if(t.native)  out.push(" switchport trunk native vlan "+t.native);
-        out.push("!");
-      });
-    }
-    if(state.stp.mode && en.stp !== false){
-      out.push("spanning-tree mode "+state.stp.mode);
-      if(state.stp.priority) out.push("spanning-tree vlan 1-4094 priority "+state.stp.priority);
-      out.push("!");
-    }
-  }
-  if(state.role==="firewall" && useOs==="asa"){
-    if(en.policies !== false) state.policies.forEach((p,i)=>{
-      const aclName = p.name || ("POL_"+i);
-      out.push("access-list "+aclName+" extended "+p.action+" "+guessAsaProto(p.app)+" "+p.src+" "+p.dst+guessAsaPort(p.app));
-      out.push("access-group "+aclName+" in interface "+(p.from||"outside"));
-    });
-    if(en.nat !== false) state.nat.forEach((n,i)=>{
-      if(n.type==="source"){
-        out.push("object network NAT_"+i);
-        out.push(" subnet "+(n.src||"").replace("/"," "));
-        out.push(" nat (inside,outside) dynamic interface");
-      } else {
-        out.push("object network NAT_"+i);
-        out.push(" host "+n.translation);
-        out.push(" nat (inside,outside) static "+n.src);
-      }
-    });
-    out.push("!");
-  }
-  if((state.snmp.host || state.snmp.community) && en.snmp !== false){
-    out.push("! --- SNMP ---");
-    if(state.snmp.community) out.push("snmp-server community "+state.snmp.community+" RO");
-    if(state.snmp.v3user){
-      out.push("snmp-server group OPS v3 priv");
-      out.push("snmp-server user "+state.snmp.v3user+" OPS v3 auth sha "+state.snmp.v3auth+" priv aes 128 "+state.snmp.v3priv);
-    }
-    if(state.snmp.host) out.push("snmp-server host "+state.snmp.host+" version 3 priv "+state.snmp.v3user);
-    out.push("!");
-  }
-  if(state.logging.host && en.logging !== false){
-    out.push("! --- Logging ---");
-    out.push("logging host "+state.logging.host);
-    out.push("logging trap "+state.logging.level);
-    out.push("!");
-  }
-  out.push("end");
-  return out.join("\n");
-}
-function guessAsaProto(app){
-  const a=(app||"").toLowerCase();
-  if(a.includes("https")||a.includes("http")||a.includes("ssh")||a.includes("tcp")) return "tcp";
-  if(a.includes("udp")||a.includes("dns")||a.includes("snmp")) return "udp";
-  if(a.includes("icmp")||a.includes("ping")) return "icmp";
-  return "ip";
-}
-function guessAsaPort(app){
-  const a=(app||"").toLowerCase();
-  if(a.includes("https")) return " eq 443";
-  if(a.includes("http"))  return " eq 80";
-  if(a.includes("ssh"))   return " eq 22";
-  if(a.includes("dns"))   return " eq 53";
-  const m = a.match(/(tcp|udp)\/(\d+)/);
-  if(m) return " eq "+m[2];
-  return "";
-}
-function genJunos(){
-  const out = [];
-  const en = state.enabled || {};
-  out.push("# Juniper Junos — "+state.role);
-  out.push("set system host-name "+(state.hostname||"R1"));
-  if(en.interfaces !== false) state.interfaces.forEach(it=>{
-    if(!it.name) return;
-    const ifn = it.name||"ge-0/0/0";
-    if(it.desc) out.push('set interfaces '+ifn+' description "'+it.desc+'"');
-    if(state.role==="switch" && it.mode!=="routed"){
-      if(it.mode==="trunk"){
-        const vlans = (it.trunkVlans||"").split(",").map(x=>x.trim()).filter(Boolean).join(" ");
-        out.push("set interfaces "+ifn+" unit 0 family ethernet-switching interface-mode trunk vlan members [ "+vlans+" ]");
-      } else if(it.vlan){
-        out.push("set interfaces "+ifn+" unit 0 family ethernet-switching interface-mode access vlan members vlan"+it.vlan);
-      }
-    } else if(it.ip){
-      const p = pfx(it.mask, it.prefix||24);
-      out.push("set interfaces "+ifn+" unit 0 family inet address "+it.ip+"/"+p);
-    }
-    if(!it.enabled) out.push("set interfaces "+ifn+" disable");
-  });
-  if(state.role!=="switch" && en.static !== false){
-    state.static.forEach(r=>{
-      if(!r.prefix||!r.nextHop) return;
-      const p = pfx(r.mask, 24);
-      out.push("set routing-options static route "+r.prefix+"/"+p+" next-hop "+r.nextHop+(r.distance?" preference "+r.distance:""));
-    });
-  }
-  if(state.role!=="firewall"){
-    const o = state.ospf;
-    if(en.ospf !== false){
-    if(o.routerId) out.push("set routing-options router-id "+o.routerId);
-    o.networks.forEach(n=>{
-      if(!n.net) return;
-      const matchIf = state.interfaces.find(it=>it.ip && netMatch(it.ip,n.net));
-      const ifn = matchIf ? matchIf.name+".0" : "ge-0/0/0.0";
-      out.push("set protocols ospf area 0.0.0."+(n.area||"0")+" interface "+ifn);
-    });
-    }
-    const b = state.bgp;
-    if(en.bgp !== false){
-    if(b.asn) out.push("set routing-options autonomous-system "+b.asn);
-    b.neighbors.forEach(n=>{
-      if(!n.ip) return;
-      const grpName = n.remoteAs===b.asn ? "INTERNAL" : "EXTERNAL";
-      const grpType = n.remoteAs===b.asn ? "internal" : "external";
-      out.push("set protocols bgp group "+grpName+" type "+grpType);
-      out.push("set protocols bgp group "+grpName+" neighbor "+n.ip+" peer-as "+n.remoteAs);
-      if(n.desc) out.push('set protocols bgp group '+grpName+' neighbor '+n.ip+' description "'+n.desc+'"');
-    });
-    b.networks.forEach((n,i)=>{
-      if(!n.net) return;
-      const p = pfx(n.mask, 24);
-      out.push("set policy-options policy-statement EXPORT-"+i+" term 1 from route-filter "+n.net+"/"+p+" exact");
-      out.push("set policy-options policy-statement EXPORT-"+i+" term 1 then accept");
-    });
-    }
-  }
-  if(en.acls !== false) state.acls.forEach(a=>{
-    if(!a.name) return;
-    a.rules.forEach(r=>{
-      const t = "T"+r.seq;
-      if(r.src!=="any") out.push("set firewall family inet filter "+a.name+" term "+t+" from source-address "+r.src);
-      if(r.dst!=="any") out.push("set firewall family inet filter "+a.name+" term "+t+" from destination-address "+r.dst);
-      if(r.proto!=="ip") out.push("set firewall family inet filter "+a.name+" term "+t+" from protocol "+r.proto);
-      if(r.port)        out.push("set firewall family inet filter "+a.name+" term "+t+" from destination-port "+r.port);
-      out.push("set firewall family inet filter "+a.name+" term "+t+" then "+(r.action==="permit"?"accept":"discard"));
-    });
-  });
-  if(state.role==="switch"){
-    if(en.vlans !== false) state.vlans.forEach(v=>{ if(v.id) out.push("set vlans vlan"+v.id+" vlan-id "+v.id); });
-    if(en.trunks !== false) state.trunks.forEach(t=>{
-      if(!t.intf) return;
-      const vlans = (t.allowed||"").split(",").map(x=>"vlan"+x.trim()).filter(x=>x!=="vlan").join(" ");
-      out.push("set interfaces "+t.intf+" unit 0 family ethernet-switching interface-mode trunk vlan members [ "+vlans+" ]");
-      if(t.native) out.push("set interfaces "+t.intf+" native-vlan-id "+t.native);
-    });
-  }
-  if(state.role==="firewall"){
-    if(en.zones !== false) state.zones.forEach(z=>{
-      if(!z.name) return;
-      (z.interfaces||"").split(",").map(x=>x.trim()).filter(Boolean).forEach(ifc=>{
-        out.push("set security zones security-zone "+z.name+" interfaces "+ifc+".0");
-      });
-    });
-    if(en.policies !== false) state.policies.forEach(p=>{
-      if(!p.name) return;
-      const path = "security policies from-zone "+p.from+" to-zone "+p.to+" policy "+p.name;
-      out.push("set "+path+" match source-address "+(p.src==="any"?"any":p.name+"-src"));
-      out.push("set "+path+" match destination-address "+(p.dst==="any"?"any":p.name+"-dst"));
-      out.push("set "+path+" match application "+(p.app||"any"));
-      out.push("set "+path+" then "+p.action);
-    });
-    if(en.nat !== false) state.nat.forEach((n,i)=>{
-      const dir = (n.direction||"trust→untrust").split("→");
-      const fromZ = dir[0]; const toZ = dir[1]||"untrust";
-      if(n.type==="source"){
-        const rs = "NAT-SRC-"+i;
-        out.push("set security nat source rule-set "+rs+" from zone "+fromZ);
-        out.push("set security nat source rule-set "+rs+" to zone "+toZ);
-        out.push("set security nat source rule-set "+rs+" rule R"+i+" match source-address "+n.src);
-        out.push("set security nat source rule-set "+rs+" rule R"+i+" then source-nat "+(n.translation==="interface"?"interface":"pool "+n.translation));
-      } else {
-        out.push("set security nat destination pool DNAT-"+i+" address "+n.translation);
-        out.push("set security nat destination rule-set DNAT from zone "+fromZ);
-        out.push("set security nat destination rule-set DNAT rule R"+i+" match destination-address "+n.src);
-        out.push("set security nat destination rule-set DNAT rule R"+i+" then destination-nat pool DNAT-"+i);
-      }
-    });
-    if(en.vpn !== false) state.vpn.forEach((v,i)=>{
-      if(!v.peer) return;
-      const id = "VPN-"+i;
-      out.push("set security ike proposal "+id+"-P1 authentication-method pre-shared-keys");
-      out.push("set security ike proposal "+id+"-P1 dh-group group14");
-      out.push("set security ike proposal "+id+"-P1 authentication-algorithm sha-256");
-      out.push("set security ike proposal "+id+"-P1 encryption-algorithm aes-256-cbc");
-      out.push("set security ike policy "+id+"-POL proposals "+id+"-P1");
-      out.push('set security ike policy '+id+'-POL pre-shared-key ascii-text "'+v.psk+'"');
-      out.push("set security ike gateway "+id+"-GW ike-policy "+id+"-POL address "+v.peer);
-      out.push("set security ipsec vpn "+id+" ike gateway "+id+"-GW");
-    });
-  }
-  if(en.snmp !== false){
-    if(state.snmp.community) out.push("set snmp community "+state.snmp.community+" authorization read-only");
-    if(state.snmp.v3user){
-      out.push('set snmp v3 usm local-engine user '+state.snmp.v3user+' authentication-sha authentication-password "'+state.snmp.v3auth+'"');
-      out.push('set snmp v3 usm local-engine user '+state.snmp.v3user+' privacy-aes128 privacy-password "'+state.snmp.v3priv+'"');
-    }
-  }
-  if(state.logging.host && en.logging !== false) out.push("set system syslog host "+state.logging.host+" any "+state.logging.level);
-  return out.join("\n");
-}
-function genEos(){
-  let lines = genCisco().split("\n");
-  lines = lines.map(l=>{
-    let m = l.match(/^( *)ip address (\d+\.\d+\.\d+\.\d+) (\d+\.\d+\.\d+\.\d+)$/);
-    if(m){ const p = maskToPrefix(m[3]); if(p!=null) return m[1]+"ip address "+m[2]+"/"+p; }
-    m = l.match(/^ip route (\d+\.\d+\.\d+\.\d+) (\d+\.\d+\.\d+\.\d+) (.+)$/);
-    if(m){ const p = maskToPrefix(m[2]); if(p!=null) return "ip route "+m[1]+"/"+p+" "+m[3]; }
-    m = l.match(/^( *)network (\d+\.\d+\.\d+\.\d+) mask (\d+\.\d+\.\d+\.\d+)$/);
-    if(m){ const p = maskToPrefix(m[3]); if(p!=null) return m[1]+"network "+m[2]+"/"+p; }
-    return l;
-  });
-  lines[0] = "! Arista EOS — "+state.role;
-  return lines.join("\n");
-}
-function genFor(vendor){
-  const savedVendor = state.vendor, savedOs = state.os;
-  state.vendor = vendor;
-  state.os = OS_MAP[vendor][0][0];
-  let out;
-  if(vendor==="juniper") out = genJunos();
-  else if(vendor==="arista") out = genEos();
-  else out = genCisco();
-  state.vendor = savedVendor; state.os = savedOs;
-  return out;
-}
-
-/* ── CLI render with multi-color highlighting ── */
-const IF_PREFIXES = ["GigabitEthernet","FastEthernet","TenGigabitEthernet","Ethernet","Et","Loopback","Vlan","Port-channel","Port-Channel","Serial","ge-","xe-","et-","ae","lo","irb","fxp","me","ma","fa0/","Gi","TenGig"];
-function renderCmdLine(line){
-  const span = el("span",{});
-  if(line.startsWith("!") || line.startsWith("#")){
-    const c = el("span",{class:"c"+(line.includes("---")?" anchor":"")}, line);
-    if(line.includes("---")){
-      c.title = "Click to jump to section";
-      c.addEventListener("click",()=>{
-        const m = line.match(/---\s*(\w+)/);
-        if(!m) return;
-        const target = m[1].toLowerCase();
-        for(const s of SECTIONS[state.role]){
-          if(SECTION_LABELS[s].toLowerCase().startsWith(target) || s.startsWith(target)){
-            state.section = s; renderNav(); renderContent(); break;
-          }
-        }
-      });
-    }
-    span.appendChild(c);
-    return span;
-  }
-  const m = line.match(/^( *)(.*)$/);
-  if(m[1]) span.appendChild(document.createTextNode(m[1]));
-  const tokens = m[2].split(/(\s+)/);
-  tokens.forEach((tok,idx)=>{
-    if(!tok) return;
-    if(/^\s+$/.test(tok)){ span.appendChild(document.createTextNode(tok)); return; }
-    // First non-space token = keyword
-    if(idx === 0 || (idx <= 2 && /^[a-z]+(-[a-z]+)*$/.test(tok))){
-      span.appendChild(el("span",{class:"k"}, tok));
-      return;
-    }
-    // IP address
-    if(/^\d+\.\d+\.\d+\.\d+(\/\d+)?$/.test(tok)){
-      span.appendChild(el("span",{class:"ip"}, tok));
-      return;
-    }
-    // Pure number
-    if(/^\d+$/.test(tok)){
-      span.appendChild(el("span",{class:"num"}, tok));
-      return;
-    }
-    // Interface name
-    if(IF_PREFIXES.some(p=>tok.startsWith(p))){
-      span.appendChild(el("span",{class:"if"}, tok));
-      return;
-    }
-    // common config keywords
-    if(["interface","ip","ipv6","router","ospf","bgp","vlan","set","permit","deny","access-list","switchport","spanning-tree","address","mask","route","trunk","mode","access","network","area","neighbor","remote-as","family","unit","members","native","encapsulation","dot1q","description","shutdown","snmp-server","logging","host","community","version","trap","priority","no","group","static","next-hop","preference","peer-as","type","external","internal","activate","exit-address-family","passive-interface","router-id","authentication-method","pre-shared-keys","dh-group","authentication-algorithm","encryption-algorithm","pre-shared-key","ascii-text","gateway","ike-policy","ipsec","ike","proposal","policy","zone","zones","security-zone","security","interfaces","destination-address","source-address","destination-port","source-port","destination","source","application","then","match","from","to","accept","discard","reject","nat","pool","rule-set","rule","add","remove"].includes(tok.toLowerCase())){
-      span.appendChild(el("span",{class:"k"}, tok));
-      return;
-    }
-    span.appendChild(el("span",{class:"v"}, tok));
-  });
-  return span;
-}
-function paintInto(pre, txt){
-  pre.replaceChildren();
-  const lines = txt.split("\n");
-  lines.forEach((line,idx)=>{
+function renderCmd(text){
+  const pre = el("pre");
+  text.split("\n").forEach((line,idx)=>{
     if(idx>0) pre.appendChild(document.createTextNode("\n"));
-    pre.appendChild(renderCmdLine(line));
-  });
-  pre._raw = txt;
-  return lines.length;
-}
-
-function generate(){
-  const body = $("cliBody");
-  let txt, lines;
-  if(state.diff && state.diffVendor !== state.vendor){
-    body.classList.add("split");
-    body.replaceChildren();
-    const myCol = el("div",{class:"splitcol "+state.vendor},
-      el("div",{class:"colhdr"}, state.vendor.toUpperCase()+" — "+OS_MAP[state.vendor][0][1]));
-    const myPre = el("pre",{id:"cli"});
-    myCol.appendChild(myPre);
-    const otherCol = el("div",{class:"splitcol "+state.diffVendor},
-      el("div",{class:"colhdr"}, state.diffVendor.toUpperCase()+" — "+OS_MAP[state.diffVendor][0][1]));
-    const otherPre = el("pre");
-    otherCol.appendChild(otherPre);
-    body.appendChild(myCol);
-    body.appendChild(otherCol);
-    txt = state.vendor==="juniper" ? genJunos() : state.vendor==="arista" ? genEos() : genCisco();
-    paintInto(myPre, txt);
-    paintInto(otherPre, genFor(state.diffVendor));
-    lines = txt.split("\n").length;
-  } else {
-    body.classList.remove("split");
-    body.replaceChildren();
-    const pre = el("pre",{id:"cli"});
-    body.appendChild(pre);
-    txt = state.vendor==="juniper" ? genJunos() : state.vendor==="arista" ? genEos() : genCisco();
-    lines = paintInto(pre, txt);
-  }
-  $("cliStats").textContent = lines + " line"+(lines!==1?"s":"");
-  refreshNav();
-}
-
-/* ── Wiring ── */
-$("vendor").addEventListener("change",e=>{ state.vendor=e.target.value; renderOsSelect(); renderNav(); renderContent(); generate(); });
-$("osel").addEventListener("change",e=>{ state.os=e.target.value; renderContent(); generate(); });
-$("hostname").addEventListener("input",e=>{ state.hostname=e.target.value; generate(); });
-document.querySelectorAll("#roleTabs .tab").forEach(t=>{
-  t.addEventListener("click",()=>{
-    document.querySelectorAll("#roleTabs .tab").forEach(x=>x.classList.remove("on"));
-    t.classList.add("on");
-    state.role = t.dataset.role;
-    renderNav(); renderContent(); generate();
-  });
-});
-$("btnCopy").addEventListener("click",()=>{
-  const pre = $("cli");
-  const txt = pre && pre._raw ? pre._raw : (pre ? pre.innerText : "");
-  navigator.clipboard.writeText(txt).then(()=>{
-    const b = $("btnCopy"); const orig = b.textContent;
-    b.textContent = "✓ Copied"; b.classList.add("on");
-    setTimeout(()=>{b.textContent=orig; b.classList.remove("on");}, 1500);
-  });
-});
-$("btnDl").addEventListener("click",()=>{
-  const pre = $("cli");
-  const txt = pre && pre._raw ? pre._raw : (pre ? pre.innerText : "");
-  const blob = new Blob([txt],{type:"text/plain"});
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = (state.hostname||"config")+"-"+state.vendor+"-"+state.os+".txt";
-  a.click();
-});
-$("btnReset").addEventListener("click",()=>{
-  if(confirm("Reset all configuration to empty?")){
-    Object.assign(state,{
-      interfaces:[],static:[],
-      ospf:{processId:"1",routerId:"",area:"0",networks:[],passiveDefault:true},
-      bgp:{asn:"",routerId:"",neighbors:[],networks:[]},
-      acls:[],vlans:[],trunks:[],zones:[],policies:[],nat:[],vpn:[]
+    if(/^\s*[!#]/.test(line)){
+      pre.appendChild(el("span",{class:"c"}, line));
+      return;
+    }
+    const m = line.match(/^(\s*)(.*)$/);
+    if(m[1]) pre.appendChild(document.createTextNode(m[1]));
+    const rest = m[2];
+    const matches = [...rest.matchAll(PLACEHOLDER_RE)];
+    const tokens = [];
+    let lastIdx = 0;
+    matches.forEach(mm=>{
+      if(mm.index > lastIdx) tokens.push({text:rest.slice(lastIdx,mm.index), ph:false});
+      tokens.push({text:mm[0], ph:true});
+      lastIdx = mm.index + mm[0].length;
     });
-    renderContent(); generate(); refreshNav();
+    if(lastIdx < rest.length) tokens.push({text:rest.slice(lastIdx), ph:false});
+    if(tokens.length === 0) tokens.push({text:rest, ph:false});
+    let firstWord = true;
+    tokens.forEach(tok=>{
+      if(tok.ph){
+        pre.appendChild(el("span",{class:"ph"}, tok.text));
+        firstWord = false;
+        return;
+      }
+      const parts = tok.text.split(/(\s+)/);
+      parts.forEach(p=>{
+        if(!p) return;
+        if(/^\s+$/.test(p)){pre.appendChild(document.createTextNode(p)); return;}
+        if(firstWord || CMD_KEYWORDS.has(p.toLowerCase())){
+          pre.appendChild(el("span",{class:"k"}, p));
+          firstWord = false;
+        } else if(/^(\d+\.\d+\.\d+\.\d+|\d+|0x[0-9a-f]+)/i.test(p)){
+          pre.appendChild(el("span",{class:"p"}, p));
+        } else {
+          pre.appendChild(document.createTextNode(p));
+        }
+      });
+    });
+  });
+  return pre;
+}
+
+function highlightInElem(root, q){
+  if(!q || !root) return root;
+  const re = new RegExp("("+q.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+")","ig");
+  const walk = (node)=>{
+    if(node.nodeType === 3){
+      const txt = node.nodeValue;
+      const found = [...txt.matchAll(re)];
+      if(found.length === 0) return;
+      const frag = document.createDocumentFragment();
+      let lastIdx = 0;
+      found.forEach(m=>{
+        if(m.index > lastIdx) frag.appendChild(document.createTextNode(txt.slice(lastIdx, m.index)));
+        frag.appendChild(el("mark",{}, m[0]));
+        lastIdx = m.index + m[0].length;
+      });
+      if(lastIdx < txt.length) frag.appendChild(document.createTextNode(txt.slice(lastIdx)));
+      node.parentNode.replaceChild(frag, node);
+    } else if(node.nodeType === 1 && node.tagName !== "MARK"){
+      [...node.childNodes].forEach(walk);
+    }
+  };
+  walk(root);
+  return root;
+}
+
+function renderChips(){
+  const vendors = uniq(DATA.map(d=>d.vendor));
+  const oses    = uniq(DATA.map(d=>d.os));
+  const roles   = uniq(DATA.map(d=>d.role));
+  const cats    = uniq(DATA.map(d=>d.cat));
+
+  const cv = $("chips-vendor"); cv.replaceChildren();
+  vendors.forEach(v=>{
+    cv.appendChild(el("span",{class:"chip "+VENDOR_KEY(v)+(state.vendor.has(v)?" on":""),
+      onClick:()=>{state.vendor.has(v)?state.vendor.delete(v):state.vendor.add(v); renderChips(); renderActiveBar(); render();}},
+      v, " ", el("span",{class:"v"}, countBy("vendor",v))));
+  });
+  const co = $("chips-os"); co.replaceChildren();
+  oses.forEach(o=>{
+    co.appendChild(el("span",{class:"chip"+(state.os.has(o)?" on":""),
+      onClick:()=>{state.os.has(o)?state.os.delete(o):state.os.add(o); renderChips(); renderActiveBar(); render();}},
+      OSLABEL[o]||o, " ", el("span",{class:"v"}, countBy("os",o))));
+  });
+  const cr = $("chips-role"); cr.replaceChildren();
+  roles.forEach(r=>{
+    cr.appendChild(el("span",{class:"chip"+(state.role.has(r)?" on":""),
+      onClick:()=>{state.role.has(r)?state.role.delete(r):state.role.add(r); renderChips(); renderActiveBar(); render();}},
+      r, " ", el("span",{class:"v"}, countBy("role",r))));
+  });
+  const cc = $("chips-cat"); cc.replaceChildren();
+  const usedCats = new Set();
+  CAT_GROUPS.forEach(grp=>{
+    const groupName = grp[0]; const members = grp[1];
+    const present = members.filter(m=>cats.includes(m));
+    if(present.length===0) return;
+    const g = el("div",{class:"cat-group"}, el("h6",{},groupName));
+    const chips = el("div",{class:"chips"});
+    present.forEach(c=>{
+      usedCats.add(c);
+      chips.appendChild(el("span",{class:"chip"+(state.cat.has(c)?" on":""),
+        onClick:()=>{state.cat.has(c)?state.cat.delete(c):state.cat.add(c); renderChips(); renderActiveBar(); render();}},
+        c, " ", el("span",{class:"v"}, countBy("cat",c))));
+    });
+    g.appendChild(chips);
+    cc.appendChild(g);
+  });
+  const leftovers = cats.filter(c=>!usedCats.has(c));
+  if(leftovers.length){
+    const g = el("div",{class:"cat-group"}, el("h6",{},"Other"));
+    const chips = el("div",{class:"chips"});
+    leftovers.forEach(c=>{
+      chips.appendChild(el("span",{class:"chip"+(state.cat.has(c)?" on":""),
+        onClick:()=>{state.cat.has(c)?state.cat.delete(c):state.cat.add(c); renderChips(); renderActiveBar(); render();}},
+        c, " ", el("span",{class:"v"}, countBy("cat",c))));
+    });
+    g.appendChild(chips);
+    cc.appendChild(g);
+  }
+  $("ct-vendor").textContent = state.vendor.size ? "("+state.vendor.size+" active)" : "";
+  $("ct-os").textContent     = state.os.size ? "("+state.os.size+" active)" : "";
+  $("ct-role").textContent   = state.role.size ? "("+state.role.size+" active)" : "";
+  $("ct-cat").textContent    = state.cat.size ? "("+state.cat.size+" active)" : "";
+  $("fav-ct").textContent    = state.fav.size;
+  renderFavoritesPanel();
+  ["acc-fav","acc-vendor","acc-os","acc-role","acc-cat"].forEach(id=>{
+    $(id).classList.toggle("collapsed", state.collapsed.has(id));
+  });
+}
+
+function renderFavoritesPanel(){
+  const body = $("fav-body"); body.replaceChildren();
+  const ctrls = el("div",{style:"display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap"});
+  ctrls.appendChild(el("button",{
+    class:"chip"+(state.showFavOnly?" on":""),
+    onClick:()=>{state.showFavOnly=!state.showFavOnly; renderFavoritesPanel(); renderActiveBar(); render();}
+  }, state.showFavOnly?"★ showing favorites only":"☆ show favorites only"));
+  if(state.fav.size){
+    ctrls.appendChild(el("button",{class:"chip", onClick:()=>{
+      if(confirm("Clear all favorites?")){state.fav.clear(); persistFav(); renderChips(); render();}
+    }}, "clear"));
+  }
+  body.appendChild(ctrls);
+  if(state.fav.size === 0){
+    body.appendChild(el("div",{style:"font-size:11px;color:var(--ink-muted);padding:4px"}, "Click the ☆ on any card to favorite it."));
+  }
+}
+
+function renderActiveBar(){
+  const bar = $("active-bar"); bar.replaceChildren();
+  const total = state.vendor.size + state.os.size + state.role.size + state.cat.size + (state.showFavOnly?1:0);
+  if(total === 0){ bar.style.display = "none"; return; }
+  bar.style.display = "flex";
+  bar.appendChild(el("span",{class:"lbl"}, "active filters:"));
+  const mk = (label, value, onClear)=>{
+    const c = el("span",{class:"active-chip"}, label? (label+": "+value) : value);
+    c.appendChild(el("button",{onClick:onClear}, "×"));
+    bar.appendChild(c);
+  };
+  state.vendor.forEach(v=>mk("vendor",v,()=>{state.vendor.delete(v);renderChips();renderActiveBar();render();}));
+  state.os.forEach(v=>mk("os",OSLABEL[v]||v,()=>{state.os.delete(v);renderChips();renderActiveBar();render();}));
+  state.role.forEach(v=>mk("role",v,()=>{state.role.delete(v);renderChips();renderActiveBar();render();}));
+  state.cat.forEach(v=>mk("cat",v,()=>{state.cat.delete(v);renderChips();renderActiveBar();render();}));
+  if(state.showFavOnly) mk("","favorites only",()=>{state.showFavOnly=false;renderChips();renderActiveBar();render();});
+  bar.appendChild(el("button",{class:"clear-all",onClick:()=>{
+    state.vendor.clear();state.os.clear();state.role.clear();state.cat.clear();state.showFavOnly=false;
+    renderChips();renderActiveBar();render();
+  }},"Clear all"));
+}
+
+function buildCard(d){
+  const isFav = state.fav.has(fkey(d));
+  const card = el("div",{class:"card "+VENDOR_KEY(d.vendor)});
+  card.appendChild(el("div",{class:"stripe"}));
+  const body = el("div",{class:"body"});
+
+  const head = el("div",{class:"head"});
+  head.appendChild(el("div",{class:"title"}, d.title));
+  const icons = el("div",{class:"icons"});
+  const star = el("button",{class:"star"+(isFav?" on":""),title:isFav?"Unfavorite":"Favorite",onClick:function(e){
+    e.stopPropagation();
+    if(state.fav.has(fkey(d))) state.fav.delete(fkey(d)); else state.fav.add(fkey(d));
+    persistFav(); renderChips(); render();
+  }}, isFav?"★":"☆");
+  icons.appendChild(star);
+  head.appendChild(icons);
+  body.appendChild(head);
+
+  const textQ = parseQuery(state.q).text;
+  if(d.desc){
+    const desc = el("div",{class:"desc"}, d.desc);
+    body.appendChild(highlightInElem(desc, textQ));
+  }
+  const pre = renderCmd(d.cmd);
+  highlightInElem(pre, textQ);
+  body.appendChild(pre);
+
+  const tags = el("div",{class:"tags"});
+  tags.appendChild(el("span",{class:"tag v "+VENDOR_KEY(d.vendor)}, d.vendor));
+  tags.appendChild(el("span",{class:"tag"}, OSLABEL[d.os]||d.os));
+  tags.appendChild(el("span",{class:"tag"}, d.role));
+  tags.appendChild(el("span",{class:"tag cat"}, d.cat));
+  body.appendChild(tags);
+
+  const actions = el("div",{class:"actions"});
+  const copyBtn = el("button",{class:"actbtn",onClick:()=>{
+    navigator.clipboard.writeText(d.cmd).then(()=>{
+      copyBtn.classList.add("copied"); copyBtn.textContent = "✓ Copied";
+      setTimeout(()=>{copyBtn.classList.remove("copied"); copyBtn.textContent = "Copy";}, 1500);
+    });
+  }}, "Copy");
+  const addBtn = el("button",{class:"actbtn primary",onClick:()=>{
+    state.queue.push({title:d.title, cmd:d.cmd, vendor:d.vendor, os:d.os});
+    persistQueue(); updateCliBadge(); renderDrawer();
+    addBtn.classList.add("copied"); addBtn.textContent = "✓ Added";
+    setTimeout(()=>{addBtn.classList.remove("copied"); addBtn.textContent = "+ CLI";},1200);
+  }}, "+ CLI");
+  const equivBtn = el("button",{class:"actbtn equiv",onClick:()=>openEquivalents(d)}, "See equivalents ↗");
+  actions.appendChild(copyBtn);
+  actions.appendChild(addBtn);
+  // 🔧 Automate — only show if a mapping matches this command
+  if(findAutomationMapping(d)){
+    const autoBtn = el("button",{class:"actbtn auto",title:"Show NETCONF/YANG/Ansible equivalents",
+      onClick:()=>openAutomation(d)}, "🔧 Automate");
+    actions.appendChild(autoBtn);
+  }
+  actions.appendChild(equivBtn);
+  body.appendChild(actions);
+
+  card.appendChild(body);
+  return card;
+}
+
+function openAutomation(d){
+  const found = findAutomationMapping(d);
+  if(!found){
+    toast("No automation template available for this command yet");
+    return;
+  }
+  const drawer = $("auto-drawer");
+  drawer.classList.add("open");
+  $("auto-title").textContent = found.mapping.title;
+  const vals = $("auto-vals"); vals.replaceChildren();
+  Object.entries(found.vals).forEach(([k,vv])=>{
+    const c = el("span",{class:"vchip"}, el("b",{},k+":"), String(vv));
+    vals.appendChild(c);
+  });
+  // Pick initial tab = command's own vendor if mapping supports it; else first available
+  const vendors = ["Cisco","Juniper","Arista"].filter(v=>found.mapping.render(v, found.vals));
+  let active = vendors.includes(d.vendor) ? d.vendor : vendors[0];
+  renderAutoBody(found, active, vendors);
+}
+
+function renderAutoBody(found, active, vendors){
+  const body = $("auto-body");
+  body.replaceChildren();
+  // Info banner
+  body.appendChild(el("div",{class:"auto-info"},
+    "These are real automation templates pre-filled with values extracted from your command. ",
+    el("b",{},"NETCONF/YANG"), " is the protocol; ", el("b",{},"ncclient"), " is the Python library; ",
+    el("b",{},"Ansible"), " uses vendor resource modules (",
+    el("code",{},"cisco.ios.*"), " · ", el("code",{},"junipernetworks.junos.*"), " · ", el("code",{},"arista.eos.*"), ")."
+  ));
+  // Tabs
+  const tabs = el("div",{class:"auto-tabs"});
+  vendors.forEach(v=>{
+    const b = el("button",{class:"tab-"+v.toLowerCase()+(v===active?" on":""),
+      onClick:()=>renderAutoBody(found, v, vendors)}, v);
+    tabs.appendChild(b);
+  });
+  body.appendChild(tabs);
+
+  const out = found.mapping.render(active, found.vals);
+  const mkBlock = (label, content, lang)=>{
+    const blk = el("div",{class:"auto-block"});
+    const hdr = el("div",{class:"bhdr"});
+    hdr.appendChild(el("span",{class:"label"}, el("b",{},label.split(" ")[0]), " ", label.split(" ").slice(1).join(" ")));
+    const cp = el("button",{class:"copyb"});
+    cp.textContent = "Copy";
+    cp.addEventListener("click",()=>{
+      navigator.clipboard.writeText(content).then(()=>{
+        cp.classList.add("copied"); cp.textContent="✓ Copied";
+        setTimeout(()=>{cp.classList.remove("copied"); cp.textContent="Copy";},1500);
+      });
+    });
+    hdr.appendChild(cp);
+    blk.appendChild(hdr);
+    const pre = el("pre",{class: lang || ""}, content);
+    blk.appendChild(pre);
+    return blk;
+  };
+  body.appendChild(mkBlock("NETCONF XML payload", out.netconf, "netconf"));
+  body.appendChild(mkBlock("Python (ncclient) snippet", out.ncclient, "python"));
+  body.appendChild(mkBlock("Ansible task (YAML)", out.ansible, "yaml"));
+}
+
+function closeAutomation(){ $("auto-drawer").classList.remove("open"); }
+
+function openEquivalents(d){
+  const drawer = $("equiv-drawer");
+  drawer.classList.add("open");
+  $("equiv-title").textContent = d.title + "  —  same category across vendors";
+  const body = $("equiv-body"); body.replaceChildren();
+
+  const tokens = d.title.toLowerCase().split(/\W+/).filter(t=>t.length>2);
+  ["Cisco","Juniper","Arista"].forEach(v=>{
+    const section = el("div",{class:"equiv-section"});
+    section.appendChild(el("div",{class:"sh "+VENDOR_KEY(v)}, " "+v));
+    const cands = DATA
+      .filter(x=>x.vendor === v && x.cat === d.cat && x !== d)
+      .map(x=>{
+        const tt = x.title.toLowerCase();
+        let score = tokens.reduce((s,t)=>s + (tt.includes(t) ? 1 : 0), 0);
+        if(x.role === d.role) score += 0.5;
+        return {x:x, score:score};
+      })
+      .sort((a,b)=> b.score - a.score)
+      .slice(0,5);
+    if(cands.length === 0){
+      section.appendChild(el("div",{class:"equiv-card"}, el("div",{class:"nocmd"}, "— no equivalent in dataset for this category")));
+    } else {
+      cands.forEach(o=>{
+        const x = o.x;
+        const card = el("div",{class:"equiv-card"});
+        card.appendChild(el("div",{class:"et"}, x.title));
+        card.appendChild(renderCmd(x.cmd));
+        const aw = el("div",{style:"display:flex;gap:5px;margin-top:5px;flex-wrap:wrap"});
+        const cp = el("button",{class:"actbtn",onClick:()=>{
+          navigator.clipboard.writeText(x.cmd).then(()=>{cp.textContent="✓"; setTimeout(()=>cp.textContent="Copy",1200);});
+        }}, "Copy");
+        const add = el("button",{class:"actbtn",onClick:()=>{
+          state.queue.push({title:x.title, cmd:x.cmd, vendor:x.vendor, os:x.os});
+          persistQueue(); updateCliBadge(); renderDrawer();
+          add.textContent="✓"; setTimeout(()=>add.textContent="+ CLI",1200);
+        }}, "+ CLI");
+        aw.appendChild(cp); aw.appendChild(add);
+        aw.appendChild(el("span",{class:"tag"}, OSLABEL[x.os]||x.os));
+        aw.appendChild(el("span",{class:"tag"}, x.role));
+        card.appendChild(aw);
+        section.appendChild(card);
+      });
+    }
+    body.appendChild(section);
+  });
+}
+
+function syncUrl(){
+  if(!DATA.length) return; // skip during boot
+  const p = new URLSearchParams();
+  if(state.vendor.size) p.set("v", [...state.vendor].join(","));
+  if(state.os.size) p.set("os", [...state.os].join(","));
+  if(state.role.size) p.set("role", [...state.role].join(","));
+  if(state.cat.size) p.set("cat", [...state.cat].join(","));
+  if(state.q) p.set("q", state.q);
+  if(state.view !== "cards") p.set("view", state.view);
+  if(state.showFavOnly) p.set("fav", "1");
+  const qs = p.toString();
+  const next = location.pathname + (qs ? "?"+qs : "") + location.hash;
+  if(next !== location.pathname + location.search + location.hash){
+    history.replaceState(null, "", next);
+  }
+}
+function restoreUrl(){
+  const p = new URLSearchParams(location.search);
+  if(p.get("v")) p.get("v").split(",").filter(Boolean).forEach(x=>state.vendor.add(x));
+  if(p.get("os")) p.get("os").split(",").filter(Boolean).forEach(x=>state.os.add(x));
+  if(p.get("role")) p.get("role").split(",").filter(Boolean).forEach(x=>state.role.add(x));
+  if(p.get("cat")) p.get("cat").split(",").filter(Boolean).forEach(x=>state.cat.add(x));
+  if(p.get("q")){ state.q = p.get("q"); qEl.value = state.q; }
+  if(p.get("view")) state.view = p.get("view");
+  if(p.get("fav") === "1") state.showFavOnly = true;
+}
+
+function render(){
+  syncUrl();
+  const filtered = DATA.filter(matches);
+  $("stat-shown").textContent = filtered.length;
+  $("vb-shown").textContent = filtered.length;
+  $("vb-total").textContent = DATA.length;
+  const results = $("results"); results.replaceChildren();
+  if(filtered.length === 0){
+    results.appendChild(el("div",{class:"empty"}, "No commands match. Clear some filters or shorten the search."));
+    return;
+  }
+  if(state.view === "table") return renderTable(filtered, results);
+  if(state.view === "compare") return renderCompare(filtered, results);
+  renderCards(filtered, results);
+}
+
+function renderCards(filtered, results){
+  $("vb-mode").textContent = "Cards view";
+  const groups = {};
+  filtered.forEach(d=>{ (groups[d.cat] = groups[d.cat] || []).push(d); });
+  Object.keys(groups).sort().forEach(k=>{
+    const hdr = el("div",{class:"cat-hdr"},
+      el("h3",{},k),
+      el("span",{class:"ct"}, groups[k].length),
+      el("div",{class:"line"})
+    );
+    results.appendChild(hdr);
+    const grid = el("div",{class:"grid"});
+    groups[k].forEach(d=>grid.appendChild(buildCard(d)));
+    results.appendChild(grid);
+  });
+}
+
+function renderTable(filtered, results){
+  $("vb-mode").textContent = "Table view";
+  const wrap = el("div",{class:"tblwrap"});
+  const tbl = el("table",{class:"cmd"});
+  const cols = [
+    {k:"title", l:"Title"},
+    {k:"cmd",   l:"Command"},
+    {k:"desc",  l:"Description"},
+    {k:"vendor",l:"Vendor"},
+    {k:"os",    l:"OS"},
+    {k:"role",  l:"Role"},
+    {k:"cat",   l:"Category"},
+  ];
+  const thead = el("thead");
+  const tr = el("tr");
+  cols.forEach(c=>{
+    const th = el("th",{onClick:()=>{
+      if(state.table_sort.col === c.k) state.table_sort.dir *= -1;
+      else { state.table_sort.col = c.k; state.table_sort.dir = 1; }
+      render();
+    }}, c.l, " ", el("span",{class:"sort"}, state.table_sort.col===c.k ? (state.table_sort.dir>0?"▲":"▼") : "↕"));
+    tr.appendChild(th);
+  });
+  tr.appendChild(el("th",{},"Actions"));
+  thead.appendChild(tr);
+  tbl.appendChild(thead);
+
+  const sorted = [...filtered].sort((a,b)=>{
+    const av = (a[state.table_sort.col]||"").toString();
+    const bv = (b[state.table_sort.col]||"").toString();
+    return state.table_sort.dir * av.localeCompare(bv);
+  });
+  const tbody = el("tbody");
+  sorted.forEach(d=>{
+    const row = el("tr");
+    row.appendChild(el("td",{}, d.title));
+    row.appendChild(el("td",{class:"cmd-cell"}, d.cmd.length > 120 ? d.cmd.slice(0,120)+"…" : d.cmd));
+    row.appendChild(el("td",{style:"color:var(--ink-dim)"}, d.desc));
+    row.appendChild(el("td",{}, el("span",{class:"tag v "+VENDOR_KEY(d.vendor)}, d.vendor)));
+    row.appendChild(el("td",{}, OSLABEL[d.os]||d.os));
+    row.appendChild(el("td",{}, d.role));
+    row.appendChild(el("td",{}, d.cat));
+    const actCell = el("td");
+    const cp = el("button",{class:"actbtn",onClick:()=>{
+      navigator.clipboard.writeText(d.cmd).then(()=>{cp.textContent="✓"; setTimeout(()=>cp.textContent="Copy",1200);});
+    }}, "Copy");
+    const add = el("button",{class:"actbtn primary",style:"margin-left:4px",onClick:()=>{
+      state.queue.push({title:d.title, cmd:d.cmd, vendor:d.vendor, os:d.os});
+      persistQueue(); updateCliBadge(); renderDrawer();
+      add.textContent="✓"; setTimeout(()=>add.textContent="+",1200);
+    }}, "+");
+    actCell.appendChild(cp); actCell.appendChild(add);
+    row.appendChild(actCell);
+    tbody.appendChild(row);
+  });
+  tbl.appendChild(tbody);
+  wrap.appendChild(tbl);
+  results.appendChild(wrap);
+}
+
+// Concept-key: normalize a command title/cmd into a comparable slug.
+// Goal: "BGP eBGP peer" (Cisco), "BGP eBGP peer" (Juniper), "BGP (EOS)" (Arista)
+// all collapse to the same concept ("bgp peer") so they line up horizontally.
+const CONCEPT_STOPWORDS = new Set([
+  "show","set","run","config","configuration","configure","cfg","cli","cmd","command",
+  "router","switch","host","cisco","juniper","arista","ios","nxos","junos","eos","asa","srx","ex","mx",
+  "the","a","an","of","to","in","on","for","with","by","and","or","via",
+  "basic","quick","example","simple","detail","detailed","global","summary",
+  "modern","classic","named","numbered","plain","extended","optional",
+  "create","creating","add","adding","delete","deleting","remove","removing","clear","clearing"
+]);
+const CONCEPT_TOPIC_HINTS = {
+  // Map first hit of any of these substrings to a canonical concept token,
+  // so vendor-flavored words still line up.
+  "neighbor":"peer", "peer":"peer", "neighb":"peer",
+  "summary":"summary", "advertised":"advert", "received":"received",
+  "passive":"passive", "process":"process", "router-id":"routerid", "router id":"routerid",
+  "authentication":"auth", "md5":"auth", "psk":"auth", "pre-shared":"auth",
+  "loopback":"loopback", "subinter":"subif", "vlan tagging":"subif",
+  "trunk":"trunk", "access":"access",
+  "static":"static", "default":"default",
+  "policy":"policy", "filter":"filter", "prefix-list":"prefixlist", "route-map":"routemap",
+  "soft":"clear", "neighbor down":"clear",
+  "version":"version", "running":"running", "startup":"startup",
+  "lacp":"lag", "port-channel":"lag", "etherchannel":"lag", "aggregated":"lag", "channel-group":"lag",
+  "spanning":"stp", "stp ":"stp",
+  "hsrp":"fhrp", "vrrp":"fhrp", "varp":"fhrp", "anycast":"fhrp",
+  "ipsec":"vpn", "ike":"vpn", "tunnel":"vpn",
+  "nat source":"natsrc", "source nat":"natsrc", "pat":"natsrc", "overload":"natsrc",
+  "destination nat":"natdst", "port forward":"natdst", "static nat":"natstatic",
+  "zone":"zone", "policy zone":"zonepolicy",
+  "logging":"log", "syslog":"log",
+  "ntp":"ntp", "snmp":"snmp",
+};
+function conceptKey(d){
+  // strip prompt artifacts and parenthesized notes
+  let t = (d.title||"").toLowerCase();
+  t = t.replace(/^[\w@-]+[#>%]\s*/, "");
+  t = t.replace(/\([^)]+\)/g, " ");
+  t = t.replace(/[^\w\s-]/g, " ");
+  // Topic-hint match first (most stable across vendors)
+  for(const k in CONCEPT_TOPIC_HINTS){
+    if(t.includes(k)) return d.cat + ":" + CONCEPT_TOPIC_HINTS[k];
+  }
+  // Otherwise: 1-2 meaningful tokens
+  const tokens = t.split(/\s+/).filter(w=>w && !CONCEPT_STOPWORDS.has(w) && w.length>=2);
+  const sig = tokens.slice(0,2).join("-") || tokens[0] || "misc";
+  return d.cat + ":" + sig;
+}
+
+function renderCompare(filtered, results){
+  $("vb-mode").textContent = "Compare view";
+  const byCat = {};
+  filtered.forEach(d=>{(byCat[d.cat] = byCat[d.cat] || []).push(d);});
+  Object.keys(byCat).sort().forEach(cat=>{
+    const items = byCat[cat];
+    // Group by conceptKey
+    const conceptMap = new Map(); // key -> {Cisco:[],Juniper:[],Arista:[]}
+    items.forEach(d=>{
+      const k = conceptKey(d);
+      if(!conceptMap.has(k)) conceptMap.set(k, {Cisco:[],Juniper:[],Arista:[], label:null});
+      const slot = conceptMap.get(k);
+      if(slot[d.vendor]) slot[d.vendor].push(d);
+      if(!slot.label) slot.label = (d.title||"").replace(/^[\w@-]+[#>%]\s*/,"").slice(0,60);
+    });
+    const total = items.length;
+    const matched = [...conceptMap.values()].filter(s=>(s.Cisco.length>0?1:0)+(s.Juniper.length>0?1:0)+(s.Arista.length>0?1:0) >= 2).length;
+    const hdr = el("div",{class:"cat-hdr"},
+      el("h3",{}, cat),
+      el("span",{class:"ct"}, total + " · " + matched + " aligned"),
+      el("div",{class:"line"})
+    );
+    results.appendChild(hdr);
+
+    // Row-aligned table where each row is one concept
+    const tbl = el("div",{class:"cmp-table"});
+    const head = el("div",{class:"cmp-row cmp-head"},
+      el("div",{class:"cmp-concept"}, "concept"),
+      el("div",{class:"cmp-cell cisco"}, "Cisco"),
+      el("div",{class:"cmp-cell juniper"}, "Juniper"),
+      el("div",{class:"cmp-cell arista"}, "Arista")
+    );
+    tbl.appendChild(head);
+
+    // Sort: concepts with the most vendors covered first, then alphabetically
+    const sorted = [...conceptMap.entries()].sort((a,b)=>{
+      const ca = (a[1].Cisco.length>0?1:0)+(a[1].Juniper.length>0?1:0)+(a[1].Arista.length>0?1:0);
+      const cb = (b[1].Cisco.length>0?1:0)+(b[1].Juniper.length>0?1:0)+(b[1].Arista.length>0?1:0);
+      if(ca !== cb) return cb - ca;
+      return a[0].localeCompare(b[0]);
+    });
+    sorted.slice(0,60).forEach(entry=>{
+      const slot = entry[1];
+      const row = el("div",{class:"cmp-row"});
+      row.appendChild(el("div",{class:"cmp-concept"}, slot.label || entry[0].split(":")[1]));
+      ["Cisco","Juniper","Arista"].forEach(v=>{
+        const cell = el("div",{class:"cmp-cell "+v.toLowerCase()});
+        const arr = slot[v];
+        if(!arr || arr.length === 0){
+          cell.classList.add("empty");
+          cell.appendChild(el("span",{class:"dash"}, "—"));
+        } else {
+          arr.slice(0,3).forEach(d=>{
+            const inner = el("div",{class:"cmp-inner"});
+            inner.appendChild(el("div",{class:"t"}, d.title));
+            inner.appendChild(renderCmd(d.cmd));
+            const acts = el("div",{class:"cmp-acts"});
+            const cp = el("button",{class:"actbtn",onClick:()=>{
+              navigator.clipboard.writeText(d.cmd).then(()=>{cp.textContent="✓"; setTimeout(()=>cp.textContent="Copy",1000);});
+            }}, "Copy");
+            const add = el("button",{class:"actbtn",onClick:()=>{
+              state.queue.push({title:d.title, cmd:d.cmd, vendor:d.vendor, os:d.os});
+              persistQueue(); updateCliBadge(); renderDrawer();
+              add.textContent="✓"; setTimeout(()=>add.textContent="+",1000);
+            }}, "+");
+            acts.appendChild(cp); acts.appendChild(add);
+            inner.appendChild(acts);
+            cell.appendChild(inner);
+          });
+        }
+        row.appendChild(cell);
+      });
+      tbl.appendChild(row);
+    });
+    if(sorted.length > 60){
+      tbl.appendChild(el("div",{class:"cmp-row"}, el("div",{style:"grid-column:1/-1;text-align:center;padding:10px;color:var(--ink-muted);font-size:11px"}, "showing top 60 of "+sorted.length+" concepts — refine filters to see more")));
+    }
+    results.appendChild(tbl);
+  });
+}
+
+function updateCliBadge(){
+  const b = $("cli-badge");
+  if(state.queue.length){ b.textContent = state.queue.length; b.style.display = "inline-block"; }
+  else { b.style.display = "none"; }
+}
+function renderDrawer(){
+  const body = $("drawer-body"); body.replaceChildren();
+  if(state.queue.length === 0){
+    body.appendChild(el("div",{class:"queue-empty"},
+      "Your CLI builder is empty.",
+      el("br"), el("br"),
+      "Click ", el("b",{},"+ CLI"), " on any command card to add it here. Mix vendors freely — the queue is just plain text."
+    ));
+    return;
+  }
+  state.queue.forEach((q,i)=>{
+    const it = el("div",{class:"queue-item"});
+    const qh = el("div",{class:"qh"},
+      el("span",{class:"qt"}, (i+1)+". "+q.title),
+      el("button",{class:"qrm",title:"Remove",onClick:()=>{
+        state.queue.splice(i,1); persistQueue(); updateCliBadge(); renderDrawer();
+      }}, "×")
+    );
+    it.appendChild(qh);
+    it.appendChild(el("div",{style:"font-size:10px;color:var(--ink-muted);margin-bottom:4px"}, q.vendor+" · "+(OSLABEL[q.os]||q.os)));
+    it.appendChild(renderCmd(q.cmd));
+    body.appendChild(it);
+  });
+}
+function openDrawer(){
+  $("drawer").classList.add("open");
+  $("drawer-overlay").classList.add("open");
+  renderDrawer();
+}
+function closeDrawer(){
+  $("drawer").classList.remove("open");
+  $("drawer-overlay").classList.remove("open");
+}
+function closeEquiv(){ $("equiv-drawer").classList.remove("open"); }
+function buildAllText(){
+  return state.queue.map((q,i)=>"! "+(i+1)+". ["+q.vendor+"/"+(OSLABEL[q.os]||q.os)+"] "+q.title+"\n"+q.cmd).join("\n\n");
+}
+
+function refreshTopStats(){
+  const vendors = uniq(DATA.map(d=>d.vendor));
+  const cats = uniq(DATA.map(d=>d.cat));
+  $("stat-total").textContent = DATA.length;
+  $("stat-vendors").textContent = vendors.length;
+  $("stat-cats").textContent = cats.length;
+}
+
+const qEl = $("q");
+qEl.addEventListener("input",e=>{ state.q = e.target.value; render(); });
+document.addEventListener("keydown",e=>{
+  const tgt = document.activeElement;
+  const inField = tgt && (tgt.tagName==="INPUT" || tgt.tagName==="TEXTAREA");
+  if(e.key === "Escape"){
+    if($("auto-drawer").classList.contains("open")){closeAutomation(); return;}
+    if($("equiv-drawer").classList.contains("open")){closeEquiv(); return;}
+    if($("drawer").classList.contains("open")){closeDrawer(); return;}
+    if(qEl.value){ qEl.value=""; state.q=""; render(); }
+    qEl.blur();
+    $("helpcard").classList.remove("open");
+    return;
+  }
+  if(inField) return;
+  if(e.key==="/"){e.preventDefault();qEl.focus();qEl.select();}
+  else if(e.key==="c"){setView("compare");}
+  else if(e.key==="t"){setView("table");}
+  else if(e.key==="g"){setView("cards");}
+  else if(e.key==="b"){ if($("drawer").classList.contains("open")) closeDrawer(); else openDrawer(); }
+  else if(e.key==="f"){state.showFavOnly = !state.showFavOnly; renderFavoritesPanel(); renderActiveBar(); render();}
+  else if(e.key==="s"){$("btn-side").click();}
+  else if(e.key==="?"){$("helpcard").classList.toggle("open");}
+});
+
+function setView(v){
+  state.view = v;
+  ["vb-cards","vb-table","vb-compare"].forEach(id=>{
+    $(id).classList.toggle("on", id === "vb-"+v);
+  });
+  render();
+}
+$("vb-cards").addEventListener("click",()=>setView("cards"));
+$("vb-table").addEventListener("click",()=>setView("table"));
+$("vb-compare").addEventListener("click",()=>setView("compare"));
+$("btn-clibuilder").addEventListener("click",openDrawer);
+$("drawer-close").addEventListener("click",closeDrawer);
+$("drawer-overlay").addEventListener("click",closeDrawer);
+$("drawer-copy").addEventListener("click",()=>navigator.clipboard.writeText(buildAllText()));
+$("drawer-download").addEventListener("click",()=>{
+  const blob = new Blob([buildAllText()],{type:"text/plain"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob); a.download = "cli-cheatsheet.txt"; a.click();
+});
+$("drawer-clear").addEventListener("click",()=>{
+  if(state.queue.length && confirm("Clear all "+state.queue.length+" queued commands?")){
+    state.queue = []; persistQueue(); updateCliBadge(); renderDrawer();
   }
 });
-$("actLoad").addEventListener("click",()=>location.reload());
-function applyThemeLabel(){
-  const cur = document.documentElement.getAttribute("data-theme") || "dark";
-  $("themeLabel").textContent = cur === "dark" ? "Dark" : "Light";
-}
-$("btnTheme").addEventListener("click",()=>{
-  const cur = document.documentElement.getAttribute("data-theme");
-  const next = cur === "dark" ? "light" : "dark";
-  document.documentElement.setAttribute("data-theme", next);
-  localStorage.setItem("cfg-theme", next);
-  applyThemeLabel();
-});
-const savedTheme = localStorage.getItem("cfg-theme");
-if(savedTheme) document.documentElement.setAttribute("data-theme", savedTheme);
-applyThemeLabel();
-$("btnLcollapse").addEventListener("click",()=>$("shell").classList.toggle("lcollapsed"));
-$("navsearch").addEventListener("input",applyNavSearch);
+$("equiv-close").addEventListener("click",closeEquiv);
+$("auto-close").addEventListener("click",closeAutomation);
 
-$("btnDiff").addEventListener("click",()=>{
-  state.diff = !state.diff;
-  const sel = $("diffVendor");
-  sel.style.display = state.diff ? "" : "none";
-  $("btnDiff").classList.toggle("on", state.diff);
-  $("shell").classList.toggle("diff", state.diff);
-  generate();
-});
-$("diffVendor").addEventListener("change",e=>{ state.diffVendor = e.target.value; generate(); });
-
-/* Resizers */
-function makeResizer(gutter, isLeft){
-  let startX, startW;
-  gutter.addEventListener("mousedown",e=>{
+// Drawer resize
+const savedDrawerW = localStorage.getItem("cli-drawer-w");
+if(savedDrawerW) document.documentElement.style.setProperty("--drawer-w", savedDrawerW+"px");
+(function(){
+  const h = $("drawer-resize"); if(!h) return;
+  let sx, sw;
+  h.addEventListener("mousedown",e=>{
     e.preventDefault();
-    startX = e.clientX;
-    const cs = getComputedStyle(document.documentElement);
-    startW = parseInt(cs.getPropertyValue(isLeft?"--lcol":"--rcol")) || (isLeft?200:460);
+    sx = e.clientX;
+    sw = $("drawer").getBoundingClientRect().width;
+    $("drawer").classList.add("resizing");
     const move = (mv)=>{
-      const delta = mv.clientX - startX;
-      let next = isLeft ? Math.max(140, Math.min(420, startW + delta)) : Math.max(280, Math.min(900, startW - delta));
-      document.documentElement.style.setProperty(isLeft?"--lcol":"--rcol", next+"px");
+      const delta = sx - mv.clientX; // drag left → grows
+      const next = Math.max(320, Math.min(window.innerWidth*0.9, sw + delta));
+      document.documentElement.style.setProperty("--drawer-w", next+"px");
     };
     const up = ()=>{
       document.removeEventListener("mousemove",move);
       document.removeEventListener("mouseup",up);
+      $("drawer").classList.remove("resizing");
+      const curW = $("drawer").getBoundingClientRect().width;
+      localStorage.setItem("cli-drawer-w", Math.round(curW));
     };
     document.addEventListener("mousemove",move);
     document.addEventListener("mouseup",up);
   });
+})();
+function toast(msg){
+  const t = $("toast"); if(!t) return;
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(window._toastT);
+  window._toastT = setTimeout(()=>t.classList.remove("show"), 2200);
 }
-makeResizer($("gutterL"), true);
-makeResizer($("gutterR"), false);
+function csvEscape(s){
+  s = String(s==null?"":s);
+  if(/[",\n]/.test(s)) return '"'+s.replace(/"/g,'""')+'"';
+  return s;
+}
+function exportAs(fmt){
+  const filtered = DATA.filter(matches);
+  let content, mime, ext;
+  if(fmt === "json"){
+    content = JSON.stringify(filtered, null, 1);
+    mime = "application/json"; ext = "json";
+  } else if(fmt === "csv"){
+    const head = "vendor,os,role,cat,title,cmd,desc\n";
+    content = head + filtered.map(d=>[d.vendor,d.os,d.role,d.cat,d.title,d.cmd,d.desc].map(csvEscape).join(",")).join("\n");
+    mime = "text/csv"; ext = "csv";
+  } else if(fmt === "md"){
+    const byCat = {};
+    filtered.forEach(d=>{(byCat[d.cat]=byCat[d.cat]||[]).push(d);});
+    const parts = [];
+    parts.push("# Multivendor CLI export ("+filtered.length+" commands)\n");
+    Object.keys(byCat).sort().forEach(cat=>{
+      parts.push("## "+cat+"\n");
+      parts.push("| Vendor | OS | Role | Title | Command | Description |");
+      parts.push("|--------|----|------|-------|---------|-------------|");
+      byCat[cat].forEach(d=>{
+        const cmd = "`"+d.cmd.replace(/\n/g," ; ").replace(/\|/g,"\\|")+"`";
+        parts.push("| "+d.vendor+" | "+(OSLABEL[d.os]||d.os)+" | "+d.role+" | "+d.title.replace(/\|/g,"\\|")+" | "+cmd+" | "+(d.desc||"").replace(/\|/g,"\\|")+" |");
+      });
+      parts.push("");
+    });
+    content = parts.join("\n");
+    mime = "text/markdown"; ext = "md";
+  } else { // txt
+    content = filtered.map(d=>"# ["+d.vendor+"/"+(OSLABEL[d.os]||d.os)+"/"+d.role+"] "+d.title+(d.desc?"\n# "+d.desc:"")+"\n"+d.cmd).join("\n\n");
+    mime = "text/plain"; ext = "txt";
+  }
+  const blob = new Blob([content],{type:mime});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "multivendor-cli-export-"+filtered.length+"."+ext;
+  a.click();
+  toast("✓ Exported "+filtered.length+" commands as ."+ext);
+  $("export-menu").classList.remove("open");
+}
+$("btn-export").addEventListener("click",e=>{
+  e.stopPropagation();
+  const m = $("export-menu");
+  $("emcount").textContent = DATA.filter(matches).length;
+  m.classList.toggle("open");
+});
+document.addEventListener("click",e=>{
+  if(!$("export-menu").contains(e.target) && e.target !== $("btn-export"))
+    $("export-menu").classList.remove("open");
+});
+$("export-menu").querySelectorAll("button").forEach(b=>{
+  b.addEventListener("click",()=>exportAs(b.dataset.fmt));
+});
+$("btn-theme").addEventListener("click",()=>{
+  const cur = document.documentElement.getAttribute("data-theme");
+  const next = cur === "dark" ? "light" : "dark";
+  document.documentElement.setAttribute("data-theme", next);
+  localStorage.setItem("cli-theme", next);
+});
+const savedTheme = localStorage.getItem("cli-theme");
+if(savedTheme) document.documentElement.setAttribute("data-theme", savedTheme);
+$("btn-help").addEventListener("click",()=>$("helpcard").classList.toggle("open"));
+$("btn-side").addEventListener("click",()=>{
+  const m = document.querySelector("main");
+  m.classList.toggle("lcollapsed");
+  localStorage.setItem("cli-side-collapsed", m.classList.contains("lcollapsed")?"1":"0");
+  // also toggle .open for mobile drawer fallback
+  $("side").classList.toggle("open");
+});
+if(localStorage.getItem("cli-side-collapsed")==="1") document.querySelector("main").classList.add("lcollapsed");
 
-document.addEventListener("keydown",e=>{
-  const tgt = document.activeElement;
-  const inField = tgt && (tgt.tagName==="INPUT" || tgt.tagName==="SELECT" || tgt.tagName==="TEXTAREA");
-  // Cmd/Ctrl shortcuts work even inside fields
-  if((e.metaKey||e.ctrlKey) && e.key.toLowerCase()==="k"){
-    e.preventDefault(); $("navsearch").focus(); $("navsearch").select(); return;
-  }
-  if((e.metaKey||e.ctrlKey) && e.key === "Enter"){
-    e.preventDefault(); $("btnCopy").click(); return;
-  }
-  if(e.key === "Escape" && $("importOverlay").style.display !== "none"){
-    $("importOverlay").style.display = "none"; return;
-  }
-  if(inField) return;
-  if(e.key === "s"){ $("shell").classList.toggle("lcollapsed"); }
-  else if(e.key === "/"){ e.preventDefault(); $("navsearch").focus(); }
-  else if(e.key === "d"){ $("btnDiff").click(); }
-  else if(e.key === "i"){ openImport(); }
+["acc-fav","acc-vendor","acc-os","acc-role","acc-cat"].forEach(id=>{
+  $(id).querySelector(".acc-head").addEventListener("click",()=>{
+    if(state.collapsed.has(id)) state.collapsed.delete(id); else state.collapsed.add(id);
+    persistAcc();
+    $(id).classList.toggle("collapsed", state.collapsed.has(id));
+  });
 });
 
-/* ── Import (paste & parse) ── */
-function openImport(){
-  const ov = $("importOverlay");
-  ov.style.display = "flex";
-  setTimeout(()=>$("importText").focus(), 50);
-  $("importStats").textContent = "";
-}
-function parseCiscoLike(txt){
-  const out = {interfaces:[], static:[], ospf:null, bgp:null, acls:[], vlans:[], hostname:null};
-  const lines = txt.split(/\r?\n/);
-  let i = 0, curIf = null, curAcl = null, curOspf = null, curBgp = null;
-  while(i < lines.length){
-    const raw = lines[i]; const L = raw.trim();
-    // hostname
-    let m = L.match(/^hostname\s+(\S+)/i);
-    if(m){ out.hostname = m[1]; i++; continue; }
-    // interface block
-    m = L.match(/^interface\s+(\S.+)$/i);
-    if(m){
-      if(curIf) out.interfaces.push(curIf);
-      curIf = {name:m[1], desc:"", ip:"", mask:"", prefix:24, enabled:true, mode:"routed", vlan:"", trunkVlans:""};
-      i++; continue;
-    }
-    if(curIf){
-      m = L.match(/^description\s+(.+)$/i);                    if(m){curIf.desc=m[1]; i++; continue;}
-      m = L.match(/^ip address\s+(\d+\.\d+\.\d+\.\d+)\s+(\d+\.\d+\.\d+\.\d+)/i);
-      if(m){curIf.ip=m[1]; curIf.mask=m[2]; i++; continue;}
-      m = L.match(/^ip address\s+(\d+\.\d+\.\d+\.\d+)\/(\d+)/i);
-      if(m){curIf.ip=m[1]; curIf.prefix=+m[2]; curIf.mask=prefixToMask(+m[2]); i++; continue;}
-      if(/^no shutdown$/i.test(L)){ curIf.enabled = true; i++; continue; }
-      if(/^shutdown$/i.test(L)){ curIf.enabled = false; i++; continue; }
-      m = L.match(/^switchport mode\s+(access|trunk)/i);       if(m){curIf.mode=m[1]; i++; continue;}
-      m = L.match(/^switchport access vlan\s+(\d+)/i);          if(m){curIf.vlan=m[1]; curIf.mode="access"; i++; continue;}
-      m = L.match(/^switchport trunk allowed vlan\s+(.+)/i);    if(m){curIf.trunkVlans=m[1]; curIf.mode="trunk"; i++; continue;}
-      if(L === "!" || L === ""){ out.interfaces.push(curIf); curIf=null; i++; continue; }
-    }
-    // static route
-    m = L.match(/^ip route\s+(\d+\.\d+\.\d+\.\d+)\s+(\d+\.\d+\.\d+\.\d+)\s+(\S+)(?:\s+(\d+))?/i);
-    if(m){ out.static.push({prefix:m[1], mask:m[2], nextHop:m[3], distance:m[4]||""}); i++; continue; }
-    m = L.match(/^ip route\s+(\d+\.\d+\.\d+\.\d+)\/(\d+)\s+(\S+)(?:\s+(\d+))?/i);
-    if(m){ out.static.push({prefix:m[1], mask:prefixToMask(+m[2]), nextHop:m[3], distance:m[4]||""}); i++; continue; }
-    // OSPF block
-    m = L.match(/^router ospf\s+(\d+)/i);
-    if(m){ curOspf = {processId:m[1], routerId:"", area:"0", networks:[], passiveDefault:false}; out.ospf = curOspf; i++; continue; }
-    if(curOspf){
-      m = L.match(/^router-id\s+(\S+)/i);                       if(m){curOspf.routerId=m[1]; i++; continue;}
-      if(/^passive-interface default/i.test(L)){ curOspf.passiveDefault=true; i++; continue; }
-      m = L.match(/^network\s+(\d+\.\d+\.\d+\.\d+)\s+(\d+\.\d+\.\d+\.\d+)\s+area\s+(\S+)/i);
-      if(m){ curOspf.networks.push({net:m[1], wild:m[2], area:m[3]}); i++; continue; }
-      if(L === "!" || (L.startsWith("router") && !L.startsWith("router ospf"))){ curOspf=null; continue; }
-    }
-    // BGP block
-    m = L.match(/^router bgp\s+(\d+)/i);
-    if(m){ curBgp = {asn:m[1], routerId:"", neighbors:[], networks:[]}; out.bgp = curBgp; i++; continue; }
-    if(curBgp){
-      m = L.match(/^bgp router-id\s+(\S+)/i);                   if(m){curBgp.routerId=m[1]; i++; continue;}
-      m = L.match(/^neighbor\s+(\S+)\s+remote-as\s+(\d+)/i);    if(m){curBgp.neighbors.push({ip:m[1],remoteAs:m[2],desc:""}); i++; continue;}
-      m = L.match(/^neighbor\s+(\S+)\s+description\s+(.+)/i);
-      if(m){ const n=curBgp.neighbors.find(x=>x.ip===m[1]); if(n) n.desc=m[2]; i++; continue; }
-      m = L.match(/^network\s+(\d+\.\d+\.\d+\.\d+)\s+mask\s+(\d+\.\d+\.\d+\.\d+)/i);
-      if(m){ curBgp.networks.push({net:m[1],mask:m[2]}); i++; continue; }
-      if(L === "exit-address-family" || L === "!"){ if(L==="!"){ curBgp=null; } i++; continue; }
-    }
-    // ACL named extended
-    m = L.match(/^ip access-list extended\s+(\S+)/i);
-    if(m){ curAcl = {name:m[1], rules:[]}; out.acls.push(curAcl); i++; continue; }
-    if(curAcl){
-      m = L.match(/^(\d+)\s+(permit|deny)\s+(\S+)\s+(\S+(?:\s+\S+)?)\s+(\S+(?:\s+\S+)?)(?:\s+eq\s+(\S+))?/i);
-      if(m){ curAcl.rules.push({seq:+m[1], action:m[2], proto:m[3], src:m[4], dst:m[5], port:m[6]||""}); i++; continue; }
-      if(L === "!"){ curAcl=null; i++; continue; }
-    }
-    // VLAN database
-    m = L.match(/^vlan\s+(\d+)$/i);
-    if(m){ const v={id:+m[1], name:""}; out.vlans.push(v);
-      if(i+1 < lines.length){
-        const nm = lines[i+1].trim().match(/^name\s+(\S+)/i);
-        if(nm){ v.name = nm[1]; i++; }
-      }
-      i++; continue;
-    }
-    i++;
-  }
-  if(curIf) out.interfaces.push(curIf);
-  return out;
-}
-function applyImport(parsed){
-  if(parsed.hostname){ state.hostname = parsed.hostname; $("hostname").value = parsed.hostname; }
-  if(parsed.interfaces.length) state.interfaces = parsed.interfaces;
-  if(parsed.static.length) state.static = parsed.static;
-  if(parsed.ospf) state.ospf = parsed.ospf;
-  if(parsed.bgp) state.bgp = parsed.bgp;
-  if(parsed.acls.length) state.acls = parsed.acls;
-  if(parsed.vlans.length) state.vlans = parsed.vlans;
-  renderContent(); generate(); refreshNav();
-}
-$("btnImport").addEventListener("click",openImport);
-$("importClose").addEventListener("click",()=>$("importOverlay").style.display="none");
-$("importPreview").addEventListener("click",()=>{
-  const parsed = parseCiscoLike($("importText").value);
-  $("importStats").textContent = `parsed: ${parsed.interfaces.length} interfaces · ${parsed.static.length} static · ${parsed.ospf?1:0} ospf · ${parsed.bgp?1:0} bgp · ${parsed.acls.length} acls · ${parsed.vlans.length} vlans`;
-});
-$("importApply").addEventListener("click",()=>{
-  const txt = $("importText").value.trim();
-  if(!txt){ alert("Paste a config first."); return; }
-  const parsed = parseCiscoLike(txt);
-  const counts = `${parsed.interfaces.length} interfaces, ${parsed.static.length} static routes, ${parsed.ospf?"OSPF":""}${parsed.bgp?" BGP":""} ${parsed.acls.length} ACLs, ${parsed.vlans.length} VLANs`;
-  if(!confirm("Apply parsed config (replaces current)?\n\n"+counts)) return;
-  applyImport(parsed);
-  $("importOverlay").style.display = "none";
-});
-
-/* Init */
-renderOsSelect();
-renderNav();
-renderContent();
-generate();
+fetch("commands.json",{cache:"no-cache"})
+  .then(r=>{ if(!r.ok) throw new Error("HTTP "+r.status); return r.json(); })
+  .then(arr=>{
+    DATA = arr;
+    restoreUrl();
+    ["vb-cards","vb-table","vb-compare"].forEach(id=>{
+      $(id).classList.toggle("on", id === "vb-"+state.view);
+    });
+    refreshTopStats();
+    renderChips();
+    renderActiveBar();
+    updateCliBadge();
+    render();
+  })
+  .catch(err=>{
+    $("results").appendChild(el("div",{class:"empty",style:"border-color:#ef4444;color:#ef4444"},
+      "Failed to load commands.json — "+(err && err.message ? err.message : err),
+      el("br"), el("br"),
+      "If you opened this file with file://, your browser blocks the fetch. Serve it: python3 -m http.server"));
+  });
 </script>
 </body>
 </html>

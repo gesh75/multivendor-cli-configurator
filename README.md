@@ -9,12 +9,20 @@
 
 ## What's here
 
-| Tool | URL | What it does |
-|---|---|---|
-| **Cheatsheet** | [`/cheatsheet.html`](https://gesh75.github.io/multivendor-cli-configurator/cheatsheet.html) | **7,711 commands** searchable, filterable, with row-aligned cross-vendor compare view. Each command has vendor / OS / role / category metadata. |
-| **Configurator** | [`/`](https://gesh75.github.io/multivendor-cli-configurator/) (`index.html`) | GUI form → live CLI generator. Pick vendor + role (router / switch / firewall), fill in interfaces / OSPF / BGP / ACLs / NAT, get production-ready config in your target dialect. Side-by-side vendor diff included. |
+**[Cheatsheet](https://gesh75.github.io/multivendor-cli-configurator/)** (`index.html`) —
+7,711 commands searchable, filterable, deep-linkable, with three view modes:
 
-Both open in any modern browser. No build, no install, no JavaScript dependencies.
+- **Cards** (default) — auto-fit grid grouped by category
+- **Table** — sortable, exportable to CSV / Markdown / JSON / TXT
+- **Compare** — row-aligned Cisco · Juniper · Arista side-by-side
+
+Each command card has:
+- **Copy / + CLI / See equivalents ↗** — usual operations
+- **🔧 Automate** — *new*. For 10 of the most common patterns, opens a drawer showing the NETCONF XML, ncclient Python snippet, and Ansible task **pre-filled with the values from your specific command** (extracts your IP, VLAN, ASN, etc. via regex and substitutes into vendor-correct templates).
+
+Opens in any modern browser. No build, no install, zero JS dependencies.
+
+A legacy `configurator.html` is kept in the repo for archive purposes — it's a form-based CLI generator that was superseded by the cheatsheet's Compare view + Automate drawer. Not linked from the live site.
 
 ---
 
