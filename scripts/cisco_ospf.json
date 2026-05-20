@@ -1,0 +1,1001 @@
+[
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "area authentication",
+  "cmd": "area authentication area area-id authentication [message-digest]\nno area area-id authentication [message-digest]\narea area-id authentication {key-chain chain-name | null}\nno area area-id authentication {key-chain | null}",
+  "desc": "To enable authentication trailer for an Open Shortest Path First version 3 (OSPFv3) area, use the area the authentication trailer, use theno form of this command."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "area default-cost",
+  "cmd": "area area-id filter-list prefix prefix-list-name {in | out}\nno area area-id filter-list prefix prefix-list-name {in | out}",
+  "desc": "To filter prefixes advertised in type 3 link-state advertisements (LSAs) between Open Shortest Path First (OSPF) areas of an Area Border Router (ABR), use the area filter-list command in router address family topology or router configuration mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "area nssa",
+  "cmd": "area nssa area area-id nssa [no-redistribution] [default-information-originate [metric]\nno area area-id nssa [no-redistribution] [default-information-originate [metric] [metric-type]]\narea nssa translate area area-id nssa translate type7 [always] [suppress-fa]\narea area-id range ipv6-prefix /prefix-length [{advertise | not-advertise}] [cost cost]\nno area area-id range ipv6-prefix /prefix-length [{advertise | not-advertise}] [cost cost]\narea area-id sham-link source-address destination-address [cost number] [ttl-security hops hop-count]\narea stub area area-id stub [no-summary]\nno area area-id stub [no-summary]",
+  "desc": "To remove the transit, use the area no-transit form of this command."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "area virtual-link",
+  "cmd": "area area-id virtual-link router-id authentication key-chain chain-name [hello-interval seconds]\nauthentication mode {deployment | normal}\nno authentication mode {deployment | normal}",
+  "desc": "To specify authentication mode used in Open Shortest Path First version 3 (OSPFv3) , use the authentication defaultnormal authentication mode, use theno form of this command."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "auto-cost",
+  "cmd": "auto-costcommand in router configuration mode. To assign cost based only on the interface type, use the no\nauto-cost auto-cost reference-bandwidth mbps\nno auto-cost reference-bandwidth",
+  "desc": "To control how Open Shortest Path First (OSPF) calculates default metrics for the interface, use the form of this command."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "BFD Deterministic Offload",
+  "cmd": "platform bfd offload-timer command in the global configuration mode. Set the Tx timer lower than, or equal\nplatform bfd offload-timer offload timer",
+  "desc": "to the offload-timer limit, to host the BFD session in hardware, if resources are available."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "capability lls",
+  "cmd": "packets and reenable OSPF nonstop forwarding (NSF) awareness, use the capability llscommand in router\ncapability lls\nno capability lls",
+  "desc": "To enable the use of the Link-Local Signalling (LLS) data block in originated Open Shortest Path First (OSPF) configuration mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "capability transit",
+  "cmd": "transit command in router configuration mode. To disable OSPF area capability transit on all areas for a\ncapability transit\nno capability transit",
+  "desc": "To reenable Open Shortest Path First (OSPF) area capability transit after it has been disabled, use the capability router process, use the no form of this command."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "capability vrf-lite",
+  "cmd": "process is associated with the VPN routing and forwarding instance (VRF), use the capabilityvrf-lite command\ncapability vrf-lite\nno capability vrf-lite",
+  "desc": "To suppress the provider edge (PE) specific checks on a router when the Open Shortest Path First (OSPF) in router configuration mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "capability vrf-lite (OSPFv3)",
+  "cmd": "vrf-lite command in address family configuration mode. To restore the checks, use the no form of this\ncapability vrf-lite\nno capability vrf-lite",
+  "desc": "To suppress the provider edge (PE)-specific checks on a router when the Open Shortest Path First version 3 (OSPFv3) process is associated with the VPN routing and forwarding (VRF) instance, use the capability command."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "clear proximity ip ospf",
+  "cmd": "clear proximity ip ospf [pid] {process | redistribution | counters [neighbor",
+  "desc": "To clear redistribution based on the Open Shortest Path First (OSPF) routing process ID, use the clear proximity ip ospf command in privileged EXEC mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "clear ip ospf force-spf",
+  "cmd": "clear ip ospf [process-id] force-spf",
+  "desc": "To start the shortest path first (SPF) algorithm without clearing the Open Shortest Path First (OSPF) database, use the clear ip ospf force-spf command in privileged EXEC mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "clear ip ospf traffic",
+  "cmd": "clear ip ospf [process-id] traffic [interface-type interface-number]",
+  "desc": "To clear Open Shortest Path First (OSPF) traffic statistics, use the clear ip ospf traffic command in user EXEC or privileged EXEC mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "clear ipv6 ospf traffic",
+  "cmd": "clear ipv6 ospf traffic",
+  "desc": "To reset counters and clear IPv6 OSPFv3 traffic statistics, use the clear ipv6 ospf traffic command privileged EXEC mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "compatible rfc1583",
+  "cmd": "rfc1583command in router configuration mode. To disable RFC 1583 compatibility, use the no form of this\ncompatible rfc1583\nno compatible rfc1583\ncompatible rfc1587\nno compatible rfc1587",
+  "desc": "To replace RFC 3101 compatibility with RFC 1587 compatibility for route selection in not-so-stubby area (NSSA) Area Border Routers (ABRs), use the compatible rfc1587command in router configuration mode or address family configuration mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "compatible rfc5243",
+  "cmd": "compatible rfc5243\nno compatible rfc5243",
+  "desc": "To optimize the database description (DBD) packet exchange between two OSPF neighbors, use the compatible rfc5243 in router configuration mode or address family configuration mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "default-information originate (OSPF)",
+  "cmd": "default-information originate [always] [metric metric-value] [metric-type type-value] [route-map\nno default-information originate [always] [metric metric-value] [metric-type type-value] [route-map",
+  "desc": "To generate a default external route into an Open Shortest Path First (OSPF) routing domain, use the mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "default-metric (OSPF)",
+  "cmd": "command in router address family topology or router configuration mode. To r eturn to the default state, use\ndefault-metric metric-value\nno default-metric metric-value",
+  "desc": "to cause the current routing protocol to use the same metric value for all redistributed routes."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "discard-route",
+  "cmd": "discard-route [external [distance]] [internal [distance]]\nno discard-route [external [distance]] [internal [distance]]",
+  "desc": "To reinstall an external or internal discard route that was previously removed, use the discard-route command in router address family topology configuration or router configuration mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "distance ospf",
+  "cmd": "distance ospf distance ospf {external dist1 | inter-area dist2 | intra-area dist3}\ndistance ospf distance ospf {external dist1 | inter-area dist2 | intra-area dist3}",
+  "desc": "To define Open Shortest Path First (OSPF) route administrative distances based on route type, use the distance ospf command in router address family topology or router configuration mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "domain-id (OSPF)",
+  "cmd": "domain-id {ip-address [secondary] | null | type type-value value hex-value [secondary]}\nno domain-id [{ip-address [secondary] | null | type type-value value hex-value",
+  "desc": "To change the OSPF domain ID that is used during the redistribution of BGP VPNv4 routes to OSPF, use the command."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "domain-id (OSPFv3)",
+  "cmd": "domain-id type type-value value hex-value\nno domain-id type type-value value hex-value",
+  "desc": "To configure the BGP/MPLS VPN domain ID, use the domain-id command in address-family configuration mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "domain-tag",
+  "cmd": "use the domain-tag command in router configuration mode. To reinstate the default tag value, use the no\ndomain-tag tag-value\nno domain-tag tag-value\ndomain-tag\nfast-reroute keep-all-paths\nno fast-reroute keep-all-paths",
+  "desc": "To create a list of all the candidate repair paths considered when a per-prefix loop-free alternate (LFA) Fast Reroute (FRR) route is computed, use the fast-reroute keep-all-paths command in router configuration mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "fast-reroute per-prefix enable (OSPF)",
+  "cmd": "fast-reroute per-prefix enable [area area-id] prefix-priority {high | low}\nno fast-reroute per-prefix enable [area area-id] prefix-priority {high | low}",
+  "desc": "To configure a per-prefix loop-free alternate (LFA) Fast Reroute (FRR) path that redirects traffic to an router configuration mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "fast-reroute per-prefix remote-lfa maximum-cost",
+  "cmd": "fast-reroute per-prefix remote-lfa [{area area-id}] maximum-cost distance\nno fast-reroute per-prefix remote-lfa [{area area-id}] maximum-cost distance",
+  "desc": "To configure the maximum distance to the tunnel endpoint in a per-prefix loop-free alternate (LFA) fast reroute (FRR) path that redirects traffic to a remote LFA, use the fast-reroute per-prefix remote-lfa maximum-cost command in router configuration mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "fast-reroute per-prefix remote-lfa tunnel",
+  "cmd": "fast-reroute per-prefix remote-lfa [{area area-id}] tunnel mpls-ldp\nno fast-reroute per-prefix remote-lfa [{area area-id}] tunnel mpls-ldp\nfast-reroute tie-break {broadcast-interface-disjoint | downstream | interface-disjoint | linecard-disjoint\nno fast-reroute tie-break {broadcast-interface-disjoint | downstream | interface-disjoint |\nlinecard-disjoint | node-protecting | primary-path | secondary-path | srlg} [required] {index\nattribute-priority | lowest-metric index attribute-priority}",
+  "desc": "To configure the tiebreaking policy in selecting in a loop-free alternate (LFA) Fast Reroute (FRR) repair path, no form of this command."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "ignore lsa mospf",
+  "cmd": "ignore lsa mospf ignore lsa mospf\nno ignore lsa mospf",
+  "desc": "To suppress the sending of syslog messages when the router receives link-state advertisement (LSA) Type 6 Multicast OSPF ( MOSPF) packets, which are unsupported, use the ignore lsa mospfcommand in router configuration mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "interface-id snmp-if-index",
+  "cmd": "interface-id snmp-if-index\nno interface-id snmp-if-index",
+  "desc": "To configure Open Shortest Path First (OSPF) interfaces with Simple Network Management Protocol (SNMP) MIB-II interface Index (ifIndex) identification numbers, use the interface-id snmp-if-indexcommand in router configuration mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "ip ospf area",
+  "cmd": "ip ospf process-id area area-id [secondaries none]\nno ip ospf process-id area [secondaries none]",
+  "desc": "To enable Open Shortest Path First version 2 (OSPFv2) on an interface, use the ip ospf area command in interface configuration mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "ip ospf authentication",
+  "cmd": "ip ospf authentication [{key-chain name | message-digest | null}]",
+  "desc": "To specify the authentication type for an interface, use the ip ospf authentication command in interface or of this command."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "ip ospf authentication-key",
+  "cmd": "ip ospf authentication-key [{ 0 | 7 }] password",
+  "desc": "to be able to exchange OSPF information."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "ip ospf bfd",
+  "cmd": "ip ospf bfd [disable]",
+  "desc": "To enable Bidirectional Forwarding Detection (BFD) on a specific interface configured for Open Shortest Path First (OSPF), use the ip ospf bfdcommand in interface configuration mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "ip ospf cost",
+  "cmd": "ip ospf costinterface-cost\nno ip ospf cost interface-cost",
+  "desc": "To explicitly specify the cost of sending a packet on an interface, use the ip ospf cost command in interface configuration mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "ip ospf database-filter all out",
+  "cmd": "ip ospf database-filter all out [disable]",
+  "desc": "To filter outgoing link-state advertisements (LSAs) to an Open Shortest Path First (OSPF) interface, use the restore the forwarding of LSAs to the interface, use the no form of this command."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "ip ospf dead-interval",
+  "cmd": "ip ospf dead-interval {seconds | minimal hello-multiplier multiplier}\nip ospf demand-circuit[disable] [ignore]",
+  "desc": "to be closed when the topology is stable."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "ip ospf fast-reroute per-prefix",
+  "cmd": "ip ospf fast-reroute per-prefix {candidate | protection} [disable]",
+  "desc": "To configure an interface as a protecting or a protected interface in a per-prefix loop-free alternative (LFA) repair path, use the ip ospf fast-reroute per-prefix command in interface configuration mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "ip ospf flood-reduction",
+  "cmd": "ip ospf flood-reductionflood-reduction [disable]",
+  "desc": "To suppress the unnecessary flooding of link-state advertisements (LSAs) in stable topologies, use the ip ospf command."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "ip ospf hello-interval",
+  "cmd": "ospf hello-interval command in interface configuration mode. To return to the default time, use the no form\nip ospf hello-intervalseconds\nno ip ospf hello-interval",
+  "desc": "To specify the interval between hello packets that the Cisco IOS software sends on the interface, use the ip of this command."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "ip ospf lls",
+  "cmd": "ip ospf lls [disable]",
+  "desc": "to interoperate on network segments where there are routers that do not properly handle LLS."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "ip ospf message-digest-key md5",
+  "cmd": "message-digest-key md5command in interface configuration mode. To remove an old MD5 key, use the no\nip ospf message-digest-keykey-idencryption-typemd5key\nno ipospfmessage-digest-keykey-id",
+  "desc": "To enable Open Shortest Path First (OSPF) Message Digest 5 (MD5) authentication, use the ip ospf form of this command."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "ip ospf mtu-ignore",
+  "cmd": "ip ospf mtu-ignore[disable]",
+  "desc": "To disable Open Shortest Path First (OSPF) maximum transmission unit (MTU) mismatch detection on mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "ip ospf multi-area",
+  "cmd": "the ip ospf multi-area command in interface configuration mode. To disable multiarea adjacency, use the\nip ospf multi-area multi-area-id\nno ip ospf multi-area multi-area-id",
+  "desc": "To configure multiarea adjacency on a interface that is configured with Open Shortest Path First (OSPF), use no form of this command."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "ip ospf multi-area cost",
+  "cmd": "ospf multi-area cost command in interface configuration mode. To reset the multiarea path cost to the default\nip ospf multi-area multi-area-id cost interface-cost\nno ip ospf multi-area multi-area-id cost interface-cost",
+  "desc": "To specify the cost of sending a packet on an Open Shortest Path First (OSPF) multiarea interface, use the ip value, use the no form of this command."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "ip ospf name-lookup",
+  "cmd": "ip ospf name-lookup\nnoipospfname-lookup",
+  "desc": "To disable this function, use the no form of this command."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "ip ospf network",
+  "cmd": "ip ospf network{broadcast | non-broadcast | {point-to-multipoint [non-broadcast] | point-to-point}}\nip ospf prefix-suppression [disable]",
+  "desc": "To prevent Open Shortest Path First (OSPF) from advertising all IP prefixes that belong to a specific interface, allow the interface to inherit the IP prefix suppression setting from the router configuration, use the no form of this command."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "ip ospf priority",
+  "cmd": "ip ospf prioritynumber-value\nnoip ospf priority",
+  "desc": "To set the router priority, which helps determine the designated router for this network, use the ip ospf priority command in interface configuration mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "ip ospf resync-timeout",
+  "cmd": "resynchronization (oob-resync) has not taken place since the time a restart signal (Open Shortest Path First\nip ospf resync-timeout seconds\nno ip ospf resync-timeout\nip ospf resync-timeout\ninterface GigabitEthernet 6/0/0\nip ospf resync-timeout 50\nip ospf dead-interval\nip ospf hello-interval\ninterface, use the ip ospf retransmit-interval command in interface configuration mode. To return to the\nip ospf retransmit-intervalseconds\nno ip ospf retransmit-interval",
+  "desc": "To specify the time between link-state advertisement (LSA) retransmissions for adjacencies belonging to the default value, use the no form of this command."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "ip ospf shutdown",
+  "cmd": "ip ospf shutdown [disable]",
+  "desc": "To initiate an graceful shutdown of Open Shortest Path First (OSPF) protocol at the interface level, use the ip ospf shutdown command in interface configuration mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "ip ospf transmit-delay",
+  "cmd": "transmit-delay command in interface configuration mode. To return to the default value, use the no form of\nip ospf transmit-delayseconds\nno ip ospf transmit-delay",
+  "desc": "To set the estimated time required to send a link-state update packet on the interface, use the ip ospf this command."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "ip ospf ttl-security",
+  "cmd": "ip ospf ttl-security [{hops hop-count | disable}]",
+  "desc": "To configure the Time-to-Live (TTL) security check feature on a specific interface, use the ip ospf of this command."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "limit retransmissions",
+  "cmd": "limit retransmission {dc | {max-retransmissions | disable} | [non-dc] | non-dc | {max-retransmissions\nno limit transmissions [{dc | non-dc}]\nlocal-rib-criteria [forwarding-address] [inter-area-summary] [nssa-translation]\nno local-rib-criteria [forwarding-address] [inter-area-summary] [nssa-translation]\nlog-adjacency-changes [detail]\nno log-adjacency-changes [detail]",
+  "desc": "To configure the router to send a syslog message when an Open Shortest Path First (OSPF) neighbor goes up or down, use the log-adjacency-changes command in router configuration mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "max-lsa",
+  "cmd": "max-lsa maximum-number [threshold-percentage] [warning-only] [ignore-time minutes] [ignore-count\ncount-number] [reset-time minutes]\nno max-lsa maximum-number [threshold-percentage] [warning-only] [ignore-time minutes]\nmax-metric router-lsa [external-lsa [max-metric-value]] [include-stub] [on-startup {seconds |\nwait-for-bgp}] [summary-lsa [max-metric-value]]\nno max-metric router-lsa [external-lsa [max-metric-value]] [include-stub] [on-startup {seconds |\nwait-for-bgp}] [summary-lsa [max-metric-value]]",
+  "desc": "to an OSPF network but not want real traffic flowing through the router if there are better alternate paths."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "max-metric router-lsa",
+  "cmd": "max-metric router-lsa",
+  "desc": "Commands Starting with 'M'"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "neighbor (OSPF)",
+  "cmd": "neighbor ip-address [priority number] [poll-interval seconds] [cost number] [database-filter all]\nno neighbor ip-address [priority number] [poll-interval seconds] [cost number] [database-filter\nneighbor ip-address database-filter allout [cost metric]",
+  "desc": "to the neighbor, use the no form of this command."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "network area",
+  "cmd": "interfaces, use the network area command in router configuration mode. To disable OSPF routing for interfaces\nnetwork ip-address wildcard-mask area area-id\nno network ip-address wildcard-mask area area-id\nyou intend to associate areas with IP subnets, you can specify a subnet address as the value of the\nareacommand. If the network areacommand covers only the secondary address, it will not enable OSPF",
+  "desc": "to define one or multiple interfaces to be associated with a specific OSPF area using a single command."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "nsf (OSPF)",
+  "cmd": "nsf [enforce global]\nno nsf [enforce global]",
+  "desc": "To configure Cisco nonstop forwarding (NSF) operations for Open Shortest Path First (OSPF), use the nsf command in router configuration mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "nsf cisco",
+  "cmd": "nsf cisco [{enforce global | helper [disable]}]\nno nsf cisco [{enforce global | helper disable}]",
+  "desc": "To disable Cisco nonstop forwarding (NSF) helper mode on a Cisco router that is running Open Shortest Path First (OSPF), use the nsf cisco helper disablecommand in router configuration mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "nsf cisco helper disable",
+  "cmd": "nsf cisco helper disable",
+  "desc": "Commands Starting with 'N'"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "nsf ietf",
+  "cmd": "nsf ietf [{restart-interval seconds | helper [{disable | strict-lsa-checking}]}]\nno nsf ietf [{restart-interval | helper [{disable | strict-lsa-checking}]}]",
+  "desc": "to the default, use the no form of this command."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "nsf ietf helper disable",
+  "cmd": "is running Open Shortest Path First (OSPF), use the nsf ietf helper disablecommand in router configuration\nnsf ietf helper disable\nno nsf ietf helper disable",
+  "desc": "To disable Internet Engineering Task Force (IETF) nonstop forwarding (NSF) helper mode on a router that mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "nsf ietf helper strict-lsa-checking",
+  "cmd": "process, use the nsf ietf helper strict-lsa-checkingcommand in router configuration mode. To disable strict\nnsf ietf helper strict-lsa-checking\nno nsf ietf helper strict-lsa-checking\nstrict-lsa-checking command. However, strict LSA checking will not become effective until the router\nbecomes a helper router during an IETF graceful restart process. With strict LSA checking enabled, the helper\nthat would be flooded to the restarting router or if there is a changed LSA on the retransmission list of the\nthe nsrcommand in router configuration mode. To disable NSR and return to the default, use the no form of\nnsr\nno nsr",
+  "desc": "To enable nonstop routing (NSR) operations on a router that is running Open Shortest Path First (OSPF), use this command."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "Router configuration (config-router)",
+  "cmd": "ospfv3 [pid] [ipv4|ipv6] authentication {key-chain chain-name | null}\nno ospfv3 [pid] [ipv4|ipv6] authentication {key-chain | null}",
+  "desc": "To specify the cryptographic authentication keys for an Open Shortest Path First version 3 (OSPFv3) instance, chain, use theno form of this command."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "router ospf",
+  "cmd": "router ospf process-id [vrf vrf-name]\nno router ospf process-id [vrf vrf-name]",
+  "desc": "To configure an Open Shortest Path First (OSPF) routing process, use the router ospf command in global configuration mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "router-id",
+  "cmd": "router-id ip-address\nno router-id ip-address",
+  "desc": "To use a fixed router ID, use the router-id command in router configuration mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "ospfv3 multi-area",
+  "cmd": "ospfv3 multi-area multi-area-id\nno ospfv3 multi-area multi-area-id",
+  "desc": "To configure multiarea adjacency on an interface that is configured with Open Shortest Path First version 3 (OSPFv3), use the ospfv3 multi-area command in interface configuration mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "ospfv3 multi-area cost",
+  "cmd": "use the ospfv3 multi-area cost command in interface configuration mode. To reset the multiarea path cost\nospfv3 multi-area multi-area-id cost interface-cost\nno ospfv3 multi-area multi-area-id cost interface-cost",
+  "desc": "to 65535."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "prefix-suppression",
+  "cmd": "with loopbacks, secondary IP addresses, and passive interfaces for a specific OSPF process, use the\nprefix-suppression command in router configuration mode. To advertise all IP prefixes, use the no form of\nprefix-suppression\nno prefix-suppression",
+  "desc": "To prevent Open Shortest Path First (OSPF) from advertising all IP prefixes except prefixes that are associated this command."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "process-min-time percent",
+  "cmd": "redistribute maximum-prefix maximum [percentage] [{warning-only | withdraw}]",
+  "desc": "To limit the number of prefixes redistributed into Open Shortest Path First (OSPF) or to generate a warning command."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "show ip ospf",
+  "cmd": "show ip ospf [process-id]",
+  "desc": "To display general information about Open Shortest Path First (OSPF) routing processes, use the showipospf command in user EXEC or privileged EXEC mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "show ip ospf border-routers",
+  "cmd": "and Autonomous System Boundary Router (ASBR), use the showipospfborder-routers command in privileged\nshow ip ospf border-routers",
+  "desc": "To display the internal Open Shortest Path First (OSPF) routing table entries to an Area Border Router (ABR) EXEC mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "show ip ospf database",
+  "cmd": "show ip ospf [process-id area-id] database\nshow ip ospf [process-id area-id] database [adv-router [ip-address]]\nshow ip ospf [process-id area-id] database [asbr-summary] [link-state-id]\nshow ip ospf [process-id area-id] database [asbr-summary] [link-state-id] [adv-router [ip-address]]\nshow ip ospf [process-id area-id] database [asbr-summary] [link-state-id] [self-originate]\nshow ip ospf [process-id area-id] database [database-summary]\nshow ip ospf [process-id] database [external] [link-state-id]\nshow ip ospf [process-id] database [external] [link-state-id] [adv-router [ip-address]]\nshow ip ospf [process-id area-id] database [external] [link-state-id] [self-originate] [link-state-id]\nshow ip ospf [process-id area-id] database [network] [link-state-id]\nshow ip ospf [process-id area-id] database [network] [link-state-id] [adv-router [ip-address]]\nshow ip ospf [process-id area-id] database [network] [link-state-id] [self-originate] [link-state-id]\nshow ip ospf [process-id area-id] database [nssa-external] [link-state-id]\nshow ip ospf [process-id area-id] database [nssa-external] [link-state-id] [adv-router [ip-address]]\nshow ip ospf [process-id area-id] database [nssa-external] [link-state-id] [self-originate] [link-state-id]\nshow ip ospf [process-id area-id] database [router] [link-state-id]\nshow ip ospf [process-id area-id] database [router] [adv-router [ip-address]]\nshow ip ospf [process-id area-id] database [router] [self-originate] [link-state-id]\nshow ip ospf [process-id area-id] database [self-originate] [link-state-id]\nshow ip ospf [process-id area-id] database [summary] [link-state-id]\nshow ip ospf [process-id area-id] database [summary] [link-state-id] [adv-router [ip-address]]\nshow ip ospf [process-id area-id] database [summary] [link-state-id] [self-originate] [link-state-id]",
+  "desc": "To display lists of information related to the Open Shortest Path First (OSPF) database for a specific router, use the showipospfdatabase command in EXEC mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "show ip ospf events",
+  "cmd": "show ip ospf events [generic] [interface] [lsa] [neighbor] [reverse] [rib] [spf]",
+  "desc": "To display the IP Open Shortest Path First (OSPF) events information, use the show ip ospf events command in user EXEC or privileged EXEC mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "show ip ospf fast-reroute",
+  "cmd": "show ip ospf [{process-id}] fast-reroute [{prefix-summary | remote-lfa tunnels}]",
+  "desc": "To display information for an Open Shortest Path First (OSPF) per-prefix loop-free alternate (LFA) fast reroute (FRR) configuration, use the show ip ospf fast-reroute command in privileged EXEC mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "show ip ospf flood-list",
+  "cmd": "show ip ospf flood-list show ip ospf flood-list interface-type interface-number",
+  "desc": "To display a list of Open Shortest Path First (OSPF) link-state advertisements (LSAs) waiting to be flooded over an interface, use the showipospfflood-listcommand in EXEC mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "show ip ospf interface",
+  "cmd": "show ip [ospf] [process-id] interface [type number] [brief] [multicast] [topology {topology-name",
+  "desc": "To display interface information related to Open Shortest Path First (OSPF), use the show ip ospf interface command in user EXEC or privileged EXEC mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "no",
+  "cmd": "no",
+  "desc": "Commands Starting with 'S'"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "Shutdown",
+  "cmd": "Shutdown",
+  "desc": "Commands Starting with 'S'"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "show ip ospf max-metric",
+  "cmd": "show ip ospf max-metric [{multicast topology | topology}] [{topology-name | base}]",
+  "desc": "To display IP Open Shortest Path First (OSPF) max-metric origination information, use the show ip ospf max-metric command in user EXEC or privileged EXEC mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "show ip ospf multi–area",
+  "cmd": "show ip ospf process-id multi-area",
+  "desc": "To display interface information about Open Shortest Path First (OSPF) multiarea adjacency, use the show ip ospf multi-area command in user EXEC or privileged EXEC mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "show ip ospf neighbor",
+  "cmd": "show ip ospf neighbor [interface-type interface-number] [neighbor-id] [detail] [fast-reroute]",
+  "desc": "To display Open Shortest Path First (OSPF) neighbor information on a per-interface basis, use the showipospfneighbor command in privileged EXEC mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "maximum",
+  "cmd": "maximum",
+  "desc": "Commands Starting with 'S'"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "show ip ospf nsf",
+  "cmd": "show ip ospf nsf",
+  "desc": "To display IP Open Shortest Path First (OSPF) nonstop forwarding (NSF) state information, use the show ip ospf nsf command in user EXEC or privileged EXEC mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "show ip ospf nsr",
+  "cmd": "show ip ospf [process-id] nsr [{[objects] | [statistics]}]",
+  "desc": "To display IP Open Shortest Path First (OSPF) nonstop routing (NSR) status information, use the show ip ospf nsr command in privileged EXEC mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "show ip ospf request-list",
+  "cmd": "show ip ospf request-list [neighbor] [interface] [interface-neighbor]",
+  "desc": "To display a list of all link-state advertisements (LSAs) requested by a router, use the showipospfrequest-listcommand in EXEC mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "show ip ospf retransmission-list",
+  "cmd": "show ip ospf retransmission-list [neighbor] [interface] [interface-neighbor]",
+  "desc": "To display a list of all link-state advertisements (LSAs) waiting to be re-sent, use the showipospfretransmission-listcommand in EXEC mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "show ip ospf rib",
+  "cmd": "show ip ospf process-id rib [redistribution] [network-prefix] [network-mask] [detail]",
+  "desc": "To display information for the Open Shortest Path First (OSPF) local Routing Information Base (RIB) or locally redistributed routes, use the showipospfribcommand in privileged EXEC mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "show ip ospf sham-links",
+  "cmd": "show ip ospf sham-links",
+  "desc": "To display information about all sham-links configured for a provider edge (PE) router in the Virtual Private Network (VPN) backbone, use the show ip ospf sham-links command in EXEC mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "show ip ospf statistics",
+  "cmd": "show ip ospf statistics [detail]",
+  "desc": "To display Open Shortest Path First (OSPF) shortest path first (SPF) calculation statistics, use the showipospfstatisticscommand in user EXEC or privileged EXEC mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "show ip ospf summary-address",
+  "cmd": "show ip ospf [process-id] summary-address",
+  "desc": "To display a list of all summary address redistribution information configured under an Open Shortest Path First (OSPF) process, use the showipospfsummary-addresscommand in EXEC mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "show ip ospf timers rate-limit",
+  "cmd": "show ip ospf timers rate-limit",
+  "desc": "To display all of the link-state advertisements (LSAs) in the rate limit queue, use the showipospftimersrate-limitcommand in privileged EXEC mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "show ip ospf traffic",
+  "cmd": "show ip ospf [process-id] traffic [interface-type interface-number]",
+  "desc": "To display parameters and the current state of Open Shortest Path First (OSPF) virtual links, use the showipospfvirtual-links command in EXEC mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "show ipv6 ospf",
+  "cmd": "show ipv6 ospf [process-id] [area-id] [rate-limit]",
+  "desc": "To display general information about Open Shortest Path First ( OSPF) routing processes, use the show ipv6 ospf command in user EXEC or privileged EXEC mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "show ipv6 ospf traffic",
+  "cmd": "show ipv6 ospf [process-id] traffic [interface-type interface-number]",
+  "desc": "To ensure compatibility with the showiptraffic command, only checksum errors are displayed."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "show ospfv3 multi-area",
+  "cmd": "show ospfv3 multi-area",
+  "desc": "To display information about the Open Shortest Path First version 3 (OSPFv3) multiarea interfaces, use the show ospfv3 multi-area command in user EXEC or privileged EXEC mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "show ospfv3 sham-links",
+  "cmd": "show ospfv3 [process-id] [address-family] [vrf {vrf-name | *}] sham-links",
+  "desc": "To display parameters and the current state of Open Shortest Path First version 3 (OSPFv3) sham links, use the show ospfv3 sham-links command in user EXEC or privileged EXEC mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "show tech-support ospf",
+  "cmd": "show tech-support ospf [vrf vrf-instance-name][process-id][detail]",
+  "desc": "To run show s that display OSPF information that is useful to Cisco Technical Support personnel in resolving issues, use the show tech-support ospf command in the privileged EXEC mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "shutdown (router OSPF)",
+  "cmd": "use the shutdown command in router configuration mode. To restart the OSPF protocol, use the noform of\nshutdown\nno shutdown",
+  "desc": "To initiate a graceful shutdown of the Open Shortest Path First (OSPF) protocol under the current instance, this command."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "snmp-server enable traps ospf",
+  "cmd": "s of the following s:",
+  "desc": "Commands Starting with 'S'"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "snmp-server enable traps ospf cisco-specific errors",
+  "cmd": "config-error\nenter the snmp-server enable traps ospf cisco-specific errorscommand in global configuration mode without\nnonvirtual interfaces:\nsnmp-server enable traps ospf\nnonvirtual interface mismatch errors, use the snmp-server enable traps ospf cisco-specific errors\nconfig-errorcommand in global configuration mode. To disable OSPF nonvirtual interface mismatch error\nsnmp-server enable traps ospf cisco-specific errors config-error\nno snmp-server enable traps ospf cisco-specific errors config-error\ncisco-specific errors config-error command in global configuration mode. The snmp-server enable traps\nospf cisco-specific errors config-error command enables the cospfConfigError trap, so that both traps can\nbe generated at the same place and maintain consistency with a similar case for configuration errors across\nsnmp-server enable traps ospf cisco-specific errors config-error\nsnmp-server enable traps ospf cisco-specific errors Enables SNMP notifications for OSPF sham-link\nshamlink\nsnmp-server enable traps ospf cisco-specific\nretransmit\ncisco-specific errors config-error command in global configuration mode. The snmp-server enable traps\nospf cisco-specific errors config-error command enables the cospfConfigError trap, so that both traps can\nbe generated at the same place and maintain consistency with a similar case for configuration errors across",
+  "desc": "To enable the cospfShamLinkConfigError trap, you must first enter the snmp-server enable traps ospf virtual links."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "snmp-server enable traps ospf cisco-specific retransmit",
+  "cmd": "packets",
+  "desc": "Commands Starting with 'S'"
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "snmp-server enable traps ospf cisco-specific state-change",
+  "cmd": "nssa-trans-change\nsnmp-server enable traps ospf cisco-specific errors Enables SNMP notifications for OSPF nonvirtual\nconfig-error\nsnmp-server enable traps ospf cisco-specific errors Enables SNMP notifications for OSPF sham-link\nshamlink\nsnmp-server enable traps ospf cisco-specific\nretransmit\nconfig-error\nwhen a packet has been received in a nonvirtual interface from a neighbor router\nwhose configuration parameters conflict with the configuration parameters of\nvirt-authentication-failure (Optional) Enables only the ospfVirtIfFailure trap. Allows SNMP notifications\nrouter whose authentication key or authentication type conflicts with the\nvirt-bad-packet\nnotifications to be sent when an OSPF packet that has not been parsed has been\nvirt-config-error\nnotifications when a packet has been received in a virtual interface from a\nneighbor router whose configuration parameters conflict with the configuration",
+  "desc": "to be sent when a packet has been received on a virtual interface from a neighbor authentication key or authentication type of this router."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "snmp-server enable traps ospf lsa",
+  "cmd": "lsa-maxage\nby the router as a result of a topology change:\nsnmp-server enable traps ospf lsa",
+  "desc": "To enable the traps that are defined by the CISCO-OSPF-TRAP-MIB for opaque LSAs, enter the snmp-server enable traps ospf cisco-specific lsacommand in global configuration mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "snmp-server enable traps ospf retransmit",
+  "cmd": "snmp-server enable traps ospfv3 errors [bad-packet] [config-error] [virt-bad-packet]\nno snmp-server enable traps ospfv3 errors [bad-packet] [config-error] [virt-bad-packet]",
+  "desc": "To disable SNMP notifications for OSPFv3 errors, use the no form of this command."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "snmp-server snmp traps ospfv3 rate-limit",
+  "cmd": "number of seconds, use the snmp-server enable traps ospfv3 rate-limit command in global configuration\nsnmp-server enable traps ospfv3 rate-limit seconds trap-number\nno snmp-server enable traps ospfv3 rate-limit",
+  "desc": "To limit the number of Open Shortest Path First Version 3 (OSPFv3) traps that are sent during a specified mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "snmp-server snmp traps ospfv3 state-change",
+  "cmd": "snmp-server enable traps ospfv3 state-change [if-state-change]\nsummary-address summary-address {ip-address mask | prefix mask} [not-advertise] [tag\ntag] [nssa-only]\nno summary-address {ip-address mask | prefix mask} [not-advertise] [tag tag] [nssa-only]",
+  "desc": "to OSPF only."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "timers lsa arrival",
+  "cmd": "timers lsa arrival milliseconds\nno timers lsa arrival",
+  "desc": "To restore the default value, use the no form of this command."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "timers pacing flood",
+  "cmd": "timers pacing flood milliseconds\nno timers pacing flood\nnot change the packet pacing timers unless all other options to meet OSPF packet flooding requirements have\ncollected into a group and refreshed, checksummed, or aged, use the timers pacing lsa-groupcommandin\ntimers pacing lsa-group seconds\nno timers pacing lsa-group",
+  "desc": "To change th e interval at which Open Shortest Path First ( OSPF) link-state advertisements (LSAs) are router configuration mode."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "timers pacing retransmission",
+  "cmd": "command in router configuration mode. To restore the default retransmission packet pacing value, use the no\ntimers pacing retransmission milliseconds\nno timers pacing retransmission",
+  "desc": "To configure link-state adv ertisement (LSA) retransmission packet pacing, use the timers pacing retransmission form of this command."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "timers throttle lsa all",
+  "cmd": "timers throttle lsa all start-interval hold-interval max-interval\nno timers throttle lsa all",
+  "desc": "to 600,000 milliseconds."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "timers throttle spf",
+  "cmd": "command in the appropriate configuration mode. To turn off OSPF SPF throttling, use the no form of this\ntimers throttle spf spf-start spf-hold spf-max-wait\nno timers throttle spf spf-start spf-hold spf-max-wait",
+  "desc": "To turn on Open Shortest Path First ( OSPF) shortest path first (SPF) throttling, use the timers throttle spf command."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "ttl-security all-interfaces",
+  "cmd": "ttl-security all-interfaces [hops hop-count]",
+  "desc": "To enable Time-to-Live (TTL) security check on all OSPF interfaces, use the ttl-security this command."
+ }
+]

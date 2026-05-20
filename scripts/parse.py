@@ -251,6 +251,8 @@ def main():
         if md.name.startswith("junos-dayone") or md.name == "junos-os-cli-reference.md": continue
         # Arista EOS user guide has its own dedicated parser → arista.json
         if md.name.startswith("arista-eos"): continue
+        # Cisco IOS OSPF reference has its own dedicated parser → cisco_ospf.json
+        if md.name == "cisco-ios-ospf-reference.md": continue
         try:
             items = parse_markdown(md)
             raw.extend(items)
@@ -325,6 +327,17 @@ def main():
             if key not in seen:
                 seen.add(key); cmds.append(s); added += 1
         print(f"  merged Arista: {added} new entries (deduped from {len(arista)})", file=sys.stderr)
+
+    # Merge Cisco IOS OSPF dedicated reference (111 commands)
+    ospf_path = pathlib.Path(__file__).parent / "cisco_ospf.json"
+    if ospf_path.exists():
+        ospf_set = json.loads(ospf_path.read_text())
+        added = 0
+        for s in ospf_set:
+            key = re.sub(r"\s+", " ", s["cmd"]).lower()
+            if key not in seen:
+                seen.add(key); cmds.append(s); added += 1
+        print(f"  merged Cisco OSPF: {added} new entries (deduped from {len(ospf_set)})", file=sys.stderr)
 
     OUT_FILE.write_text(json.dumps(cmds, indent=1, ensure_ascii=False))
     print(f"\nwrote {len(cmds)} commands -> {OUT_FILE}")
