@@ -1,0 +1,551 @@
+[
+ {
+  "os": "nxos",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "AAA",
+  "title": "IP Addressing",
+  "cmd": "Interfaces in this area:  4 Active interfaces: 3\nNo authentication available",
+  "desc": "IP address allocation and assignment to the various network devices and/or related interfaces (both physical and logical) is important when building a routed network for the underlay."
+ },
+ {
+  "os": "nxos",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "Example 4-2: Example Configuration of a Loopback and OSPF",
+  "cmd": "feature ospf\nrouter ospf UNDERLAY\nrouter-id 10.10.1 0.1\ninterface loopback0\nip address 10.20 0.200.1/32\nip router ospf UNDERLAY ar ea 0.0.0.0\ninterface loopback1\nip address 10.10.10.1/32\nip router ospf UNDERLAY  area 0.0.0.0",
+  "desc": "The RID is used in routing protocols to uniquely identify a given neighbor and/or an index to the information received or sent to/from this neighbor in its database."
+ },
+ {
+  "os": "nxos",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "Example 4-3: IP Unnumbered Configuration Example",
+  "cmd": "interface loopback1\nip address 10.10 .10.1/32\nip router ospf UNDERLAY  area 0.0.0.0\nip pim sparse-mode\ninterface Ethernet2/1\nno switchport\nmtu 9216\nip unnnu mbered loopback 1\nip ospf network point-to- point\nip router ospf UNDERLAY area 0 .0.0.0\nip pim sparse-mode\nno shutdown\nIP unnumbered for Ethernet interfaces (see Figure 4-7) using the OSPF or IS-IS routing",
+  "desc": "In addition to the RID, IP addresses are also assigned to the physical interfaces in order to build routing adjacencies."
+ },
+ {
+  "os": "nxos",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "OSPF as an Underlay",
+  "cmd": "interface loopback0\nip address 10.20 0.200.1/32\nip router ospf UNDERLAY ar ea 0.0.0.0\nip pim sparse-mode\ninterface loopback1\nip address 10.10 .10.1/32\nip router ospf UNDERLAY  area 0.0.0.0\nip pim sparse-mode",
+  "desc": "protocols is available on most of the Cisco Nexus data center switches."
+ },
+ {
+  "os": "nxos",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "IS-IS as an Underlay",
+  "cmd": "interface Ethernet2/1\nno switchport\nmtu 9216\nip addre ss 10.1.1.0/31\nip ospf network point- to-point\nip router ospf UNDERLAY area 0 .0.0.0\nip pim sparse-mode\nno shutdown\nIP address 10.1.1.0/31, Process  ID UNDERLAY VRF default, area 0.0.0.0\nNo authentication",
+  "desc": "Open Shortest Path First (OSPF) is a widely adopted IGP that has been employed in many LAN, WAN, and data center core network environments."
+ },
+ {
+  "os": "nxos",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "BGP",
+  "title": "BGP as an Underlay",
+  "cmd": "feature isis\nrouter isis UNDERLAY\nnet 49.0001.0100. 1001.0001.00\ninterface Ethernet2/1\nno switchport\nmtu 9216\nip addre ss 10.1.1.0/31\nip router isis UNDERLA Y\nmedium p2p\nip pim spa rse-mode\nno shutdown",
+  "desc": "Intermediate System to Intermediate System (IS-IS)14 is another link-state routing protocol that also uses the SPF algorithm to calculate the shortest and loop-free paths through a network."
+ },
+ {
+  "os": "nxos",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "BGP",
+  "title": "Example 4-7: eBGP: next-hop unchanged",
+  "cmd": "route-map NH-UNCHANGED permit 10\nset ip next-hop unchanged\nrouter bgp 65501\nneighbor 10.1.1.1 remote-as 65500\naddress-family l2vpn evpn\nsend-community both\nroute-map NH-UNCHAN GED out",
+  "desc": "Border Gateway Protocol (BGP) is a path vector routing protocol that exchanges routing and reachability information among various autonomous systems (AS)."
+ },
+ {
+  "os": "nxos",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "BGP",
+  "title": "Example 4-8: eBGP: retain Route-Target all",
+  "cmd": "router bgp 65500\nretain route-target  all",
+  "desc": "As eBGP is used for the underlay as well as for the overlay, a separate BGP peering for the EVPN address family (that is, overlay) is recommended."
+ },
+ {
+  "os": "nxos",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "BGP",
+  "title": "Example 4-9: Two-AS Only: disable-peer-as-check (Spine Only)",
+  "cmd": "router bgp 65500\nrouter-id  10.10.10.201\nneighbor 10.1.1.0 remote-as  65501\naddress-family ipv4 u nicast\nsend-community both\ndisable-peer-as-check\naddress-family l2vpn evpn\nsend-community both\ndisable-peer-as-che ck",
+  "desc": "one AS, and each leaf (or leaf pair in virtual PortChannel [vPC]) belongs to a unique AS."
+ },
+ {
+  "os": "nxos",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "BGP",
+  "title": "Unicast Mode",
+  "cmd": "router bgp 65501\nrouter-id  10.10.10.1\nneighbor 10.1.1.1 remote-a s 65500\naddress-family ipv4 unicast\nallowas-in\naddress-family l 2vpn evpn\nsend-community both\nallowas-in",
+  "desc": "Unicast Mode"
+ },
+ {
+  "os": "nxos",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "BGP",
+  "title": "Example 4-11: Static Ingress Replication Configuration",
+  "cmd": "interface NVE 1\nmember vni 30001\nBGP EVPN supports unicast mode. For example, in Example 4-12, the BGP EVPN control",
+  "desc": "In unicast mode, the data packets are replicated by the ingress VTEP and sent to the respective neighboring VTEPs that are part of the same VNI (see Figure 4-12)."
+ },
+ {
+  "os": "nxos",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "PIM Any Source Multicast (ASM)",
+  "cmd": "interface NVE 1\nmember vni 30001",
+  "desc": "supported by the forwarding functionality that is embedded at the VTEPs."
+ },
+ {
+  "os": "nxos",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Multicast",
+  "title": "Example 4-13: PIM Anycast RP Configuration",
+  "cmd": "ip pim rp-address 10.254.254.254\nip pim anycast-rp 10.254.254.254  10.254.254.1 (Spine#1 IP)\nip pim anycast-rp 10.254.254.254 10.254.254.2 (Spine#2 IP)\nip pim anycast-rp 10.254.254.254 10.254.254.3 (Spine#3 IP)\nip pim anycast-rp 10.254.254.254 10.254.254.4 (Spine#4 IP)\ninterface loopback 200\nip address 10.254.25 4.1/32\nip pim sparse-mode\ninterface loopback 254\nip address 10.254.25 4.254/32\nip pim sparse-mode",
+  "desc": "In PIM ASM, source trees (S,G) are created at the VTEP."
+ },
+ {
+  "os": "nxos",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Multicast",
+  "title": "Example 4-14: Using Anycast RP",
+  "cmd": "ip pim rp-address 10.254.254.254\nPIM BiDir offers a different way of providing multidestination traffic replication in multicast",
+  "desc": "PIM Any Source Multicast (ASM)"
+ },
+ {
+  "os": "nxos",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Multicast",
+  "title": "Example 4-15: Phantom RP Configuration Spine#1 (Primary)",
+  "cmd": "ip pim rp address 10.254.254.254 bidir\ninterface loopback 254\nip address 10.254.25 4.253/30\nip pim sparse-mode",
+  "desc": "PIM Any Source Multicast (ASM)"
+ },
+ {
+  "os": "nxos",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Multicast",
+  "title": "Example 4-16: Phantom RP Configuration Spine#2 (Backup)",
+  "cmd": "ip pim rp address 10.254.254.254 bidir\ninterface loopback 254\nip address 10.254.25 4.253/29\nip pim sparse-mode",
+  "desc": "PIM Any Source Multicast (ASM)"
+ },
+ {
+  "os": "nxos",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Multicast",
+  "title": "Example 4-17: Using Phantom RP",
+  "cmd": "ip pim rp address 10.254.254.254 bidir",
+  "desc": "PIM Any Source Multicast (ASM)"
+ },
+ {
+  "os": "nxos",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Multicast",
+  "title": "Example 4-18: Phantom RP Configuration with Load Balancing of Spine#1",
+  "cmd": "ip pim rp address 10.254.254.254 bidir grou p 239.239.0.0/24\nip pim rp address 10.254.253.254 bidir group 239.239.1.0/24\ninterface loopback 254\nip address 10.254.25 4.253/30\nip pim sparse-mode\ninterface loopback 253\nip address 10.254.25 3.253/29\nip pim sparse-mode",
+  "desc": "PIM Any Source Multicast (ASM)"
+ },
+ {
+  "os": "nxos",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Multicast",
+  "title": "Example 4-19: Phantom RP Configuration with Load Balancing of Spine#2",
+  "cmd": "ip pim rp address 10.254.254.254 bidir grou p 239.239.0.0/24\nip pim rp address 10.254.253.254 bidir group 239.239.1.0/24\ninterface loopback 254\nip address 10.254.254. 253/29\nip pim sparse-mode\ninterface loopback 253\nip address 10.254.253. 253/30\nip pim sparse-mode",
+  "desc": "PIM Any Source Multicast (ASM)"
+ },
+ {
+  "os": "nxos",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Multicast",
+  "title": "Example 4-20: Using Phantom RP",
+  "cmd": "ip pim rp address 10.254.254.254 bidir group 239.239.0.0/24\nip pim rp address 10.254.253.254 bidir group 239.239.1.0/24",
+  "desc": "PIM Any Source Multicast (ASM)"
+ },
+ {
+  "os": "nxos",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "VLANs in VXLAN",
+  "cmd": "vlan 10\nvlan 20\nvlan 100\nvlan 200\nvlan 1000\nvlan 2000",
+  "desc": "Most servers or endpoints in a network are connected using classic Ethernet interfaces as described in IEEE 802."
+ },
+ {
+  "os": "nxos",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "Example 5-2: Sample Layer 2 VNI Configuration with per-Port VLAN Significance",
+  "cmd": "vlan 3501\nvlan 3502\nswitchport mode trun k\nswitchport vlan mappi ng enable\nswitchport vlan mapping 10 350 1\ninterface Ethernet 1/9\nswitchport mode trun k\nswitchport vlan mappi ng enable\nswitchport vlan mapping 10 350 2\nVLAN mapping approach and the bridge domain mapping approach. By using the VXLAN\nVNI as the global identifier, the scaling of the VLAN namespace becomes possible and the",
+  "desc": "The ability to have switch-local or switch-scoped VLANs permits the scaling of the VLAN namespace across the fabric with VXLAN."
+ },
+ {
+  "os": "nxos",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "BGP",
+  "title": "Example 5-3: Sample Configuration to Advertise Layer 2 VNI Routes into BGP EVPN",
+  "cmd": "route-target export auto\nvni 30002 l2\nroute-target export auto",
+  "desc": "In order to advertise the L2VNI within the BGP-based EVPN address family, configuration of the MAC-based EVPN instance is required, as shown in Example 5-3."
+ },
+ {
+  "os": "nxos",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "BGP",
+  "title": "VRF in VXLAN BGP EVPN",
+  "cmd": "LEAF1# show bgp l2vpn evpn vni-id 30001 | include \"Route Distinguisher\"\nRoute Distinguisher: 10.10.10.1:32777            (L2VNI 30001)",
+  "desc": "With the Cisco implementation of BGP-EVPN, the Route Distinguisher (RD) and route target (RT) values are derived automatically."
+ },
+ {
+  "os": "nxos",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "OSPF",
+  "title": "Layer 3 Multitenancy: Mode of Operation",
+  "cmd": "Router #1\nvrf conte xt VRF-B\ninterface eth1/10.1002\nencapsulation dot1q  1002\nvrf member VRF-B\nip address 10.2. 2.1/24\nip router ospf 100 are a 0\nrouter ospf 100\nvrf VRF-B\nvrf conte xt VRF-B\ninterface eth1/10.1002\nencapsulation dot1q  1002\nvrf member VRF-B\nip address 10.2. 2.2/24\nip router ospf 100 are a 0\nvrf VRF-B",
+  "desc": "Layer 3 Multitenancy: Mode of Operation"
+ },
+ {
+  "os": "nxos",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "BGP",
+  "title": "Example 5-6: Basic VRF Configuration in a VXLAN BGP EVPN Network",
+  "cmd": "vrf context VRF-A\nvni 50001\nroute-target both auto\nroute-target both auto  evpn\naddress-family ipv6 unicast\nroute-target both auto\nroute-target both auto  evpn",
+  "desc": "The previous section focused on comparing Layer 3 multitenancy in VXLAN with BGP EVPN and MPLS L3VPNs."
+ },
+ {
+  "os": "nxos",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "BGP",
+  "title": "Example 5-7: Sample Output for Route Distinguisher per Layer 3 VNI with Automate",
+  "cmd": "LEAF1# show vrf\nVRF-Name                 VRF-ID State    Reason\nVRF-A                                 3  Up         --\ndefault                                  1  Up         --\nmanagement                         2  Up        --\nLEAF11# show bgp l2vpn evpn vni-id 50001 | include \"Route Distinguisher\"\nRoute Distinguisher: 10.10.10.1:3     (L3VNI 50001)",
+  "desc": "the RT value remains the same across all the edge devices in the same VRF."
+ },
+ {
+  "os": "nxos",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "BGP",
+  "title": "Example 5-8: Sample BGP EVPN-Related VRF Configuration for Layer 3 Multitenancy",
+  "cmd": "router bgp 65501\nvrf VRF-A\ninterface nve1\nmember vni 5 0001 associate-vrf",
+  "desc": "Layer 3 Multitenancy: Mode of Operation"
+ },
+ {
+  "os": "nxos",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "Example 5-9: VRF-Related VLAN and Bridge Domain Configuration for Layer 3 Multit",
+  "cmd": "VLAN Oriented Command Line Interface\nvlan 2501\ninterface Vlan2501\nno shutdown\nmtu 9216\nvrf memb er VRF-A\nip forward\nvni 50001\nmember vni 5000 1\ninterface bdi2501\nno shutdown\nmtu 9216\nvrf memb er VRF-A\nip forward",
+  "desc": "Layer 3 Multitenancy: Mode of Operation"
+ },
+ {
+  "os": "nxos",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "BGP",
+  "title": "Intra-Subnet Unicast Forwarding (Bridging)",
+  "cmd": "BGP routing table information for VR F default, address family L2VPN EVPN\nBGP table version is 43, local router ID is 10.10.10.1\nNetwork                    Next Hop             Metric   LocPrf     Weight Path\nmatch the import statement, forwarding does not occur because the entry resides only in",
+  "desc": "In overlays, a common requirement for the VXLAN data plane encapsulation is to provide a basic Layer 2 service (Layer 2 Gateway or L2GW service)."
+ },
+ {
+  "os": "nxos",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "BGP",
+  "title": "Example 6-2: show l2route evpn mac all Output at VTEP V1",
+  "cmd": "V1# show l2route evpn mac all\nTopology    Mac Address    Pr od   Next Hop (s)\n----------- -------------- ------ ------------ ---\n10           0000.3000.1102  BGP    10.200.200.2\n10           0000.3000.1101  Local   Eth1/5",
+  "desc": "Intra-Subnet Unicast Forwarding (Bridging)"
+ },
+ {
+  "os": "nxos",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "Example 6-3: show mac address-table vlan 10 Output at VTEP V1",
+  "cmd": "VLAN     MAC Address      Type      age     Secure NTFY Ports",
+  "desc": "Intra-Subnet Unicast Forwarding (Bridging)"
+ },
+ {
+  "os": "nxos",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "BGP",
+  "title": "Inter-Subnet Unicast Forwarding (Routing)",
+  "cmd": "BGP routing table information for VR F default, address family L2VPN EVPN\nBGP table version is 43, local router ID is 10.10.10.1\nNetwork                  Next Hop              Metric     LocPrf            Weight Path",
+  "desc": "and this information is populated over BGP EVPN to the VTEPs V2 and V3, respectively."
+ },
+ {
+  "os": "nxos",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Static",
+  "title": "Example 6-6: show ip route vrf VRF-A Output at VTEP V1",
+  "cmd": "IP Route Table for VRF \"VR F-A\"\nARP tables for a given VRF is a good starting point. Example 6-7 shows the host entries in",
+  "desc": "*>l                         10."
+ },
+ {
+  "os": "nxos",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "BGP",
+  "title": "Table 6-12 Encapsulated Packet, Including All Headers",
+  "cmd": "IP ARP Table for context VRF-A",
+  "desc": "Table 6-12 Encapsulated Packet, Including All Headers"
+ },
+ {
+  "os": "nxos",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "BGP",
+  "title": "Example 6-8: show run vrf VRF-A Output (at VTEP V1)",
+  "cmd": "interface Vlan10\nvrf member VR F-A\nip address 192.1 68.1.1/24 tag 12345\nfabric forwarding mode anycast-gate way\nroute-map FABRIC-RMAP-REDIST-SUBNET permit 10\nmatch tag 12345\nrouter bgp 65501\nvrf X\nredistribute direct  route-map FABRIC-RMAP-REDIST-SUBNET",
+  "desc": "When the traffic reaches VTEP V2, it is decapsulated, and the subsequent destination IP lookup in vrf VRF-A, which is mapped from VNI 50001, results in the 192."
+ },
+ {
+  "os": "nxos",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "BGP",
+  "title": "U-Shaped and Full-Mesh Models",
+  "cmd": "route-map RM_iBGP_ALLOW permit 10\nmatch route-type internal\nrouter ospf EXTERNAL\nvrf VRF-A",
+  "desc": "Note that this only redistributes routes originated in BGP; routes redistributed into BGP from another routing protocol are not in turn redistributed."
+ },
+ {
+  "os": "nxos",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "BGP",
+  "title": "Example 8-2: VRF Lite with BGP Using Subinterfaces on the Border Node",
+  "cmd": "interface Ethernet1/10\nno switchport\ninterface Ethern et1/10.1002\nmtu 9216\nvrf member VRF-B\nip address 10.2. 2.1/30\nno shutdown\nrouter bgp 65501\nvrf VRF-B\nneighbor 10.2.2.2 remote-as 65599\nupdate-source Ethernet1/10.100 2\naddress-family ipv4 unicast",
+  "desc": "When iBGP IP prefixes are advertised into the external network via an appropriate routing protocol, additional considerations apply with regard to summarizing the entire internal IP prefix space."
+ },
+ {
+  "os": "nxos",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "BGP",
+  "title": "Example 8-3: LISP Extension from VXLAN BGP EVPN",
+  "cmd": "feature lisp\nip lisp itr-etr\nip lisp itr map -resolver\nip lisp etr map-server 1 0.8.12.9 key MY_MS_KEY\nvrf context VRF-A\nip lisp locator-vrf  default\nrouter bgp 65501\nvrf VRF-A\nNetwork (MPLS L3VPN) provides external connectivity by keeping intact the Layer 3\nL2VPN EVPN address family, while MPLS L3VPN leverages the VPNv4 address family for IPv4",
+  "desc": "For the routing protocol, eBGP between the border node and external router is the recommended option."
+ },
+ {
+  "os": "nxos",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "BGP",
+  "title": "Extranet and Shared Services",
+  "cmd": "vrf context VRF-A\nvni 50001\nroute-target both 65599: 50001\nroute-target both auto\nroute-target both auto  evpn\nrouter bgp 65501\nneighbor 10.2 .2.2 remote-as 65599\nupdate-source loopback254\naddress-family vpnv4 unic ast\nneighbor 10.10.10.201 remote-as 655 01\naddress-family l2vpn evpn\nvrf VRF-A\ninterface ethernet 1/10\nip address 10.2.2.1/ 30",
+  "desc": "from a VXLAN BGP EVPN infrastructure to a MPLS L3VPN–based transport network."
+ },
+ {
+  "os": "nxos",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "BGP",
+  "title": "Downstream VNI Assignment",
+  "cmd": "vrf context VRF-A\nvni 50001\nroute-target both auto\nroute-target both auto  evpn\nroute-target import 65501:5 0002\nroute-target import 65501:50002  evpn\nvrf context VRF-B\nvni 50002\nroute-target both auto\nroute-target both auto  evpn\nroute-target import 65501:5 0001\nroute-target import 65501:50001  evpn\nvrf context VRF-A\nvni 50001\nroute-target both auto\nroute-target both auto  evpn\nroute-target import 65501:5 0002\nroute-target import 65501:50002  evpn\nvrf context VRF-B\nvni 50002\nroute-target both auto\nroute-target both auto  evpn\nroute-target import 65501:5 0001\nroute-target import 65501:50001  evpn",
+  "desc": "In many cases, there is a requirement to deploy services that are shared by different tenants aka VRFs."
+ },
+ {
+  "os": "nxos",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "BGP",
+  "title": "Example 11-2: MAC Entries Advertised Over BGP-EVPN at Leaf",
+  "cmd": "L11# show l2route evpn mac all\nTopology    Mac Address    Pro d  Next Hop (s)\n----------- -------------- ------ ------------ ---\n100       0011.0100.0001   Local   Eth2/1",
+  "desc": "2/1 on VLAN 100."
+ },
+ {
+  "os": "nxos",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "BGP",
+  "title": "Example 11-3: VLAN to Layer 2 VNI Mapping at Leaf",
+  "cmd": "VLAN  Segment-id",
+  "desc": "The output in Example 11-2 shows the presence of the locally learned MAC address in topology 100, where topology 100 maps to the VLAN ID."
+ },
+ {
+  "os": "nxos",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "BGP",
+  "title": "Example 11-4: BGP EVPN Route type 2 Entries at Leaf",
+  "cmd": "BGP routing table information for VRF  default, address family L2VPN EVPN\nBGP table version is 1670, local router ID is 10.100.100.11\nnetwork            Next Hop            Metric       LocPrf                              Weight\nevpn command on a remote leaf.",
+  "desc": "The MAC is verified in the local address table as well as in the L2RIB table."
+ },
+ {
+  "os": "nxos",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "BGP",
+  "title": "Example 11-5: Details of a Particular BGP EVPN Route type 2 Advertisement at a L",
+  "cmd": "BGP routing table information for VRF d efault, address family L2VPN EVPN\nBGP routing table entry for [2]:[0]:[0]:[48]:[0011.010 0.0001]:[0]:[0.0.0.0]/216, version 1540\nBGP routing table entry for [2]:[0]:[0]:[ 48]:[0011.0100.0001]:[32]:[192.168.100.200]/272, version",
+  "desc": "BGP-based EVPN control protocol"
+ },
+ {
+  "os": "nxos",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "BGP",
+  "title": "Example 11-6: Details of a Particular BGP EVPN Route type 2 Advertisement at a R",
+  "cmd": "BGP routing table information for VRF d efault, address family L2VPN EVPN\nBGP routing table entry for [2]:[0]:[0]: [48]:[0011.0100.0001]:[0]:[0.0.0.0]/216, version 1538",
+  "desc": "BGP-based EVPN control protocol"
+ },
+ {
+  "os": "nxos",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "BGP",
+  "title": "Example 11-7: MAC Entries Received Over BGP EVPN at a Remote Leaf",
+  "cmd": "L12# show l2route evpn mac all\nTopology      Mac Address   Pr od   Next Hop (s)\n-----------   -------------- ------ ------------ ---\n100       0011.0100.0001 BGP   10.200.200.11",
+  "desc": "BGP-based EVPN control protocol"
+ },
+ {
+  "os": "nxos",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "BGP",
+  "title": "Example 11-8: MAC Table Output at a Remote Leaf",
+  "cmd": "VLAN    MAC Address      T ype      age    Secure NTFY Ports",
+  "desc": "BGP-based EVPN control protocol"
+ },
+ {
+  "os": "nxos",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "BGP",
+  "title": "Example 11-9: ARP Table Output at a Leaf",
+  "cmd": "IP ARP Table for context Org1:Part1",
+  "desc": "BGP-based EVPN control protocol"
+ },
+ {
+  "os": "nxos",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "BGP",
+  "title": "Example 11-10: Adjacency Output for an ARP Entry",
+  "cmd": "next-hop         rewrite info          interface",
+  "desc": "The output derived from the ARP table shows that the MAC address previously tracked (0011."
+ },
+ {
+  "os": "nxos",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "BGP",
+  "title": "Example 11-11: Locally Learned Host Route (/32) Information",
+  "cmd": "Interface",
+  "desc": "BGP-based EVPN control protocol"
+ },
+ {
+  "os": "nxos",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "BGP",
+  "title": "Example 11-12: IP/MAC Entries Advertised Over BGP EVPN at a Leaf",
+  "cmd": "L11# show l2route evpn mac-ip all\nTopology ID Mac Address   Prod     Host IP                         Next Hop (s)\n100              0011.0100.0001 HMM 192.168.100.200                   N/A",
+  "desc": "BGP-based EVPN control protocol"
+ },
+ {
+  "os": "nxos",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "BGP",
+  "title": "Example 11-13: Details of a Particular BGP EVPN Route type 2 Advertisement with ",
+  "cmd": "BGP routing table information for VRF de fault, address family L2VPN EVPN\nBGP routing table entry for [2]:[0]:[0]:[48]:[0011.010 0.0001]:[32]:[192.168.100.200]/272, version",
+  "desc": "IP address are locally learned in BGP and advertised to the remote leaf."
+ },
+ {
+  "os": "nxos",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "BGP",
+  "title": "Example 11-14: Details of a Particular BGP EVPN Route type 2 Advertisement with ",
+  "cmd": "BGP routing table information for VRF de fault, address family L2VPN EVPN\nBGP routing table entry for [2]:[0]:[0]: [48]:[0011.0100.0001]:[32]:[192.168.100.200]/272, version",
+  "desc": "BGP-based EVPN control protocol"
+ },
+ {
+  "os": "nxos",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "BGP",
+  "title": "Example 11-15: IP/MAC Entries Received Over BGP EVPN at a Remote Leaf",
+  "cmd": "L12# show l2route evpn mac-ip all",
+  "desc": "BGP-based EVPN control protocol"
+ },
+ {
+  "os": "nxos",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "BGP",
+  "title": "Example 11-16: Output of IP Routing Table for Received IPv4 /32 Route Installed ",
+  "cmd": "IP Route Table for VRF \"Org1:Part1\"",
+  "desc": "BGP-based EVPN control protocol"
+ },
+ {
+  "os": "nxos",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "BGP",
+  "title": "Example 11-17: VTEP Peer Information with a Recursive Next Hop on a Remote Leaf",
+  "cmd": "VNI     Peer-IP               Peer-MAC           Tunnel-ID Encap     (A/S)",
+  "desc": "BGP-based EVPN control protocol"
+ },
+ {
+  "os": "nxos",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "VXLAN OAM (NGOAM)",
+  "cmd": "NVE Interface        : nve1",
+  "desc": "VXLAN OAM (NGOAM)"
+ },
+ {
+  "os": "nxos",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "Example 11-19: Sample Output from the ping nve Command",
+  "cmd": "L37# ping nve ip unknown vrf Org1:Part1 payload ip 192.168.166.51 192.168.165.51 port 5644 25 proto\n6 payload-end vni 50000 verbose\nCodes: '!' - success, 'Q' - request not sent, '.' - timeout,\n'D' - Destination Unreachable, 'X' - unknown return code,\n'm' - malformed request(parameter problem),\n'c' - Corrupted Data/Test\nSender handle: 410\n! sport 52677 size  56,Reply from 192.168.166.51,time = 1 ms\n! sport 52677 size 56,Reply from 192.168.166.51,time = 1 ms\n! sport 52677 size 56,Reply from 192.168.166.51,time = 1 ms\n! sport 52677 size 56,Reply from 192.168.166.51,time = 1 ms\n! sport 52677 size 56,Reply from 192.168.166.51,time = 1 ms\nSuccess rate is 100 percent (5/5), round-trip min/avg/max = 1/1/1 ms\nTotal time elapsed 42 ms",
+  "desc": "VXLAN OAM (NGOAM)"
+ },
+ {
+  "os": "nxos",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "Example 11-20: Sample Output from the traceroute nve Command",
+  "cmd": "Traceroute Request to peer ip 10.1.1.140 source ip 10.1.1.37",
+  "desc": "VXLAN OAM (NGOAM)"
+ },
+ {
+  "os": "nxos",
+  "role": "switch",
+  "vendor": "Cisco",
+  "cat": "BGP",
+  "title": "Many titles include programming code or configuration",
+  "cmd": "bandwidth:171798691880 000000\nbandwidth:171798691880000 000",
+  "desc": "Many titles include programming code or configuration"
+ }
+]

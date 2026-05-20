@@ -253,6 +253,8 @@ def main():
         if md.name.startswith("arista-eos"): continue
         # Cisco IOS OSPF reference has its own dedicated parser → cisco_ospf.json
         if md.name == "cisco-ios-ospf-reference.md": continue
+        # Cisco ASA 9.24 + NX-OS VXLAN/BGP-EVPN have their own dedicated parsers
+        if md.name in {"cisco-asa-924-reference.md", "cisco-nxos-vxlan-evpn-reference.md"}: continue
         try:
             items = parse_markdown(md)
             raw.extend(items)
@@ -338,6 +340,33 @@ def main():
             if key not in seen:
                 seen.add(key); cmds.append(s); added += 1
         print(f"  merged Cisco OSPF: {added} new entries (deduped from {len(ospf_set)})", file=sys.stderr)
+
+    # Merge Cisco ASA 9.24 + NX-OS VXLAN BGP EVPN
+    for extra_name in ("cisco_asa.json", "cisco_nxos_vxlan.json"):
+        p = pathlib.Path(__file__).parent / extra_name
+        if not p.exists(): continue
+        extras = json.loads(p.read_text())
+        added = 0
+        for s in extras:
+            key = re.sub(r"\s+", " ", s["cmd"]).lower()
+            if key not in seen:
+                seen.add(key); cmds.append(s); added += 1
+        print(f"  merged {extra_name}: {added} new entries (deduped from {len(extras)})", file=sys.stderr)
+
+    # Merge external dataset (~10k commands previously curated outside this repo).
+    # Already in the same {os,role,vendor,cat,title,cmd,desc} schema → straight dedupe by cmd.
+    ext_path = pathlib.Path(__file__).parent / "external_merged.json"
+    if ext_path.exists():
+        ext = json.loads(ext_path.read_text())
+        added = 0
+        for s in ext:
+            if not (s.get("cmd") and s.get("vendor")):
+                continue
+            key = re.sub(r"\s+", " ", s["cmd"]).lower()
+            if key in seen:
+                continue
+            seen.add(key); cmds.append(s); added += 1
+        print(f"  merged external_merged: {added} new entries (deduped from {len(ext)})", file=sys.stderr)
 
     OUT_FILE.write_text(json.dumps(cmds, indent=1, ensure_ascii=False))
     print(f"\nwrote {len(cmds)} commands -> {OUT_FILE}")

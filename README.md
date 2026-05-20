@@ -10,7 +10,7 @@
 ## What's here
 
 **[Cheatsheet](https://gesh75.github.io/multivendor-cli-configurator/)** (`index.html`) —
-7,711 commands searchable, filterable, deep-linkable, with three view modes:
+9,808 commands searchable, filterable, deep-linkable, with three view modes:
 
 - **Cards** (default) — auto-fit grid grouped by category
 - **Table** — sortable, exportable to CSV / Markdown / JSON / TXT
@@ -30,15 +30,15 @@ A legacy `configurator.html` is kept in the repo for archive purposes — it's a
 
 | Vendor | OS | Commands |
 |---|---|---|
-| **Cisco** | IOS / IOS-XE · NX-OS · ASA | 2,036 |
-| **Juniper** | Junos (MX / EX / QFX / SRX) | 2,895 |
-| **Arista** | EOS | 2,836 |
-| **TOTAL** | | **7,711** |
+| **Cisco** | IOS / IOS-XE (3,514) · ASA 9.24 (352) · NX-OS (67) | 3,933 |
+| **Juniper** | Junos (MX / EX / QFX / SRX) | 3,007 |
+| **Arista** | EOS | 2,868 |
+| **TOTAL** | | **9,808** |
 
-By category (top 10): System 2,086 · Routing 700 · VLAN 618 · Troubleshooting 525 ·
-BGP 453 · Interfaces 396 · OSPF 359 · MPLS 290 · Multicast 284 · AAA 236.
+By category (top 10): System 2,193 · Interfaces 1,146 · Troubleshooting 989 ·
+Routing 706 · BGP 698 · VLAN 634 · OSPF 476 · Multicast 298 · MPLS 291 · AAA 261.
 
-By role: router 4,816 · switch 2,742 · firewall 153.
+By role: router 6,520 · switch 2,812 · firewall 476.
 
 ---
 
@@ -51,6 +51,9 @@ By role: router 4,816 · switch 2,742 · firewall 153.
 | **Day One: Beginner's Guide to Learning Junos** (Juniper Ambassadors, 2020) | Juniper | ~530 |
 | **Day One: Exploring the Junos CLI**, 2nd Ed. (Goralski et al., 2015) | Juniper | ~260 |
 | **Arista EOS User Guide** v4.36.0F (Arista Networks, 2026 official) | Arista | ~2,800 |
+| **Cisco Secure Firewall ASA 9.24 CLI Reference** (Books 1–3, official) | Cisco | ~335 |
+| **Cisco IOS OSPF Command Reference** | Cisco | ~110 |
+| **VXLAN BGP EVPN NX-OS Command Reference** | Cisco | ~60 |
 | Community markdown (grplyler, r7perezyera, hyprblaze, cmdref.net, INSRapperswil…) | All | ~400 |
 | Hand-curated seed | All | 187 |
 
