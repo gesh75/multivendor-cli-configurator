@@ -43,9 +43,14 @@ header{position:sticky;top:0;z-index:30;backdrop-filter:blur(10px);background:rg
 .stats{padding:0 16px 8px;color:var(--ink-dim);font:11px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;display:flex;gap:14px;align-items:center;flex-wrap:wrap;border-bottom:1px solid var(--line-2)}
 .stats b{color:var(--ink)}
 
-main{display:grid;grid-template-columns:var(--side-w,240px) 1fr;gap:16px;padding:14px;max-width:1700px;margin:0 auto;transition:grid-template-columns .15s}
-main.lcollapsed{grid-template-columns:0 1fr;gap:0}
+main{display:grid;grid-template-columns:var(--side-w,240px) minmax(0,1fr);gap:16px;padding:14px;max-width:1700px;margin:0 auto;transition:grid-template-columns .15s}
+main.lcollapsed{grid-template-columns:0 minmax(0,1fr);gap:0}
 main.lcollapsed .side{display:none}
+/* Force the results column to claim full width when sidebar is hidden — grid items
+   default to min-width:auto which can let inner content (long code blocks) pin
+   the column at content-size and leave whitespace to the right. */
+section.content{min-width:0;width:100%}
+main.lcollapsed section.content{padding-left:2px}
 
 .side{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:0;height:calc(100vh - 110px);overflow:auto;position:sticky;top:88px;
   /* Subtle bottom-edge fade hints there's more content to scroll */
@@ -140,15 +145,22 @@ main.lcollapsed .side{display:none}
 .actbtn.copied{background:var(--good);color:#000;border-color:var(--good)}
 .actbtn.equiv{margin-left:auto}
 
-.tblwrap{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:auto;max-height:calc(100vh - 220px)}
-table.cmd{width:100%;border-collapse:collapse;font:12px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
-table.cmd thead{position:sticky;top:0;background:var(--panel-2);z-index:1}
-table.cmd th{text-align:left;padding:9px 10px;font-size:11px;color:var(--ink-dim);letter-spacing:.8px;text-transform:uppercase;border-bottom:1px solid var(--line);cursor:pointer;user-select:none}
+.tblwrap{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:auto;max-height:calc(100vh - 220px);position:relative}
+table.cmd{width:100%;border-collapse:separate;border-spacing:0;font:12px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+table.cmd thead{position:sticky;top:0;background:var(--panel-2);z-index:3}
+table.cmd th{text-align:left;padding:9px 10px;font-size:11px;color:var(--ink-dim);letter-spacing:.8px;text-transform:uppercase;border-bottom:1px solid var(--line);cursor:pointer;user-select:none;background:var(--panel-2)}
 table.cmd th:hover{color:var(--accent)}
 table.cmd th .sort{opacity:.4;font-size:9px;margin-left:3px}
-table.cmd td{padding:8px 10px;border-bottom:1px solid var(--line-2);vertical-align:top}
+table.cmd td{padding:8px 10px;border-bottom:1px solid var(--line-2);vertical-align:top;background:var(--panel)}
+table.cmd tr:hover td{background:var(--panel-2)}
 table.cmd td.cmd-cell{max-width:480px;color:var(--code-ink)}
-table.cmd tr:hover{background:var(--panel-2)}
+/* Sticky left columns for horizontal scroll: Title (col 1) and Command (col 2)
+   stay pinned. Title fades into a soft right-shadow when scrolled to indicate
+   there's more content to the right. */
+table.cmd th:nth-child(1), table.cmd td:nth-child(1){position:sticky;left:0;z-index:2;min-width:200px;max-width:240px}
+table.cmd thead th:nth-child(1){z-index:4}
+table.cmd th:nth-child(2), table.cmd td:nth-child(2){position:sticky;left:220px;z-index:2;box-shadow:6px 0 8px -6px rgba(0,0,0,.35)}
+table.cmd thead th:nth-child(2){z-index:4}
 
 .compare-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .compare-col{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden}
@@ -332,6 +344,14 @@ mark{background:rgba(34,211,238,.25);color:inherit;border-radius:3px;padding:0 2
 .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
 .toggle-btn{display:none}
 
+/* Per-card overflow menu (⋯) */
+.actbtn-menu{display:none;position:absolute;right:0;top:calc(100% + 4px);background:var(--panel);border:1px solid var(--accent);border-radius:8px;padding:5px;min-width:240px;box-shadow:0 8px 24px rgba(0,0,0,.4);z-index:20}
+.actbtn-menu.open{display:block}
+.actbtn-menu-item{display:block;width:100%;text-align:left;background:transparent;border:0;color:var(--ink);padding:7px 10px;font:11.5px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;cursor:pointer;border-radius:5px}
+.actbtn-menu-item:hover{background:var(--chip-on);color:var(--accent)}
+.actbtn-menu-item.native{background:linear-gradient(135deg,rgba(167,139,250,.18),rgba(124,58,237,.18));color:var(--accent-2)}
+.actbtn-menu-item.native:hover{background:linear-gradient(135deg,#a78bfa,#7c3aed);color:#fff}
+
 /* Search autocomplete dropdown */
 .search-suggest{position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--panel);border:1px solid var(--accent);border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.4);max-height:300px;overflow:auto;z-index:80;display:none;padding:4px}
 .search-suggest.open{display:block}
@@ -342,13 +362,11 @@ mark{background:rgba(34,211,238,.25);color:inherit;border-radius:3px;padding:0 2
 .search-suggest .ss-item .ss-val{color:var(--accent)}
 .search-suggest .ss-item .ss-ct{margin-left:auto;color:var(--ink-muted);font-size:10px}
 
-/* Persistent CLI Builder dock */
-.cli-dock{position:fixed;bottom:18px;right:18px;z-index:25;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#000;border:0;border-radius:999px;padding:10px 16px;font:12px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-weight:700;letter-spacing:.5px;cursor:pointer;box-shadow:0 8px 24px rgba(34,211,238,.35),0 2px 6px rgba(0,0,0,.3);display:inline-flex;align-items:center;gap:9px;transition:transform .15s,box-shadow .15s,opacity .15s}
-:root[data-theme="light"] .cli-dock{color:#fff}
-.cli-dock:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(34,211,238,.5),0 4px 10px rgba(0,0,0,.4)}
-.cli-dock .ct{background:rgba(0,0,0,.18);color:inherit;border-radius:999px;padding:2px 9px;font-size:11px;min-width:22px;text-align:center}
-:root[data-theme="light"] .cli-dock .ct{background:rgba(255,255,255,.22)}
-.cli-dock.hidden{opacity:0;pointer-events:none;transform:translateY(40px)}
+/* Navbar CLI Builder button gets a soft glow when items are queued.
+   Replaces the floating dock to avoid two entry points for the same drawer. */
+.tbtn.has-queue{background:linear-gradient(135deg,rgba(34,211,238,.18),rgba(167,139,250,.18));border-color:var(--accent);color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset, 0 0 12px rgba(34,211,238,.25)}
+.tbtn.has-queue .badge{animation:cli-pulse 1.6s ease-in-out infinite}
+@keyframes cli-pulse{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(34,211,238,.5)}50%{transform:scale(1.08);box-shadow:0 0 0 4px rgba(34,211,238,0)}}
 
 /* Better empty-state cards (Favorites, Recent) */
 .empty-panel{padding:14px 10px;text-align:center;color:var(--ink-muted);font-size:11px;line-height:1.55}
@@ -373,7 +391,6 @@ mark{background:rgba(34,211,238,.25);color:inherit;border-radius:3px;padding:0 2
 }
 @media (max-width:760px){
   .stats span:not(:nth-child(-n+8)){display:none}
-  .cli-dock{bottom:12px;right:12px;padding:9px 14px;font-size:11px}
 }
 @media (max-width:560px){.drawer{width:100%;right:-100%}.equiv-drawer{width:100%;right:-100%}}
 </style>
@@ -461,10 +478,6 @@ mark{background:rgba(34,211,238,.25);color:inherit;border-radius:3px;padding:0 2
   </section>
 </main>
 
-<button id="cli-dock" class="cli-dock hidden" title="Open CLI Builder">
-  <span>⌘ CLI Builder</span>
-  <span class="ct" id="cli-dock-ct">0</span>
-</button>
 <div class="drawer-overlay" id="drawer-overlay"></div>
 <aside class="drawer" id="drawer">
   <div class="resize-handle" id="drawer-resize"></div>
@@ -3063,25 +3076,36 @@ function buildCard(d){
     setTimeout(()=>{addBtn.classList.remove("copied"); addBtn.textContent = "+ CLI";},1200);
     pushRecent(d);
   }}, "+ CLI");
-  const equivBtn = el("button",{class:"actbtn equiv",onClick:()=>openEquivalents(d)}, "See equivalents ↗");
   const cmpBtn = el("button",{class:"actbtn",title:"Switch to Compare view, filtered to this concept across vendors",
     onClick:()=>openInCompare(d)}, "↔ Compare");
   actions.appendChild(copyBtn);
   actions.appendChild(addBtn);
   actions.appendChild(cmpBtn);
-  // 🔧 Automate — shown on every card. Specific patterns get NETCONF/YANG
-  // model-driven templates; everything else gets the universal
-  // Netmiko/Ansible/NAPALM CLI-wrapper fallback.
+  // Overflow menu collapses the less-frequent actions (Automate + Equivalents).
+  // Primary row now: Copy · + CLI · ↔ Compare · ⋯
   const hasNative = !!findAutomationMapping(d);
-  const autoBtn = el("button",{
-    class:"actbtn auto " + (hasNative ? "native" : "fallback"),
+  const overflowWrap = el("div",{class:"actbtn-more",style:"position:relative;display:inline-block"});
+  const moreBtn = el("button",{class:"actbtn",title:"More actions (Automate, equivalents…)",
+    onClick:(e)=>{e.stopPropagation();
+      const m = overflowWrap.querySelector(".actbtn-menu");
+      m.classList.toggle("open");
+      // Close any other open menu
+      document.querySelectorAll(".actbtn-menu.open").forEach(o=>{ if(o!==m) o.classList.remove("open"); });
+    }}, "⋯");
+  const menu = el("div",{class:"actbtn-menu"});
+  menu.appendChild(el("button",{
+    class:"actbtn-menu-item " + (hasNative ? "native" : "fallback"),
     title: hasNative
       ? "Show NETCONF/YANG/Ansible equivalents (model-driven, values extracted from this command)"
       : "Show Netmiko/Ansible/NAPALM equivalents (CLI-wrapper fallback)",
-    onClick:()=>{ openAutomation(d); pushRecent(d); }
-  }, hasNative ? "⚡ Automate (YANG)" : "🔧 Automate (SSH)");
-  actions.appendChild(autoBtn);
-  actions.appendChild(equivBtn);
+    onClick:()=>{ menu.classList.remove("open"); openAutomation(d); pushRecent(d); }
+  }, hasNative ? "⚡ Automate (YANG, model-driven)" : "🔧 Automate (SSH wrapper)"));
+  menu.appendChild(el("button",{class:"actbtn-menu-item",
+    onClick:()=>{ menu.classList.remove("open"); openEquivalents(d); }
+  }, "↗ See cross-vendor equivalents"));
+  overflowWrap.appendChild(moreBtn);
+  overflowWrap.appendChild(menu);
+  actions.appendChild(overflowWrap);
   body.appendChild(actions);
 
   card.appendChild(body);
@@ -3676,18 +3700,17 @@ function renderCompare(filtered, results){
 
 function updateCliBadge(){
   const b = $("cli-badge");
-  if(state.queue.length){ b.textContent = state.queue.length; b.style.display = "inline-block"; }
-  else { b.style.display = "none"; }
-  updateCliDock();
+  const btn = $("btn-clibuilder");
+  if(state.queue.length){
+    b.textContent = state.queue.length;
+    b.style.display = "inline-block";
+    if(btn) btn.classList.add("has-queue");
+  } else {
+    b.style.display = "none";
+    if(btn) btn.classList.remove("has-queue");
+  }
 }
-function updateCliDock(){
-  const dock = $("cli-dock"); if(!dock) return;
-  const ct = $("cli-dock-ct"); if(ct) ct.textContent = state.queue.length;
-  const drawerOpen = $("drawer") && $("drawer").classList.contains("open");
-  // Hide while drawer is open (don't double up); always show when queue has items, otherwise show a subtle hint
-  if(drawerOpen){ dock.classList.add("hidden"); return; }
-  dock.classList.remove("hidden");
-}
+function updateCliDock(){ /* legacy no-op — dock removed; navbar button pulses instead */ }
 function renderDrawer(){
   const body = $("drawer-body"); body.replaceChildren();
   if(state.queue.length === 0){
@@ -3867,7 +3890,6 @@ $("vb-cards").addEventListener("click",()=>setView("cards"));
 $("vb-table").addEventListener("click",()=>setView("table"));
 $("vb-compare").addEventListener("click",()=>setView("compare"));
 $("btn-clibuilder").addEventListener("click",openDrawer);
-$("cli-dock").addEventListener("click",openDrawer);
 $("vb-clear").addEventListener("click",()=>{
   state.vendor.clear(); state.os.clear(); state.role.clear(); state.cat.clear();
   state.showFavOnly = false; state.q = "";
@@ -4001,6 +4023,10 @@ $("btn-export").addEventListener("click",e=>{
 document.addEventListener("click",e=>{
   if(!$("export-menu").contains(e.target) && e.target !== $("btn-export"))
     $("export-menu").classList.remove("open");
+  // Close any open per-card overflow menu when clicking outside it
+  document.querySelectorAll(".actbtn-menu.open").forEach(m=>{
+    if(!m.parentElement || !m.parentElement.contains(e.target)) m.classList.remove("open");
+  });
 });
 $("export-menu").querySelectorAll("button").forEach(b=>{
   b.addEventListener("click",()=>exportAs(b.dataset.fmt));
