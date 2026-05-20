@@ -95,6 +95,9 @@ main.lcollapsed .side{display:none}
 .cat-hdr h3{margin:0;font-size:13px;letter-spacing:.4px;color:var(--ink)}
 .cat-hdr .ct{font:11px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--ink-dim);background:var(--panel);border:1px solid var(--line);padding:2px 8px;border-radius:999px}
 .cat-hdr .line{flex:1;height:1px;background:var(--line-2)}
+.cmp-cat-hdr .ct.ct-c{color:var(--cisco);border-color:var(--cisco)}
+.cmp-cat-hdr .ct.ct-j{color:var(--juniper);border-color:var(--juniper)}
+.cmp-cat-hdr .ct.ct-a{color:var(--arista);border-color:var(--arista)}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:10px;align-items:start}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;display:flex;flex-direction:column;gap:8px;position:relative;overflow:hidden;transition:border-color .15s}
 .card:hover{border-color:var(--accent)}
@@ -258,6 +261,30 @@ table.cmd tr:hover{background:var(--panel-2)}
 .actbtn.auto.native:hover{background:linear-gradient(135deg,#c4b5fd,#8b5cf6);color:#fff}
 .actbtn.auto.fallback{opacity:.85}
 
+/* Parse Output modal */
+.parser-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:90;display:flex;align-items:center;justify-content:center;padding:20px}
+.parser-overlay.open{display:flex !important}
+.parser-modal{background:var(--panel);border:1px solid var(--accent);border-radius:10px;width:min(1100px,98vw);max-height:92vh;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.parser-hdr{padding:12px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;background:var(--panel-2);border-radius:10px 10px 0 0}
+.parser-hdr b{color:var(--accent);font-size:14px}
+.parser-hdr .parser-hint{color:var(--ink-dim);font-size:11px;font-weight:400;margin-left:6px}
+.parser-hdr .closex{background:transparent;border:0;color:var(--ink-dim);cursor:pointer;font-size:18px;padding:2px 8px;border-radius:5px}
+.parser-hdr .closex:hover{color:var(--bad)}
+.parser-body{padding:14px 16px;display:flex;flex-direction:column;gap:10px;overflow:auto;flex:1}
+.parser-controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.parser-controls select{background:var(--bg);color:var(--ink);border:1px solid var(--line);padding:6px 10px;border-radius:5px;font:12px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;outline:0;min-width:280px}
+.parser-controls select:focus{border-color:var(--accent)}
+#parser-input{background:var(--code-bg);color:var(--code-ink);border:1px solid var(--line);border-radius:6px;padding:10px;font:11.5px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;outline:0;min-height:160px;resize:vertical;white-space:pre;overflow:auto}
+#parser-input:focus{border-color:var(--accent)}
+.parser-result{max-height:50vh;overflow:auto;border-radius:6px}
+.parser-result table{width:100%;border-collapse:collapse;font:12px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.parser-result th{background:var(--panel-2);color:var(--accent);text-align:left;padding:7px 10px;border-bottom:1px solid var(--line);font-size:11px;letter-spacing:.8px;text-transform:uppercase;position:sticky;top:0}
+.parser-result td{padding:6px 10px;border-bottom:1px solid var(--line-2);color:var(--code-ink)}
+.parser-result tr:hover td{background:var(--panel-2)}
+.parser-result .parser-meta{padding:8px 10px;background:var(--panel-2);border-radius:6px 6px 0 0;color:var(--ink-dim);font-size:11px;border:1px solid var(--line);border-bottom:0}
+.parser-result .parser-meta b{color:var(--good)}
+.parser-result .parser-err{padding:14px;color:var(--bad);background:rgba(239,68,68,.08);border:1px solid var(--bad);border-radius:6px;font-size:12px}
+
 /* Floating parameter editor panel inside drawer */
 .auto-params{margin-bottom:12px;background:var(--panel-2);border:1px solid var(--line);border-radius:8px;overflow:hidden}
 .auto-params .pp-hdr{padding:7px 11px;background:var(--code-bg);display:flex;justify-content:space-between;align-items:center;cursor:pointer;user-select:none}
@@ -320,6 +347,8 @@ mark{background:rgba(34,211,238,.25);color:inherit;border-radius:3px;padding:0 2
     <button class="tbtn" id="btn-theme" title="Toggle light/dark mode"><span id="theme-icon">🌙</span></button>
     <button class="tbtn" id="btn-help" title="Keyboard shortcuts">?</button>
     <button class="tbtn" id="btn-clibuilder" title="Open CLI Builder (b)">⌘ CLI <span class="badge" id="cli-badge" style="display:none">0</span></button>
+    <button class="tbtn" id="btn-share" title="Copy a shareable URL that restores your current filters, view, search, and CLI Builder queue">🔗 Share</button>
+    <button class="tbtn" id="btn-parser" title="Parse raw 'show' output into a structured table">📊 Parse Output</button>
     <div class="export-wrap" style="position:relative;display:inline-block">
       <button class="tbtn" id="btn-export" title="Export filtered results">Export ▾</button>
       <div class="export-menu" id="export-menu">
@@ -409,6 +438,31 @@ mark{background:rgba(34,211,238,.25);color:inherit;border-radius:3px;padding:0 2
   </div>
   <div class="db" id="equiv-body"></div>
 </aside>
+
+<!-- Parse-output modal -->
+<div class="parser-overlay" id="parser-overlay" style="display:none">
+  <div class="parser-modal">
+    <div class="parser-hdr">
+      <div><b>📊 Parse Show Output</b> <span class="parser-hint">— Paste raw CLI output, get a structured table. Useful for quick analysis without scripting.</span></div>
+      <button class="closex" id="parser-close">✕</button>
+    </div>
+    <div class="parser-body">
+      <div class="parser-controls">
+        <select id="parser-template">
+          <option value="auto">Auto-detect from input</option>
+        </select>
+        <button class="tbtn" id="parser-run">Parse →</button>
+        <button class="tbtn" id="parser-sample">Insert sample</button>
+        <button class="tbtn" id="parser-csv" style="display:none">Export CSV</button>
+      </div>
+      <textarea id="parser-input" placeholder="Paste output from a 'show' command here. Example:
+&#10;Neighbor        V         AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd
+10.0.0.2        4      65002    1234     1235       50    0    0 02:14:22        12
+10.0.0.3        4      65003    5678     5679       50    0    0 04:30:11        25"></textarea>
+      <div id="parser-result" class="parser-result"></div>
+    </div>
+  </div>
+</div>
 
 <!-- Automation drawer (NETCONF/YANG/Ansible per command) -->
 <aside class="auto-drawer" id="auto-drawer">
@@ -626,6 +680,90 @@ const AUTOMATION_MAPPINGS = [
       return null;
     },
     render: (vendor, v) => AUTO_IFDESC[vendor](v),
+  },
+  {
+    id: "loopback",
+    title: "Loopback interface with IPv4",
+    matchAny: [
+      /^interface\s+(Loopback\d+)[\s\S]*?ip address\s+(\d+\.\d+\.\d+\.\d+)\s+(\d+\.\d+\.\d+\.\d+|\d+)/im,
+      /^set interfaces\s+(lo0)\s+unit\s+(\d+)\s+family inet address\s+(\d+\.\d+\.\d+\.\d+)\/(\d+)/im,
+    ],
+    extract: cmd => {
+      let m = cmd.match(/^interface\s+(Loopback\d+)[\s\S]*?ip address\s+(\d+\.\d+\.\d+\.\d+)\s+(\d+\.\d+\.\d+\.\d+|\d+)/im);
+      if(m){
+        const mask = m[3].includes(".") ? m[3] : cidrToMask(m[3]);
+        return {name:m[1], unit:m[1].replace(/\D/g,""), ip:m[2], mask, cidr: m[3].includes(".") ? maskToCidr(m[3]) : m[3]};
+      }
+      m = cmd.match(/^set interfaces\s+(lo0)\s+unit\s+(\d+)\s+family inet address\s+(\d+\.\d+\.\d+\.\d+)\/(\d+)/im);
+      if(m) return {name:"Loopback"+m[2], unit:m[2], ip:m[3], mask:cidrToMask(m[4]), cidr:m[4]};
+      return null;
+    },
+    render: (vendor, v) => AUTO_LOOPBACK[vendor](v),
+  },
+  {
+    id: "default-route",
+    title: "Default route (0.0.0.0/0)",
+    matchAny: [
+      /^ip route\s+0\.0\.0\.0\s+0\.0\.0\.0\s+(\S+)/im,
+      /^ip route\s+0\.0\.0\.0\/0\s+(\S+)/im,
+      /^set routing-options static route\s+0\.0\.0\.0\/0\s+next-hop\s+(\S+)/im,
+    ],
+    extract: cmd => {
+      let m = cmd.match(/^ip route\s+0\.0\.0\.0\s+0\.0\.0\.0\s+(\S+)/im); if(m) return {nh:m[1]};
+      m = cmd.match(/^ip route\s+0\.0\.0\.0\/0\s+(\S+)/im); if(m) return {nh:m[1]};
+      m = cmd.match(/^set routing-options static route\s+0\.0\.0\.0\/0\s+next-hop\s+(\S+)/im); if(m) return {nh:m[1]};
+      return null;
+    },
+    render: (vendor, v) => AUTO_DEFAULTRT[vendor](v),
+  },
+  {
+    id: "trunk-port",
+    title: "Trunk port — allowed VLAN list",
+    matchAny: [
+      /^interface\s+(\S+)[\s\S]*?switchport mode trunk[\s\S]*?switchport trunk allowed vlan\s+([\d,\-]+)/im,
+      /^interface\s+(\S+)[\s\S]*?switchport trunk allowed vlan\s+([\d,\-]+)/im,
+      /^set interfaces\s+(\S+)\s+unit 0 family ethernet-switching interface-mode trunk vlan members\s+\[\s+([^\]]+)\s+\]/im,
+    ],
+    extract: cmd => {
+      let m = cmd.match(/^interface\s+(\S+)[\s\S]*?switchport trunk allowed vlan\s+([\d,\-]+)/im);
+      if(m) return {ifname:m[1], vlans:m[2]};
+      m = cmd.match(/^set interfaces\s+(\S+)\s+unit 0 family ethernet-switching interface-mode trunk vlan members\s+\[\s+([^\]]+)\s+\]/im);
+      if(m) return {ifname:m[1], vlans: m[2].split(/\s+/).map(x => x.replace(/^vlan/,"")).filter(Boolean).join(",")};
+      return null;
+    },
+    render: (vendor, v) => AUTO_TRUNK[vendor](v),
+  },
+  {
+    id: "aaa-radius",
+    title: "AAA — add RADIUS server",
+    matchAny: [
+      /^radius[- ]server (?:host )?(\d+\.\d+\.\d+\.\d+)(?:.*key\s+(\S+))?/im,
+      /^set system radius-server\s+(\d+\.\d+\.\d+\.\d+)(?:.*secret\s+(\S+))?/im,
+    ],
+    extract: cmd => {
+      let m = cmd.match(/^radius[- ]server (?:host )?(\d+\.\d+\.\d+\.\d+)(?:[\s\S]*?key\s+(\S+))?/im);
+      if(m) return {host:m[1], key:m[2]||"SECRET"};
+      m = cmd.match(/^set system radius-server\s+(\d+\.\d+\.\d+\.\d+)(?:[\s\S]*?secret\s+(\S+))?/im);
+      if(m) return {host:m[1], key:m[2]||"SECRET"};
+      return null;
+    },
+    render: (vendor, v) => AUTO_RADIUS[vendor](v),
+  },
+  {
+    id: "portchannel",
+    title: "Port-channel / LAG (LACP)",
+    matchAny: [
+      /^interface\s+(\S+)[\s\S]*?channel-group\s+(\d+)\s+mode\s+(\S+)/im,
+      /^set interfaces\s+(\S+)\s+(?:gigether-options|ether-options)\s+802\.3ad\s+(ae\d+)/im,
+    ],
+    extract: cmd => {
+      let m = cmd.match(/^interface\s+(\S+)[\s\S]*?channel-group\s+(\d+)\s+mode\s+(\S+)/im);
+      if(m) return {ifname:m[1], pcid:m[2], mode:m[3]};
+      m = cmd.match(/^set interfaces\s+(\S+)\s+(?:gigether-options|ether-options)\s+802\.3ad\s+(ae\d+)/im);
+      if(m) return {ifname:m[1], pcid:m[2].replace(/^ae/,""), mode:"active"};
+      return null;
+    },
+    render: (vendor, v) => AUTO_PORTCHANNEL[vendor](v),
   },
 ];
 
@@ -1533,6 +1671,671 @@ sw.runCmds(1, ["enable","configure","interface ${v.ifname}","description ${v.des
     state: merged`,
   }),
 };
+
+const AUTO_LOOPBACK = {
+  Cisco: v => ({
+    netconf: `<config>
+  <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
+    <interface><Loopback>
+      <name>${v.unit}</name>
+      <ip><address><primary>
+        <address>${v.ip}</address>
+        <mask>${v.mask}</mask>
+      </primary></address></ip>
+    </Loopback></interface>
+  </native>
+</config>`,
+    ncclient: `from ncclient import manager
+with manager.connect(host="\${conn().host}", username="\${conn().username}", password="\${conn().password}",
+                     hostkey_verify=False, device_params={"name":"iosxe"}) as m:
+    m.edit_config(target="running", config="""<config>
+      <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native"><interface><Loopback>
+        <name>${v.unit}</name>
+        <ip><address><primary><address>${v.ip}</address><mask>${v.mask}</mask></primary></address></ip>
+      </Loopback></interface></native>
+    </config>""")`,
+    ansible: `- name: Loopback${v.unit} with ${v.ip}/${v.cidr}
+  cisco.ios.ios_l3_interfaces:
+    config:
+      - name: Loopback${v.unit}
+        ipv4:
+          - address: ${v.ip}/${v.cidr}
+    state: merged`,
+  }),
+  Juniper: v => ({
+    netconf: `<configuration>
+  <interfaces><interface>
+    <name>lo0</name>
+    <unit><name>${v.unit}</name>
+      <family><inet>
+        <address><name>${v.ip}/${v.cidr}</name></address>
+      </inet></family>
+    </unit>
+  </interface></interfaces>
+</configuration>`,
+    ncclient: `from ncclient import manager
+with manager.connect(host="\${conn().host}", username="\${conn().username||'root'}", password="\${conn().password||'juniper'}",
+                     hostkey_verify=False, device_params={"name":"junos"}) as m:
+    m.lock("candidate")
+    m.edit_config(target="candidate", config="""<configuration><interfaces><interface>
+      <name>lo0</name>
+      <unit><name>${v.unit}</name>
+        <family><inet><address><name>${v.ip}/${v.cidr}</name></address></inet></family>
+      </unit>
+    </interface></interfaces></configuration>""")
+    m.commit(); m.unlock("candidate")`,
+    ansible: `- name: lo0.${v.unit} with ${v.ip}/${v.cidr}
+  junipernetworks.junos.junos_l3_interfaces:
+    config:
+      - name: lo0
+        unit: ${v.unit}
+        ipv4:
+          - address: ${v.ip}/${v.cidr}
+    state: merged`,
+  }),
+  Arista: v => ({
+    netconf: `<config>
+  <interfaces xmlns="http://openconfig.net/yang/interfaces">
+    <interface>
+      <name>Loopback${v.unit}</name>
+      <subinterfaces><subinterface>
+        <index>0</index>
+        <ipv4 xmlns="http://openconfig.net/yang/interfaces/ip">
+          <addresses><address>
+            <ip>${v.ip}</ip>
+            <config><ip>${v.ip}</ip><prefix-length>${v.cidr}</prefix-length></config>
+          </address></addresses>
+        </ipv4>
+      </subinterface></subinterfaces>
+    </interface>
+  </interfaces>
+</config>`,
+    ncclient: `import jsonrpclib
+sw = jsonrpclib.Server("https://\${conn().username}:\${conn().password||'admin'}@\${conn().host}/command-api")
+sw.runCmds(1, ["enable","configure",
+               "interface Loopback${v.unit}",
+               "ip address ${v.ip}/${v.cidr}"])`,
+    ansible: `- name: Loopback${v.unit} with ${v.ip}/${v.cidr}
+  arista.eos.eos_l3_interfaces:
+    config:
+      - name: Loopback${v.unit}
+        ipv4:
+          - address: ${v.ip}/${v.cidr}
+    state: merged`,
+  }),
+};
+
+const AUTO_DEFAULTRT = {
+  Cisco: v => ({
+    netconf: `<config>
+  <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
+    <ip><route>
+      <ip-route-interface-forwarding-list>
+        <prefix>0.0.0.0</prefix>
+        <mask>0.0.0.0</mask>
+        <fwd-list><fwd>${v.nh}</fwd></fwd-list>
+      </ip-route-interface-forwarding-list>
+    </route></ip>
+  </native>
+</config>`,
+    ncclient: `# Default route via ${v.nh}
+from ncclient import manager
+m = manager.connect(host="\${conn().host}", username="\${conn().username}", password="\${conn().password}",
+                    hostkey_verify=False, device_params={"name":"iosxe"})
+m.edit_config(target="running", config=open("default-route.xml").read())`,
+    ansible: `- name: Default route via ${v.nh}
+  cisco.ios.ios_static_routes:
+    config:
+      - vrf: default
+        address_families:
+          - afi: ipv4
+            routes:
+              - dest: 0.0.0.0/0
+                next_hops:
+                  - forward_router_address: ${v.nh}
+    state: merged`,
+  }),
+  Juniper: v => ({
+    netconf: `<configuration>
+  <routing-options>
+    <static>
+      <route>
+        <name>0.0.0.0/0</name>
+        <next-hop>${v.nh}</next-hop>
+      </route>
+    </static>
+  </routing-options>
+</configuration>`,
+    ncclient: `from ncclient import manager
+m = manager.connect(host="\${conn().host}", username="\${conn().username||'root'}", password="\${conn().password||'juniper'}",
+                    hostkey_verify=False, device_params={"name":"junos"})
+m.lock("candidate")
+m.edit_config(target="candidate", config="""<configuration><routing-options><static>
+  <route><name>0.0.0.0/0</name><next-hop>${v.nh}</next-hop></route>
+</static></routing-options></configuration>""")
+m.commit(); m.unlock("candidate")`,
+    ansible: `- name: Default route via ${v.nh}
+  junipernetworks.junos.junos_static_routes:
+    config:
+      - address_families:
+          - afi: ipv4
+            routes:
+              - dest: 0.0.0.0/0
+                next_hops:
+                  - forward_router_address: ${v.nh}
+    state: merged`,
+  }),
+  Arista: v => ({
+    netconf: `<config>
+  <network-instances xmlns="http://openconfig.net/yang/network-instance">
+    <network-instance><name>default</name>
+      <protocols><protocol>
+        <identifier xmlns:oc-pol-types="http://openconfig.net/yang/policy-types">oc-pol-types:STATIC</identifier>
+        <name>STATIC</name>
+        <static-routes><static>
+          <prefix>0.0.0.0/0</prefix>
+          <config><prefix>0.0.0.0/0</prefix></config>
+          <next-hops><next-hop>
+            <index>0</index>
+            <config><index>0</index><next-hop>${v.nh}</next-hop></config>
+          </next-hop></next-hops>
+        </static></static-routes>
+      </protocol></protocols>
+    </network-instance>
+  </network-instances>
+</config>`,
+    ncclient: `import jsonrpclib
+sw = jsonrpclib.Server("https://\${conn().username}:\${conn().password||'admin'}@\${conn().host}/command-api")
+sw.runCmds(1, ["enable","configure","ip route 0.0.0.0/0 ${v.nh}"])`,
+    ansible: `- name: Default route via ${v.nh}
+  arista.eos.eos_static_routes:
+    config:
+      - address_families:
+          - afi: ipv4
+            routes:
+              - dest: 0.0.0.0/0
+                next_hops:
+                  - forward_router_address: ${v.nh}
+    state: merged`,
+  }),
+};
+
+const AUTO_TRUNK = {
+  Cisco: v => ({
+    netconf: `<config>
+  <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
+    <interface><GigabitEthernet>
+      <name>${escXml(v.ifname.replace(/^GigabitEthernet/,""))}</name>
+      <switchport-config><switchport>
+        <mode><trunk/></mode>
+        <trunk><allowed><vlan><vlans>${escXml(v.vlans)}</vlans></vlan></allowed></trunk>
+      </switchport></switchport-config>
+    </GigabitEthernet></interface>
+  </native>
+</config>`,
+    ncclient: `# Set ${v.ifname} as trunk allowing VLANs: ${v.vlans}
+from ncclient import manager
+m = manager.connect(host="\${conn().host}", username="\${conn().username}", password="\${conn().password}",
+                    hostkey_verify=False, device_params={"name":"iosxe"})
+m.edit_config(target="running", config=open("trunk.xml").read())`,
+    ansible: `- name: ${v.ifname} trunk allowed VLANs ${v.vlans}
+  cisco.ios.ios_l2_interfaces:
+    config:
+      - name: ${v.ifname}
+        mode: trunk
+        trunk:
+          allowed_vlans:
+            - ${v.vlans}
+    state: merged`,
+  }),
+  Juniper: v => {
+    const vlanMembers = v.vlans.split(",").map(x => "vlan"+x.trim()).join(" ");
+    return {
+    netconf: `<configuration>
+  <interfaces><interface>
+    <name>${escXml(v.ifname.replace(/\.\d+$/,""))}</name>
+    <unit><name>0</name>
+      <family><ethernet-switching>
+        <interface-mode>trunk</interface-mode>
+        <vlan>${vlanMembers.split(" ").map(x=>"<members>"+x+"</members>").join("")}</vlan>
+      </ethernet-switching></family>
+    </unit>
+  </interface></interfaces>
+</configuration>`,
+    ncclient: `from ncclient import manager
+m = manager.connect(host="\${conn().host}", username="\${conn().username||'root'}", password="\${conn().password||'juniper'}",
+                    hostkey_verify=False, device_params={"name":"junos"})
+m.lock("candidate")
+m.edit_config(target="candidate", config=open("trunk.xml").read())
+m.commit(); m.unlock("candidate")`,
+    ansible: `- name: ${v.ifname} trunk allowed VLANs ${v.vlans}
+  junipernetworks.junos.junos_l2_interfaces:
+    config:
+      - name: ${v.ifname.replace(/\.\d+$/,"")}
+        unit: 0
+        trunk:
+          allowed_vlans: [${v.vlans.split(",").map(x=>'"vlan'+x.trim()+'"').join(",")}]
+    state: merged`,
+  };},
+  Arista: v => ({
+    netconf: `<config>
+  <interfaces xmlns="http://openconfig.net/yang/interfaces">
+    <interface>
+      <name>${escXml(v.ifname)}</name>
+      <ethernet xmlns="http://openconfig.net/yang/interfaces/ethernet">
+        <switched-vlan xmlns="http://openconfig.net/yang/vlan">
+          <config>
+            <interface-mode>TRUNK</interface-mode>
+            <trunk-vlans>${escXml(v.vlans)}</trunk-vlans>
+          </config>
+        </switched-vlan>
+      </ethernet>
+    </interface>
+  </interfaces>
+</config>`,
+    ncclient: `import jsonrpclib
+sw = jsonrpclib.Server("https://\${conn().username}:\${conn().password||'admin'}@\${conn().host}/command-api")
+sw.runCmds(1, ["enable","configure",
+               "interface ${v.ifname}",
+               "switchport mode trunk",
+               "switchport trunk allowed vlan ${v.vlans}"])`,
+    ansible: `- name: ${v.ifname} trunk allowed VLANs ${v.vlans}
+  arista.eos.eos_l2_interfaces:
+    config:
+      - name: ${v.ifname}
+        mode: trunk
+        trunk:
+          trunk_allowed_vlans: ${v.vlans}
+    state: merged`,
+  }),
+};
+
+const AUTO_RADIUS = {
+  Cisco: v => ({
+    netconf: `<config>
+  <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
+    <radius xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-aaa">
+      <server>
+        <id>RADSRV</id>
+        <address><ipv4><host>${v.host}</host></ipv4></address>
+        <key>
+          <encryption>0</encryption>
+          <key>${escXml(v.key)}</key>
+        </key>
+      </server>
+    </radius>
+  </native>
+</config>`,
+    ncclient: `# RADIUS server ${v.host}
+from ncclient import manager
+m = manager.connect(host="\${conn().host}", username="\${conn().username}", password="\${conn().password}",
+                    hostkey_verify=False, device_params={"name":"iosxe"})
+m.edit_config(target="running", config=open("radius.xml").read())`,
+    ansible: `- name: RADIUS server ${v.host}
+  cisco.ios.ios_radius_server:
+    config:
+      servers:
+        - server:
+            address:
+              ipv4:
+                host: ${v.host}
+            key:
+              key: ${v.key}`,
+  }),
+  Juniper: v => ({
+    netconf: `<configuration>
+  <system>
+    <radius-server>
+      <name>${v.host}</name>
+      <secret>${escXml(v.key)}</secret>
+    </radius-server>
+  </system>
+</configuration>`,
+    ncclient: `from ncclient import manager
+m = manager.connect(host="\${conn().host}", username="\${conn().username||'root'}", password="\${conn().password||'juniper'}",
+                    hostkey_verify=False, device_params={"name":"junos"})
+m.lock("candidate")
+m.edit_config(target="candidate", config="""<configuration><system>
+  <radius-server><name>${v.host}</name><secret>${v.key}</secret></radius-server>
+</system></configuration>""")
+m.commit(); m.unlock("candidate")`,
+    ansible: `- name: RADIUS server ${v.host}
+  junipernetworks.junos.junos_system:
+    config:
+      authentication:
+        radius_servers:
+          - address: ${v.host}
+            secret: "${v.key}"`,
+  }),
+  Arista: v => ({
+    netconf: `<config>
+  <system xmlns="http://openconfig.net/yang/system">
+    <aaa><server-groups><server-group>
+      <name>RADIUS</name>
+      <config><name>RADIUS</name><type xmlns:oc-aaa-types="http://openconfig.net/yang/aaa/types">oc-aaa-types:RADIUS</type></config>
+      <servers><server>
+        <address>${v.host}</address>
+        <config><address>${v.host}</address></config>
+        <radius><config><secret-key>${escXml(v.key)}</secret-key></config></radius>
+      </server></servers>
+    </server-group></server-groups></aaa>
+  </system>
+</config>`,
+    ncclient: `import jsonrpclib
+sw = jsonrpclib.Server("https://\${conn().username}:\${conn().password||'admin'}@\${conn().host}/command-api")
+sw.runCmds(1, ["enable","configure",
+               "radius-server host ${v.host} key ${v.key}"])`,
+    ansible: `- name: RADIUS server ${v.host}
+  arista.eos.eos_radius_server:
+    config:
+      servers:
+        - host: ${v.host}
+          key: ${v.key}`,
+  }),
+};
+
+const AUTO_PORTCHANNEL = {
+  Cisco: v => ({
+    netconf: `<config>
+  <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
+    <interface><GigabitEthernet>
+      <name>${escXml(v.ifname.replace(/^GigabitEthernet/,""))}</name>
+      <channel-group><number>${v.pcid}</number><mode>${escXml(v.mode)}</mode></channel-group>
+    </GigabitEthernet></interface>
+  </native>
+</config>`,
+    ncclient: `# Bundle ${v.ifname} into Port-channel${v.pcid} (LACP ${v.mode})
+from ncclient import manager
+m = manager.connect(host="\${conn().host}", username="\${conn().username}", password="\${conn().password}",
+                    hostkey_verify=False, device_params={"name":"iosxe"})
+m.edit_config(target="running", config=open("lag.xml").read())`,
+    ansible: `- name: Bundle ${v.ifname} into Port-channel${v.pcid}
+  cisco.ios.ios_lag_interfaces:
+    config:
+      - name: Port-channel${v.pcid}
+        members:
+          - member: ${v.ifname}
+            mode: ${v.mode}
+    state: merged`,
+  }),
+  Juniper: v => ({
+    netconf: `<configuration>
+  <chassis><aggregated-devices><ethernet><device-count>10</device-count></ethernet></aggregated-devices></chassis>
+  <interfaces><interface>
+    <name>${escXml(v.ifname)}</name>
+    <gigether-options>
+      <ieee-802.3ad><bundle>ae${v.pcid}</bundle></ieee-802.3ad>
+    </gigether-options>
+  </interface><interface>
+    <name>ae${v.pcid}</name>
+    <aggregated-ether-options>
+      <lacp><active/></lacp>
+    </aggregated-ether-options>
+  </interface></interfaces>
+</configuration>`,
+    ncclient: `from ncclient import manager
+m = manager.connect(host="\${conn().host}", username="\${conn().username||'root'}", password="\${conn().password||'juniper'}",
+                    hostkey_verify=False, device_params={"name":"junos"})
+m.lock("candidate")
+m.edit_config(target="candidate", config=open("lag.xml").read())
+m.commit(); m.unlock("candidate")`,
+    ansible: `- name: Bundle ${v.ifname} into ae${v.pcid}
+  junipernetworks.junos.junos_lag_interfaces:
+    config:
+      - name: ae${v.pcid}
+        mode: active
+        members:
+          - member: ${v.ifname}
+    state: merged`,
+  }),
+  Arista: v => ({
+    netconf: `<config>
+  <interfaces xmlns="http://openconfig.net/yang/interfaces">
+    <interface>
+      <name>${escXml(v.ifname)}</name>
+      <ethernet xmlns="http://openconfig.net/yang/interfaces/ethernet">
+        <config><aggregate-id>Port-Channel${v.pcid}</aggregate-id></config>
+      </ethernet>
+    </interface>
+    <interface>
+      <name>Port-Channel${v.pcid}</name>
+      <aggregation xmlns="http://openconfig.net/yang/interfaces/aggregate">
+        <config><lag-type>LACP</lag-type></config>
+      </aggregation>
+    </interface>
+  </interfaces>
+</config>`,
+    ncclient: `import jsonrpclib
+sw = jsonrpclib.Server("https://\${conn().username}:\${conn().password||'admin'}@\${conn().host}/command-api")
+sw.runCmds(1, ["enable","configure",
+               "interface ${v.ifname}",
+               "channel-group ${v.pcid} mode ${v.mode}"])`,
+    ansible: `- name: Bundle ${v.ifname} into Port-Channel${v.pcid}
+  arista.eos.eos_lag_interfaces:
+    config:
+      - name: Port-Channel${v.pcid}
+        members:
+          - member: ${v.ifname}
+            mode: ${v.mode}
+    state: merged`,
+  }),
+};
+
+/* ─────────────────────────────────────────────────────────────────────
+   Built-in show-output parsers — TextFSM-lite, regex-based.
+   Each parser has: label, vendor hint, sample input, detect() returns
+   true if its template likely applies to the pasted text, and parse()
+   returns {columns: [...], rows: [[...]]}.
+─────────────────────────────────────────────────────────────────────── */
+const SHOW_PARSERS = {
+  "cisco-bgp-summary": {
+    label: "Cisco IOS / EOS — show ip bgp summary",
+    vendor: "Cisco / Arista",
+    sample: `BGP router identifier 1.1.1.1, local AS number 65001
+BGP table version is 7, main routing table version 7
+3 network entries using 444 bytes of memory
+
+Neighbor        V    AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd
+10.0.0.2        4 65002    1234    1235       7    0    0 02:14:22        12
+10.0.0.3        4 65003    5678    5679       7    0    0 04:30:11        25
+192.0.2.45      4 65010   34567   34570       7    0    0 1w2d           143
+198.51.100.10   4 65020      45      46       0    0    0 never    Active`,
+    detect: txt => /Neighbor\s+V\s+AS\s+MsgRcvd/i.test(txt) || /local AS number/i.test(txt),
+    columns: ["Neighbor","V","AS","MsgRcvd","MsgSent","TblVer","InQ","OutQ","Up/Down","State/PfxRcd"],
+    parse: txt => {
+      const rows = [];
+      txt.split("\n").forEach(line => {
+        const m = line.match(/^\s*(\d+\.\d+\.\d+\.\d+|[\da-f:]+::?[\da-f]+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\S+)\s+(\S+)\s*$/);
+        if(m) rows.push(m.slice(1,11));
+      });
+      return rows;
+    },
+  },
+  "cisco-ip-route": {
+    label: "Cisco IOS / EOS — show ip route",
+    vendor: "Cisco / Arista",
+    sample: `Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+
+Gateway of last resort is 10.0.0.1 to network 0.0.0.0
+
+S*   0.0.0.0/0 [1/0] via 10.0.0.1
+     10.0.0.0/24 is variably subnetted, 3 subnets, 2 masks
+C       10.0.0.0/24 is directly connected, GigabitEthernet0/0
+L       10.0.0.5/32 is directly connected, GigabitEthernet0/0
+O       10.10.10.0/24 [110/2] via 10.0.0.2, 1d02h, GigabitEthernet0/1
+B       172.16.0.0/16 [200/0] via 192.168.1.5, 04:30:22
+D EX    192.168.5.0/24 [170/3072] via 10.0.0.3, 02:14:33, GigabitEthernet0/2`,
+    detect: txt => /Codes:.*?connected.*?static/i.test(txt) || /is variably subnetted/i.test(txt),
+    columns: ["Code","Prefix","Admin/Metric","Next Hop","Age","Interface"],
+    parse: txt => {
+      const rows = [];
+      txt.split("\n").forEach(line => {
+        // Match e.g. "O       10.10.10.0/24 [110/2] via 10.0.0.2, 1d02h, GigabitEthernet0/1"
+        // and "S*   0.0.0.0/0 [1/0] via 10.0.0.1"
+        // and "C       10.0.0.0/24 is directly connected, GigabitEthernet0/0"
+        let m = line.match(/^([A-Z][A-Z ]{0,5}?[*]?)\s+(\d+\.\d+\.\d+\.\d+\/\d+)\s+\[(\d+\/\d+)\]\s+via\s+(\d+\.\d+\.\d+\.\d+)(?:,\s*(\S+))?(?:,\s*(\S+))?/);
+        if(m){ rows.push([m[1].trim(), m[2], m[3], m[4], m[5]||"", m[6]||""]); return; }
+        m = line.match(/^([A-Z][A-Z ]{0,5}?[*]?)\s+(\d+\.\d+\.\d+\.\d+\/\d+)\s+is directly connected,\s*(\S+)/);
+        if(m){ rows.push([m[1].trim(), m[2], "directly connected", "—", "", m[3]]); }
+      });
+      return rows;
+    },
+  },
+  "cisco-int-brief": {
+    label: "Cisco IOS / EOS — show ip interface brief",
+    vendor: "Cisco / Arista",
+    sample: `Interface              IP-Address      OK? Method Status                Protocol
+GigabitEthernet0/0     10.0.0.1        YES NVRAM  up                    up
+GigabitEthernet0/1     unassigned      YES NVRAM  administratively down down
+GigabitEthernet0/2     192.168.1.1     YES manual up                    up
+Loopback0              1.1.1.1         YES NVRAM  up                    up`,
+    detect: txt => /Interface\s+IP-Address\s+OK\?\s+Method\s+Status\s+Protocol/i.test(txt),
+    columns: ["Interface","IP","OK?","Method","Status","Protocol"],
+    parse: txt => {
+      const rows = [];
+      let inTable = false;
+      txt.split("\n").forEach(line => {
+        if(/Interface\s+IP-Address/i.test(line)){ inTable = true; return; }
+        if(!inTable || !line.trim()) return;
+        const m = line.match(/^(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(.+?)\s{2,}(\S+)\s*$/);
+        if(m) rows.push(m.slice(1,7));
+      });
+      return rows;
+    },
+  },
+  "cisco-ospf-neighbor": {
+    label: "Cisco IOS / EOS — show ip ospf neighbor",
+    vendor: "Cisco / Arista",
+    sample: `Neighbor ID     Pri   State           Dead Time   Address         Interface
+2.2.2.2           1   FULL/DR         00:00:34    10.0.0.2        GigabitEthernet0/0
+3.3.3.3           1   FULL/BDR        00:00:38    10.0.0.3        GigabitEthernet0/0
+4.4.4.4           1   2WAY/DROTHER    00:00:31    10.0.0.4        GigabitEthernet0/0`,
+    detect: txt => /Neighbor ID\s+Pri\s+State\s+Dead Time/i.test(txt),
+    columns: ["Neighbor ID","Pri","State","Dead Time","Address","Interface"],
+    parse: txt => {
+      const rows = [];
+      txt.split("\n").forEach(line => {
+        const m = line.match(/^\s*(\d+\.\d+\.\d+\.\d+)\s+(\d+)\s+(\S+)\s+(\S+)\s+(\d+\.\d+\.\d+\.\d+)\s+(\S+)/);
+        if(m) rows.push(m.slice(1,7));
+      });
+      return rows;
+    },
+  },
+  "junos-bgp-summary": {
+    label: "Juniper Junos — show bgp summary",
+    vendor: "Juniper",
+    sample: `Groups: 2 Peers: 3 Down peers: 0
+Table          Tot Paths  Act Paths Suppressed    History Damp State    Pending
+inet.0              500        200          0          0          0          0
+Peer                     AS      InPkt     OutPkt    OutQ   Flaps Last Up/Dwn State|#Active/Received/Accepted/Damped...
+10.0.0.2              65002      12345      12346       0       0  02:14:22 12/12/12/0              0/0/0/0
+10.0.0.3              65003      67890      67891       0       0  04:30:11 25/25/25/0              0/0/0/0`,
+    detect: txt => /Peer\s+AS\s+InPkt\s+OutPkt/i.test(txt) || /Active\/Received\/Accepted/i.test(txt),
+    columns: ["Peer","AS","InPkt","OutPkt","OutQ","Flaps","Last Up/Dwn","State / #Active"],
+    parse: txt => {
+      const rows = [];
+      txt.split("\n").forEach(line => {
+        const m = line.match(/^(\d+\.\d+\.\d+\.\d+|[\da-f:]+::?[\da-f]+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\S+)\s+(.+)$/);
+        if(m) rows.push(m.slice(1,9));
+      });
+      return rows;
+    },
+  },
+  "junos-route": {
+    label: "Juniper Junos — show route terse",
+    vendor: "Juniper",
+    sample: `inet.0: 5 destinations, 5 routes (5 active, 0 holddown, 0 hidden)
++ = Active Route, - = Last Active, * = Both
+
+A V Destination        P Prf   Metric 1   Metric 2  Next hop        AS path
+* ? 0.0.0.0/0          S   5                        >10.0.0.1
+* ? 10.0.0.0/24        D   0                        >ge-0/0/0.0
+* ? 10.10.10.0/24      O  10          2             >10.0.0.2
+* ? 172.16.0.0/16      B 170          0             >192.168.1.5    65010 I`,
+    detect: txt => /A V Destination\s+P Prf/i.test(txt) || /Active Route.*Last Active/i.test(txt),
+    columns: ["A","V","Destination","Proto","Pref","Metric 1","Metric 2","Next Hop","AS Path"],
+    parse: txt => {
+      const rows = [];
+      txt.split("\n").forEach(line => {
+        const m = line.match(/^([+*\-])\s+(\S)\s+(\S+\/\d+)\s+(\S)\s+(\d+)\s+(\d+)?\s+(\d+)?\s+(>?\S+)(?:\s+(.+))?$/);
+        if(m) rows.push([m[1], m[2], m[3], m[4], m[5], m[6]||"", m[7]||"", m[8], m[9]||""]);
+      });
+      return rows;
+    },
+  },
+};
+
+function runShowParser(){
+  const tplKey = $("parser-template").value;
+  const txt = $("parser-input").value;
+  const result = $("parser-result"); result.replaceChildren();
+  $("parser-csv").style.display = "none";
+  if(!txt.trim()){
+    result.appendChild(el("div",{class:"parser-err"}, "Paste some output first."));
+    return;
+  }
+  let chosen = tplKey;
+  if(tplKey === "auto"){
+    chosen = null;
+    for(const [k,p] of Object.entries(SHOW_PARSERS)){
+      if(p.detect(txt)){ chosen = k; break; }
+    }
+    if(!chosen){
+      result.appendChild(el("div",{class:"parser-err"},
+        "Couldn't auto-detect a template. Pick one manually from the dropdown."));
+      return;
+    }
+  }
+  const p = SHOW_PARSERS[chosen];
+  const rows = p.parse(txt);
+  if(rows.length === 0){
+    result.appendChild(el("div",{class:"parser-err"},
+      "Parsed 0 rows. Either the output format doesn't match '"+p.label+"', or it has unusual whitespace. Try a different template."));
+    return;
+  }
+  // Render
+  const meta = el("div",{class:"parser-meta"},
+    "Parser: ", el("b",{}, p.label), " · ",
+    "Rows: ", el("b",{}, String(rows.length)), " · ",
+    "Columns: ", el("b",{}, String(p.columns.length)));
+  result.appendChild(meta);
+  const tbl = el("table");
+  const thead = el("thead"); const trh = el("tr");
+  p.columns.forEach(c => trh.appendChild(el("th",{},c)));
+  thead.appendChild(trh); tbl.appendChild(thead);
+  const tbody = el("tbody");
+  rows.forEach(row => {
+    const tr = el("tr");
+    row.forEach((cell,i) => tr.appendChild(el("td",{}, cell == null ? "" : String(cell))));
+    tbody.appendChild(tr);
+  });
+  tbl.appendChild(tbody);
+  result.appendChild(tbl);
+  // Enable CSV export
+  $("parser-csv").style.display = "inline-flex";
+  $("parser-csv").onclick = ()=>{
+    const head = p.columns.map(csvEscape).join(",");
+    const body = rows.map(r => r.map(c => csvEscape(c==null?"":String(c))).join(",")).join("\n");
+    const blob = new Blob([head + "\n" + body], {type:"text/csv"});
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = chosen + ".csv";
+    a.click();
+  };
+}
+
+function openParser(){
+  $("parser-overlay").style.display = "flex";
+  const sel = $("parser-template");
+  // Populate options (skip if already done)
+  if(sel.options.length <= 1){
+    Object.entries(SHOW_PARSERS).forEach(([k,p])=>{
+      sel.appendChild(el("option",{value:k}, p.label));
+    });
+  }
+}
+function closeParser(){ $("parser-overlay").style.display = "none"; }
 
 function findAutomationMapping(d){
   for(const m of AUTOMATION_MAPPINGS){
@@ -2474,6 +3277,43 @@ function syncUrl(){
     history.replaceState(null, "", next);
   }
 }
+/* ─── Sharable workspace: encode {filters, view, search, queue} into ?ws=base64 ─── */
+function encodeWorkspace(){
+  const ws = {
+    v:[...state.vendor], os:[...state.os], role:[...state.role], cat:[...state.cat],
+    q: state.q || "", view: state.view, fav: state.showFavOnly ? 1 : 0,
+    queue: (state.queue || []).map(q => ({t:q.title, c:q.cmd, v:q.vendor, o:q.os})),
+  };
+  try {
+    const json = JSON.stringify(ws);
+    // base64-url: UTF-8 safe via TextEncoder + btoa
+    const b64 = btoa(unescape(encodeURIComponent(json))).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
+    return b64;
+  } catch(e){ return ""; }
+}
+function tryDecodeWorkspace(){
+  const p = new URLSearchParams(location.search);
+  const ws = p.get("ws"); if(!ws) return false;
+  try {
+    const padded = ws.replace(/-/g,"+").replace(/_/g,"/");
+    const json = decodeURIComponent(escape(atob(padded)));
+    const obj = JSON.parse(json);
+    state.vendor = new Set(obj.v||[]);
+    state.os = new Set(obj.os||[]);
+    state.role = new Set(obj.role||[]);
+    state.cat = new Set(obj.cat||[]);
+    state.q = obj.q || "";
+    if(qEl) qEl.value = state.q;
+    state.view = obj.view || "cards";
+    state.showFavOnly = !!obj.fav;
+    if(Array.isArray(obj.queue) && obj.queue.length){
+      state.queue = obj.queue.map(q => ({title:q.t, cmd:q.c, vendor:q.v, os:q.o}));
+      persistQueue();
+    }
+    return true;
+  } catch(e){ console.warn("workspace decode failed", e); return false; }
+}
+
 function restoreUrl(){
   const p = new URLSearchParams(location.search);
   if(p.get("v")) p.get("v").split(",").filter(Boolean).forEach(x=>state.vendor.add(x));
@@ -2644,10 +3484,21 @@ function renderCompare(filtered, results){
       if(!slot.label) slot.label = (d.title||"").replace(/^[\w@-]+[#>%]\s*/,"").slice(0,60);
     });
     const total = items.length;
-    const matched = [...conceptMap.values()].filter(s=>(s.Cisco.length>0?1:0)+(s.Juniper.length>0?1:0)+(s.Arista.length>0?1:0) >= 2).length;
-    const hdr = el("div",{class:"cat-hdr"},
+    const concepts = [...conceptMap.values()];
+    let allThree=0, two=0, one=0;
+    concepts.forEach(s=>{
+      const vs = (s.Cisco.length>0?1:0)+(s.Juniper.length>0?1:0)+(s.Arista.length>0?1:0);
+      if(vs===3) allThree++; else if(vs===2) two++; else one++;
+    });
+    const cCounts = {Cisco:0, Juniper:0, Arista:0};
+    items.forEach(d => { if(cCounts[d.vendor] != null) cCounts[d.vendor]++; });
+    const hdr = el("div",{class:"cat-hdr cmp-cat-hdr"},
       el("h3",{}, cat),
-      el("span",{class:"ct"}, total + " · " + matched + " aligned"),
+      el("span",{class:"ct"}, total + " cmds"),
+      el("span",{class:"ct", title:"Concepts with at least 2 vendors aligned"}, "🔗 " + allThree + "·3 / " + two + "·2"),
+      el("span",{class:"ct ct-c", title:"Cisco commands in this category"}, "● C " + cCounts.Cisco),
+      el("span",{class:"ct ct-j", title:"Juniper commands in this category"}, "● J " + cCounts.Juniper),
+      el("span",{class:"ct ct-a", title:"Arista commands in this category"}, "● A " + cCounts.Arista),
       el("div",{class:"line"})
     );
     results.appendChild(hdr);
@@ -2766,6 +3617,7 @@ document.addEventListener("keydown",e=>{
   const tgt = document.activeElement;
   const inField = tgt && (tgt.tagName==="INPUT" || tgt.tagName==="TEXTAREA");
   if(e.key === "Escape"){
+    if($("parser-overlay").style.display === "flex"){closeParser(); return;}
     if($("auto-drawer").classList.contains("open")){closeAutomation(); return;}
     if($("equiv-drawer").classList.contains("open")){closeEquiv(); return;}
     if($("drawer").classList.contains("open")){closeDrawer(); return;}
@@ -2890,6 +3742,30 @@ function exportAs(fmt){
   toast("✓ Exported "+filtered.length+" commands as ."+ext);
   $("export-menu").classList.remove("open");
 }
+$("btn-parser").addEventListener("click",openParser);
+$("parser-close").addEventListener("click",closeParser);
+$("parser-run").addEventListener("click",runShowParser);
+$("parser-sample").addEventListener("click",()=>{
+  const key = $("parser-template").value;
+  const p = SHOW_PARSERS[key] || SHOW_PARSERS["cisco-bgp-summary"];
+  $("parser-input").value = p.sample;
+});
+$("parser-overlay").addEventListener("click",e=>{
+  if(e.target === $("parser-overlay")) closeParser();
+});
+
+$("btn-share").addEventListener("click",()=>{
+  const ws = encodeWorkspace();
+  if(!ws){ toast("Workspace encode failed"); return; }
+  const url = location.origin + location.pathname + "?ws=" + ws;
+  navigator.clipboard.writeText(url).then(()=>{
+    const queueN = (state.queue||[]).length;
+    const filtersN = state.vendor.size + state.os.size + state.role.size + state.cat.size;
+    toast("🔗 Workspace URL copied — restores "+filtersN+" filter(s) · "+queueN+" queued cmd(s)");
+  }).catch(()=>toast("Clipboard blocked — URL in console"));
+  console.log("Workspace URL:", url);
+});
+
 $("btn-export").addEventListener("click",e=>{
   e.stopPropagation();
   const m = $("export-menu");
@@ -2941,7 +3817,8 @@ fetch("commands.json",{cache:"no-cache"})
   .then(r=>{ if(!r.ok) throw new Error("HTTP "+r.status); return r.json(); })
   .then(arr=>{
     DATA = arr;
-    restoreUrl();
+    // Workspace snapshot (?ws=...) takes precedence over plain URL state
+    if(!tryDecodeWorkspace()) restoreUrl();
     ["vb-cards","vb-table","vb-compare"].forEach(id=>{
       $(id).classList.toggle("on", id === "vb-"+state.view);
     });
