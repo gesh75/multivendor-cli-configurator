@@ -243,6 +243,30 @@ table.cmd tr:hover{background:var(--panel-2)}
 .auto-info code{background:var(--code-bg);color:var(--accent);padding:1px 5px;border-radius:3px;font-size:11px}
 .actbtn.auto{background:transparent;border:1px solid var(--accent-2);color:var(--accent-2)}
 .actbtn.auto:hover{background:rgba(167,139,250,.1)}
+/* Native (curated YANG) button is filled; fallback (CLI-wrapper) is outlined */
+.actbtn.auto.native{background:linear-gradient(135deg,#a78bfa,#7c3aed);color:#fff;border-color:#7c3aed}
+.actbtn.auto.native:hover{background:linear-gradient(135deg,#c4b5fd,#8b5cf6);color:#fff}
+.actbtn.auto.fallback{opacity:.85}
+
+/* Floating parameter editor panel inside drawer */
+.auto-params{margin-bottom:12px;background:var(--panel-2);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.auto-params .pp-hdr{padding:7px 11px;background:var(--code-bg);display:flex;justify-content:space-between;align-items:center;cursor:pointer;user-select:none}
+.auto-params .pp-hdr .ll{font:11px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--ink-dim);letter-spacing:1.2px;text-transform:uppercase}
+.auto-params .pp-hdr .ll b{color:var(--accent)}
+.auto-params .pp-hdr .caret{color:var(--ink-muted);font-size:11px;transition:transform .15s}
+.auto-params.collapsed .pp-hdr .caret{transform:rotate(-90deg)}
+.auto-params.collapsed .pp-body{display:none}
+.auto-params .pp-body{padding:10px 11px;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px}
+.auto-params .pp-row{display:flex;flex-direction:column;gap:3px;min-width:0}
+.auto-params .pp-row label{font:10px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--ink-dim);letter-spacing:.6px;text-transform:uppercase;display:flex;align-items:center;gap:4px}
+.auto-params .pp-row label .vk{color:var(--accent-2);font-weight:600;text-transform:none;letter-spacing:0}
+.auto-params .pp-row input{background:var(--code-bg);color:var(--ink);border:1px solid var(--line);padding:5px 8px;border-radius:4px;outline:0;font:12px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.auto-params .pp-row input:focus{border-color:var(--accent);box-shadow:0 0 4px rgba(34,211,238,.2)}
+.auto-params .pp-actions{display:flex;gap:6px;align-items:center;padding:0 11px 10px;font-size:11px}
+.auto-params .pp-actions label{color:var(--ink-dim);display:inline-flex;align-items:center;gap:4px;cursor:pointer;user-select:none}
+.auto-params .pp-actions input[type=checkbox]{accent-color:var(--accent)}
+.auto-params .pp-actions .pp-reset{margin-left:auto;background:transparent;border:1px solid var(--line);color:var(--ink-dim);cursor:pointer;font:10px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;padding:3px 9px;border-radius:4px}
+.auto-params .pp-actions .pp-reset:hover{color:var(--bad);border-color:var(--bad)}
 
 footer{padding:20px;color:var(--ink-dim);font-size:11px;text-align:center}
 .empty{padding:40px;text-align:center;color:var(--ink-dim);border:1px dashed var(--line);border-radius:12px;margin-top:20px}
@@ -591,6 +615,26 @@ const AUTOMATION_MAPPINGS = [
   },
 ];
 
+/* Connection parameters — editable in drawer, persisted in sessionStorage.
+   Live-substituted into every snippet so engineers can paste real, runnable code. */
+const CONN_DEFAULTS = {host:"10.0.0.1", username:"admin", password:"cisco", port:22, redact:false};
+const _stored = (()=>{
+  try { return JSON.parse(sessionStorage.getItem("auto-conn") || "null"); } catch(e){ return null; }
+})();
+const connState = Object.assign({}, CONN_DEFAULTS, _stored || {});
+function persistConn(){
+  try {
+    const toStore = Object.assign({}, connState);
+    if(!connState._keepPass) toStore.password = ""; // don't persist password unless asked
+    sessionStorage.setItem("auto-conn", JSON.stringify(toStore));
+  } catch(e){}
+}
+function conn(){
+  // Returns the redaction-aware copy for rendering
+  return Object.assign({}, connState,
+    connState.redact ? {password:"***REDACTED***", username: connState.username || "USER"} : {});
+}
+
 function maskToCidr(m){
   if(!m||!m.includes(".")) return parseInt(m,10)||24;
   return m.split(".").map(x=>parseInt(x,10).toString(2).padStart(8,"0")).join("").replace(/0+$/,"").length;
@@ -623,7 +667,7 @@ const AUTO_IFACE_IPV4 = {
   </native>
 </config>`,
     ncclient: `from ncclient import manager
-with manager.connect(host="10.0.0.1", username="admin", password="cisco",
+with manager.connect(host="${conn().host}", username="${conn().username}", password="${conn().password}",
                      hostkey_verify=False, device_params={"name":"iosxe"}) as m:
     payload = """<config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
   <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
@@ -665,7 +709,7 @@ with manager.connect(host="10.0.0.1", username="admin", password="cisco",
   </interfaces>
 </configuration>`,
     ncclient: `from ncclient import manager
-with manager.connect(host="10.0.0.1", username="root", password="juniper",
+with manager.connect(host="${conn().host}", username="${conn().username||'root'}", password="${conn().password||'juniper'}",
                      hostkey_verify=False, device_params={"name":"junos"}) as m:
     payload = """<configuration>
   <interfaces><interface>
@@ -716,7 +760,7 @@ with manager.connect(host="10.0.0.1", username="root", password="juniper",
 </config>`,
     ncclient: `# Arista EOS supports OpenConfig + eAPI (REST). NETCONF less common; eAPI usually preferred:
 import jsonrpclib
-switch = jsonrpclib.Server("https://admin:admin@10.0.0.1/command-api")
+switch = jsonrpclib.Server("https://${conn().username}:${conn().password}@${conn().host}/command-api")
 switch.runCmds(1, ["enable",
                    "configure",
                    "interface ${v.ifname}",
@@ -751,7 +795,7 @@ const AUTO_STATIC = {
 </config>`,
     ncclient: `# Add static route ${v.prefix}/${v.cidr} via ${v.nh}
 from ncclient import manager
-m = manager.connect(host="...", username="admin", password="cisco",
+m = manager.connect(host="...", username="${conn().username}", password="${conn().password}",
                     hostkey_verify=False, device_params={"name":"iosxe"})
 m.edit_config(target="running", config=open("static-route.xml").read())`,
     ansible: `- name: Static route ${v.prefix}/${v.cidr} via ${v.nh}
@@ -778,7 +822,7 @@ m.edit_config(target="running", config=open("static-route.xml").read())`,
   </routing-options>
 </configuration>`,
     ncclient: `from ncclient import manager
-m = manager.connect(host="...", username="root", password="juniper",
+m = manager.connect(host="...", username="${conn().username||'root'}", password="${conn().password||'juniper'}",
                     hostkey_verify=False, device_params={"name":"junos"})
 m.lock("candidate")
 m.edit_config(target="candidate", config="""<configuration><routing-options><static>
@@ -818,7 +862,7 @@ m.commit(); m.unlock("candidate")`,
 </config>`,
     ncclient: `# Arista — typically via eAPI
 import jsonrpclib
-sw = jsonrpclib.Server("https://admin:admin@10.0.0.1/command-api")
+sw = jsonrpclib.Server("https://${conn().username}:${conn().password}@${conn().host}/command-api")
 sw.runCmds(1, ["enable","configure","ip route ${v.prefix}/${v.cidr} ${v.nh}"])`,
     ansible: `- name: Static route ${v.prefix}/${v.cidr} via ${v.nh}
   arista.eos.eos_static_routes:
@@ -851,7 +895,7 @@ const AUTO_OSPF = {
 </config>`,
     ncclient: `# OSPF process ${v.pid}, network ${v.net} ${v.wild} area ${v.area}
 from ncclient import manager
-m = manager.connect(host="...", port=830, username="admin", password="cisco",
+m = manager.connect(host="...", port=830, username="${conn().username}", password="${conn().password}",
                     hostkey_verify=False, device_params={"name":"iosxe"})
 m.edit_config(target="running", config=open("ospf.xml").read())`,
     ansible: `- name: OSPF process ${v.pid}
@@ -880,7 +924,7 @@ m.edit_config(target="running", config=open("ospf.xml").read())`,
 </configuration>`,
     ncclient: `# Junos uses per-interface OSPF, not network statements
 from ncclient import manager
-m = manager.connect(host="...", username="root", password="juniper",
+m = manager.connect(host="...", username="${conn().username||'root'}", password="${conn().password||'juniper'}",
                     hostkey_verify=False, device_params={"name":"junos"})
 m.lock("candidate")
 m.edit_config(target="candidate", config="""<configuration><protocols><ospf>
@@ -913,7 +957,7 @@ m.commit(); m.unlock("candidate")`,
   </network-instances>
 </config>`,
     ncclient: `import jsonrpclib
-sw = jsonrpclib.Server("https://admin:admin@10.0.0.1/command-api")
+sw = jsonrpclib.Server("https://${conn().username}:${conn().password}@${conn().host}/command-api")
 sw.runCmds(1, ["enable","configure",
                "router ospf ${v.pid}",
                "network ${v.net}/${maskToCidr(v.wild.replace(/\./g,m=>m).split(".").map(x=>255-parseInt(x,10)).join("."))} area ${v.area}"])`,
@@ -948,7 +992,7 @@ const AUTO_BGP = {
 </config>`,
     ncclient: `# BGP AS${v.local_as}, neighbor ${v.peer} remote-as ${v.remote_as}
 from ncclient import manager
-m = manager.connect(host="...", username="admin", password="cisco",
+m = manager.connect(host="...", username="${conn().username}", password="${conn().password}",
                     hostkey_verify=False, device_params={"name":"iosxe"})
 m.edit_config(target="running", config=open("bgp.xml").read())`,
     ansible: `- name: BGP AS ${v.local_as} neighbor ${v.peer}
@@ -982,7 +1026,7 @@ m.edit_config(target="running", config=open("bgp.xml").read())`,
   </protocols>
 </configuration>`,
     ncclient: `from ncclient import manager
-m = manager.connect(host="...", username="root", password="juniper",
+m = manager.connect(host="...", username="${conn().username||'root'}", password="${conn().password||'juniper'}",
                     hostkey_verify=False, device_params={"name":"junos"})
 m.lock("candidate")
 m.edit_config(target="candidate", config="""<configuration>
@@ -1022,7 +1066,7 @@ m.commit(); m.unlock("candidate")`,
   </network-instances>
 </config>`,
     ncclient: `import jsonrpclib
-sw = jsonrpclib.Server("https://admin:admin@10.0.0.1/command-api")
+sw = jsonrpclib.Server("https://${conn().username}:${conn().password}@${conn().host}/command-api")
 sw.runCmds(1, ["enable","configure",
                "router bgp ${v.local_as}",
                "neighbor ${v.peer} remote-as ${v.remote_as}",
@@ -1053,7 +1097,7 @@ const AUTO_VLAN = {
 </config>`,
     ncclient: `# Create VLAN ${v.id} (${v.name})
 from ncclient import manager
-m = manager.connect(host="...", username="admin", password="cisco",
+m = manager.connect(host="...", username="${conn().username}", password="${conn().password}",
                     hostkey_verify=False, device_params={"name":"iosxe"})
 m.edit_config(target="running", config=open("vlan.xml").read())`,
     ansible: `- name: Create VLAN ${v.id}
@@ -1074,7 +1118,7 @@ m.edit_config(target="running", config=open("vlan.xml").read())`,
   </vlans>
 </configuration>`,
     ncclient: `from ncclient import manager
-m = manager.connect(host="...", username="root", password="juniper",
+m = manager.connect(host="...", username="${conn().username||'root'}", password="${conn().password||'juniper'}",
                     hostkey_verify=False, device_params={"name":"junos"})
 m.lock("candidate")
 m.edit_config(target="candidate", config="""<configuration>
@@ -1104,7 +1148,7 @@ m.commit(); m.unlock("candidate")`,
   </network-instances>
 </config>`,
     ncclient: `import jsonrpclib
-sw = jsonrpclib.Server("https://admin:admin@10.0.0.1/command-api")
+sw = jsonrpclib.Server("https://${conn().username}:${conn().password}@${conn().host}/command-api")
 sw.runCmds(1, ["enable","configure","vlan ${v.id}","name ${v.name}"])`,
     ansible: `- name: Create VLAN ${v.id}
   arista.eos.eos_vlans:
@@ -1131,7 +1175,7 @@ const AUTO_SWITCHPORT = {
 </config>`,
     ncclient: `# Set ${v.ifname} to access VLAN ${v.vlan}
 from ncclient import manager
-m = manager.connect(host="...", username="admin", password="cisco",
+m = manager.connect(host="...", username="${conn().username}", password="${conn().password}",
                     hostkey_verify=False, device_params={"name":"iosxe"})
 m.edit_config(target="running", config=open("switchport.xml").read())`,
     ansible: `- name: ${v.ifname} access VLAN ${v.vlan}
@@ -1157,7 +1201,7 @@ m.edit_config(target="running", config=open("switchport.xml").read())`,
 </configuration>`,
     ncclient: `# Junos access port for VLAN ${v.vlan}
 from ncclient import manager
-m = manager.connect(host="...", username="root", password="juniper",
+m = manager.connect(host="...", username="${conn().username||'root'}", password="${conn().password||'juniper'}",
                     hostkey_verify=False, device_params={"name":"junos"})
 m.lock("candidate")
 m.edit_config(target="candidate", config="""<configuration>
@@ -1195,7 +1239,7 @@ m.commit(); m.unlock("candidate")`,
   </interfaces>
 </config>`,
     ncclient: `import jsonrpclib
-sw = jsonrpclib.Server("https://admin:admin@10.0.0.1/command-api")
+sw = jsonrpclib.Server("https://${conn().username}:${conn().password}@${conn().host}/command-api")
 sw.runCmds(1, ["enable","configure",
                "interface ${v.ifname}",
                "switchport mode access",
@@ -1222,7 +1266,7 @@ const AUTO_NTP = {
 </config>`,
     ncclient: `# Add NTP server ${v.server}
 from ncclient import manager
-m = manager.connect(host="...", username="admin", password="cisco",
+m = manager.connect(host="...", username="${conn().username}", password="${conn().password}",
                     hostkey_verify=False, device_params={"name":"iosxe"})
 m.edit_config(target="running", config=open("ntp.xml").read())`,
     ansible: `- name: NTP server ${v.server}
@@ -1243,7 +1287,7 @@ m.edit_config(target="running", config=open("ntp.xml").read())`,
   </system>
 </configuration>`,
     ncclient: `from ncclient import manager
-m = manager.connect(host="...", username="root", password="juniper",
+m = manager.connect(host="...", username="${conn().username||'root'}", password="${conn().password||'juniper'}",
                     hostkey_verify=False, device_params={"name":"junos"})
 m.lock("candidate")
 m.edit_config(target="candidate", config="""<configuration><system><ntp>
@@ -1267,7 +1311,7 @@ m.commit(); m.unlock("candidate")`,
   </system>
 </config>`,
     ncclient: `import jsonrpclib
-sw = jsonrpclib.Server("https://admin:admin@10.0.0.1/command-api")
+sw = jsonrpclib.Server("https://${conn().username}:${conn().password}@${conn().host}/command-api")
 sw.runCmds(1, ["enable","configure","ntp server ${v.server}"])`,
     ansible: `- name: NTP server ${v.server}
   arista.eos.eos_ntp_global:
@@ -1289,7 +1333,7 @@ const AUTO_SYSLOG = {
 </config>`,
     ncclient: `# Syslog to ${v.host}
 from ncclient import manager
-m = manager.connect(host="...", username="admin", password="cisco",
+m = manager.connect(host="...", username="${conn().username}", password="${conn().password}",
                     hostkey_verify=False, device_params={"name":"iosxe"})
 m.edit_config(target="running", config=open("syslog.xml").read())`,
     ansible: `- name: Logging host ${v.host}
@@ -1311,7 +1355,7 @@ m.edit_config(target="running", config=open("syslog.xml").read())`,
   </system>
 </configuration>`,
     ncclient: `from ncclient import manager
-m = manager.connect(host="...", username="root", password="juniper",
+m = manager.connect(host="...", username="${conn().username||'root'}", password="${conn().password||'juniper'}",
                     hostkey_verify=False, device_params={"name":"junos"})
 m.lock("candidate")
 m.edit_config(target="candidate", config="""<configuration><system><syslog>
@@ -1340,7 +1384,7 @@ m.commit(); m.unlock("candidate")`,
   </system>
 </config>`,
     ncclient: `import jsonrpclib
-sw = jsonrpclib.Server("https://admin:admin@10.0.0.1/command-api")
+sw = jsonrpclib.Server("https://${conn().username}:${conn().password}@${conn().host}/command-api")
 sw.runCmds(1, ["enable","configure","logging host ${v.host}"])`,
     ansible: `- name: Logging host ${v.host}
   arista.eos.eos_logging_global:
@@ -1359,7 +1403,7 @@ const AUTO_HOSTNAME = {
   </native>
 </config>`,
     ncclient: `from ncclient import manager
-m = manager.connect(host="...", username="admin", password="cisco",
+m = manager.connect(host="...", username="${conn().username}", password="${conn().password}",
                     hostkey_verify=False, device_params={"name":"iosxe"})
 m.edit_config(target="running", config="""<config>
   <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
@@ -1379,7 +1423,7 @@ m.edit_config(target="running", config="""<config>
   </system>
 </configuration>`,
     ncclient: `from ncclient import manager
-m = manager.connect(host="...", username="root", password="juniper",
+m = manager.connect(host="...", username="${conn().username||'root'}", password="${conn().password||'juniper'}",
                     hostkey_verify=False, device_params={"name":"junos"})
 m.lock("candidate")
 m.edit_config(target="candidate", config="""<configuration><system>
@@ -1397,7 +1441,7 @@ m.commit(); m.unlock("candidate")`,
   </system>
 </config>`,
     ncclient: `import jsonrpclib
-sw = jsonrpclib.Server("https://admin:admin@10.0.0.1/command-api")
+sw = jsonrpclib.Server("https://${conn().username}:${conn().password}@${conn().host}/command-api")
 sw.runCmds(1, ["enable","configure","hostname ${v.hostname}"])`,
     ansible: `- name: Set hostname to ${v.hostname}
   arista.eos.eos_hostname:
@@ -1419,7 +1463,7 @@ const AUTO_IFDESC = {
 </config>`,
     ncclient: `# Description on ${v.ifname}
 from ncclient import manager
-m = manager.connect(host="...", username="admin", password="cisco",
+m = manager.connect(host="...", username="${conn().username}", password="${conn().password}",
                     hostkey_verify=False, device_params={"name":"iosxe"})
 m.edit_config(target="running", config=open("desc.xml").read())`,
     ansible: `- name: Description on ${v.ifname}
@@ -1437,7 +1481,7 @@ m.edit_config(target="running", config=open("desc.xml").read())`,
   </interface></interfaces>
 </configuration>`,
     ncclient: `from ncclient import manager
-m = manager.connect(host="...", username="root", password="juniper",
+m = manager.connect(host="...", username="${conn().username||'root'}", password="${conn().password||'juniper'}",
                     hostkey_verify=False, device_params={"name":"junos"})
 m.lock("candidate")
 m.edit_config(target="candidate", config="""<configuration><interfaces><interface>
@@ -1465,7 +1509,7 @@ m.commit(); m.unlock("candidate")`,
   </interfaces>
 </config>`,
     ncclient: `import jsonrpclib
-sw = jsonrpclib.Server("https://admin:admin@10.0.0.1/command-api")
+sw = jsonrpclib.Server("https://${conn().username}:${conn().password}@${conn().host}/command-api")
 sw.runCmds(1, ["enable","configure","interface ${v.ifname}","description ${v.desc}"])`,
     ansible: `- name: Description on ${v.ifname}
   arista.eos.eos_interfaces:
@@ -1535,7 +1579,7 @@ ${yamlList(lines, "      ")}
         napalm: `# Show commands run via device.cli() — no commit needed
 import napalm
 driver = napalm.get_network_driver("ios")
-with driver("10.0.0.1", "admin", "cisco") as d:
+with driver("${conn().host}", "${conn().username}", "${conn().password}") as d:
     output = d.cli([${JSON.stringify(firstLine)}])
     print(output[${JSON.stringify(firstLine)}])`,
       };
@@ -1560,7 +1604,7 @@ ${yamlList(lines, "      ")}`,
 # For arbitrary EXEC, use device.cli([...]).
 import napalm
 driver = napalm.get_network_driver("ios")
-with driver("10.0.0.1", "admin", "cisco") as d:
+with driver("${conn().host}", "${conn().username}", "${conn().password}") as d:
     print(d.cli([${JSON.stringify(firstLine)}]))`,
       };
     }
@@ -1593,7 +1637,7 @@ import napalm
 config = """${escDoubleQuote(lines.join("\n"))}"""
 
 driver = napalm.get_network_driver("ios")
-with driver("10.0.0.1", "admin", "cisco") as d:
+with driver("${conn().host}", "${conn().username}", "${conn().password}") as d:
     d.load_merge_candidate(config=config)
     diff = d.compare_config()
     print("Diff:", diff)
@@ -1612,8 +1656,7 @@ with driver("10.0.0.1", "admin", "cisco") as d:
       return {
         netmiko: `from netmiko import ConnectHandler
 
-device = {"device_type":"juniper_junos","host":"10.0.0.1",
-          "username":"root","password":"juniper"}
+device = {"device_type":"juniper_junos","host":"${conn().host}","username":"${conn().username||'root'}","password":"${conn().password||'juniper'}"}
 
 with ConnectHandler(**device) as net:
     output = net.send_command(${JSON.stringify(firstLine)})
@@ -1630,7 +1673,7 @@ ${yamlList(lines, "      ")}
         napalm: `# Junos: use Junos PyEZ (jnpr.junos) for native ops; NAPALM .cli() wraps RPCs
 import napalm
 driver = napalm.get_network_driver("junos")
-with driver("10.0.0.1", "root", "juniper") as d:
+with driver("${conn().host}", "${conn().username||'root'}", "${conn().password||'juniper'}") as d:
     print(d.cli([${JSON.stringify(firstLine)}]))`,
       };
     }
@@ -1639,8 +1682,7 @@ with driver("10.0.0.1", "root", "juniper") as d:
     return {
       netmiko: `from netmiko import ConnectHandler
 
-device = {"device_type":"juniper_junos","host":"10.0.0.1",
-          "username":"root","password":"juniper"}
+device = {"device_type":"juniper_junos","host":"${conn().host}","username":"${conn().username||'root'}","password":"${conn().password||'juniper'}"}
 
 # Junos uses 'set' style commands in candidate → commit
 config_lines = ${JSON.stringify(lines, null, 2)}
@@ -1663,7 +1705,7 @@ import napalm
 config = """${escDoubleQuote(lines.join("\n"))}"""
 
 driver = napalm.get_network_driver("junos")
-with driver("10.0.0.1", "root", "juniper") as d:
+with driver("${conn().host}", "${conn().username||'root'}", "${conn().password||'juniper'}") as d:
     d.load_merge_candidate(config=config)
     diff = d.compare_config()
     print("Diff:", diff)
@@ -1682,8 +1724,7 @@ with driver("10.0.0.1", "root", "juniper") as d:
       return {
         netmiko: `from netmiko import ConnectHandler
 
-device = {"device_type":"arista_eos","host":"10.0.0.1",
-          "username":"admin","password":"admin"}
+device = {"device_type":"arista_eos","host":"${conn().host}","username":"${conn().username}","password":"${conn().password||'admin'}"}
 
 with ConnectHandler(**device) as net:
     output = net.send_command(${JSON.stringify(firstLine)})
@@ -1699,7 +1740,7 @@ ${yamlList(lines, "      ")}
     var: result.stdout_lines`,
         napalm: `# Arista preferred path is eAPI (JSON-RPC) — typically structured output:
 import jsonrpclib
-sw = jsonrpclib.Server("https://admin:admin@10.0.0.1/command-api")
+sw = jsonrpclib.Server("https://${conn().username}:${conn().password}@${conn().host}/command-api")
 result = sw.runCmds(1, [${JSON.stringify(firstLine)}])
 print(result)`,
       };
@@ -1707,8 +1748,7 @@ print(result)`,
     return {
       netmiko: `from netmiko import ConnectHandler
 
-device = {"device_type":"arista_eos","host":"10.0.0.1",
-          "username":"admin","password":"admin"}
+device = {"device_type":"arista_eos","host":"${conn().host}","username":"${conn().username}","password":"${conn().password||'admin'}"}
 
 config_lines = ${JSON.stringify(lines, null, 2)}
 
@@ -1724,7 +1764,7 @@ ${yamlList(lines, "      ")}
   register: change`,
       napalm: `# Arista eAPI direct (most idiomatic for EOS):
 import jsonrpclib
-sw = jsonrpclib.Server("https://admin:admin@10.0.0.1/command-api")
+sw = jsonrpclib.Server("https://${conn().username}:${conn().password}@${conn().host}/command-api")
 sw.runCmds(1, ["enable", "configure",
 ${lines.map(l => "               "+JSON.stringify(l)).join(",\n")}])
 
@@ -1732,7 +1772,7 @@ ${lines.map(l => "               "+JSON.stringify(l)).join(",\n")}])
 import napalm
 config = """${escDoubleQuote(lines.join("\n"))}"""
 driver = napalm.get_network_driver("eos")
-with driver("10.0.0.1", "admin", "admin") as d:
+with driver("${conn().host}", "${conn().username}", "${conn().password||'admin'}") as d:
     d.load_merge_candidate(config=config)
     print(d.compare_config())
     d.commit_config()`,
@@ -2068,12 +2108,12 @@ function buildCard(d){
   // Netmiko/Ansible/NAPALM CLI-wrapper fallback.
   const hasNative = !!findAutomationMapping(d);
   const autoBtn = el("button",{
-    class:"actbtn auto",
+    class:"actbtn auto " + (hasNative ? "native" : "fallback"),
     title: hasNative
-      ? "Show NETCONF/YANG/Ansible equivalents (model-driven)"
-      : "Show Netmiko/Ansible/NAPALM equivalents (CLI-wrapper)",
+      ? "Show NETCONF/YANG/Ansible equivalents (model-driven, values extracted from this command)"
+      : "Show Netmiko/Ansible/NAPALM equivalents (CLI-wrapper fallback)",
     onClick:()=>openAutomation(d)
-  }, hasNative ? "🔧 Automate" : "🔧 Automate*");
+  }, hasNative ? "⚡ Automate" : "🔧 Automate*");
   actions.appendChild(autoBtn);
   actions.appendChild(equivBtn);
   body.appendChild(actions);
@@ -2117,9 +2157,105 @@ function openAutomation(d){
   renderAutoBody(d, found, active, vendors);
 }
 
+// Sticky params editor: connection + extracted-vars editor.
+// Any input mutates state and re-renders snippet blocks in place.
+function buildParamsEditor(d, found, active, vendors){
+  const wrap = el("div",{class:"auto-params"+(connState._collapsed?" collapsed":"")});
+  const hdr = el("div",{class:"pp-hdr",onClick:()=>{
+    connState._collapsed = !connState._collapsed; persistConn();
+    buildAndReplaceParams(d, found, active, vendors);
+  }});
+  hdr.appendChild(el("span",{class:"ll"},
+    el("b",{},"⚙ Parameters"), " — edit any value, snippets re-render live"));
+  hdr.appendChild(el("span",{class:"caret"}, "▾"));
+  wrap.appendChild(hdr);
+
+  const body = el("div",{class:"pp-body"});
+  // Connection settings (always shown)
+  [
+    {k:"host",     label:"Host / IP",        type:"text",     ph:"10.0.0.1"},
+    {k:"username", label:"Username",         type:"text",     ph:"admin"},
+    {k:"password", label:"Password",         type:"password", ph:"•••"},
+    {k:"port",     label:"Port",             type:"number",   ph:"22"},
+  ].forEach(f=>{
+    const row = el("div",{class:"pp-row"});
+    row.appendChild(el("label",{},f.label));
+    const inp = el("input",{
+      type:f.type, placeholder:f.ph,
+      value: connState[f.k] == null ? "" : String(connState[f.k]),
+      onInput:e=>{ connState[f.k]=e.target.value; persistConn(); rerenderAutoBlocks(d, found, active); }
+    });
+    row.appendChild(inp);
+    body.appendChild(row);
+  });
+  // Per-command editable vars for native mappings
+  if(found){
+    Object.entries(found.vals).forEach(([k,v])=>{
+      const row = el("div",{class:"pp-row"});
+      row.appendChild(el("label",{}, el("span",{class:"vk"}, k)));
+      const inp = el("input",{type:"text", value:String(v),
+        onInput:e=>{ found.vals[k]=e.target.value; rerenderAutoBlocks(d, found, active); }});
+      row.appendChild(inp);
+      body.appendChild(row);
+    });
+  }
+  wrap.appendChild(body);
+
+  // Action row
+  const actions = el("div",{class:"pp-actions"});
+  const redactCb = el("input",{type:"checkbox",checked:!!connState.redact,
+    onChange:e=>{ connState.redact=e.target.checked; persistConn(); rerenderAutoBlocks(d, found, active); }});
+  const lblRedact = el("label",{}); lblRedact.appendChild(redactCb);
+  lblRedact.appendChild(document.createTextNode(" Redact password (safe for sharing/screenshots)"));
+  actions.appendChild(lblRedact);
+
+  const keepCb = el("input",{type:"checkbox",checked:!!connState._keepPass,
+    onChange:e=>{ connState._keepPass=e.target.checked; persistConn(); }});
+  const lblKeep = el("label",{}); lblKeep.appendChild(keepCb);
+  lblKeep.appendChild(document.createTextNode(" Remember password this session"));
+  actions.appendChild(lblKeep);
+
+  const reset = el("button",{class:"pp-reset",onClick:()=>{
+    Object.assign(connState, CONN_DEFAULTS); persistConn();
+    buildAndReplaceParams(d, found, active, vendors);
+    rerenderAutoBlocks(d, found, active);
+  }}, "↺ Reset");
+  actions.appendChild(reset);
+  wrap.appendChild(actions);
+  return wrap;
+}
+
+function buildAndReplaceParams(d, found, active, vendors){
+  const old = document.querySelector(".auto-params");
+  if(!old) return;
+  old.replaceWith(buildParamsEditor(d, found, active, vendors));
+}
+
+function rerenderAutoBlocks(d, found, active){
+  const body = $("auto-body");
+  const out = found ? found.mapping.render(active, found.vals) : FALLBACK_RENDERERS[active](d);
+  const blocks = body.querySelectorAll(".auto-block");
+  const fresh = found
+    ? [out.netconf, out.ncclient, out.ansible]
+    : [out.netmiko, out.ansible, out.napalm];
+  blocks.forEach((blk,i)=>{
+    const pre = blk.querySelector("pre");
+    if(pre) pre.textContent = fresh[i];
+  });
+  // Also refresh the vchips at top (in case user edited a var)
+  if(found){
+    const vals = $("auto-vals"); vals.replaceChildren();
+    Object.entries(found.vals).forEach(([k,vv])=>{
+      vals.appendChild(el("span",{class:"vchip"}, el("b",{},k+":"), String(vv)));
+    });
+  }
+}
+
 function renderAutoBody(d, found, active, vendors){
   const body = $("auto-body");
   body.replaceChildren();
+  // Floating parameter editor (host / user / pass / port + per-var overrides)
+  body.appendChild(buildParamsEditor(d, found, active, vendors));
   // Info banner — different message for specific vs fallback
   if(found){
     body.appendChild(el("div",{class:"auto-info"},
