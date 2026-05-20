@@ -28,11 +28,12 @@ button{font-family:inherit}
 
 header{position:sticky;top:0;z-index:30;backdrop-filter:blur(10px);background:rgba(0,0,0,.18);border-bottom:1px solid var(--line)}
 :root[data-theme="light"] header{background:rgba(255,255,255,.7)}
-.bar{display:flex;align-items:center;gap:12px;padding:10px 16px}
+.bar{display:flex;align-items:center;gap:10px;padding:10px 16px;flex-wrap:wrap}
 .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.3px;flex-shrink:0}
 .brand .dot{width:10px;height:10px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));box-shadow:0 0 10px var(--accent)}
 .brand small{color:var(--ink-dim);font-weight:500;margin-left:4px}
-.search{flex:1;display:flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--line);padding:7px 10px;border-radius:10px;min-width:280px}
+.search-wrap{flex:1 1 320px;position:relative;min-width:240px}
+.search{display:flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--line);padding:7px 10px;border-radius:10px}
 .search input{flex:1;background:transparent;border:0;outline:0;color:var(--ink);font:13px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
 .kbd{font:11px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:var(--chip);border:1px solid var(--line);padding:2px 6px;border-radius:6px;color:var(--ink-dim)}
 .tbtn{background:var(--panel);border:1px solid var(--line);color:var(--ink);padding:7px 10px;border-radius:8px;cursor:pointer;font:12px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;display:inline-flex;align-items:center;gap:6px}
@@ -323,12 +324,49 @@ mark{background:rgba(34,211,238,.25);color:inherit;border-radius:3px;padding:0 2
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--good);color:#000;font:12px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;padding:9px 16px;border-radius:8px;opacity:0;pointer-events:none;transition:transform .2s, opacity .2s;z-index:200;font-weight:600;box-shadow:0 4px 20px rgba(0,0,0,.4)}
 .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
 .toggle-btn{display:none}
+
+/* Search autocomplete dropdown */
+.search-suggest{position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--panel);border:1px solid var(--accent);border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.4);max-height:300px;overflow:auto;z-index:80;display:none;padding:4px}
+.search-suggest.open{display:block}
+.search-suggest .ss-hint{padding:5px 10px;font:10px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--ink-muted);letter-spacing:1px;text-transform:uppercase;border-bottom:1px solid var(--line-2);margin-bottom:4px}
+.search-suggest .ss-item{padding:6px 10px;cursor:pointer;border-radius:5px;font:12px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--ink);display:flex;align-items:center;gap:8px}
+.search-suggest .ss-item:hover,.search-suggest .ss-item.sel{background:var(--chip-on);color:var(--accent)}
+.search-suggest .ss-item .ss-key{color:var(--ink-muted);font-size:10px}
+.search-suggest .ss-item .ss-val{color:var(--accent)}
+.search-suggest .ss-item .ss-ct{margin-left:auto;color:var(--ink-muted);font-size:10px}
+
+/* Persistent CLI Builder dock */
+.cli-dock{position:fixed;bottom:18px;right:18px;z-index:25;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#000;border:0;border-radius:999px;padding:10px 16px;font:12px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-weight:700;letter-spacing:.5px;cursor:pointer;box-shadow:0 8px 24px rgba(34,211,238,.35),0 2px 6px rgba(0,0,0,.3);display:inline-flex;align-items:center;gap:9px;transition:transform .15s,box-shadow .15s,opacity .15s}
+:root[data-theme="light"] .cli-dock{color:#fff}
+.cli-dock:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(34,211,238,.5),0 4px 10px rgba(0,0,0,.4)}
+.cli-dock .ct{background:rgba(0,0,0,.18);color:inherit;border-radius:999px;padding:2px 9px;font-size:11px;min-width:22px;text-align:center}
+:root[data-theme="light"] .cli-dock .ct{background:rgba(255,255,255,.22)}
+.cli-dock.hidden{opacity:0;pointer-events:none;transform:translateY(40px)}
+
+/* Better empty-state cards (Favorites, Recent) */
+.empty-panel{padding:14px 10px;text-align:center;color:var(--ink-muted);font-size:11px;line-height:1.55}
+.empty-panel .ico{font-size:20px;display:block;margin-bottom:6px;opacity:.7}
+.empty-panel b{color:var(--ink-dim);font-weight:600}
+.empty-panel code{background:var(--code-bg);color:var(--accent);padding:1px 5px;border-radius:3px;font-size:10px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+
+/* Compact button label for narrow viewports */
+.tbtn .lbl{display:inline}
+@media (max-width:1200px){
+  .tbtn .lbl{display:none}
+  .tbtn{padding:7px 9px}
+  .brand small{display:none}
+}
+
 @media (max-width:1000px){
   main{grid-template-columns:1fr}
   .side{position:fixed;left:-280px;top:60px;height:calc(100vh - 60px);width:260px;z-index:25;transition:left .2s}
   .side.open{left:0}
   .toggle-btn{display:inline-block}
   .compare-grid{grid-template-columns:1fr}
+}
+@media (max-width:760px){
+  .stats span:not(:nth-child(-n+8)){display:none}
+  .cli-dock{bottom:12px;right:12px;padding:9px 14px;font-size:11px}
 }
 @media (max-width:560px){.drawer{width:100%;right:-100%}.equiv-drawer{width:100%;right:-100%}}
 </style>
@@ -338,19 +376,22 @@ mark{background:rgba(34,211,238,.25);color:inherit;border-radius:3px;padding:0 2
 <header>
   <div class="bar">
     <div class="brand"><span class="dot"></span>Multivendor CLI <small>Cisco · Juniper · Arista</small></div>
-    <div class="search">
-      <span style="color:var(--ink-dim)">⌕</span>
-      <input id="q" placeholder='Search… try "vendor:juniper ospf" or "cat:bgp role:router"' autocomplete="off" autofocus />
-      <span class="kbd">/</span>
+    <div class="search-wrap">
+      <div class="search">
+        <span style="color:var(--ink-dim)">⌕</span>
+        <input id="q" placeholder='Search… try "vendor:juniper ospf" or "cat:bgp role:router"' autocomplete="off" autofocus />
+        <span class="kbd">/</span>
+      </div>
+      <div id="search-suggest" class="search-suggest"></div>
     </div>
     <button class="tbtn" id="btn-side" title="Collapse/expand sidebar (S)">☰</button>
     <button class="tbtn" id="btn-theme" title="Toggle light/dark mode"><span id="theme-icon">🌙</span></button>
     <button class="tbtn" id="btn-help" title="Keyboard shortcuts">?</button>
-    <button class="tbtn" id="btn-clibuilder" title="Open CLI Builder (b)">⌘ CLI <span class="badge" id="cli-badge" style="display:none">0</span></button>
-    <button class="tbtn" id="btn-share" title="Copy a shareable URL that restores your current filters, view, search, and CLI Builder queue">🔗 Share</button>
-    <button class="tbtn" id="btn-parser" title="Parse raw 'show' output into a structured table">📊 Parse Output</button>
+    <button class="tbtn" id="btn-clibuilder" title="Open CLI Builder (b)">⌘ <span class="lbl">CLI</span> <span class="badge" id="cli-badge" style="display:none">0</span></button>
+    <button class="tbtn" id="btn-share" title="Copy a shareable URL that restores your current filters, view, search, and CLI Builder queue">🔗 <span class="lbl">Share</span></button>
+    <button class="tbtn" id="btn-parser" title="Parse raw 'show' output into a structured table">📊 <span class="lbl">Parse Output</span></button>
     <div class="export-wrap" style="position:relative;display:inline-block">
-      <button class="tbtn" id="btn-export" title="Export filtered results">Export ▾</button>
+      <button class="tbtn" id="btn-export" title="Export filtered results"><span class="lbl">Export</span> ▾</button>
       <div class="export-menu" id="export-menu">
         <div class="emh">Export <b id="emcount">…</b> commands as:</div>
         <button data-fmt="txt">TXT — plain text with comments</button>
@@ -413,6 +454,10 @@ mark{background:rgba(34,211,238,.25);color:inherit;border-radius:3px;padding:0 2
   </section>
 </main>
 
+<button id="cli-dock" class="cli-dock hidden" title="Open CLI Builder">
+  <span>⌘ CLI Builder</span>
+  <span class="ct" id="cli-dock-ct">0</span>
+</button>
 <div class="drawer-overlay" id="drawer-overlay"></div>
 <aside class="drawer" id="drawer">
   <div class="resize-handle" id="drawer-resize"></div>
@@ -2633,8 +2678,13 @@ function renderRecentPanel(){
   body.replaceChildren();
   $("recent-ct").textContent = state.recent.length;
   if(state.recent.length === 0){
-    body.appendChild(el("div",{style:"font-size:11px;color:var(--ink-muted);padding:4px"},
-      "Cards you click 'Copy', '+ CLI' or 'Automate' on will appear here."));
+    const empty = el("div",{class:"empty-panel"});
+    empty.appendChild(el("span",{class:"ico"}, "🕘"));
+    empty.appendChild(el("div",{}, el("b",{},"No recent commands yet")));
+    empty.appendChild(el("div",{style:"margin-top:4px"},
+      "Click ", el("code",{},"Copy"), ", ", el("code",{},"+ CLI"), " or ",
+      el("code",{},"Automate"), " on any card and it will land here for quick recall."));
+    body.appendChild(empty);
     return;
   }
   state.recent.forEach(key => {
@@ -2922,7 +2972,13 @@ function renderFavoritesPanel(){
   }
   body.appendChild(ctrls);
   if(state.fav.size === 0){
-    body.appendChild(el("div",{style:"font-size:11px;color:var(--ink-muted);padding:4px"}, "Click the ☆ on any card to favorite it."));
+    const empty = el("div",{class:"empty-panel"});
+    empty.appendChild(el("span",{class:"ico"}, "☆"));
+    empty.appendChild(el("div",{}, el("b",{},"No favorites yet")));
+    empty.appendChild(el("div",{style:"margin-top:4px"},
+      "Click the ", el("code",{},"☆"), " icon on any card to pin it here. Try ",
+      el("code",{},"fav:"), " in search to filter to favorites only."));
+    body.appendChild(empty);
   }
 }
 
@@ -2998,8 +3054,11 @@ function buildCard(d){
     pushRecent(d);
   }}, "+ CLI");
   const equivBtn = el("button",{class:"actbtn equiv",onClick:()=>openEquivalents(d)}, "See equivalents ↗");
+  const cmpBtn = el("button",{class:"actbtn",title:"Switch to Compare view, filtered to this concept across vendors",
+    onClick:()=>openInCompare(d)}, "↔ Compare");
   actions.appendChild(copyBtn);
   actions.appendChild(addBtn);
+  actions.appendChild(cmpBtn);
   // 🔧 Automate — shown on every card. Specific patterns get NETCONF/YANG
   // model-driven templates; everything else gets the universal
   // Netmiko/Ansible/NAPALM CLI-wrapper fallback.
@@ -3418,6 +3477,36 @@ function renderTable(filtered, results){
   results.appendChild(wrap);
 }
 
+// Switch to Compare view, scoped to the card's category, scrolled to the row
+// that shares this concept across vendors.
+function openInCompare(d){
+  // Clear vendor scope so all 3 vendors render
+  state.vendor.clear();
+  state.os.clear();
+  state.role.clear();
+  // Scope to this card's category for tight horizontal alignment
+  state.cat.clear();
+  state.cat.add(d.cat);
+  // Also clear the search to avoid filtering Compare further
+  state.q = "";
+  const qEl = document.getElementById("q");
+  if(qEl) qEl.value = "";
+  renderChips(); renderActiveBar();
+  setView("compare");
+  pushRecent(d);
+  // Scroll to the row matching this concept (set in renderCompare via data-key)
+  setTimeout(()=>{
+    const key = conceptKey(d);
+    const row = document.querySelector('.cmp-row[data-concept="'+CSS.escape(key)+'"]');
+    if(row){
+      row.scrollIntoView({behavior:"smooth", block:"center"});
+      row.style.transition = "box-shadow .3s";
+      row.style.boxShadow = "0 0 0 2px var(--accent)";
+      setTimeout(()=>{ row.style.boxShadow = ""; }, 1600);
+    }
+  }, 50);
+}
+
 // Concept-key: normalize a command title/cmd into a comparable slug.
 // Goal: "BGP eBGP peer" (Cisco), "BGP eBGP peer" (Juniper), "BGP (EOS)" (Arista)
 // all collapse to the same concept ("bgp peer") so they line up horizontally.
@@ -3522,7 +3611,7 @@ function renderCompare(filtered, results){
     });
     sorted.slice(0,60).forEach(entry=>{
       const slot = entry[1];
-      const row = el("div",{class:"cmp-row"});
+      const row = el("div",{class:"cmp-row","data-concept":entry[0]});
       row.appendChild(el("div",{class:"cmp-concept"}, slot.label || entry[0].split(":")[1]));
       ["Cisco","Juniper","Arista"].forEach(v=>{
         const cell = el("div",{class:"cmp-cell "+v.toLowerCase()});
@@ -3564,6 +3653,15 @@ function updateCliBadge(){
   const b = $("cli-badge");
   if(state.queue.length){ b.textContent = state.queue.length; b.style.display = "inline-block"; }
   else { b.style.display = "none"; }
+  updateCliDock();
+}
+function updateCliDock(){
+  const dock = $("cli-dock"); if(!dock) return;
+  const ct = $("cli-dock-ct"); if(ct) ct.textContent = state.queue.length;
+  const drawerOpen = $("drawer") && $("drawer").classList.contains("open");
+  // Hide while drawer is open (don't double up); always show when queue has items, otherwise show a subtle hint
+  if(drawerOpen){ dock.classList.add("hidden"); return; }
+  dock.classList.remove("hidden");
 }
 function renderDrawer(){
   const body = $("drawer-body"); body.replaceChildren();
@@ -3593,10 +3691,12 @@ function openDrawer(){
   $("drawer").classList.add("open");
   $("drawer-overlay").classList.add("open");
   renderDrawer();
+  updateCliDock();
 }
 function closeDrawer(){
   $("drawer").classList.remove("open");
   $("drawer-overlay").classList.remove("open");
+  updateCliDock();
 }
 function closeEquiv(){ $("equiv-drawer").classList.remove("open"); }
 function buildAllText(){
@@ -3612,7 +3712,101 @@ function refreshTopStats(){
 }
 
 const qEl = $("q");
-qEl.addEventListener("input",e=>{ state.q = e.target.value; render(); });
+qEl.addEventListener("input",e=>{ state.q = e.target.value; render(); updateSuggest(); });
+qEl.addEventListener("focus",()=>updateSuggest());
+qEl.addEventListener("blur",()=>{ setTimeout(()=>{ $("search-suggest").classList.remove("open"); }, 150); });
+
+const SUGGEST_OPS = ["vendor","os","role","cat"];
+const _suggestState = {items:[], sel:0};
+function _suggestValues(key){
+  // Returns an array of {value, count} for the given operator key
+  const counts = new Map();
+  DATA.forEach(d=>{
+    let v = "";
+    if(key === "vendor") v = d.vendor;
+    else if(key === "os") v = d.os;
+    else if(key === "role") v = d.role;
+    else if(key === "cat") v = d.cat;
+    if(!v) return;
+    counts.set(v, (counts.get(v)||0) + 1);
+  });
+  return [...counts.entries()].map(([value,count])=>({value,count})).sort((a,b)=>b.count-a.count);
+}
+function updateSuggest(){
+  const box = $("search-suggest");
+  if(!box) return;
+  const val = qEl.value;
+  const caret = qEl.selectionStart ?? val.length;
+  // Find the token containing the caret
+  const left = val.slice(0, caret);
+  const right = val.slice(caret);
+  const tokStart = Math.max(left.lastIndexOf(" "), -1) + 1;
+  const tokEnd = right.indexOf(" ");
+  const cur = val.slice(tokStart, tokEnd === -1 ? val.length : caret + tokEnd);
+  // Match op:partial
+  const m = cur.match(/^(vendor|os|role|cat|category):(.*)$/i);
+  if(!m){ box.classList.remove("open"); return; }
+  const key = (m[1].toLowerCase() === "category") ? "cat" : m[1].toLowerCase();
+  const partial = (m[2]||"").toLowerCase();
+  let items = _suggestValues(key);
+  if(partial) items = items.filter(it => it.value.toLowerCase().includes(partial));
+  items = items.slice(0, 12);
+  if(items.length === 0){ box.classList.remove("open"); return; }
+  _suggestState.items = items.map(it => ({key, value:it.value, count:it.count, tokStart, tokEndPos:(tokEnd===-1?val.length:caret+tokEnd)}));
+  _suggestState.sel = 0;
+  box.replaceChildren();
+  box.appendChild(el("div",{class:"ss-hint"}, "↑↓ to navigate · ↵ to select · esc to dismiss"));
+  _suggestState.items.forEach((it,i)=>{
+    const row = el("div",{class:"ss-item"+(i===0?" sel":""), onMousedown:(e)=>{e.preventDefault();_applySuggest(i);}},
+      el("span",{class:"ss-key"}, key+":"),
+      el("span",{class:"ss-val"}, it.value),
+      el("span",{class:"ss-ct"}, it.count + " cmds")
+    );
+    box.appendChild(row);
+  });
+  box.classList.add("open");
+}
+function _applySuggest(idx){
+  const it = _suggestState.items[idx];
+  if(!it) return;
+  const val = qEl.value;
+  const before = val.slice(0, it.tokStart);
+  const after = val.slice(it.tokEndPos);
+  const newTok = it.key + ":" + it.value;
+  // Insert a trailing space if there isn't one already
+  const trailing = (after && after.startsWith(" ")) ? "" : " ";
+  const newVal = before + newTok + trailing + after;
+  qEl.value = newVal;
+  state.q = newVal;
+  const caret = (before + newTok + trailing).length;
+  qEl.setSelectionRange(caret, caret);
+  $("search-suggest").classList.remove("open");
+  render();
+  qEl.focus();
+}
+qEl.addEventListener("keydown",e=>{
+  const box = $("search-suggest");
+  if(!box.classList.contains("open")) return;
+  const items = box.querySelectorAll(".ss-item");
+  if(!items.length) return;
+  if(e.key === "ArrowDown"){
+    e.preventDefault();
+    _suggestState.sel = (_suggestState.sel + 1) % items.length;
+    items.forEach((n,i)=>n.classList.toggle("sel", i===_suggestState.sel));
+  } else if(e.key === "ArrowUp"){
+    e.preventDefault();
+    _suggestState.sel = (_suggestState.sel - 1 + items.length) % items.length;
+    items.forEach((n,i)=>n.classList.toggle("sel", i===_suggestState.sel));
+  } else if(e.key === "Enter"){
+    e.preventDefault();
+    _applySuggest(_suggestState.sel);
+  } else if(e.key === "Escape"){
+    box.classList.remove("open");
+  } else if(e.key === "Tab"){
+    e.preventDefault();
+    _applySuggest(_suggestState.sel);
+  }
+});
 document.addEventListener("keydown",e=>{
   const tgt = document.activeElement;
   const inField = tgt && (tgt.tagName==="INPUT" || tgt.tagName==="TEXTAREA");
@@ -3648,6 +3842,7 @@ $("vb-cards").addEventListener("click",()=>setView("cards"));
 $("vb-table").addEventListener("click",()=>setView("table"));
 $("vb-compare").addEventListener("click",()=>setView("compare"));
 $("btn-clibuilder").addEventListener("click",openDrawer);
+$("cli-dock").addEventListener("click",openDrawer);
 $("drawer-close").addEventListener("click",closeDrawer);
 $("drawer-overlay").addEventListener("click",closeDrawer);
 $("drawer-copy").addEventListener("click",()=>navigator.clipboard.writeText(buildAllText()));
