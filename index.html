@@ -66,6 +66,13 @@ main.lcollapsed .side{display:none}
 .chip.arista.on{border-color:var(--arista);color:var(--arista);box-shadow:0 0 0 1px var(--arista) inset}
 .cat-group{margin-top:8px}
 .cat-group h6{margin:8px 0 4px;font-size:9px;color:var(--ink-muted);letter-spacing:1.2px;text-transform:uppercase;font-weight:600}
+.recent-item{display:flex;align-items:center;gap:6px;padding:5px 6px;cursor:pointer;border-radius:4px;font-size:11px;color:var(--ink-dim)}
+.recent-item:hover{background:var(--chip-on);color:var(--ink)}
+.recent-item .rdot{width:6px;height:6px;border-radius:50%;background:var(--ink-muted);flex-shrink:0}
+.recent-item .rdot.cisco{background:var(--cisco)}
+.recent-item .rdot.juniper{background:var(--juniper)}
+.recent-item .rdot.arista{background:var(--arista)}
+.recent-item .rtxt{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
 .active-bar{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:10px 12px;background:var(--panel-2);border:1px solid var(--line);border-radius:10px;margin-bottom:12px}
 .active-bar .lbl{color:var(--ink-dim);font:11px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
@@ -77,8 +84,10 @@ main.lcollapsed .side{display:none}
 
 .viewbar{display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
 .viewbar .seg{display:inline-flex;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:2px;gap:0}
-.viewbar .seg button{background:transparent;border:0;color:var(--ink-dim);padding:5px 10px;font:11px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;cursor:pointer;border-radius:6px;letter-spacing:.5px;text-transform:uppercase}
-.viewbar .seg button.on{background:var(--chip-on);color:var(--accent)}
+.viewbar .seg button{background:transparent;border:0;color:var(--ink-dim);padding:6px 14px;font:11px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;cursor:pointer;border-radius:6px;letter-spacing:.5px;text-transform:uppercase;font-weight:500;transition:background .12s,color .12s,box-shadow .12s}
+.viewbar .seg button:hover{color:var(--ink)}
+.viewbar .seg button.on{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#000;font-weight:700;box-shadow:0 2px 8px rgba(34,211,238,.35)}
+:root[data-theme="light"] .viewbar .seg button.on{color:#fff}
 .viewbar .pill{padding:4px 9px;border-radius:999px;font:11px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:var(--panel);border:1px solid var(--line);color:var(--ink-dim)}
 .viewbar .pill b{color:var(--ink)}
 
@@ -152,7 +161,8 @@ table.cmd tr:hover{background:var(--panel-2)}
 .cmp-row.cmp-head .cmp-cell.cisco{color:var(--cisco)}
 .cmp-row.cmp-head .cmp-cell.juniper{color:var(--juniper)}
 .cmp-row.cmp-head .cmp-cell.arista{color:var(--arista)}
-.cmp-concept{padding:9px 10px;background:var(--panel-2);border-right:1px solid var(--line);color:var(--ink-dim);font:11px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-weight:500;display:flex;align-items:center}
+.cmp-concept{padding:9px 10px;background:var(--panel-2);border-right:1px solid var(--line);color:var(--ink-dim);font:11px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-weight:500;display:flex;align-items:center;position:sticky;left:0;z-index:1}
+.cmp-row.cmp-head .cmp-concept{background:var(--panel-2);color:var(--ink);font-weight:700;z-index:2}
 .cmp-cell{padding:8px;border-right:1px solid var(--line-2);min-width:0}
 .cmp-cell:last-child{border-right:0}
 .cmp-cell.cisco{border-left:3px solid var(--cisco)}
@@ -307,7 +317,7 @@ mark{background:rgba(34,211,238,.25);color:inherit;border-radius:3px;padding:0 2
       <span class="kbd">/</span>
     </div>
     <button class="tbtn" id="btn-side" title="Collapse/expand sidebar (S)">☰</button>
-    <button class="tbtn" id="btn-theme" title="Toggle light/dark">◐</button>
+    <button class="tbtn" id="btn-theme" title="Toggle light/dark mode"><span id="theme-icon">🌙</span></button>
     <button class="tbtn" id="btn-help" title="Keyboard shortcuts">?</button>
     <button class="tbtn" id="btn-clibuilder" title="Open CLI Builder (b)">⌘ CLI <span class="badge" id="cli-badge" style="display:none">0</span></button>
     <div class="export-wrap" style="position:relative;display:inline-block">
@@ -336,6 +346,10 @@ mark{background:rgba(34,211,238,.25);color:inherit;border-radius:3px;padding:0 2
     <div class="acc" id="acc-fav">
       <div class="acc-head"><span>Favorites <span class="ct" id="fav-ct">0</span></span><span class="caret">▾</span></div>
       <div class="acc-body" id="fav-body"></div>
+    </div>
+    <div class="acc collapsed" id="acc-recent">
+      <div class="acc-head"><span>Recent <span class="ct" id="recent-ct">0</span></span><span class="caret">▾</span></div>
+      <div class="acc-body" id="recent-body"></div>
     </div>
     <div class="acc" id="acc-vendor">
       <div class="acc-head"><span>Vendor <span class="ct" id="ct-vendor"></span></span><span class="caret">▾</span></div>
@@ -1796,6 +1810,7 @@ const state = {
   table_sort:{col:"cat",dir:1},
   collapsed:new Set(JSON.parse(localStorage.getItem("cli-acc")||'["acc-os","acc-role"]')),
   showFavOnly:false,
+  recent: JSON.parse(localStorage.getItem("cli-recent")||"[]"),
 };
 let DATA = [];
 
@@ -1803,6 +1818,41 @@ const $ = id => document.getElementById(id);
 const persistFav = ()=>localStorage.setItem("cli-fav",JSON.stringify([...state.fav]));
 const persistQueue = ()=>localStorage.setItem("cli-queue",JSON.stringify(state.queue));
 const persistAcc = ()=>localStorage.setItem("cli-acc",JSON.stringify([...state.collapsed]));
+const persistRecent = ()=>localStorage.setItem("cli-recent",JSON.stringify(state.recent));
+function pushRecent(d){
+  const key = fkey(d);
+  state.recent = [key, ...state.recent.filter(k => k !== key)].slice(0, 10);
+  persistRecent();
+  renderRecentPanel();
+}
+function renderRecentPanel(){
+  const body = $("recent-body"); if(!body) return;
+  body.replaceChildren();
+  $("recent-ct").textContent = state.recent.length;
+  if(state.recent.length === 0){
+    body.appendChild(el("div",{style:"font-size:11px;color:var(--ink-muted);padding:4px"},
+      "Cards you click 'Copy', '+ CLI' or 'Automate' on will appear here."));
+    return;
+  }
+  state.recent.forEach(key => {
+    const d = DATA.find(x => fkey(x) === key);
+    if(!d) return;
+    const row = el("div",{class:"recent-item",title:d.cmd.split("\n")[0],
+      onClick:()=>{
+        // jump to this command by filtering it as a unique search hit
+        const q = (d.title||"").trim().split(/\s+/).slice(0,3).join(" ");
+        state.q = q; document.getElementById("q").value = q; render();
+      }});
+    const dot = el("span",{class:"rdot "+VENDOR_KEY(d.vendor)});
+    const t = el("span",{class:"rtxt"}, d.title.slice(0,40));
+    row.appendChild(dot); row.appendChild(t);
+    body.appendChild(row);
+  });
+  if(state.recent.length){
+    body.appendChild(el("button",{class:"chip",style:"margin-top:6px",
+      onClick:()=>{state.recent=[]; persistRecent(); renderRecentPanel();}}, "clear"));
+  }
+}
 
 function el(tag,attrs,...kids){
   attrs = attrs || {};
@@ -1825,6 +1875,41 @@ function uniq(arr){return [...new Set(arr)]}
 function countBy(field,val){return DATA.filter(d=>d[field]===val).length}
 function fkey(d){return d.vendor+"|"+d.cat+"|"+d.title+"|"+(d.cmd||"").slice(0,32)}
 
+// Natural-language → operator intent map.
+// Picks up vendor / os / role / category hints from free text *without* the user
+// having to remember prefix-operator syntax. e.g. "configure ospf on juniper"
+// adds {vendor:[juniper], cat:[ospf]} automatically.
+const NL_INTENT = {
+  vendor: {cisco:"cisco", juniper:"juniper", arista:"arista"},
+  os:     {ios:"ios","ios-xe":"ios", iosxe:"ios", "nx-os":"nxos", nxos:"nxos",
+           asa:"asa", junos:"junos", eos:"eos"},
+  role:   {router:"router", routing:"router", routers:"router",
+           switch:"switch", switches:"switch", switching:"switch",
+           firewall:"firewall", firewalls:"firewall", srx:"firewall", asa:"firewall"},
+  cat: {
+    "ospf":"OSPF", "ospfv3":"OSPF", "ospfv2":"OSPF",
+    "bgp":"BGP", "ebgp":"BGP", "ibgp":"BGP", "evpn":"BGP",
+    "eigrp":"EIGRP",
+    "vlan":"VLAN", "vlans":"VLAN", "vxlan":"VLAN", "trunk":"VLAN",
+    "stp":"Spanning-Tree", "spanning":"Spanning-Tree", "rstp":"Spanning-Tree", "mstp":"Spanning-Tree",
+    "mlag":"EtherChannel", "lacp":"EtherChannel", "etherchannel":"EtherChannel", "portchannel":"EtherChannel", "port-channel":"EtherChannel",
+    "mpls":"MPLS", "ldp":"MPLS", "rsvp":"MPLS", "vrf":"MPLS",
+    "multicast":"Multicast", "pim":"Multicast", "igmp":"Multicast",
+    "interface":"Interfaces", "interfaces":"Interfaces", "iface":"Interfaces", "loopback":"Interfaces",
+    "acl":"ACL", "access-list":"ACL", "accesslist":"ACL", "filter":"ACL",
+    "nat":"NAT", "pat":"NAT",
+    "hsrp":"HA", "vrrp":"HA", "varp":"HA", "fhrp":"HA",
+    "vpn":"VPN", "ipsec":"VPN", "ike":"VPN", "dmvpn":"VPN", "gre":"VPN",
+    "snmp":"SNMP", "ntp":"NTP", "dhcp":"DHCP",
+    "syslog":"Logging", "logging":"Logging",
+    "aaa":"AAA", "radius":"AAA", "tacacs":"AAA", "authentication":"AAA",
+    "qos":"QoS", "policer":"QoS", "shaper":"QoS",
+    "ping":"Troubleshooting", "traceroute":"Troubleshooting", "debug":"Troubleshooting", "monitor":"Troubleshooting", "netflow":"Troubleshooting", "sflow":"Troubleshooting", "span":"Troubleshooting",
+    "static":"Static", "default":"Static",
+    "wireless":"Wireless", "wifi":"Wireless", "wlan":"Wireless",
+  },
+};
+
 function parseQuery(q){
   q = (q||"").trim().toLowerCase();
   const ops = {vendor:[], os:[], role:[], cat:[], fav:false};
@@ -1836,9 +1921,16 @@ function parseQuery(q){
       const v = m[2];
       if(k === "fav") ops.fav = true;
       else if(v) ops[k].push(v);
-    } else if(tok){
-      rest.push(tok);
+      return;
     }
+    if(!tok) return;
+    // NL-intent expansion: try to interpret bare token as vendor/os/role/cat
+    let matched = false;
+    for(const dim of ["vendor","os","role","cat"]){
+      const map = NL_INTENT[dim];
+      if(map[tok]){ ops[dim].push(map[tok]); matched = true; break; }
+    }
+    if(!matched) rest.push(tok);
   });
   return {ops, text:rest.join(" ")};
 }
@@ -2008,7 +2100,7 @@ function renderChips(){
   $("ct-cat").textContent    = state.cat.size ? "("+state.cat.size+" active)" : "";
   $("fav-ct").textContent    = state.fav.size;
   renderFavoritesPanel();
-  ["acc-fav","acc-vendor","acc-os","acc-role","acc-cat"].forEach(id=>{
+  ["acc-fav","acc-recent","acc-vendor","acc-os","acc-role","acc-cat"].forEach(id=>{
     $(id).classList.toggle("collapsed", state.collapsed.has(id));
   });
 }
@@ -2093,12 +2185,14 @@ function buildCard(d){
       copyBtn.classList.add("copied"); copyBtn.textContent = "✓ Copied";
       setTimeout(()=>{copyBtn.classList.remove("copied"); copyBtn.textContent = "Copy";}, 1500);
     });
+    pushRecent(d);
   }}, "Copy");
   const addBtn = el("button",{class:"actbtn primary",onClick:()=>{
     state.queue.push({title:d.title, cmd:d.cmd, vendor:d.vendor, os:d.os});
     persistQueue(); updateCliBadge(); renderDrawer();
     addBtn.classList.add("copied"); addBtn.textContent = "✓ Added";
     setTimeout(()=>{addBtn.classList.remove("copied"); addBtn.textContent = "+ CLI";},1200);
+    pushRecent(d);
   }}, "+ CLI");
   const equivBtn = el("button",{class:"actbtn equiv",onClick:()=>openEquivalents(d)}, "See equivalents ↗");
   actions.appendChild(copyBtn);
@@ -2112,7 +2206,7 @@ function buildCard(d){
     title: hasNative
       ? "Show NETCONF/YANG/Ansible equivalents (model-driven, values extracted from this command)"
       : "Show Netmiko/Ansible/NAPALM equivalents (CLI-wrapper fallback)",
-    onClick:()=>openAutomation(d)
+    onClick:()=>{ openAutomation(d); pushRecent(d); }
   }, hasNative ? "⚡ Automate" : "🔧 Automate*");
   actions.appendChild(autoBtn);
   actions.appendChild(equivBtn);
@@ -2809,14 +2903,22 @@ document.addEventListener("click",e=>{
 $("export-menu").querySelectorAll("button").forEach(b=>{
   b.addEventListener("click",()=>exportAs(b.dataset.fmt));
 });
+function syncThemeIcon(){
+  const ic = $("theme-icon");
+  if(!ic) return;
+  const cur = document.documentElement.getAttribute("data-theme") || "dark";
+  ic.textContent = cur === "dark" ? "🌙" : "☀️";
+}
 $("btn-theme").addEventListener("click",()=>{
   const cur = document.documentElement.getAttribute("data-theme");
   const next = cur === "dark" ? "light" : "dark";
   document.documentElement.setAttribute("data-theme", next);
   localStorage.setItem("cli-theme", next);
+  syncThemeIcon();
 });
 const savedTheme = localStorage.getItem("cli-theme");
 if(savedTheme) document.documentElement.setAttribute("data-theme", savedTheme);
+syncThemeIcon();
 $("btn-help").addEventListener("click",()=>$("helpcard").classList.toggle("open"));
 $("btn-side").addEventListener("click",()=>{
   const m = document.querySelector("main");
@@ -2827,7 +2929,7 @@ $("btn-side").addEventListener("click",()=>{
 });
 if(localStorage.getItem("cli-side-collapsed")==="1") document.querySelector("main").classList.add("lcollapsed");
 
-["acc-fav","acc-vendor","acc-os","acc-role","acc-cat"].forEach(id=>{
+["acc-fav","acc-recent","acc-vendor","acc-os","acc-role","acc-cat"].forEach(id=>{
   $(id).querySelector(".acc-head").addEventListener("click",()=>{
     if(state.collapsed.has(id)) state.collapsed.delete(id); else state.collapsed.add(id);
     persistAcc();
@@ -2845,6 +2947,7 @@ fetch("commands.json",{cache:"no-cache"})
     });
     refreshTopStats();
     renderChips();
+    renderRecentPanel();
     renderActiveBar();
     updateCliBadge();
     render();
