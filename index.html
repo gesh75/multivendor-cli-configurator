@@ -1488,6 +1488,258 @@ function findAutomationMapping(d){
   return null;
 }
 
+/* ─────────────────────────────────────────────────────────────────────
+   Fallback automation renderers — for every command without a curated
+   NETCONF/YANG mapping. Shows the same SSH-CLI-wrapper approach real
+   engineers use 80% of the time: Netmiko + Ansible config modules + NAPALM.
+─────────────────────────────────────────────────────────────────────── */
+function classifyCmd(cmd){
+  const first = (cmd||"").trim().split("\n")[0].trim().toLowerCase();
+  const isShow = /^(show|debug|monitor|test|ping|traceroute|run|file list|file show)\b/.test(first);
+  const isOps  = /^(copy|reload|write|enable|disable|request|clear)\b/.test(first);
+  const isJunosSet = /^(set|delete|deactivate|activate|edit|commit|rollback|load|save|insert|rename|replace|annotate|protect|wildcard|run\s)\b/.test(first);
+  return {isShow, isOps, isJunosSet, isConfig: !isShow && !isOps};
+}
+function getCmdLines(cmd){
+  return (cmd||"").split("\n").filter(l => l.trim() && !l.match(/^\s*[!#]/));
+}
+function yamlList(arr, indent){
+  return arr.map(l => indent + "- " + JSON.stringify(l)).join("\n");
+}
+function escDoubleQuote(s){ return String(s).replace(/"""/g, '\\"\\"\\"'); }
+
+const FALLBACK_RENDERERS = {
+  Cisco: (d) => {
+    const info = classifyCmd(d.cmd);
+    const lines = getCmdLines(d.cmd);
+    const firstLine = lines[0] || d.cmd.trim().split("\n")[0] || "";
+    if(info.isShow){
+      return {
+        netmiko: `from netmiko import ConnectHandler
+
+device = {"device_type":"cisco_ios","host":"10.0.0.1",
+          "username":"admin","password":"cisco"}
+
+with ConnectHandler(**device) as net:
+    output = net.send_command(${JSON.stringify(firstLine)})
+    print(output)`,
+        ansible: `- name: Run show command
+  cisco.ios.ios_command:
+    commands:
+${yamlList(lines, "      ")}
+  register: result
+
+- name: Display output
+  ansible.builtin.debug:
+    var: result.stdout_lines`,
+        napalm: `# Show commands run via device.cli() — no commit needed
+import napalm
+driver = napalm.get_network_driver("ios")
+with driver("10.0.0.1", "admin", "cisco") as d:
+    output = d.cli([${JSON.stringify(firstLine)}])
+    print(output[${JSON.stringify(firstLine)}])`,
+      };
+    }
+    if(info.isOps){
+      return {
+        netmiko: `from netmiko import ConnectHandler
+
+device = {"device_type":"cisco_ios","host":"10.0.0.1",
+          "username":"admin","password":"cisco"}
+
+with ConnectHandler(**device) as net:
+    # Privileged exec command (e.g. write/copy/reload/clear)
+    out = net.send_command_timing(${JSON.stringify(firstLine)})
+    print(out)`,
+        ansible: `# Operational commands are typically wrapped in ios_command (run in enable mode)
+- name: Run operational command
+  cisco.ios.ios_command:
+    commands:
+${yamlList(lines, "      ")}`,
+        napalm: `# NAPALM exposes specific ops via methods (commit/discard/load_replace/...).
+# For arbitrary EXEC, use device.cli([...]).
+import napalm
+driver = napalm.get_network_driver("ios")
+with driver("10.0.0.1", "admin", "cisco") as d:
+    print(d.cli([${JSON.stringify(firstLine)}]))`,
+      };
+    }
+    // config path
+    return {
+      netmiko: `from netmiko import ConnectHandler
+
+device = {"device_type":"cisco_ios","host":"10.0.0.1",
+          "username":"admin","password":"cisco"}
+
+config_lines = ${JSON.stringify(lines, null, 2).replace(/\n/g, "\n")}
+
+with ConnectHandler(**device) as net:
+    out = net.send_config_set(config_lines)
+    net.save_config()
+    print(out)`,
+      ansible: `- name: Push configuration
+  cisco.ios.ios_config:
+    lines:
+${yamlList(lines, "      ")}
+    save_when: modified
+  register: change
+
+- name: Show what changed
+  ansible.builtin.debug:
+    msg: "{{ change.commands }}"
+  when: change.changed`,
+      napalm: `# NAPALM: merge-candidate + diff + commit (atomic, with rollback on error)
+import napalm
+config = """${escDoubleQuote(lines.join("\n"))}"""
+
+driver = napalm.get_network_driver("ios")
+with driver("10.0.0.1", "admin", "cisco") as d:
+    d.load_merge_candidate(config=config)
+    diff = d.compare_config()
+    print("Diff:", diff)
+    if diff:
+        d.commit_config()        # or d.discard_config() to roll back
+    else:
+        d.discard_config()`,
+    };
+  },
+
+  Juniper: (d) => {
+    const info = classifyCmd(d.cmd);
+    const lines = getCmdLines(d.cmd);
+    const firstLine = lines[0] || d.cmd.trim().split("\n")[0] || "";
+    if(info.isShow){
+      return {
+        netmiko: `from netmiko import ConnectHandler
+
+device = {"device_type":"juniper_junos","host":"10.0.0.1",
+          "username":"root","password":"juniper"}
+
+with ConnectHandler(**device) as net:
+    output = net.send_command(${JSON.stringify(firstLine)})
+    print(output)`,
+        ansible: `- name: Run Junos show command
+  junipernetworks.junos.junos_command:
+    commands:
+${yamlList(lines, "      ")}
+  register: result
+
+- name: Display output
+  ansible.builtin.debug:
+    var: result.stdout_lines`,
+        napalm: `# Junos: use Junos PyEZ (jnpr.junos) for native ops; NAPALM .cli() wraps RPCs
+import napalm
+driver = napalm.get_network_driver("junos")
+with driver("10.0.0.1", "root", "juniper") as d:
+    print(d.cli([${JSON.stringify(firstLine)}]))`,
+      };
+    }
+    // Junos config path — must be 'set' style for ios_config-like fallback
+    const isAlreadySet = info.isJunosSet;
+    return {
+      netmiko: `from netmiko import ConnectHandler
+
+device = {"device_type":"juniper_junos","host":"10.0.0.1",
+          "username":"root","password":"juniper"}
+
+# Junos uses 'set' style commands in candidate → commit
+config_lines = ${JSON.stringify(lines, null, 2)}
+
+with ConnectHandler(**device) as net:
+    net.config_mode()
+    out = net.send_config_set(config_lines)
+    net.commit()
+    net.exit_config_mode()
+    print(out)`,
+      ansible: `- name: Apply Junos configuration
+  junipernetworks.junos.junos_config:
+    lines:
+${yamlList(lines, "      ")}
+    update: merge      # or replace, override
+    comment: "Applied via Ansible"
+  register: change`,
+      napalm: `# NAPALM merge-candidate for Junos uses set-style config
+import napalm
+config = """${escDoubleQuote(lines.join("\n"))}"""
+
+driver = napalm.get_network_driver("junos")
+with driver("10.0.0.1", "root", "juniper") as d:
+    d.load_merge_candidate(config=config)
+    diff = d.compare_config()
+    print("Diff:", diff)
+    if diff:
+        d.commit_config()
+    else:
+        d.discard_config()`,
+    };
+  },
+
+  Arista: (d) => {
+    const info = classifyCmd(d.cmd);
+    const lines = getCmdLines(d.cmd);
+    const firstLine = lines[0] || d.cmd.trim().split("\n")[0] || "";
+    if(info.isShow){
+      return {
+        netmiko: `from netmiko import ConnectHandler
+
+device = {"device_type":"arista_eos","host":"10.0.0.1",
+          "username":"admin","password":"admin"}
+
+with ConnectHandler(**device) as net:
+    output = net.send_command(${JSON.stringify(firstLine)})
+    print(output)`,
+        ansible: `- name: Run EOS show command
+  arista.eos.eos_command:
+    commands:
+${yamlList(lines, "      ")}
+  register: result
+
+- name: Display output
+  ansible.builtin.debug:
+    var: result.stdout_lines`,
+        napalm: `# Arista preferred path is eAPI (JSON-RPC) — typically structured output:
+import jsonrpclib
+sw = jsonrpclib.Server("https://admin:admin@10.0.0.1/command-api")
+result = sw.runCmds(1, [${JSON.stringify(firstLine)}])
+print(result)`,
+      };
+    }
+    return {
+      netmiko: `from netmiko import ConnectHandler
+
+device = {"device_type":"arista_eos","host":"10.0.0.1",
+          "username":"admin","password":"admin"}
+
+config_lines = ${JSON.stringify(lines, null, 2)}
+
+with ConnectHandler(**device) as net:
+    out = net.send_config_set(config_lines)
+    net.save_config()
+    print(out)`,
+      ansible: `- name: Push EOS configuration
+  arista.eos.eos_config:
+    lines:
+${yamlList(lines, "      ")}
+    save_when: modified
+  register: change`,
+      napalm: `# Arista eAPI direct (most idiomatic for EOS):
+import jsonrpclib
+sw = jsonrpclib.Server("https://admin:admin@10.0.0.1/command-api")
+sw.runCmds(1, ["enable", "configure",
+${lines.map(l => "               "+JSON.stringify(l)).join(",\n")}])
+
+# Or via NAPALM merge-candidate:
+import napalm
+config = """${escDoubleQuote(lines.join("\n"))}"""
+driver = napalm.get_network_driver("eos")
+with driver("10.0.0.1", "admin", "admin") as d:
+    d.load_merge_candidate(config=config)
+    print(d.compare_config())
+    d.commit_config()`,
+    };
+  },
+};
+
 const CAT_GROUPS = [
   ["Management", ["System","AAA","Logging","SNMP","NTP"]],
   ["L2",         ["Interfaces","VLAN","EtherChannel","Spanning-Tree"]],
@@ -1811,12 +2063,18 @@ function buildCard(d){
   const equivBtn = el("button",{class:"actbtn equiv",onClick:()=>openEquivalents(d)}, "See equivalents ↗");
   actions.appendChild(copyBtn);
   actions.appendChild(addBtn);
-  // 🔧 Automate — only show if a mapping matches this command
-  if(findAutomationMapping(d)){
-    const autoBtn = el("button",{class:"actbtn auto",title:"Show NETCONF/YANG/Ansible equivalents",
-      onClick:()=>openAutomation(d)}, "🔧 Automate");
-    actions.appendChild(autoBtn);
-  }
+  // 🔧 Automate — shown on every card. Specific patterns get NETCONF/YANG
+  // model-driven templates; everything else gets the universal
+  // Netmiko/Ansible/NAPALM CLI-wrapper fallback.
+  const hasNative = !!findAutomationMapping(d);
+  const autoBtn = el("button",{
+    class:"actbtn auto",
+    title: hasNative
+      ? "Show NETCONF/YANG/Ansible equivalents (model-driven)"
+      : "Show Netmiko/Ansible/NAPALM equivalents (CLI-wrapper)",
+    onClick:()=>openAutomation(d)
+  }, hasNative ? "🔧 Automate" : "🔧 Automate*");
+  actions.appendChild(autoBtn);
   actions.appendChild(equivBtn);
   body.appendChild(actions);
 
@@ -1826,44 +2084,71 @@ function buildCard(d){
 
 function openAutomation(d){
   const found = findAutomationMapping(d);
-  if(!found){
-    toast("No automation template available for this command yet");
-    return;
-  }
   const drawer = $("auto-drawer");
   drawer.classList.add("open");
-  $("auto-title").textContent = found.mapping.title;
+  // Compute vendors offered for this command. Specific mapping = whatever the
+  // mapping renders; fallback = all 3.
+  const vendors = found
+    ? ["Cisco","Juniper","Arista"].filter(v => found.mapping.render(v, found.vals))
+    : ["Cisco","Juniper","Arista"];
+  const active = vendors.includes(d.vendor) ? d.vendor : vendors[0];
+
+  // Title
+  $("auto-title").textContent = found
+    ? found.mapping.title
+    : (classifyCmd(d.cmd).isShow ? "Run command via SSH automation"
+                                : "Push raw CLI via automation");
+
+  // Value pills — extracted vars for specific mappings; metadata for fallback
   const vals = $("auto-vals"); vals.replaceChildren();
-  Object.entries(found.vals).forEach(([k,vv])=>{
-    const c = el("span",{class:"vchip"}, el("b",{},k+":"), String(vv));
-    vals.appendChild(c);
-  });
-  // Pick initial tab = command's own vendor if mapping supports it; else first available
-  const vendors = ["Cisco","Juniper","Arista"].filter(v=>found.mapping.render(v, found.vals));
-  let active = vendors.includes(d.vendor) ? d.vendor : vendors[0];
-  renderAutoBody(found, active, vendors);
+  if(found){
+    Object.entries(found.vals).forEach(([k,vv])=>{
+      vals.appendChild(el("span",{class:"vchip"}, el("b",{},k+":"), String(vv)));
+    });
+  } else {
+    const info = classifyCmd(d.cmd);
+    const tag = info.isShow ? "show/exec" : info.isOps ? "operational" : info.isJunosSet ? "junos set" : "config";
+    vals.appendChild(el("span",{class:"vchip"}, el("b",{},"type:"), tag));
+    vals.appendChild(el("span",{class:"vchip"}, el("b",{},"vendor:"), d.vendor));
+    vals.appendChild(el("span",{class:"vchip"}, el("b",{},"category:"), d.cat));
+    vals.appendChild(el("span",{class:"vchip"}, el("b",{},"lines:"), String(getCmdLines(d.cmd).length)));
+  }
+
+  renderAutoBody(d, found, active, vendors);
 }
 
-function renderAutoBody(found, active, vendors){
+function renderAutoBody(d, found, active, vendors){
   const body = $("auto-body");
   body.replaceChildren();
-  // Info banner
-  body.appendChild(el("div",{class:"auto-info"},
-    "These are real automation templates pre-filled with values extracted from your command. ",
-    el("b",{},"NETCONF/YANG"), " is the protocol; ", el("b",{},"ncclient"), " is the Python library; ",
-    el("b",{},"Ansible"), " uses vendor resource modules (",
-    el("code",{},"cisco.ios.*"), " · ", el("code",{},"junipernetworks.junos.*"), " · ", el("code",{},"arista.eos.*"), ")."
-  ));
+  // Info banner — different message for specific vs fallback
+  if(found){
+    body.appendChild(el("div",{class:"auto-info"},
+      "✓ ", el("b",{},"Model-driven automation"), " — real templates pre-filled with values extracted from your command. ",
+      el("b",{},"NETCONF/YANG"), " is the protocol, ", el("b",{},"ncclient"), " is the Python library, ",
+      el("b",{},"Ansible"), " uses vendor resource modules (",
+      el("code",{},"cisco.ios.*"), " · ", el("code",{},"junipernetworks.junos.*"), " · ", el("code",{},"arista.eos.*"), ")."
+    ));
+  } else {
+    body.appendChild(el("div",{class:"auto-info"},
+      "⚠ ", el("b",{},"CLI-wrapper fallback"), " — no native YANG/resource-module mapping for this exact command, so the templates use SSH-based automation (what most engineers use in practice). ",
+      el("b",{},"Netmiko"), " for ad-hoc Python · ",
+      el("b",{},"ios_config / junos_config / eos_config"), " for Ansible · ",
+      el("b",{},"NAPALM"), " for merge-candidate + commit + rollback."
+    ));
+  }
   // Tabs
   const tabs = el("div",{class:"auto-tabs"});
   vendors.forEach(v=>{
     const b = el("button",{class:"tab-"+v.toLowerCase()+(v===active?" on":""),
-      onClick:()=>renderAutoBody(found, v, vendors)}, v);
+      onClick:()=>renderAutoBody(d, found, v, vendors)}, v);
     tabs.appendChild(b);
   });
   body.appendChild(tabs);
 
-  const out = found.mapping.render(active, found.vals);
+  const out = found
+    ? found.mapping.render(active, found.vals)
+    : FALLBACK_RENDERERS[active](d);
+
   const mkBlock = (label, content, lang)=>{
     const blk = el("div",{class:"auto-block"});
     const hdr = el("div",{class:"bhdr"});
@@ -1878,13 +2163,19 @@ function renderAutoBody(found, active, vendors){
     });
     hdr.appendChild(cp);
     blk.appendChild(hdr);
-    const pre = el("pre",{class: lang || ""}, content);
-    blk.appendChild(pre);
+    blk.appendChild(el("pre",{class: lang || ""}, content));
     return blk;
   };
-  body.appendChild(mkBlock("NETCONF XML payload", out.netconf, "netconf"));
-  body.appendChild(mkBlock("Python (ncclient) snippet", out.ncclient, "python"));
-  body.appendChild(mkBlock("Ansible task (YAML)", out.ansible, "yaml"));
+
+  if(found){
+    body.appendChild(mkBlock("NETCONF XML payload", out.netconf, "netconf"));
+    body.appendChild(mkBlock("Python (ncclient) snippet", out.ncclient, "python"));
+    body.appendChild(mkBlock("Ansible task (YAML)", out.ansible, "yaml"));
+  } else {
+    body.appendChild(mkBlock("Python (Netmiko) snippet", out.netmiko, "python"));
+    body.appendChild(mkBlock("Ansible task (YAML)", out.ansible, "yaml"));
+    body.appendChild(mkBlock("NAPALM snippet", out.napalm, "python"));
+  }
 }
 
 function closeAutomation(){ $("auto-drawer").classList.remove("open"); }
