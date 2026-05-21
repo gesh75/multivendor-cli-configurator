@@ -3119,6 +3119,9 @@ function buildCard(d){
 function openAutomation(d){
   const found = findAutomationMapping(d);
   const drawer = $("auto-drawer");
+  // Defensive: clear any inline `right` an earlier session or browser cache may
+  // have set, so the .open class's right:0 always wins.
+  drawer.style.right = "";
   drawer.classList.add("open");
   // Compute vendors offered for this command. Specific mapping = whatever the
   // mapping renders; fallback = all 3.
@@ -3312,6 +3315,7 @@ function closeAutomation(){ $("auto-drawer").classList.remove("open"); }
 
 function openEquivalents(d){
   const drawer = $("equiv-drawer");
+  drawer.style.right = "";
   drawer.classList.add("open");
   $("equiv-title").textContent = d.title + "  —  same category across vendors";
   const body = $("equiv-body"); body.replaceChildren();
