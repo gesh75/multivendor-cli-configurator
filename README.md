@@ -3,7 +3,10 @@
 > Two zero-dependency single-file HTML tools for network engineers — **Cisco · Juniper · Arista**
 > in one searchable, shareable, deep-linkable interface.
 
-🟢 **Live demo:** https://gesh75.github.io/multivendor-cli-configurator/
+🟢 **Live demo:** [gesh75.github.io/multivendor-cli-configurator](https://gesh75.github.io/multivendor-cli-configurator/)
+📐 **Architecture:** [ARCHITECTURE.md](ARCHITECTURE.md)
+
+![Architecture](docs/img/architecture.svg)
 
 ---
 

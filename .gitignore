@@ -1,1 +1,5 @@
 scripts/sources/
+demo/node_modules/
+demo/package-lock.json
+demo/package.json
+.DS_Store

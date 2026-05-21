@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 760" font-family="-apple-system, Segoe UI, Inter, Roboto, sans-serif">
+  <defs>
+    <linearGradient id="g-cisco" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#0d4f8b"/><stop offset="1" stop-color="#1769b8"/>
+    </linearGradient>
+    <linearGradient id="g-juniper" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#0a8a3a"/><stop offset="1" stop-color="#19b35b"/>
+    </linearGradient>
+    <linearGradient id="g-arista" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#d4640f"/><stop offset="1" stop-color="#ed8a2c"/>
+    </linearGradient>
+    <linearGradient id="g-build" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#1c2333"/><stop offset="1" stop-color="#0c1018"/>
+    </linearGradient>
+    <linearGradient id="g-cmds" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#22d3ee"/><stop offset="1" stop-color="#7c3aed"/>
+    </linearGradient>
+    <linearGradient id="g-ui" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#0f1721"/><stop offset="1" stop-color="#070b12"/>
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1240" height="760" fill="#0a0e15"/>
+
+  <!-- Title -->
+  <text x="40" y="46" font-size="22" font-weight="700" fill="#e5e7eb">Multivendor CLI Reference — Architecture</text>
+  <text x="40" y="70" font-size="12" fill="#94a3b8">7 vendor sources → reproducible parsers → 9,808 commands → single-file static HTML</text>
+
+  <!-- LAYER 1: Sources -->
+  <text x="40" y="118" font-size="11" font-weight="700" fill="#64748b" letter-spacing="1.8">1 — VENDOR SOURCES (PUBLIC PUBLICATIONS)</text>
+  <line x1="40" y1="124" x2="1200" y2="124" stroke="#1f2937" stroke-width="1"/>
+
+  <!-- Cisco sources -->
+  <g>
+    <rect x="40" y="142" width="240" height="124" rx="8" fill="url(#g-cisco)" opacity="0.95"/>
+    <text x="56" y="166" font-size="13" font-weight="700" fill="#fff">CISCO</text>
+    <text x="56" y="186" font-size="11" fill="#e2e8f0">• ENCOR / ENARSI Portable CG (Cisco Press)</text>
+    <text x="56" y="202" font-size="11" fill="#e2e8f0">• ASA 9.24 CLI Reference (Books 1–3)</text>
+    <text x="56" y="218" font-size="11" fill="#e2e8f0">• IOS OSPF Command Reference</text>
+    <text x="56" y="234" font-size="11" fill="#e2e8f0">• VXLAN BGP EVPN NX-OS Reference</text>
+    <text x="56" y="254" font-size="11" font-weight="600" fill="#a5f3fc">→ 3,933 commands</text>
+  </g>
+
+  <!-- Juniper sources -->
+  <g>
+    <rect x="300" y="142" width="240" height="124" rx="8" fill="url(#g-juniper)" opacity="0.95"/>
+    <text x="316" y="166" font-size="13" font-weight="700" fill="#fff">JUNIPER</text>
+    <text x="316" y="186" font-size="11" fill="#e2e8f0">• Junos OS CLI Reference (2025)</text>
+    <text x="316" y="202" font-size="11" fill="#e2e8f0">• Day One: Beginner's Guide to Junos</text>
+    <text x="316" y="218" font-size="11" fill="#e2e8f0">• Day One: Exploring the Junos CLI 2e</text>
+    <text x="316" y="254" font-size="11" font-weight="600" fill="#a5f3fc">→ 3,007 commands</text>
+  </g>
+
+  <!-- Arista sources -->
+  <g>
+    <rect x="560" y="142" width="240" height="124" rx="8" fill="url(#g-arista)" opacity="0.95"/>
+    <text x="576" y="166" font-size="13" font-weight="700" fill="#fff">ARISTA</text>
+    <text x="576" y="186" font-size="11" fill="#e2e8f0">• EOS User Guide v4.36.0F (official)</text>
+    <text x="576" y="254" font-size="11" font-weight="600" fill="#a5f3fc">→ 2,868 commands</text>
+  </g>
+
+  <!-- Community + seed -->
+  <g>
+    <rect x="820" y="142" width="380" height="124" rx="8" fill="#1f2937" stroke="#374151"/>
+    <text x="836" y="166" font-size="13" font-weight="700" fill="#cbd5e1">COMMUNITY + CURATED</text>
+    <text x="836" y="186" font-size="11" fill="#94a3b8">• grplyler · r7perezyera · hyprblaze · cmdref.net</text>
+    <text x="836" y="202" font-size="11" fill="#94a3b8">• INSRapperswil cheatsheets · NX-OS gist</text>
+    <text x="836" y="218" font-size="11" fill="#94a3b8">• Hand-curated seed (187)</text>
+    <text x="836" y="234" font-size="11" fill="#94a3b8">• External merged.json (prior-curated 9.8k)</text>
+    <text x="836" y="254" font-size="11" font-weight="600" fill="#a5f3fc">→ all merged, deduped by cmd</text>
+  </g>
+
+  <!-- arrows down -->
+  <line x1="160" y1="270" x2="160" y2="306" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="420" y1="270" x2="420" y2="306" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="680" y1="270" x2="680" y2="306" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="1010" y1="270" x2="1010" y2="306" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- LAYER 2: Parsers -->
+  <text x="40" y="338" font-size="11" font-weight="700" fill="#64748b" letter-spacing="1.8">2 — REPRODUCIBLE PYTHON PARSERS (stdlib only, scripts/parse_*.py)</text>
+  <line x1="40" y1="344" x2="1200" y2="344" stroke="#1f2937" stroke-width="1"/>
+
+  <g>
+    <rect x="40" y="362" width="240" height="78" rx="6" fill="url(#g-build)" stroke="#334155"/>
+    <text x="56" y="386" font-size="12" font-weight="700" fill="#e2e8f0">parse_encor.py</text>
+    <text x="56" y="404" font-size="10" fill="#94a3b8">Chapter→cat map · DESC_STARTERS regex</text>
+    <text x="56" y="420" font-size="10" fill="#94a3b8">SECTION_RECAT overrides</text>
+    <text x="56" y="434" font-size="10" font-weight="600" fill="#22d3ee">encor.json · 1,391 entries</text>
+
+    <rect x="40" y="448" width="240" height="60" rx="6" fill="url(#g-build)" stroke="#334155"/>
+    <text x="56" y="468" font-size="12" font-weight="700" fill="#e2e8f0">parse_cisco_ospf.py</text>
+    <text x="56" y="486" font-size="10" fill="#94a3b8">Bold-backtick format · OSPF-locked cat</text>
+    <text x="56" y="502" font-size="10" font-weight="600" fill="#22d3ee">cisco_ospf.json · 111 entries</text>
+  </g>
+
+  <g>
+    <rect x="300" y="362" width="240" height="146" rx="6" fill="url(#g-build)" stroke="#334155"/>
+    <text x="316" y="386" font-size="12" font-weight="700" fill="#e2e8f0">parse_junos.py</text>
+    <text x="316" y="404" font-size="10" fill="#94a3b8">Two modes: Day-One style</text>
+    <text x="316" y="420" font-size="10" fill="#94a3b8">+ alphabetical Index reference</text>
+    <text x="316" y="436" font-size="10" font-weight="600" fill="#22d3ee">junos.json · 2,694 entries</text>
+  </g>
+
+  <g>
+    <rect x="560" y="362" width="240" height="78" rx="6" fill="url(#g-build)" stroke="#334155"/>
+    <text x="576" y="386" font-size="12" font-weight="700" fill="#e2e8f0">parse_arista.py</text>
+    <text x="576" y="404" font-size="10" fill="#94a3b8">22-chapter CHAPTER_CAT · RECAT</text>
+    <text x="576" y="420" font-size="10" fill="#94a3b8">keywords (BGP/OSPF/VLAN/…)</text>
+    <text x="576" y="434" font-size="10" font-weight="600" fill="#22d3ee">arista.json · 2,804 entries</text>
+
+    <rect x="560" y="448" width="240" height="60" rx="6" fill="url(#g-build)" stroke="#334155"/>
+    <text x="576" y="468" font-size="12" font-weight="700" fill="#e2e8f0">parse_cisco_extras.py</text>
+    <text x="576" y="486" font-size="10" fill="#94a3b8">ASA 9.24 + NX-OS VXLAN/EVPN</text>
+    <text x="576" y="502" font-size="10" font-weight="600" fill="#22d3ee">335 + 61 entries · role clamp</text>
+  </g>
+
+  <g>
+    <rect x="820" y="362" width="380" height="146" rx="6" fill="url(#g-build)" stroke="#334155"/>
+    <text x="836" y="386" font-size="12" font-weight="700" fill="#e2e8f0">parse.py — master merger</text>
+    <text x="836" y="404" font-size="10" fill="#94a3b8">Format-tolerant generic walker for community markdown:</text>
+    <text x="836" y="420" font-size="10" fill="#94a3b8">  • fenced code blocks · AsciiDoc tables · blockquotes</text>
+    <text x="836" y="436" font-size="10" fill="#94a3b8">Merges all *.json from dedicated parsers</text>
+    <text x="836" y="452" font-size="10" fill="#94a3b8">Heuristic detect_os / detect_role / categorize</text>
+    <text x="836" y="468" font-size="10" fill="#94a3b8">Global dedupe by normalized cmd</text>
+    <text x="836" y="490" font-size="11" font-weight="600" fill="#22d3ee">→ commands.json (single source of truth)</text>
+  </g>
+
+  <line x1="620" y1="514" x2="620" y2="550" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- LAYER 3: commands.json -->
+  <g>
+    <rect x="280" y="554" width="680" height="62" rx="8" fill="url(#g-cmds)" opacity="0.9"/>
+    <text x="304" y="582" font-size="16" font-weight="700" fill="#0a0e15">commands.json</text>
+    <text x="304" y="602" font-size="11" font-weight="600" fill="#0a0e15">9,808 commands · {os, role, vendor, cat, title, cmd, desc} · ~3.0 MB</text>
+    <text x="724" y="582" font-size="11" font-weight="700" fill="#0a0e15" text-anchor="end">26 categories</text>
+    <text x="724" y="602" font-size="11" fill="#0a0e15" text-anchor="end">3 vendors · 5 OS</text>
+    <text x="934" y="582" font-size="11" font-weight="700" fill="#0a0e15" text-anchor="end">router 6,520</text>
+    <text x="934" y="602" font-size="11" fill="#0a0e15" text-anchor="end">switch 2,812 · firewall 476</text>
+  </g>
+
+  <line x1="620" y1="620" x2="620" y2="650" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- LAYER 4: UI -->
+  <text x="40" y="666" font-size="11" font-weight="700" fill="#64748b" letter-spacing="1.8">3 — SINGLE-FILE STATIC UI (index.html · vanilla JS · GitHub Pages)</text>
+  <line x1="40" y1="672" x2="1200" y2="672" stroke="#1f2937" stroke-width="1"/>
+
+  <g>
+    <rect x="40" y="688" width="222" height="56" rx="6" fill="url(#g-ui)" stroke="#22d3ee"/>
+    <text x="151" y="710" font-size="12" font-weight="700" fill="#e2e8f0" text-anchor="middle">CARDS · TABLE · COMPARE</text>
+    <text x="151" y="728" font-size="10" fill="#94a3b8" text-anchor="middle">3 views · vendor stripe · sticky cols</text>
+  </g>
+  <g>
+    <rect x="278" y="688" width="222" height="56" rx="6" fill="url(#g-ui)" stroke="#22d3ee"/>
+    <text x="389" y="710" font-size="12" font-weight="700" fill="#e2e8f0" text-anchor="middle">SEARCH · FILTERS · DEEP-LINK</text>
+    <text x="389" y="728" font-size="10" fill="#94a3b8" text-anchor="middle">vendor: os: cat: role: · ?ws= URL</text>
+  </g>
+  <g>
+    <rect x="516" y="688" width="222" height="56" rx="6" fill="url(#g-ui)" stroke="#a78bfa"/>
+    <text x="627" y="710" font-size="12" font-weight="700" fill="#e2e8f0" text-anchor="middle">AUTOMATE — YANG / SSH</text>
+    <text x="627" y="728" font-size="10" fill="#94a3b8" text-anchor="middle">NETCONF · ncclient · Ansible · NAPALM</text>
+  </g>
+  <g>
+    <rect x="754" y="688" width="222" height="56" rx="6" fill="url(#g-ui)" stroke="#22d3ee"/>
+    <text x="865" y="710" font-size="12" font-weight="700" fill="#e2e8f0" text-anchor="middle">CLI BUILDER · PARSE OUTPUT</text>
+    <text x="865" y="728" font-size="10" fill="#94a3b8" text-anchor="middle">queue mix-vendor · TextFSM-lite</text>
+  </g>
+  <g>
+    <rect x="992" y="688" width="208" height="56" rx="6" fill="url(#g-ui)" stroke="#22d3ee"/>
+    <text x="1096" y="710" font-size="12" font-weight="700" fill="#e2e8f0" text-anchor="middle">EXPORT · FAVORITES · RECENT</text>
+    <text x="1096" y="728" font-size="10" fill="#94a3b8" text-anchor="middle">TXT · MD · CSV · JSON · localStorage</text>
+  </g>
+</svg>
