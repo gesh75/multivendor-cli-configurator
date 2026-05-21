@@ -3083,25 +3083,27 @@ function buildCard(d){
   actions.appendChild(copyBtn);
   actions.appendChild(addBtn);
   actions.appendChild(cmpBtn);
-  // Overflow menu collapses the less-frequent actions (Automate + Equivalents).
-  // Primary row now: Copy · + CLI · ↔ Compare · ⋯
+  // Automate is the killer feature — always visible. Native YANG mappings get
+  // the filled "⚡" treatment; everything else gets the outlined "🔧" SSH wrapper.
   const hasNative = !!findAutomationMapping(d);
+  const autoBtn = el("button",{
+    class:"actbtn auto " + (hasNative ? "native" : "fallback"),
+    title: hasNative
+      ? "Open NETCONF/YANG/Ansible model-driven snippets (values pre-filled from this command)"
+      : "Open Netmiko/Ansible/NAPALM SSH-wrapper snippets",
+    onClick:()=>{ openAutomation(d); pushRecent(d); }
+  }, hasNative ? "⚡ Automate" : "🔧 Automate");
+  actions.appendChild(autoBtn);
+  // ⋯ overflow keeps the less-frequent "See cross-vendor equivalents" action
+  // so we don't grow the visible row past 5 buttons.
   const overflowWrap = el("div",{class:"actbtn-more",style:"position:relative;display:inline-block"});
-  const moreBtn = el("button",{class:"actbtn",title:"More actions (Automate, equivalents…)",
+  const moreBtn = el("button",{class:"actbtn",title:"More actions",
     onClick:(e)=>{e.stopPropagation();
       const m = overflowWrap.querySelector(".actbtn-menu");
       m.classList.toggle("open");
-      // Close any other open menu
       document.querySelectorAll(".actbtn-menu.open").forEach(o=>{ if(o!==m) o.classList.remove("open"); });
     }}, "⋯");
   const menu = el("div",{class:"actbtn-menu"});
-  menu.appendChild(el("button",{
-    class:"actbtn-menu-item " + (hasNative ? "native" : "fallback"),
-    title: hasNative
-      ? "Show NETCONF/YANG/Ansible equivalents (model-driven, values extracted from this command)"
-      : "Show Netmiko/Ansible/NAPALM equivalents (CLI-wrapper fallback)",
-    onClick:()=>{ menu.classList.remove("open"); openAutomation(d); pushRecent(d); }
-  }, hasNative ? "⚡ Automate (YANG, model-driven)" : "🔧 Automate (SSH wrapper)"));
   menu.appendChild(el("button",{class:"actbtn-menu-item",
     onClick:()=>{ menu.classList.remove("open"); openEquivalents(d); }
   }, "↗ See cross-vendor equivalents"));
