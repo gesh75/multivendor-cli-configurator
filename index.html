@@ -2820,10 +2820,10 @@ function matches(d){
   if(state.cat.size && !state.cat.has(d.cat)) return false;
   if(state.showFavOnly && !state.fav.has(fkey(d))) return false;
   if(ops.fav && !state.fav.has(fkey(d))) return false;
-  if(ops.vendor.length && !ops.vendor.some(v=>d.vendor.toLowerCase().includes(v))) return false;
-  if(ops.os.length && !ops.os.some(v=>d.os.toLowerCase().includes(v) || (OSLABEL[d.os]||"").toLowerCase().includes(v))) return false;
-  if(ops.role.length && !ops.role.some(v=>d.role.toLowerCase().includes(v))) return false;
-  if(ops.cat.length && !ops.cat.some(v=>d.cat.toLowerCase().includes(v))) return false;
+  if(ops.vendor.length && !ops.vendor.some(v=>d.vendor.toLowerCase().includes(v.toLowerCase()))) return false;
+  if(ops.os.length && !ops.os.some(v=>{const vl=v.toLowerCase();return d.os.toLowerCase().includes(vl) || (OSLABEL[d.os]||"").toLowerCase().includes(vl);})) return false;
+  if(ops.role.length && !ops.role.some(v=>d.role.toLowerCase().includes(v.toLowerCase()))) return false;
+  if(ops.cat.length && !ops.cat.some(v=>d.cat.toLowerCase().includes(v.toLowerCase()))) return false;
   if(text){
     const hay = (d.title+" "+d.cmd+" "+d.desc+" "+d.cat+" "+d.os+" "+d.vendor+" "+d.role).toLowerCase();
     if(!hay.includes(text)) return false;
