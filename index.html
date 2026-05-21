@@ -44,13 +44,15 @@ header{position:sticky;top:0;z-index:30;backdrop-filter:blur(10px);background:rg
 .stats b{color:var(--ink)}
 
 main{display:grid;grid-template-columns:var(--side-w,240px) minmax(0,1fr);gap:16px;padding:14px;max-width:1700px;margin:0 auto;transition:grid-template-columns .15s}
+/* Pin each child to its column EXPLICITLY, otherwise display:none on .side
+   auto-flows .content into the (now-empty) first column, which collapses it
+   to 0-2px wide and lets the page grow to millions of pixels tall. */
+aside.side{grid-column:1}
+section.content{grid-column:2;min-width:0;width:100%}
 main.lcollapsed{grid-template-columns:0 minmax(0,1fr);gap:0}
-main.lcollapsed .side{display:none}
-/* Force the results column to claim full width when sidebar is hidden — grid items
-   default to min-width:auto which can let inner content (long code blocks) pin
-   the column at content-size and leave whitespace to the right. */
-section.content{min-width:0;width:100%}
-main.lcollapsed section.content{padding-left:2px}
+/* visibility:hidden + width:0 instead of display:none keeps the grid track real
+   so .content stays in column 2; the side is fully invisible and click-through. */
+main.lcollapsed aside.side{visibility:hidden;pointer-events:none;width:0;border:0;padding:0;overflow:hidden}
 
 .side{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:0;height:calc(100vh - 110px);overflow:auto;position:sticky;top:88px;
   /* Subtle bottom-edge fade hints there's more content to scroll */
@@ -155,11 +157,11 @@ table.cmd td{padding:8px 10px;border-bottom:1px solid var(--line-2);vertical-ali
 table.cmd tr:hover td{background:var(--panel-2)}
 table.cmd td.cmd-cell{max-width:480px;color:var(--code-ink)}
 /* Sticky left columns for horizontal scroll: Title (col 1) and Command (col 2)
-   stay pinned. Title fades into a soft right-shadow when scrolled to indicate
-   there's more content to the right. */
-table.cmd th:nth-child(1), table.cmd td:nth-child(1){position:sticky;left:0;z-index:2;min-width:200px;max-width:240px}
+   stay pinned. Widths are fixed so Command's sticky-left offset can't overlap
+   Title. Command fades into a soft right-shadow when scrolled. */
+table.cmd th:nth-child(1), table.cmd td:nth-child(1){position:sticky;left:0;z-index:2;width:220px;min-width:220px;max-width:220px}
 table.cmd thead th:nth-child(1){z-index:4}
-table.cmd th:nth-child(2), table.cmd td:nth-child(2){position:sticky;left:220px;z-index:2;box-shadow:6px 0 8px -6px rgba(0,0,0,.35)}
+table.cmd th:nth-child(2), table.cmd td:nth-child(2){position:sticky;left:220px;z-index:2;box-shadow:6px 0 8px -6px rgba(0,0,0,.35);min-width:280px;max-width:380px}
 table.cmd thead th:nth-child(2){z-index:4}
 
 .compare-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
