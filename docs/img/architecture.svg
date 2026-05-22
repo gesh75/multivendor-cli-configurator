@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 760" font-family="-apple-system, Segoe UI, Inter, Roboto, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 900" font-family="-apple-system, Segoe UI, Inter, Roboto, sans-serif">
   <defs>
     <linearGradient id="g-cisco" x1="0" x2="1" y1="0" y2="1">
       <stop offset="0" stop-color="#0d4f8b"/><stop offset="1" stop-color="#1769b8"/>
@@ -13,165 +13,342 @@
     <linearGradient id="g-build" x1="0" x2="0" y1="0" y2="1">
       <stop offset="0" stop-color="#1c2333"/><stop offset="1" stop-color="#0c1018"/>
     </linearGradient>
-    <linearGradient id="g-cmds" x1="0" x2="0" y1="0" y2="1">
-      <stop offset="0" stop-color="#22d3ee"/><stop offset="1" stop-color="#7c3aed"/>
+    <linearGradient id="g-cmds" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#22d3ee">
+        <animate attributeName="stop-color" values="#22d3ee;#7c3aed;#22d3ee" dur="6s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="0.5" stop-color="#7c3aed">
+        <animate attributeName="stop-color" values="#7c3aed;#22d3ee;#7c3aed" dur="6s" repeatCount="indefinite"/>
+      </stop>
+      <stop offset="1" stop-color="#22d3ee">
+        <animate attributeName="stop-color" values="#22d3ee;#7c3aed;#22d3ee" dur="6s" repeatCount="indefinite"/>
+      </stop>
     </linearGradient>
     <linearGradient id="g-ui" x1="0" x2="0" y1="0" y2="1">
       <stop offset="0" stop-color="#0f1721"/><stop offset="1" stop-color="#070b12"/>
     </linearGradient>
+    <linearGradient id="g-sweep" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#22d3ee" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#22d3ee" stop-opacity="0.7"/>
+      <stop offset="1" stop-color="#22d3ee" stop-opacity="0"/>
+    </linearGradient>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
       <path d="M0,0 L10,5 L0,10 z" fill="#94a3b8"/>
     </marker>
+
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="soft-glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Reusable animated particle -->
+    <g id="particle">
+      <circle r="4" fill="#7dd3fc" filter="url(#soft-glow)"/>
+    </g>
+
+    <!-- Vertical paths for particles to ride -->
+    <path id="path-cisco"   d="M 175,360 L 175,490"/>
+    <path id="path-juniper" d="M 437,360 L 437,490"/>
+    <path id="path-arista"  d="M 700,360 L 700,490"/>
+    <path id="path-comm"    d="M 962,360 L 962,490"/>
+
+    <!-- Hub-out paths to UI tiles -->
+    <path id="path-hub-1" d="M 540,580 L 195,650"/>
+    <path id="path-hub-2" d="M 590,580 L 437,650"/>
+    <path id="path-hub-3" d="M 660,580 L 680,650"/>
+    <path id="path-hub-4" d="M 710,580 L 925,650"/>
+    <path id="path-hub-5" d="M 760,580 L 1165,650"/>
   </defs>
 
   <!-- Background -->
-  <rect width="1240" height="760" fill="#0a0e15"/>
+  <rect width="1240" height="900" fill="#0a0e15"/>
+
+  <!-- Animated background grid pulse -->
+  <g opacity="0.05">
+    <rect width="1240" height="900" fill="url(#g-cmds)">
+      <animate attributeName="opacity" values="0.03;0.08;0.03" dur="8s" repeatCount="indefinite"/>
+    </rect>
+  </g>
 
   <!-- Title -->
-  <text x="40" y="46" font-size="22" font-weight="700" fill="#e5e7eb">Multivendor CLI Reference — Architecture</text>
-  <text x="40" y="70" font-size="12" fill="#94a3b8">7 vendor sources → reproducible parsers → 9,808 commands → single-file static HTML</text>
+  <text x="60" y="50" fill="#e6edf6" font-size="24" font-weight="700">Multivendor CLI Reference — Architecture</text>
+  <text x="60" y="76" fill="#94a3b8" font-size="13">
+    7 vendor sources → reproducible parsers → 9,808 commands → single-file static HTML
+  </text>
 
-  <!-- LAYER 1: Sources -->
-  <text x="40" y="118" font-size="11" font-weight="700" fill="#64748b" letter-spacing="1.8">1 — VENDOR SOURCES (PUBLIC PUBLICATIONS)</text>
-  <line x1="40" y1="124" x2="1200" y2="124" stroke="#1f2937" stroke-width="1"/>
-
-  <!-- Cisco sources -->
+  <!-- ============== LAYER 1: VENDOR SOURCES ============== -->
   <g>
-    <rect x="40" y="142" width="240" height="124" rx="8" fill="url(#g-cisco)" opacity="0.95"/>
-    <text x="56" y="166" font-size="13" font-weight="700" fill="#fff">CISCO</text>
-    <text x="56" y="186" font-size="11" fill="#e2e8f0">• ENCOR / ENARSI Portable CG (Cisco Press)</text>
-    <text x="56" y="202" font-size="11" fill="#e2e8f0">• ASA 9.24 CLI Reference (Books 1–3)</text>
-    <text x="56" y="218" font-size="11" fill="#e2e8f0">• IOS OSPF Command Reference</text>
-    <text x="56" y="234" font-size="11" fill="#e2e8f0">• VXLAN BGP EVPN NX-OS Reference</text>
-    <text x="56" y="254" font-size="11" font-weight="600" fill="#a5f3fc">→ 3,933 commands</text>
+    <text x="60" y="120" fill="#94a3b8" font-size="11" letter-spacing="2">1 — VENDOR SOURCES (PUBLIC PUBLICATIONS)</text>
+    <line x1="60" y1="132" x2="1180" y2="132" stroke="#1f2937" stroke-width="1"/>
+    <!-- shimmer sweep on layer header -->
+    <rect x="60" y="129" width="240" height="3" fill="url(#g-sweep)">
+      <animate attributeName="x" values="60;940;60" dur="7s" repeatCount="indefinite"/>
+    </rect>
   </g>
 
-  <!-- Juniper sources -->
+  <!-- Cisco source -->
   <g>
-    <rect x="300" y="142" width="240" height="124" rx="8" fill="url(#g-juniper)" opacity="0.95"/>
-    <text x="316" y="166" font-size="13" font-weight="700" fill="#fff">JUNIPER</text>
-    <text x="316" y="186" font-size="11" fill="#e2e8f0">• Junos OS CLI Reference (2025)</text>
-    <text x="316" y="202" font-size="11" fill="#e2e8f0">• Day One: Beginner's Guide to Junos</text>
-    <text x="316" y="218" font-size="11" fill="#e2e8f0">• Day One: Exploring the Junos CLI 2e</text>
-    <text x="316" y="254" font-size="11" font-weight="600" fill="#a5f3fc">→ 3,007 commands</text>
+    <rect x="60" y="150" width="230" height="210" rx="12" fill="url(#g-cisco)" opacity="0.95">
+      <animate attributeName="opacity" values="0.95;1;0.95" dur="4s" repeatCount="indefinite"/>
+    </rect>
+    <text x="78" y="180" fill="#dbeafe" font-size="12" letter-spacing="2">CISCO</text>
+    <text x="78" y="208" fill="#fff" font-size="13">• ENCOR / ENARSI Portable CG (Cisco Press)</text>
+    <text x="78" y="228" fill="#fff" font-size="13">• ASA 9.24 CLI Reference (Books 1–3)</text>
+    <text x="78" y="248" fill="#fff" font-size="13">• IOS OSPF Command Reference</text>
+    <text x="78" y="268" fill="#fff" font-size="13">• VXLAN BGP EVPN NX-OS Reference</text>
+    <text x="78" y="340" fill="#bfdbfe" font-size="14" font-weight="700">→ 3,933 commands</text>
   </g>
 
-  <!-- Arista sources -->
+  <!-- Juniper source -->
   <g>
-    <rect x="560" y="142" width="240" height="124" rx="8" fill="url(#g-arista)" opacity="0.95"/>
-    <text x="576" y="166" font-size="13" font-weight="700" fill="#fff">ARISTA</text>
-    <text x="576" y="186" font-size="11" fill="#e2e8f0">• EOS User Guide v4.36.0F (official)</text>
-    <text x="576" y="254" font-size="11" font-weight="600" fill="#a5f3fc">→ 2,868 commands</text>
+    <rect x="320" y="150" width="230" height="210" rx="12" fill="url(#g-juniper)" opacity="0.95">
+      <animate attributeName="opacity" values="0.95;1;0.95" dur="4s" begin="1s" repeatCount="indefinite"/>
+    </rect>
+    <text x="338" y="180" fill="#d1fae5" font-size="12" letter-spacing="2">JUNIPER</text>
+    <text x="338" y="208" fill="#fff" font-size="13">• Junos OS CLI Reference (2025)</text>
+    <text x="338" y="228" fill="#fff" font-size="13">• Day One: Beginner's Guide to Junos</text>
+    <text x="338" y="248" fill="#fff" font-size="13">• Day One: Exploring the Junos CLI 2e</text>
+    <text x="338" y="340" fill="#a7f3d0" font-size="14" font-weight="700">→ 3,007 commands</text>
   </g>
 
-  <!-- Community + seed -->
+  <!-- Arista source -->
   <g>
-    <rect x="820" y="142" width="380" height="124" rx="8" fill="#1f2937" stroke="#374151"/>
-    <text x="836" y="166" font-size="13" font-weight="700" fill="#cbd5e1">COMMUNITY + CURATED</text>
-    <text x="836" y="186" font-size="11" fill="#94a3b8">• grplyler · r7perezyera · hyprblaze · cmdref.net</text>
-    <text x="836" y="202" font-size="11" fill="#94a3b8">• INSRapperswil cheatsheets · NX-OS gist</text>
-    <text x="836" y="218" font-size="11" fill="#94a3b8">• Hand-curated seed (187)</text>
-    <text x="836" y="234" font-size="11" fill="#94a3b8">• External merged.json (prior-curated 9.8k)</text>
-    <text x="836" y="254" font-size="11" font-weight="600" fill="#a5f3fc">→ all merged, deduped by cmd</text>
+    <rect x="580" y="150" width="230" height="210" rx="12" fill="url(#g-arista)" opacity="0.95">
+      <animate attributeName="opacity" values="0.95;1;0.95" dur="4s" begin="2s" repeatCount="indefinite"/>
+    </rect>
+    <text x="598" y="180" fill="#fed7aa" font-size="12" letter-spacing="2">ARISTA</text>
+    <text x="598" y="208" fill="#fff" font-size="13">• EOS User Guide v4.36.0F (official)</text>
+    <text x="598" y="340" fill="#fde4cf" font-size="14" font-weight="700">→ 2,868 commands</text>
   </g>
 
-  <!-- arrows down -->
-  <line x1="160" y1="270" x2="160" y2="306" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
-  <line x1="420" y1="270" x2="420" y2="306" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
-  <line x1="680" y1="270" x2="680" y2="306" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
-  <line x1="1010" y1="270" x2="1010" y2="306" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
-
-  <!-- LAYER 2: Parsers -->
-  <text x="40" y="338" font-size="11" font-weight="700" fill="#64748b" letter-spacing="1.8">2 — REPRODUCIBLE PYTHON PARSERS (stdlib only, scripts/parse_*.py)</text>
-  <line x1="40" y1="344" x2="1200" y2="344" stroke="#1f2937" stroke-width="1"/>
-
+  <!-- Community + curated source -->
   <g>
-    <rect x="40" y="362" width="240" height="78" rx="6" fill="url(#g-build)" stroke="#334155"/>
-    <text x="56" y="386" font-size="12" font-weight="700" fill="#e2e8f0">parse_encor.py</text>
-    <text x="56" y="404" font-size="10" fill="#94a3b8">Chapter→cat map · DESC_STARTERS regex</text>
-    <text x="56" y="420" font-size="10" fill="#94a3b8">SECTION_RECAT overrides</text>
-    <text x="56" y="434" font-size="10" font-weight="600" fill="#22d3ee">encor.json · 1,391 entries</text>
-
-    <rect x="40" y="448" width="240" height="60" rx="6" fill="url(#g-build)" stroke="#334155"/>
-    <text x="56" y="468" font-size="12" font-weight="700" fill="#e2e8f0">parse_cisco_ospf.py</text>
-    <text x="56" y="486" font-size="10" fill="#94a3b8">Bold-backtick format · OSPF-locked cat</text>
-    <text x="56" y="502" font-size="10" font-weight="600" fill="#22d3ee">cisco_ospf.json · 111 entries</text>
+    <rect x="840" y="150" width="340" height="210" rx="12" fill="#10182a" stroke="#22d3ee" stroke-width="1" opacity="0.9">
+      <animate attributeName="stroke-opacity" values="0.4;1;0.4" dur="4s" begin="3s" repeatCount="indefinite"/>
+    </rect>
+    <text x="858" y="180" fill="#94a3b8" font-size="12" letter-spacing="2">COMMUNITY + CURATED</text>
+    <text x="858" y="208" fill="#e6edf6" font-size="13">• grplyler · r7perezyera · hyprblaze · cmdref.net</text>
+    <text x="858" y="228" fill="#e6edf6" font-size="13">• INSRapperswil cheatsheets · NX-OS gist</text>
+    <text x="858" y="248" fill="#e6edf6" font-size="13">• Hand-curated seed (187)</text>
+    <text x="858" y="268" fill="#e6edf6" font-size="13">• External merged.json (prior-curated 9.8k)</text>
+    <text x="858" y="340" fill="#22d3ee" font-size="14" font-weight="700">→ all merged, deduped by cmd</text>
   </g>
 
-  <g>
-    <rect x="300" y="362" width="240" height="146" rx="6" fill="url(#g-build)" stroke="#334155"/>
-    <text x="316" y="386" font-size="12" font-weight="700" fill="#e2e8f0">parse_junos.py</text>
-    <text x="316" y="404" font-size="10" fill="#94a3b8">Two modes: Day-One style</text>
-    <text x="316" y="420" font-size="10" fill="#94a3b8">+ alphabetical Index reference</text>
-    <text x="316" y="436" font-size="10" font-weight="600" fill="#22d3ee">junos.json · 2,694 entries</text>
+  <!-- Arrows down (sources → parsers) -->
+  <g stroke="#94a3b8" stroke-width="1.5" fill="none" marker-end="url(#arrow)">
+    <line x1="175" y1="360" x2="175" y2="395"/>
+    <line x1="435" y1="360" x2="435" y2="395"/>
+    <line x1="695" y1="360" x2="695" y2="395"/>
+    <line x1="1010" y1="360" x2="1010" y2="395"/>
   </g>
 
-  <g>
-    <rect x="560" y="362" width="240" height="78" rx="6" fill="url(#g-build)" stroke="#334155"/>
-    <text x="576" y="386" font-size="12" font-weight="700" fill="#e2e8f0">parse_arista.py</text>
-    <text x="576" y="404" font-size="10" fill="#94a3b8">22-chapter CHAPTER_CAT · RECAT</text>
-    <text x="576" y="420" font-size="10" fill="#94a3b8">keywords (BGP/OSPF/VLAN/…)</text>
-    <text x="576" y="434" font-size="10" font-weight="600" fill="#22d3ee">arista.json · 2,804 entries</text>
+  <!-- Flowing particles down each lane -->
+  <use href="#particle">
+    <animateMotion dur="2.5s" repeatCount="indefinite" path="M 175,360 L 175,490"/>
+    <animate attributeName="opacity" values="0;1;1;0" dur="2.5s" repeatCount="indefinite"/>
+  </use>
+  <use href="#particle">
+    <animateMotion dur="2.5s" begin="0.8s" repeatCount="indefinite" path="M 175,360 L 175,490"/>
+    <animate attributeName="opacity" values="0;1;1;0" dur="2.5s" begin="0.8s" repeatCount="indefinite"/>
+  </use>
 
-    <rect x="560" y="448" width="240" height="60" rx="6" fill="url(#g-build)" stroke="#334155"/>
-    <text x="576" y="468" font-size="12" font-weight="700" fill="#e2e8f0">parse_cisco_extras.py</text>
-    <text x="576" y="486" font-size="10" fill="#94a3b8">ASA 9.24 + NX-OS VXLAN/EVPN</text>
-    <text x="576" y="502" font-size="10" font-weight="600" fill="#22d3ee">335 + 61 entries · role clamp</text>
+  <use href="#particle">
+    <animateMotion dur="2.5s" begin="0.4s" repeatCount="indefinite" path="M 437,360 L 437,490"/>
+    <animate attributeName="opacity" values="0;1;1;0" dur="2.5s" begin="0.4s" repeatCount="indefinite"/>
+  </use>
+  <use href="#particle">
+    <animateMotion dur="2.5s" begin="1.5s" repeatCount="indefinite" path="M 437,360 L 437,490"/>
+    <animate attributeName="opacity" values="0;1;1;0" dur="2.5s" begin="1.5s" repeatCount="indefinite"/>
+  </use>
+
+  <use href="#particle">
+    <animateMotion dur="2.5s" begin="0.6s" repeatCount="indefinite" path="M 700,360 L 700,490"/>
+    <animate attributeName="opacity" values="0;1;1;0" dur="2.5s" begin="0.6s" repeatCount="indefinite"/>
+  </use>
+  <use href="#particle">
+    <animateMotion dur="2.5s" begin="1.9s" repeatCount="indefinite" path="M 700,360 L 700,490"/>
+    <animate attributeName="opacity" values="0;1;1;0" dur="2.5s" begin="1.9s" repeatCount="indefinite"/>
+  </use>
+
+  <use href="#particle">
+    <animateMotion dur="2.5s" begin="0.2s" repeatCount="indefinite" path="M 1010,360 L 1010,490"/>
+    <animate attributeName="opacity" values="0;1;1;0" dur="2.5s" begin="0.2s" repeatCount="indefinite"/>
+  </use>
+  <use href="#particle">
+    <animateMotion dur="2.5s" begin="1.3s" repeatCount="indefinite" path="M 1010,360 L 1010,490"/>
+    <animate attributeName="opacity" values="0;1;1;0" dur="2.5s" begin="1.3s" repeatCount="indefinite"/>
+  </use>
+
+  <!-- ============== LAYER 2: PARSERS ============== -->
+  <g>
+    <text x="60" y="420" fill="#94a3b8" font-size="11" letter-spacing="2">2 — REPRODUCIBLE PYTHON PARSERS (stdlib only, scripts/parse_*.py)</text>
+    <line x1="60" y1="432" x2="1180" y2="432" stroke="#1f2937" stroke-width="1"/>
+    <rect x="60" y="429" width="240" height="3" fill="url(#g-sweep)">
+      <animate attributeName="x" values="60;940;60" dur="7s" begin="1.5s" repeatCount="indefinite"/>
+    </rect>
   </g>
 
-  <g>
-    <rect x="820" y="362" width="380" height="146" rx="6" fill="url(#g-build)" stroke="#334155"/>
-    <text x="836" y="386" font-size="12" font-weight="700" fill="#e2e8f0">parse.py — master merger</text>
-    <text x="836" y="404" font-size="10" fill="#94a3b8">Format-tolerant generic walker for community markdown:</text>
-    <text x="836" y="420" font-size="10" fill="#94a3b8">  • fenced code blocks · AsciiDoc tables · blockquotes</text>
-    <text x="836" y="436" font-size="10" fill="#94a3b8">Merges all *.json from dedicated parsers</text>
-    <text x="836" y="452" font-size="10" fill="#94a3b8">Heuristic detect_os / detect_role / categorize</text>
-    <text x="836" y="468" font-size="10" fill="#94a3b8">Global dedupe by normalized cmd</text>
-    <text x="836" y="490" font-size="11" font-weight="600" fill="#22d3ee">→ commands.json (single source of truth)</text>
+  <g fill="url(#g-build)" stroke="#1f2937">
+    <rect x="60" y="450" width="230" height="80" rx="8"/>
+    <rect x="60" y="540" width="230" height="80" rx="8"/>
+    <rect x="320" y="450" width="230" height="170" rx="8"/>
+    <rect x="580" y="450" width="230" height="80" rx="8"/>
+    <rect x="580" y="540" width="230" height="80" rx="8"/>
+    <rect x="840" y="450" width="340" height="170" rx="8"/>
   </g>
 
-  <line x1="620" y1="514" x2="620" y2="550" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <g fill="#e6edf6" font-size="13">
+    <text x="78" y="476" font-weight="700">parse_encor.py</text>
+    <text x="78" y="498" font-size="12" fill="#94a3b8">Chapter→cat map · DESC_STARTERS regex</text>
+    <text x="78" y="514" font-size="12" fill="#94a3b8">SECTION_RECAT overrides</text>
+    <text x="78" y="528" font-size="11" fill="#22d3ee">encor.json · 1,391 entries</text>
 
-  <!-- LAYER 3: commands.json -->
-  <g>
-    <rect x="280" y="554" width="680" height="62" rx="8" fill="url(#g-cmds)" opacity="0.9"/>
-    <text x="304" y="582" font-size="16" font-weight="700" fill="#0a0e15">commands.json</text>
-    <text x="304" y="602" font-size="11" font-weight="600" fill="#0a0e15">9,808 commands · {os, role, vendor, cat, title, cmd, desc} · ~3.0 MB</text>
-    <text x="724" y="582" font-size="11" font-weight="700" fill="#0a0e15" text-anchor="end">26 categories</text>
-    <text x="724" y="602" font-size="11" fill="#0a0e15" text-anchor="end">3 vendors · 5 OS</text>
-    <text x="934" y="582" font-size="11" font-weight="700" fill="#0a0e15" text-anchor="end">router 6,520</text>
-    <text x="934" y="602" font-size="11" fill="#0a0e15" text-anchor="end">switch 2,812 · firewall 476</text>
+    <text x="78" y="566" font-weight="700">parse_cisco_ospf.py</text>
+    <text x="78" y="588" font-size="12" fill="#94a3b8">Bold-backtick format · OSPF-locked cat</text>
+    <text x="78" y="616" font-size="11" fill="#22d3ee">cisco_ospf.json · 111 entries</text>
+
+    <text x="338" y="476" font-weight="700">parse_junos.py</text>
+    <text x="338" y="498" font-size="12" fill="#94a3b8">Two modes: Day-One style</text>
+    <text x="338" y="514" font-size="12" fill="#94a3b8">+ alphabetical Index reference</text>
+    <text x="338" y="528" font-size="11" fill="#22d3ee">junos.json · 2,694 entries</text>
+
+    <text x="598" y="476" font-weight="700">parse_arista.py</text>
+    <text x="598" y="498" font-size="12" fill="#94a3b8">22-chapter CHAPTER_CAT · RECAT</text>
+    <text x="598" y="514" font-size="12" fill="#94a3b8">keywords (BGP/OSPF/VLAN/...)</text>
+    <text x="598" y="528" font-size="11" fill="#22d3ee">arista.json · 2,804 entries</text>
+
+    <text x="598" y="566" font-weight="700">parse_cisco_extras.py</text>
+    <text x="598" y="588" font-size="12" fill="#94a3b8">ASA 9.24 + NX-OS VXLAN/EVPN</text>
+    <text x="598" y="616" font-size="11" fill="#22d3ee">335 + 61 entries · role clamp</text>
+
+    <text x="858" y="476" font-weight="700">parse.py — master merger</text>
+    <text x="858" y="498" font-size="12" fill="#94a3b8">Format-tolerant generic walker for community markdown:</text>
+    <text x="858" y="514" font-size="12" fill="#94a3b8">• fenced code blocks · AsciiDoc tables · blockquotes</text>
+    <text x="858" y="530" font-size="12" fill="#94a3b8">Merges all *.json from dedicated parsers</text>
+    <text x="858" y="546" font-size="12" fill="#94a3b8">Heuristic detect_os / detect_role / categorize</text>
+    <text x="858" y="562" font-size="12" fill="#94a3b8">Global dedupe by normalized cmd</text>
+    <text x="858" y="600" font-size="13" fill="#22d3ee" font-weight="700">→ commands.json (single source of truth)</text>
   </g>
 
-  <line x1="620" y1="620" x2="620" y2="650" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <!-- Arrows parsers → commands.json -->
+  <g stroke="#94a3b8" stroke-width="1.5" fill="none" marker-end="url(#arrow)">
+    <path d="M 175,620 C 175,650 620,650 620,665"/>
+    <path d="M 435,620 C 435,640 620,650 620,665"/>
+    <path d="M 695,620 C 695,640 620,650 620,665"/>
+    <path d="M 1010,620 C 1010,650 620,660 620,665"/>
+  </g>
 
-  <!-- LAYER 4: UI -->
-  <text x="40" y="666" font-size="11" font-weight="700" fill="#64748b" letter-spacing="1.8">3 — SINGLE-FILE STATIC UI (index.html · vanilla JS · GitHub Pages)</text>
-  <line x1="40" y1="672" x2="1200" y2="672" stroke="#1f2937" stroke-width="1"/>
+  <!-- Particles converging to the hub -->
+  <use href="#particle" opacity="0">
+    <animateMotion dur="3s" repeatCount="indefinite" path="M 175,620 C 175,650 620,650 620,665"/>
+    <animate attributeName="opacity" values="0;1;1;0" dur="3s" repeatCount="indefinite"/>
+  </use>
+  <use href="#particle" opacity="0">
+    <animateMotion dur="3s" begin="0.7s" repeatCount="indefinite" path="M 435,620 C 435,640 620,650 620,665"/>
+    <animate attributeName="opacity" values="0;1;1;0" dur="3s" begin="0.7s" repeatCount="indefinite"/>
+  </use>
+  <use href="#particle" opacity="0">
+    <animateMotion dur="3s" begin="1.4s" repeatCount="indefinite" path="M 695,620 C 695,640 620,650 620,665"/>
+    <animate attributeName="opacity" values="0;1;1;0" dur="3s" begin="1.4s" repeatCount="indefinite"/>
+  </use>
+  <use href="#particle" opacity="0">
+    <animateMotion dur="3s" begin="2.1s" repeatCount="indefinite" path="M 1010,620 C 1010,650 620,660 620,665"/>
+    <animate attributeName="opacity" values="0;1;1;0" dur="3s" begin="2.1s" repeatCount="indefinite"/>
+  </use>
 
-  <g>
-    <rect x="40" y="688" width="222" height="56" rx="6" fill="url(#g-ui)" stroke="#22d3ee"/>
-    <text x="151" y="710" font-size="12" font-weight="700" fill="#e2e8f0" text-anchor="middle">CARDS · TABLE · COMPARE</text>
-    <text x="151" y="728" font-size="10" fill="#94a3b8" text-anchor="middle">3 views · vendor stripe · sticky cols</text>
+  <!-- ============== HUB: commands.json ============== -->
+  <g filter="url(#glow)">
+    <rect x="320" y="665" width="600" height="76" rx="14" fill="url(#g-cmds)">
+      <animate attributeName="opacity" values="0.85;1;0.85" dur="3s" repeatCount="indefinite"/>
+    </rect>
   </g>
+  <text x="340" y="695" fill="#fff" font-size="18" font-weight="800">commands.json</text>
+  <text x="340" y="720" fill="#f0fdfa" font-size="12">9,808 commands · {os, role, vendor, cat, title, cmd, desc} · ~3.0 MB</text>
+  <text x="660" y="695" fill="#fff" font-size="13" text-anchor="middle">26 categories</text>
+  <text x="660" y="720" fill="#fff" font-size="12" text-anchor="middle">3 vendors · 5 OS</text>
+  <text x="900" y="695" fill="#fff" font-size="13" text-anchor="end">router 6,520</text>
+  <text x="900" y="720" fill="#fff" font-size="12" text-anchor="end">switch 2,812 · firewall 476</text>
+
+  <!-- subtle radiating halo on the hub -->
+  <ellipse cx="620" cy="703" rx="320" ry="46" fill="none" stroke="#22d3ee" stroke-width="1" opacity="0.4">
+    <animate attributeName="rx" values="320;360;320" dur="4s" repeatCount="indefinite"/>
+    <animate attributeName="ry" values="46;58;46" dur="4s" repeatCount="indefinite"/>
+    <animate attributeName="opacity" values="0.0;0.5;0.0" dur="4s" repeatCount="indefinite"/>
+  </ellipse>
+
+  <!-- ============== LAYER 3: SINGLE-FILE STATIC UI ============== -->
   <g>
-    <rect x="278" y="688" width="222" height="56" rx="6" fill="url(#g-ui)" stroke="#22d3ee"/>
-    <text x="389" y="710" font-size="12" font-weight="700" fill="#e2e8f0" text-anchor="middle">SEARCH · FILTERS · DEEP-LINK</text>
-    <text x="389" y="728" font-size="10" fill="#94a3b8" text-anchor="middle">vendor: os: cat: role: · ?ws= URL</text>
+    <text x="60" y="785" fill="#94a3b8" font-size="11" letter-spacing="2">3 — SINGLE-FILE STATIC UI (index.html · vanilla JS · GitHub Pages)</text>
+    <line x1="60" y1="797" x2="1180" y2="797" stroke="#1f2937" stroke-width="1"/>
+    <rect x="60" y="794" width="240" height="3" fill="url(#g-sweep)">
+      <animate attributeName="x" values="60;940;60" dur="7s" begin="3s" repeatCount="indefinite"/>
+    </rect>
   </g>
-  <g>
-    <rect x="516" y="688" width="222" height="56" rx="6" fill="url(#g-ui)" stroke="#a78bfa"/>
-    <text x="627" y="710" font-size="12" font-weight="700" fill="#e2e8f0" text-anchor="middle">AUTOMATE — YANG / SSH</text>
-    <text x="627" y="728" font-size="10" fill="#94a3b8" text-anchor="middle">NETCONF · ncclient · Ansible · NAPALM</text>
+
+  <!-- Outgoing arrows hub → UI tiles -->
+  <g stroke="#94a3b8" stroke-width="1.2" fill="none" marker-end="url(#arrow)" opacity="0.55">
+    <path d="M 420,741 C 380,790 195,810 195,815"/>
+    <path d="M 520,741 C 500,790 437,810 437,815"/>
+    <path d="M 620,741 L 680,815"/>
+    <path d="M 720,741 C 760,790 925,810 925,815"/>
+    <path d="M 820,741 C 920,790 1165,810 1165,815"/>
   </g>
-  <g>
-    <rect x="754" y="688" width="222" height="56" rx="6" fill="url(#g-ui)" stroke="#22d3ee"/>
-    <text x="865" y="710" font-size="12" font-weight="700" fill="#e2e8f0" text-anchor="middle">CLI BUILDER · PARSE OUTPUT</text>
-    <text x="865" y="728" font-size="10" fill="#94a3b8" text-anchor="middle">queue mix-vendor · TextFSM-lite</text>
+
+  <!-- Particles flowing OUT from the hub to UI tiles -->
+  <use href="#particle" opacity="0">
+    <animateMotion dur="3s" repeatCount="indefinite" path="M 420,741 C 380,790 195,810 195,815"/>
+    <animate attributeName="opacity" values="0;1;1;0" dur="3s" repeatCount="indefinite"/>
+  </use>
+  <use href="#particle" opacity="0">
+    <animateMotion dur="3s" begin="0.6s" repeatCount="indefinite" path="M 520,741 C 500,790 437,810 437,815"/>
+    <animate attributeName="opacity" values="0;1;1;0" dur="3s" begin="0.6s" repeatCount="indefinite"/>
+  </use>
+  <use href="#particle" opacity="0">
+    <animateMotion dur="3s" begin="1.2s" repeatCount="indefinite" path="M 620,741 L 680,815"/>
+    <animate attributeName="opacity" values="0;1;1;0" dur="3s" begin="1.2s" repeatCount="indefinite"/>
+  </use>
+  <use href="#particle" opacity="0">
+    <animateMotion dur="3s" begin="1.8s" repeatCount="indefinite" path="M 720,741 C 760,790 925,810 925,815"/>
+    <animate attributeName="opacity" values="0;1;1;0" dur="3s" begin="1.8s" repeatCount="indefinite"/>
+  </use>
+  <use href="#particle" opacity="0">
+    <animateMotion dur="3s" begin="2.4s" repeatCount="indefinite" path="M 820,741 C 920,790 1165,810 1165,815"/>
+    <animate attributeName="opacity" values="0;1;1;0" dur="3s" begin="2.4s" repeatCount="indefinite"/>
+  </use>
+
+  <!-- UI tiles -->
+  <g fill="url(#g-ui)" stroke="#1f2937">
+    <rect x="60" y="815"  width="220" height="58" rx="10"/>
+    <rect x="300" y="815" width="220" height="58" rx="10"/>
+    <rect x="540" y="815" width="220" height="58" rx="10"/>
+    <rect x="780" y="815" width="220" height="58" rx="10"/>
+    <rect x="1020" y="815" width="160" height="58" rx="10"/>
   </g>
-  <g>
-    <rect x="992" y="688" width="208" height="56" rx="6" fill="url(#g-ui)" stroke="#22d3ee"/>
-    <text x="1096" y="710" font-size="12" font-weight="700" fill="#e2e8f0" text-anchor="middle">EXPORT · FAVORITES · RECENT</text>
-    <text x="1096" y="728" font-size="10" fill="#94a3b8" text-anchor="middle">TXT · MD · CSV · JSON · localStorage</text>
+
+  <g font-size="12" fill="#e6edf6">
+    <text x="78"  y="838" font-weight="700">CARDS · TABLE · COMPARE</text>
+    <text x="78"  y="858" font-size="11" fill="#94a3b8">3 views · vendor stripe · sticky cols</text>
+
+    <text x="318" y="838" font-weight="700">SEARCH · FILTERS · DEEP-LINK</text>
+    <text x="318" y="858" font-size="11" fill="#94a3b8">vendor: os: cat: role: ?ws= URL</text>
+
+    <text x="558" y="838" font-weight="700" fill="#7dd3fc">AUTOMATE — YANG / SSH</text>
+    <text x="558" y="858" font-size="11" fill="#94a3b8">NETCONF · ncclient · Ansible · NAPALM</text>
+
+    <text x="798" y="838" font-weight="700">CLI BUILDER · PARSE OUTPUT</text>
+    <text x="798" y="858" font-size="11" fill="#94a3b8">queue mix-vendor · TextFSM-lite</text>
+
+    <text x="1038" y="838" font-weight="700">EXPORT · FAVS · RECENT</text>
+    <text x="1038" y="858" font-size="11" fill="#94a3b8">TXT · MD · CSV · JSON</text>
   </g>
 </svg>
