@@ -346,8 +346,10 @@ mark{background:rgba(34,211,238,.25);color:inherit;border-radius:3px;padding:0 2
 .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
 .toggle-btn{display:none}
 
-/* Per-card overflow menu (⋯) */
-.actbtn-menu{display:none;position:absolute;right:0;top:calc(100% + 4px);background:var(--panel);border:1px solid var(--accent);border-radius:8px;padding:5px;min-width:240px;box-shadow:0 8px 24px rgba(0,0,0,.4);z-index:20}
+/* Per-card overflow menu (⋯) — opens UPWARD because .card has overflow:hidden
+   (needed for the left vendor stripe + rounded corners). A downward-opening
+   menu would be clipped by the card's bottom edge. */
+.actbtn-menu{display:none;position:absolute;right:0;bottom:calc(100% + 4px);background:var(--panel);border:1px solid var(--accent);border-radius:8px;padding:5px;min-width:240px;box-shadow:0 -8px 24px rgba(0,0,0,.4);z-index:20}
 .actbtn-menu.open{display:block}
 .actbtn-menu-item{display:block;width:100%;text-align:left;background:transparent;border:0;color:var(--ink);padding:7px 10px;font:11.5px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;cursor:pointer;border-radius:5px}
 .actbtn-menu-item:hover{background:var(--chip-on);color:var(--accent)}
