@@ -1,7 +1,8 @@
 # Architecture
 
-> How 8 vendor sources turn into 11,500+ searchable, automatable commands in a
-> single static HTML file.
+> How 8 vendor sources turn into 12,000+ searchable, automatable commands in a
+> single static HTML file. **FRR rows additionally carry a `live` flag** when
+> the exact command was observed running on the 10-node Docker FRR lab.
 
 ![Architecture diagram](docs/img/architecture.svg)
 
@@ -9,7 +10,7 @@
 
 ## TL;DR
 
-- **4 vendors, 6 OS, 30+ categories, 11,542 commands** — Cisco (IOS / IOS-XE / NX-OS / ASA), Juniper (Junos), Arista (EOS), and **FRR (FRRouting)** — the open-source routing stack used by clab, SONiC, Cumulus, and bare-Linux routers.
+- **4 vendors, 6 OS, 30+ categories, 12,017 commands** — Cisco (IOS / IOS-XE / NX-OS / ASA), Juniper (Junos), Arista (EOS), and **FRR (FRRouting)** — the open-source routing stack used by clab, SONiC, Cumulus, and bare-Linux routers. FRR rows are sourced from official docs **union live capture** from the 10-node Docker FRR lab; ~870 are tagged `live` (368 doc+live, 502 live-only / undocumented).
 - **Reproducible Python pipeline** — every command can be traced back to a published source via a stdlib-only parser in `scripts/`.
 - **Single static file** — `index.html` is ~190 KB of vanilla JS + a `fetch('commands.json')`. No framework. No build step for the UI. Hosted on GitHub Pages.
 - **Zero credentials on disk** — automation snippets use `${conn().host}` interpolations driven by a sessionStorage-only connection state with a redact toggle for safe screenshots.
@@ -27,7 +28,7 @@ All public publications, dropped in as raw markdown. Each vendor has 1–3 books
 | **Cisco** | ENCOR / ENARSI Portable CG · ASA 9.24 CLI Reference (Books 1–3) · IOS OSPF Command Reference · VXLAN BGP EVPN NX-OS Reference | 3,931 |
 | **Juniper** | Junos OS CLI Reference (2025) · Day One: Beginner's Guide · Day One: Exploring the Junos CLI 2e | 3,007 |
 | **Arista** | EOS User Guide v4.36.0F (official) | 2,869 |
-| **FRR** | FRRouting CLI Command Reference (all daemons: bgpd · ospfd · ospf6d · isisd · ldpd · pim · staticd · zebra · …) | 1,735 |
+| **FRR** | FRR **Master** CLI Reference — official docs ∪ Docker FRR live capture (all daemons: bgpd · ospfd · ospf6d · isisd · ldpd · pim · staticd · zebra · …) | 2,210 |
 | **Community** | grplyler · r7perezyera · hyprblaze · cmdref.net · INSRapperswil · NX-OS gist · curated seed | merged in |
 
 The `scripts/sources/` folder is `.gitignored` — only the resulting JSON is checked in, so the repo stays a manageable size.
@@ -43,7 +44,7 @@ One parser per source format. All are pure Python 3 stdlib — no dependencies, 
 | `parse_arista.py` | Bold-backtick + fenced code + blockquote (`**\`name\`** *\`mode\`*`) | `arista.json` |
 | `parse_cisco_ospf.py` | Same bold-backtick format, OSPF-locked category | `cisco_ospf.json` |
 | `parse_cisco_extras.py` | ASA 9.24 + NX-OS VXLAN/EVPN, word-boundary role classifier | `cisco_asa.json` · `cisco_nxos_vxlan.json` |
-| `parse_frr.py` | FRR reference JSON (one row per `daemon`/`command`/`description`) → daemon-to-category map + placeholder substitution (`AS-NUMBER`→`65001`, `A.B.C.D`→`10.0.0.1`, etc.) so `cmd` is paste-runnable while `title` keeps the signature | `frr.json` |
+| `parse_frr.py` | FRR Master JSON (rows have `is_documented` / `is_running` / `source_origin` from a Docker-FRR scrape) → daemon-to-category map + placeholder substitution + `live`/`in_docs` provenance flags. The UI shows `● live` on rows verified against the real lab. | `frr.json` |
 | `parse.py` | Master merger — generic walker for community markdown + merges all JSONs above + global dedupe by normalized cmd | **`commands.json`** |
 
 Categorization is deterministic — chapter title → default category, then keyword overrides (BGP / OSPF / VXLAN / EVPN / …) with word-boundary patterns so `EVPN` doesn't accidentally match `vpn`. Role assignment is clamped per source (Nexus is fabric — never `firewall`).
@@ -63,6 +64,21 @@ Single source of truth. ~3.0 MB. Each row is:
   "desc":   "BGP > Configure neighbor"
 }
 ```
+
+FRR rows additionally carry two optional provenance fields:
+
+```json
+{
+  "os":      "frr",
+  "vendor":  "FRR",
+  "live":    true,   // observed running on the 10-node Docker FRR lab
+  "in_docs": true    // present in the official FRR RST docs
+}
+```
+
+`live` drives the green `● live` badge on the card; the tooltip discloses
+whether the command is also documented or was discovered only by sniffing
+the active container kernel. Both fields are omitted for non-FRR rows.
 
 The UI fetches this once at boot with `cache:'no-cache'` and works entirely client-side from there. No backend.
 
@@ -151,7 +167,7 @@ multivendor-cli-configurator/
     ├── cisco_ospf.json
     ├── cisco_asa.json
     ├── cisco_nxos_vxlan.json
-    ├── frr.json             # 1,735 FRR commands (from FRRouting docs)
+    ├── frr.json             # 2,210 FRR commands (docs ∪ Docker FRR live capture)
     └── external_merged.json # prior 9,802-entry curated dataset (deduped)
 ```
 

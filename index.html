@@ -143,6 +143,9 @@ main.lcollapsed aside.side{visibility:hidden;pointer-events:none;width:0;border:
 .tag.v.juniper{color:var(--juniper);border-color:var(--juniper)}
 .tag.v.arista{color:var(--arista);border-color:var(--arista)}
 .tag.v.frr{color:var(--frr);border-color:var(--frr)}
+/* "● live" badge — applied to FRR rows whose command was observed on real Docker FRR routers. */
+.tag.live{color:var(--good);border-color:var(--good);background:color-mix(in srgb,var(--good) 12%,transparent);font-weight:600;cursor:help}
+.tag.live::before{content:"●";margin-right:3px;font-size:9px}
 .tag.v::before{content:"●";margin-right:4px;font-size:9px}
 .tag.cat{color:var(--accent);border-color:var(--accent)}
 .card .actions{display:flex;gap:5px;align-items:center;flex-wrap:wrap;margin-top:2px}
@@ -3140,6 +3143,15 @@ function buildCard(d){
   tags.appendChild(el("span",{class:"tag"}, OSLABEL[d.os]||d.os));
   tags.appendChild(el("span",{class:"tag"}, d.role));
   tags.appendChild(el("span",{class:"tag cat"}, d.cat));
+  // Provenance: FRR rows from the master dataset are flagged when the exact
+  // command was seen running on a real Docker FRR router (geshlab clab).
+  if(d.live){
+    tags.appendChild(el("span",{
+      class:"tag live",
+      title:"Observed running on a real FRR router (Docker clab kernel). "
+          + (d.in_docs ? "Also documented in official FRR docs." : "Not in official FRR docs — discovered live.")
+    }, "live"));
+  }
   body.appendChild(tags);
 
   const actions = el("div",{class:"actions"});

@@ -36,8 +36,8 @@ A legacy `configurator.html` is kept in the repo for archive purposes — it's a
 | **Cisco** | IOS / IOS-XE (3,512) · ASA 9.24 (352) · NX-OS (67) | 3,931 |
 | **Juniper** | Junos (MX / EX / QFX / SRX) | 3,007 |
 | **Arista** | EOS | 2,869 |
-| **FRR** | FRRouting (vtysh) — used on Linux hosts, clab, SONiC, Cumulus | 1,735 |
-| **TOTAL** | | **11,542** |
+| **FRR** | FRRouting (vtysh) — official docs **+ commands verified live on a 10-node Docker FRR lab**. ~870 rows tagged `● live` (368 doc + live, 502 live-only / undocumented). | 2,210 |
+| **TOTAL** | | **12,017** |
 
 By category (top 10): System 2,320 · Interfaces 1,166 · BGP 1,080 · Troubleshooting 1,017 ·
 Routing 905 · VLAN 635 · OSPF 635 · Multicast 541 · MPLS 315 · AAA 279.
@@ -58,7 +58,7 @@ By role: router 8,254 · switch 2,811 · firewall 477.
 | **Cisco Secure Firewall ASA 9.24 CLI Reference** (Books 1–3, official) | Cisco | ~335 |
 | **Cisco IOS OSPF Command Reference** | Cisco | ~110 |
 | **VXLAN BGP EVPN NX-OS Command Reference** | Cisco | ~60 |
-| **FRR CLI Command Reference** (FRRouting docs, all daemons) | FRR | ~1,750 |
+| **FRR Master CLI Command Reference** (FRRouting docs ∪ live capture from 10-node Docker FRR lab) | FRR | ~2,230 |
 | Community markdown (grplyler, r7perezyera, hyprblaze, cmdref.net, INSRapperswil…) | All | ~400 |
 | Hand-curated seed | All | 187 |
 

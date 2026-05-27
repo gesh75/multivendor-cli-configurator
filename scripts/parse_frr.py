@@ -1,17 +1,31 @@
 #!/usr/bin/env python3
 """
-Parse the FRR CLI Command Reference (06_Documentation/FRR_CLI_Command_Reference.json)
-into the tool's row schema {os, role, vendor, cat, title, cmd, desc}.
+Parse the FRR Master CLI Command Reference (06_Documentation/FRR_Master_CLI_Command_Reference.json)
+into the tool's row schema {os, role, vendor, cat, title, cmd, desc, live, in_docs}.
 
 Input shape (per-row):
   {
-    "daemon":       "bgpd",
-    "command":      "router bgp AS-NUMBER view NAME",
-    "description":  "Make a new BGP view...",
-    "source_file":  "bgpd.rst"
+    "command":        "router bgp AS-NUMBER view NAME",
+    "daemon":         "bgpd",
+    "description":    "Make a new BGP view...",
+    "is_documented":  true,
+    "is_running":     false,
+    "source_origin":  "bgpd.rst"  # or "Docker Active Kernel"
   }
 
-Output: scripts/frr.json — same envelope as encor.json / junos.json / arista.json.
+The master file is a superset: official FRR docs UNION commands actually observed
+running on the local Docker FRR routers (the geshlab clab). We surface that
+provenance via two extra row fields:
+
+  * `live`     — true iff this exact command was observed on a real FRR router
+                 (is_running == true). Drives the "● live" badge in the UI.
+  * `in_docs`  — true iff this command is present in the official FRR RST docs
+                 (is_documented == true).
+
+Output: scripts/frr.json — same envelope as encor.json / junos.json / arista.json
+plus the two FRR-specific provenance flags (other vendors' rows simply lack them
+and the UI treats them as missing).
+
 Then `parse.py` merges it into ../commands.json on next run.
 
 No third-party deps; Python 3 stdlib only.
@@ -28,6 +42,11 @@ from collections import Counter
 HERE = pathlib.Path(__file__).resolve().parent
 REPO = HERE.parent
 DEFAULT_INPUT = pathlib.Path(
+    "/Users/georgigaydarov/02_Projects/Network_Automation/VSS_Code_Georgi/"
+    "06_Documentation/FRR_Master_CLI_Command_Reference.json"
+)
+# Older / smaller file kept as a documented fallback if the master one is missing.
+LEGACY_INPUT = pathlib.Path(
     "/Users/georgigaydarov/02_Projects/Network_Automation/VSS_Code_Georgi/"
     "06_Documentation/FRR_CLI_Command_Reference.json"
 )
@@ -177,9 +196,14 @@ def cat_for(daemon: str) -> str:
 # --- Main --------------------------------------------------------------------
 
 def main(input_path: pathlib.Path = DEFAULT_INPUT) -> int:
+    # Pick master file if available, otherwise fall back to the older single-source one.
     if not input_path.exists():
-        print(f"error: FRR source not found: {input_path}", file=sys.stderr)
-        return 1
+        if LEGACY_INPUT.exists():
+            print(f"note: master not found, falling back to {LEGACY_INPUT.name}", file=sys.stderr)
+            input_path = LEGACY_INPUT
+        else:
+            print(f"error: FRR source not found: {input_path}", file=sys.stderr)
+            return 1
 
     src = json.loads(input_path.read_text(encoding="utf-8"))
     if not isinstance(src, list):
@@ -190,6 +214,7 @@ def main(input_path: pathlib.Path = DEFAULT_INPUT) -> int:
     seen: set[str] = set()
     daemon_counter: Counter = Counter()
     cat_counter: Counter = Counter()
+    prov_counter: Counter = Counter()  # (live, in_docs) → n
 
     for entry in src:
         cmd_sig = (entry.get("command") or "").strip()
@@ -197,25 +222,48 @@ def main(input_path: pathlib.Path = DEFAULT_INPUT) -> int:
             continue
         daemon = (entry.get("daemon") or "").strip().lower()
         desc = entry.get("description") or ""
-        source_file = entry.get("source_file") or ""
+        # Master file uses is_documented / is_running / source_origin.
+        # Legacy file has neither — treat as documented, not live.
+        in_docs = bool(entry.get("is_documented", "source_file" in entry))
+        is_running = bool(entry.get("is_running", False))
+        source_origin = entry.get("source_origin") or entry.get("source_file") or ""
 
         cat = cat_for(daemon)
         title = cmd_sig                       # keep placeholders for the title
         cmd = fill_placeholders(cmd_sig)      # paste-runnable version
-        short_desc = first_sentence(desc)
 
-        # Add daemon as a breadcrumb so the desc is never blank for empty source descs.
-        if short_desc:
-            short_desc = f"{cat} > {short_desc}"
+        # Build a useful desc. The master file replaces all undocumented-running
+        # entries with a single boilerplate string — collapse those to a more
+        # informative provenance breadcrumb.
+        is_boilerplate = desc.strip().startswith("Undocumented operational")
+        if is_boilerplate:
+            short_desc = ""  # we'll synthesise below
         else:
-            short_desc = f"{cat} > daemon: {daemon}" if daemon else cat
+            short_desc = first_sentence(desc)
+
+        # Provenance prefix: clarify whether this is a doc command, a live one,
+        # or both. Engineers reading the card should know if the snippet was
+        # verified against a real router or only from the RST docs.
+        prov_bits: list[str] = [cat]
+        if is_running and in_docs:
+            prov_bits.append("✓ doc + live (Docker FRR)")
+        elif is_running:
+            prov_bits.append("● live on Docker FRR (undocumented)")
+        # documented-only rows don't need a marker — that's the default
+        if daemon and not short_desc:
+            prov_bits.append(f"daemon: {daemon}")
+        prov_prefix = " · ".join(prov_bits)
+        if short_desc:
+            short_desc = f"{prov_prefix} — {short_desc}"
+        else:
+            short_desc = prov_prefix
 
         key = re.sub(r"\s+", " ", cmd).lower()
         if key in seen:
             continue
         seen.add(key)
 
-        rows.append({
+        row = {
             "os": "frr",
             "role": role_for(daemon),
             "vendor": "FRR",
@@ -223,12 +271,28 @@ def main(input_path: pathlib.Path = DEFAULT_INPUT) -> int:
             "title": title,
             "cmd": cmd,
             "desc": short_desc,
-        })
+        }
+        # FRR-only provenance flags — other vendors' rows simply omit these.
+        if is_running:
+            row["live"] = True
+        if in_docs:
+            row["in_docs"] = True
+        rows.append(row)
         daemon_counter[daemon] += 1
         cat_counter[cat] += 1
+        prov_counter[(is_running, in_docs)] += 1
 
     OUTPUT.write_text(json.dumps(rows, indent=1, ensure_ascii=False))
     print(f"wrote {len(rows)} FRR rows → {OUTPUT}")
+    print(f"\nProvenance (running, in_docs) → count:")
+    for k, n in prov_counter.most_common():
+        running, docd = k
+        label = (
+            "doc + live (verified)" if running and docd else
+            "live only (undocumented)" if running else
+            "doc only"
+        )
+        print(f"  live={int(running):d}  doc={int(docd):d}  {n:5d}  {label}")
     print("\nTop daemons:")
     for d, n in daemon_counter.most_common(15):
         print(f"  {d:20s} {n}")
