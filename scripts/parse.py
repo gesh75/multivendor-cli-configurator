@@ -353,6 +353,20 @@ def main():
                 seen.add(key); cmds.append(s); added += 1
         print(f"  merged {extra_name}: {added} new entries (deduped from {len(extras)})", file=sys.stderr)
 
+    # Merge FRR (FRRouting) dataset — derived from the official FRR docs
+    # via scripts/parse_frr.py. Source JSON lives outside the repo at
+    # 06_Documentation/FRR_CLI_Command_Reference.json; the parser checks it in
+    # as scripts/frr.json so this merger stays purely local.
+    frr_path = pathlib.Path(__file__).parent / "frr.json"
+    if frr_path.exists():
+        frr = json.loads(frr_path.read_text())
+        added = 0
+        for s in frr:
+            key = re.sub(r"\s+", " ", s["cmd"]).lower()
+            if key not in seen:
+                seen.add(key); cmds.append(s); added += 1
+        print(f"  merged FRR: {added} new entries (deduped from {len(frr)})", file=sys.stderr)
+
     # Merge external dataset (~10k commands previously curated outside this repo).
     # Already in the same {os,role,vendor,cat,title,cmd,desc} schema → straight dedupe by cmd.
     ext_path = pathlib.Path(__file__).parent / "external_merged.json"

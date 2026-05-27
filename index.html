@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Multivendor CLI Reference — Cisco · Juniper · Arista</title>
-<meta name="description" content="889 commands across Cisco IOS / IOS-XE / NX-OS / ASA, Juniper Junos (MX/EX/QFX/SRX), and Arista EOS. Searchable, comparable, exportable." />
+<title>Multivendor CLI Reference — Cisco · Juniper · Arista · FRR</title>
+<meta name="description" content="11,000+ commands across Cisco IOS / IOS-XE / NX-OS / ASA, Juniper Junos (MX/EX/QFX/SRX), Arista EOS, and FRRouting. Searchable, comparable, exportable." />
 <style>
 :root[data-theme="dark"]{
   --bg:#0b1020;--panel:#0f1530;--panel-2:#121a3a;--ink:#cfd6f5;--ink-dim:#8892b8;--ink-muted:#5b6a99;
   --accent:#22d3ee;--accent-2:#a78bfa;--good:#22c55e;--warn:#f59e0b;--bad:#ef4444;
   --line:#1f2a55;--line-2:#19234a;--chip:#16204a;--chip-on:#1e2a66;
   --code-bg:#070b1e;--code-ink:#e2e8f0;
-  --cisco:#3b82f6;--juniper:#22c55e;--arista:#a855f7;
+  --cisco:#3b82f6;--juniper:#22c55e;--arista:#a855f7;--frr:#f97316;
   --kw:#22d3ee;--param:#ffb020;--cmt:#5b7c5e;--str:#9cffa0;--placeholder:#fbbf24;
 }
 :root[data-theme="light"]{
@@ -19,7 +19,7 @@
   --accent:#0891b2;--accent-2:#7c3aed;--good:#16a34a;--warn:#d97706;--bad:#dc2626;
   --line:#dde3ee;--line-2:#e8edf6;--chip:#f0f3fa;--chip-on:#e0e9fb;
   --code-bg:#0b1430;--code-ink:#e2e8f0;
-  --cisco:#1d4ed8;--juniper:#15803d;--arista:#7e22ce;
+  --cisco:#1d4ed8;--juniper:#15803d;--arista:#7e22ce;--frr:#c2410c;
   --kw:#0e7490;--param:#b45309;--cmt:#64748b;--str:#15803d;--placeholder:#b45309;
 }
 *{box-sizing:border-box}
@@ -79,6 +79,7 @@ main.lcollapsed aside.side{visibility:hidden;pointer-events:none;width:0;border:
 .chip.cisco.on{border-color:var(--cisco);color:var(--cisco);box-shadow:0 0 0 1px var(--cisco) inset}
 .chip.juniper.on{border-color:var(--juniper);color:var(--juniper);box-shadow:0 0 0 1px var(--juniper) inset}
 .chip.arista.on{border-color:var(--arista);color:var(--arista);box-shadow:0 0 0 1px var(--arista) inset}
+.chip.frr.on{border-color:var(--frr);color:var(--frr);box-shadow:0 0 0 1px var(--frr) inset}
 .cat-group{margin-top:8px}
 .cat-group h6{margin:8px 0 4px;font-size:9px;color:var(--ink-muted);letter-spacing:1.2px;text-transform:uppercase;font-weight:600}
 .recent-item{display:flex;align-items:center;gap:6px;padding:5px 6px;cursor:pointer;border-radius:4px;font-size:11px;color:var(--ink-dim)}
@@ -87,6 +88,7 @@ main.lcollapsed aside.side{visibility:hidden;pointer-events:none;width:0;border:
 .recent-item .rdot.cisco{background:var(--cisco)}
 .recent-item .rdot.juniper{background:var(--juniper)}
 .recent-item .rdot.arista{background:var(--arista)}
+.recent-item .rdot.frr{background:var(--frr)}
 .recent-item .rtxt{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
 .active-bar{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:10px 12px;background:var(--panel-2);border:1px solid var(--line);border-radius:10px;margin-bottom:12px}
@@ -113,6 +115,7 @@ main.lcollapsed aside.side{visibility:hidden;pointer-events:none;width:0;border:
 .cmp-cat-hdr .ct.ct-c{color:var(--cisco);border-color:var(--cisco)}
 .cmp-cat-hdr .ct.ct-j{color:var(--juniper);border-color:var(--juniper)}
 .cmp-cat-hdr .ct.ct-a{color:var(--arista);border-color:var(--arista)}
+.cmp-cat-hdr .ct.ct-f{color:var(--frr);border-color:var(--frr)}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:10px;align-items:start}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;display:flex;flex-direction:column;gap:8px;position:relative;overflow:hidden;transition:border-color .15s}
 .card:hover{border-color:var(--accent)}
@@ -120,6 +123,7 @@ main.lcollapsed aside.side{visibility:hidden;pointer-events:none;width:0;border:
 .card.cisco .stripe{background:var(--cisco)}
 .card.juniper .stripe{background:var(--juniper)}
 .card.arista .stripe{background:var(--arista)}
+.card.frr .stripe{background:var(--frr)}
 .card .body{padding:11px 12px 10px 15px;display:flex;flex-direction:column;gap:7px}
 .card .head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
 .card .title{font-weight:600;font-size:13px;line-height:1.35;color:var(--ink)}
@@ -138,6 +142,7 @@ main.lcollapsed aside.side{visibility:hidden;pointer-events:none;width:0;border:
 .tag.v.cisco{color:var(--cisco);border-color:var(--cisco)}
 .tag.v.juniper{color:var(--juniper);border-color:var(--juniper)}
 .tag.v.arista{color:var(--arista);border-color:var(--arista)}
+.tag.v.frr{color:var(--frr);border-color:var(--frr)}
 .tag.v::before{content:"●";margin-right:4px;font-size:9px}
 .tag.cat{color:var(--accent);border-color:var(--accent)}
 .card .actions{display:flex;gap:5px;align-items:center;flex-wrap:wrap;margin-top:2px}
@@ -179,13 +184,14 @@ table.cmd thead th:nth-child(2){z-index:4}
 
 /* concept-aligned compare table */
 .cmp-table{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-bottom:14px}
-.cmp-row{display:grid;grid-template-columns:140px 1fr 1fr 1fr;border-bottom:1px solid var(--line-2);min-height:36px}
+.cmp-row{display:grid;grid-template-columns:140px repeat(var(--cmp-cols,3),1fr);border-bottom:1px solid var(--line-2);min-height:36px}
 .cmp-row:last-child{border-bottom:0}
 .cmp-row.cmp-head{position:sticky;top:0;background:var(--panel-2);z-index:1;font:11px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:1.2px;text-transform:uppercase}
 .cmp-row.cmp-head .cmp-cell{padding:8px 10px;text-align:center;font-weight:600}
 .cmp-row.cmp-head .cmp-cell.cisco{color:var(--cisco)}
 .cmp-row.cmp-head .cmp-cell.juniper{color:var(--juniper)}
 .cmp-row.cmp-head .cmp-cell.arista{color:var(--arista)}
+.cmp-row.cmp-head .cmp-cell.frr{color:var(--frr)}
 .cmp-concept{padding:9px 10px;background:var(--panel-2);border-right:1px solid var(--line);color:var(--ink-dim);font:11px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-weight:500;display:flex;align-items:center;position:sticky;left:0;z-index:1}
 .cmp-row.cmp-head .cmp-concept{background:var(--panel-2);color:var(--ink);font-weight:700;z-index:2}
 .cmp-cell{padding:8px;border-right:1px solid var(--line-2);min-width:0}
@@ -193,6 +199,7 @@ table.cmd thead th:nth-child(2){z-index:4}
 .cmp-cell.cisco{border-left:3px solid var(--cisco)}
 .cmp-cell.juniper{border-left:3px solid var(--juniper)}
 .cmp-cell.arista{border-left:3px solid var(--arista)}
+.cmp-cell.frr{border-left:3px solid var(--frr)}
 .cmp-cell.empty{display:flex;align-items:center;justify-content:center;color:var(--ink-muted);font-style:italic}
 .cmp-cell.empty .dash{font-size:18px}
 .cmp-inner{margin-bottom:6px}
@@ -264,6 +271,7 @@ table.cmd thead th:nth-child(2){z-index:4}
 .auto-tabs .tab-cisco.on{color:var(--cisco);border-bottom-color:var(--cisco)}
 .auto-tabs .tab-juniper.on{color:var(--juniper);border-bottom-color:var(--juniper)}
 .auto-tabs .tab-arista.on{color:var(--arista);border-bottom-color:var(--arista)}
+.auto-tabs .tab-frr.on{color:var(--frr);border-bottom-color:var(--frr)}
 .auto-block{margin-bottom:14px;background:var(--panel-2);border:1px solid var(--line);border-radius:8px;overflow:hidden}
 .auto-block .bhdr{padding:8px 11px;background:var(--code-bg);display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line)}
 .auto-block .bhdr .label{font:11px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--ink-dim);letter-spacing:1.2px;text-transform:uppercase}
@@ -403,7 +411,7 @@ mark{background:rgba(34,211,238,.25);color:inherit;border-radius:3px;padding:0 2
 
 <header>
   <div class="bar">
-    <div class="brand"><span class="dot"></span>Multivendor CLI <small>Cisco · Juniper · Arista</small></div>
+    <div class="brand"><span class="dot"></span>Multivendor CLI <small>Cisco · Juniper · Arista · FRR</small></div>
     <div class="search-wrap">
       <div class="search">
         <span style="color:var(--ink-dim)">⌕</span>
@@ -575,7 +583,7 @@ mark{background:rgba(34,211,238,.25);color:inherit;border-radius:3px;padding:0 2
 <script>
 "use strict";
 
-const OSLABEL = {ios:"IOS / IOS-XE",iosxe:"IOS-XE",nxos:"NX-OS",asa:"ASA",junos:"Junos",eos:"EOS"};
+const OSLABEL = {ios:"IOS / IOS-XE",iosxe:"IOS-XE",nxos:"NX-OS",asa:"ASA",junos:"Junos",eos:"EOS",frr:"FRR"};
 const VENDOR_KEY = v => (v||"").toLowerCase();
 
 /* ─────────────────────────────────────────────────────────────────────
@@ -2664,6 +2672,75 @@ with driver("${conn().host}", "${conn().username}", "${conn().password||'admin'}
     d.commit_config()`,
     };
   },
+  // FRR / FRRouting — runs on Linux hosts (clab / SONiC / Cumulus / VyOS-FRR).
+  // SSH connects to a Linux shell, then commands are issued through `vtysh -c`.
+  // Netmiko has a native `frrouting` device_type for the vtysh wrapper.
+  FRR: (d) => {
+    const info = classifyCmd(d.cmd);
+    const lines = getCmdLines(d.cmd);
+    const firstLine = lines[0] || d.cmd.trim().split("\n")[0] || "";
+    if(info.isShow){
+      return {
+        netmiko: `from netmiko import ConnectHandler
+
+device = {"device_type":"frrouting","host":"${conn().host}","username":"${conn().username||'frr'}","password":"${conn().password||'frr'}"}
+
+with ConnectHandler(**device) as net:
+    # FRR drops to bash by default — drive vtysh explicitly for show commands.
+    output = net.send_command("vtysh -c " + ${JSON.stringify("'"+firstLine+"'")})
+    print(output)`,
+        ansible: `- name: Run FRR show command via vtysh
+  ansible.builtin.shell: vtysh -c {{ item | quote }}
+  loop:
+${yamlList(lines, "    - ")}
+  register: result
+  changed_when: false
+
+- name: Display output
+  ansible.builtin.debug:
+    var: result.results | map(attribute='stdout_lines') | list`,
+        napalm: `# NAPALM doesn't ship an FRR driver upstream. Use napalm-frr (community):
+#   pip install napalm-frr-driver
+import napalm
+driver = napalm.get_network_driver("frr")
+with driver("${conn().host}", "${conn().username||'frr'}", "${conn().password||'frr'}") as d:
+    print(d.cli([${JSON.stringify(firstLine)}]))`,
+      };
+    }
+    // config path — FRR config is applied either via vtysh -c or by sending a multi-line
+    // config block into vtysh stdin. Most automation prefers the latter for atomicity.
+    return {
+      netmiko: `from netmiko import ConnectHandler
+
+device = {"device_type":"frrouting","host":"${conn().host}","username":"${conn().username||'frr'}","password":"${conn().password||'frr'}"}
+
+config_lines = ${JSON.stringify(lines, null, 2)}
+
+with ConnectHandler(**device) as net:
+    # send_config_set wraps the lines in 'configure terminal' / 'end' inside vtysh.
+    out = net.send_config_set(config_lines)
+    net.send_command("write memory")
+    print(out)`,
+      ansible: `- name: Push FRR configuration via vtysh
+  ansible.builtin.shell: |
+    vtysh <<'EOF'
+    configure terminal
+${lines.map(l => "    "+l).join("\n")}
+    end
+    write memory
+    EOF
+  register: change
+  changed_when: "'write memory' in change.stdout"`,
+      napalm: `# NAPALM-FRR community driver — load/commit semantics like other vendors:
+import napalm
+config = """${escDoubleQuote(lines.join("\n"))}"""
+driver = napalm.get_network_driver("frr")
+with driver("${conn().host}", "${conn().username||'frr'}", "${conn().password||'frr'}") as d:
+    d.load_merge_candidate(config=config)
+    print(d.compare_config())
+    d.commit_config()`,
+    };
+  },
 };
 
 const CAT_GROUPS = [
@@ -3127,9 +3204,12 @@ function openAutomation(d){
   drawer.classList.add("open");
   // Compute vendors offered for this command. Specific mapping = whatever the
   // mapping renders; fallback = all 3.
+  // Native YANG mappings only cover Cisco/Juniper/Arista today, so the model-driven
+  // tab list stays 3-vendor. The CLI-fallback path adds FRR as a 4th tab — Netmiko
+  // has a real `frrouting` device_type and vtysh wraps the rest.
   const vendors = found
     ? ["Cisco","Juniper","Arista"].filter(v => found.mapping.render(v, found.vals))
-    : ["Cisco","Juniper","Arista"];
+    : ["Cisco","Juniper","Arista","FRR"];
   const active = vendors.includes(d.vendor) ? d.vendor : vendors[0];
 
   // Title
@@ -3323,7 +3403,7 @@ function openEquivalents(d){
   const body = $("equiv-body"); body.replaceChildren();
 
   const tokens = d.title.toLowerCase().split(/\W+/).filter(t=>t.length>2);
-  ["Cisco","Juniper","Arista"].forEach(v=>{
+  ["Cisco","Juniper","Arista","FRR"].forEach(v=>{
     const section = el("div",{class:"equiv-section"});
     section.appendChild(el("div",{class:"sh "+VENDOR_KEY(v)}, " "+v));
     const cands = DATA
@@ -3600,17 +3680,22 @@ function conceptKey(d){
 }
 
 function renderCompare(filtered, results){
-  // Compare view only works with all 3 vendors visible.
-  // If the user has narrowed to 1-2 vendors, surface a one-click "show all vendors" tip.
-  if(state.vendor.size > 0 && state.vendor.size < 3){
-    const missing = ["Cisco","Juniper","Arista"].filter(v => !state.vendor.has(v));
+  // Compare view is now N-vendor aware. The user's vendor filter chooses which
+  // columns to render; with no filter we show all 4 currently-supported vendors.
+  const ALL_VENDORS = ["Cisco","Juniper","Arista","FRR"];
+  const VEND_SHORT  = {Cisco:"C", Juniper:"J", Arista:"A", FRR:"F"};
+  const VEND_CT_CLS = {Cisco:"ct-c", Juniper:"ct-j", Arista:"ct-a", FRR:"ct-f"};
+  const cmpVendors = state.vendor.size > 0
+    ? ALL_VENDORS.filter(v => state.vendor.has(v))
+    : ALL_VENDORS;
+  if(cmpVendors.length < 2){
     const tip = el("div", {class:"empty",
       style:"margin-bottom:14px;border-color:var(--accent);color:var(--ink);text-align:left;padding:14px 18px"});
     tip.appendChild(el("div",{style:"font-weight:600;margin-bottom:6px"},
-      "💡 Compare view works best with all 3 vendors enabled"));
+      "💡 Compare view needs at least 2 vendors enabled"));
     tip.appendChild(el("div",{style:"font-size:12px;color:var(--ink-dim);margin-bottom:10px"},
       "You currently have only " + [...state.vendor].join(" + ") +
-      " enabled. Showing " + missing.join(" / ") + " columns will reveal cross-vendor equivalents."));
+      " enabled. Click below to show all vendors."));
     tip.appendChild(el("button",{
       class:"tbtn",
       style:"background:var(--accent);color:#000;border-color:var(--accent);font-weight:600",
@@ -3622,57 +3707,62 @@ function renderCompare(filtered, results){
   filtered.forEach(d=>{(byCat[d.cat] = byCat[d.cat] || []).push(d);});
   Object.keys(byCat).sort().forEach(cat=>{
     const items = byCat[cat];
-    // Group by conceptKey
-    const conceptMap = new Map(); // key -> {Cisco:[],Juniper:[],Arista:[]}
+    // Group by conceptKey — slot starts as one bucket per active vendor
+    const conceptMap = new Map();
     items.forEach(d=>{
       const k = conceptKey(d);
-      if(!conceptMap.has(k)) conceptMap.set(k, {Cisco:[],Juniper:[],Arista:[], label:null});
+      if(!conceptMap.has(k)){
+        const slot = {label:null};
+        cmpVendors.forEach(v => { slot[v] = []; });
+        conceptMap.set(k, slot);
+      }
       const slot = conceptMap.get(k);
       if(slot[d.vendor]) slot[d.vendor].push(d);
       if(!slot.label) slot.label = (d.title||"").replace(/^[\w@-]+[#>%]\s*/,"").slice(0,60);
     });
     const total = items.length;
     const concepts = [...conceptMap.values()];
-    let allThree=0, two=0, one=0;
+    let allCovered = 0, partial = 0;
     concepts.forEach(s=>{
-      const vs = (s.Cisco.length>0?1:0)+(s.Juniper.length>0?1:0)+(s.Arista.length>0?1:0);
-      if(vs===3) allThree++; else if(vs===2) two++; else one++;
+      const vs = cmpVendors.reduce((n,v) => n + (s[v] && s[v].length>0 ? 1 : 0), 0);
+      if(vs === cmpVendors.length) allCovered++; else if(vs >= 2) partial++;
     });
-    const cCounts = {Cisco:0, Juniper:0, Arista:0};
+    const cCounts = {}; cmpVendors.forEach(v => cCounts[v] = 0);
     items.forEach(d => { if(cCounts[d.vendor] != null) cCounts[d.vendor]++; });
-    const hdr = el("div",{class:"cat-hdr cmp-cat-hdr"},
+    const hdrKids = [
       el("h3",{}, cat),
       el("span",{class:"ct"}, total + " cmds"),
-      el("span",{class:"ct", title:"Concepts with at least 2 vendors aligned"}, "🔗 " + allThree + "·3 / " + two + "·2"),
-      el("span",{class:"ct ct-c", title:"Cisco commands in this category"}, "● C " + cCounts.Cisco),
-      el("span",{class:"ct ct-j", title:"Juniper commands in this category"}, "● J " + cCounts.Juniper),
-      el("span",{class:"ct ct-a", title:"Arista commands in this category"}, "● A " + cCounts.Arista),
-      el("div",{class:"line"})
-    );
+      el("span",{class:"ct", title:"Concepts covered by all selected vendors / by ≥2 vendors"},
+        "🔗 " + allCovered + "·" + cmpVendors.length + " / " + partial + "·2+"),
+    ];
+    cmpVendors.forEach(v => {
+      hdrKids.push(el("span",
+        {class:"ct " + VEND_CT_CLS[v], title:v + " commands in this category"},
+        "● " + VEND_SHORT[v] + " " + cCounts[v]));
+    });
+    hdrKids.push(el("div",{class:"line"}));
+    const hdr = el("div",{class:"cat-hdr cmp-cat-hdr"}, ...hdrKids);
     results.appendChild(hdr);
 
-    // Row-aligned table where each row is one concept
-    const tbl = el("div",{class:"cmp-table"});
-    const head = el("div",{class:"cmp-row cmp-head"},
-      el("div",{class:"cmp-concept"}, "concept"),
-      el("div",{class:"cmp-cell cisco"}, "Cisco"),
-      el("div",{class:"cmp-cell juniper"}, "Juniper"),
-      el("div",{class:"cmp-cell arista"}, "Arista")
-    );
+    // Row-aligned table where each row is one concept. Grid columns scale with vendor count via --cmp-cols.
+    const tbl = el("div",{class:"cmp-table", style:"--cmp-cols:"+cmpVendors.length});
+    const headKids = [el("div",{class:"cmp-concept"}, "concept")];
+    cmpVendors.forEach(v => headKids.push(el("div",{class:"cmp-cell "+v.toLowerCase()}, v)));
+    const head = el("div",{class:"cmp-row cmp-head"}, ...headKids);
     tbl.appendChild(head);
 
     // Sort: concepts with the most vendors covered first, then alphabetically
     const sorted = [...conceptMap.entries()].sort((a,b)=>{
-      const ca = (a[1].Cisco.length>0?1:0)+(a[1].Juniper.length>0?1:0)+(a[1].Arista.length>0?1:0);
-      const cb = (b[1].Cisco.length>0?1:0)+(b[1].Juniper.length>0?1:0)+(b[1].Arista.length>0?1:0);
+      const ca = cmpVendors.reduce((n,v) => n + (a[1][v] && a[1][v].length>0 ? 1 : 0), 0);
+      const cb = cmpVendors.reduce((n,v) => n + (b[1][v] && b[1][v].length>0 ? 1 : 0), 0);
       if(ca !== cb) return cb - ca;
       return a[0].localeCompare(b[0]);
     });
     sorted.slice(0,60).forEach(entry=>{
       const slot = entry[1];
-      const row = el("div",{class:"cmp-row","data-concept":entry[0]});
+      const row = el("div",{class:"cmp-row", style:"--cmp-cols:"+cmpVendors.length, "data-concept":entry[0]});
       row.appendChild(el("div",{class:"cmp-concept"}, slot.label || entry[0].split(":")[1]));
-      ["Cisco","Juniper","Arista"].forEach(v=>{
+      cmpVendors.forEach(v=>{
         const cell = el("div",{class:"cmp-cell "+v.toLowerCase()});
         const arr = slot[v];
         if(!arr || arr.length === 0){
