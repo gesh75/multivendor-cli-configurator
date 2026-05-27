@@ -332,11 +332,17 @@ table.cmd thead th:nth-child(2){z-index:4}
 .auto-params .pp-row label .vk{color:var(--accent-2);font-weight:600;text-transform:none;letter-spacing:0}
 .auto-params .pp-row input{background:var(--code-bg);color:var(--ink);border:1px solid var(--line);padding:5px 8px;border-radius:4px;outline:0;font:12px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
 .auto-params .pp-row input:focus{border-color:var(--accent);box-shadow:0 0 4px rgba(34,211,238,.2)}
-.auto-params .pp-actions{display:flex;gap:6px;align-items:center;padding:0 11px 10px;font-size:11px}
+.auto-params .pp-actions{display:flex;gap:6px;align-items:center;padding:0 11px 10px;font-size:11px;flex-wrap:wrap}
 .auto-params .pp-actions label{color:var(--ink-dim);display:inline-flex;align-items:center;gap:4px;cursor:pointer;user-select:none}
 .auto-params .pp-actions input[type=checkbox]{accent-color:var(--accent)}
 .auto-params .pp-actions .pp-reset{margin-left:auto;background:transparent;border:1px solid var(--line);color:var(--ink-dim);cursor:pointer;font:10px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;padding:3px 9px;border-radius:4px}
 .auto-params .pp-actions .pp-reset:hover{color:var(--bad);border-color:var(--bad)}
+/* Secret-Mode pill toggle in the auto-drawer params editor */
+.auto-params .pp-secret{padding-top:0;border-top:1px solid var(--line-2);padding-top:8px;cursor:help}
+.auto-params .pp-secret .pp-label{color:var(--ink-dim);font:11px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.3px;white-space:nowrap}
+.auto-params .pp-secret .sm-pill{background:transparent;border:1px solid var(--line);color:var(--ink-dim);cursor:pointer;font:10px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;padding:3px 9px;border-radius:999px;transition:all .12s}
+.auto-params .pp-secret .sm-pill:hover{border-color:var(--accent);color:var(--accent)}
+.auto-params .pp-secret .sm-pill.on{background:var(--accent);color:#000;border-color:var(--accent);font-weight:700;box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 30%,transparent)}
 
 footer{padding:20px;color:var(--ink-dim);font-size:11px;text-align:center}
 .empty{padding:40px;text-align:center;color:var(--ink-dim);border:1px dashed var(--line);border-radius:12px;margin-top:20px}
@@ -849,7 +855,11 @@ const AUTOMATION_MAPPINGS = [
 
 /* Connection parameters — editable in drawer, persisted in sessionStorage.
    Live-substituted into every snippet so engineers can paste real, runnable code. */
-const CONN_DEFAULTS = {host:"10.0.0.1", username:"admin", password:"cisco", port:22, redact:false};
+// secretMode: how generated snippets handle credentials.
+//   "inline"  — old behaviour, password baked into the snippet (quick demo only)
+//   "env"     — Python uses os.environ + python-dotenv; YAML uses {{ lookup('env',...) }}
+//   "keyring" — Python uses keyring.get_password(); YAML uses community.general.keyring lookup
+const CONN_DEFAULTS = {host:"10.0.0.1", username:"admin", password:"cisco", port:22, redact:false, secretMode:"env"};
 const _stored = (()=>{
   try { return JSON.parse(sessionStorage.getItem("auto-conn") || "null"); } catch(e){ return null; }
 })();
@@ -865,6 +875,92 @@ function conn(){
   // Returns the redaction-aware copy for rendering
   return Object.assign({}, connState,
     connState.redact ? {password:"***REDACTED***", username: connState.username || "USER"} : {});
+}
+
+/* --- Secret Mode helpers (Sif Baksh feedback) ------------------------------
+ * In the old design, every generated Python snippet hard-coded the user's
+ * password as a string literal — fine for a 30-second demo, hostile to the
+ * actual workflow of pasting the snippet into a Jira ticket or a repo. The
+ * helpers below let the snippet templates emit credential-reading code in
+ * three modes — inline (legacy), .env via python-dotenv, or keyring.
+ *
+ * pySetup() — multi-line Python preamble. Defines HOST / USER / PASS so the
+ *             rest of the snippet stays mode-agnostic.
+ * pyArg('host'|'user'|'pass', defaultRaw?) — Python expression to substitute
+ *             in place of e.g. `host="10.0.0.1"`. In inline mode this is a
+ *             quoted literal; in env/keyring it's a bare HOST/USER/PASS ref.
+ * pyEapiUrl() — Arista eAPI URL; inline = literal quoted, env/keyring = f-string.
+ * ansiblePass(defaultRaw?) — YAML scalar value for the password field.
+ * envExampleBlock() — the .env.example pasteboard.
+ * keyringSeedCmd() — the one-liner that pre-seeds the OS keyring. */
+function secretMode(){ return connState.secretMode || "env"; }
+
+function pySetup(){
+  const mode = secretMode();
+  const c = conn();
+  if(mode === "inline"){
+    return `HOST = ${JSON.stringify(c.host||"10.0.0.1")}\n`
+         + `USER = ${JSON.stringify(c.username||"admin")}\n`
+         + `PASS = ${JSON.stringify(c.password||"")}   # ⚠ hard-coded — use .env or keyring for real work\n\n`;
+  }
+  if(mode === "env"){
+    return `import os\n`
+         + `from dotenv import load_dotenv\n`
+         + `load_dotenv()   # reads .env from the current working directory\n\n`
+         + `HOST = os.environ["NETDEV_HOST"]\n`
+         + `USER = os.environ["NETDEV_USER"]\n`
+         + `PASS = os.environ["NETDEV_PASS"]\n\n`;
+  }
+  // keyring
+  return `import keyring, getpass\n\n`
+       + `HOST = ${JSON.stringify(c.host||"10.0.0.1")}\n`
+       + `USER = ${JSON.stringify(c.username||"admin")}\n`
+       + `# One-time seed:  keyring set netdev ${c.username||"admin"}\n`
+       + `PASS = keyring.get_password("netdev", USER) or getpass.getpass(f"Password for {USER}@{HOST}: ")\n\n`;
+}
+
+function pyArg(which /*, defaultRaw — kept for API compat, applied in pySetup() */){
+  // Always return bare variable references (HOST/USER/PASS). All three modes
+  // emit those — pySetup() is the only thing that changes per mode (literal
+  // assignments vs. os.environ vs. keyring lookup). This keeps the snippet
+  // body identical across modes so engineers can mentally diff "where did
+  // my credentials come from" by reading the top-3 lines.
+  if(which === "host") return "HOST";
+  if(which === "user") return "USER";
+  if(which === "pass") return "PASS";
+  return "";
+}
+
+function pyEapiUrl(){
+  // Always an f-string referencing HOST/USER/PASS. Mode-specific values come
+  // from pySetup() at the top of the snippet — keeps the URL line stable.
+  return `f"https://{USER}:{PASS}@{HOST}/command-api"`;
+}
+
+function ansiblePass(defaultRaw){
+  const mode = secretMode();
+  if(mode === "inline"){
+    const c = conn();
+    return JSON.stringify(c.password || defaultRaw || "cisco");
+  }
+  if(mode === "env"){
+    return `"{{ lookup('env', 'NETDEV_PASS') }}"`;
+  }
+  // keyring
+  return `"{{ lookup('community.general.keyring', 'netdev/' + lookup('env','USER')) }}"`;
+}
+
+function envExampleBlock(){
+  const c = conn();
+  return `NETDEV_HOST=${c.host || "10.0.0.1"}\n`
+       + `NETDEV_USER=${c.username || "admin"}\n`
+       + `NETDEV_PASS=changeme\n`;
+}
+
+function keyringSeedCmd(){
+  const c = conn();
+  return `# Pre-seed the OS keyring once (stores in macOS Keychain / Gnome-keyring / Windows Credential Manager):\n`
+       + `keyring set netdev ${c.username || "admin"}\n`;
 }
 
 function maskToCidr(m){
@@ -898,8 +994,8 @@ const AUTO_IFACE_IPV4 = {
     </interface>
   </native>
 </config>`,
-    ncclient: `from ncclient import manager
-with manager.connect(host="${conn().host}", username="${conn().username}", password="${conn().password}",
+    ncclient: `${pySetup()}from ncclient import manager
+with manager.connect(host=${pyArg('host')}, username=${pyArg('user')}, password=${pyArg('pass')},
                      hostkey_verify=False, device_params={"name":"iosxe"}) as m:
     payload = """<config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
   <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
@@ -940,8 +1036,8 @@ with manager.connect(host="${conn().host}", username="${conn().username}", passw
     </interface>
   </interfaces>
 </configuration>`,
-    ncclient: `from ncclient import manager
-with manager.connect(host="${conn().host}", username="${conn().username||'root'}", password="${conn().password||'juniper'}",
+    ncclient: `${pySetup()}from ncclient import manager
+with manager.connect(host=${pyArg('host')}, username=${pyArg('user', 'root')}, password=${pyArg('pass', 'juniper')},
                      hostkey_verify=False, device_params={"name":"junos"}) as m:
     payload = """<configuration>
   <interfaces><interface>
@@ -992,7 +1088,7 @@ with manager.connect(host="${conn().host}", username="${conn().username||'root'}
 </config>`,
     ncclient: `# Arista EOS supports OpenConfig + eAPI (REST). NETCONF less common; eAPI usually preferred:
 import jsonrpclib
-switch = jsonrpclib.Server("https://${conn().username}:${conn().password}@${conn().host}/command-api")
+switch = jsonrpclib.Server(${pyEapiUrl()})
 switch.runCmds(1, ["enable",
                    "configure",
                    "interface ${v.ifname}",
@@ -1027,7 +1123,7 @@ const AUTO_STATIC = {
 </config>`,
     ncclient: `# Add static route ${v.prefix}/${v.cidr} via ${v.nh}
 from ncclient import manager
-m = manager.connect(host="...", username="${conn().username}", password="${conn().password}",
+m = manager.connect(host=${pyArg('host')}, username=${pyArg('user')}, password=${pyArg('pass')},
                     hostkey_verify=False, device_params={"name":"iosxe"})
 m.edit_config(target="running", config=open("static-route.xml").read())`,
     ansible: `- name: Static route ${v.prefix}/${v.cidr} via ${v.nh}
@@ -1053,8 +1149,8 @@ m.edit_config(target="running", config=open("static-route.xml").read())`,
     </static>
   </routing-options>
 </configuration>`,
-    ncclient: `from ncclient import manager
-m = manager.connect(host="...", username="${conn().username||'root'}", password="${conn().password||'juniper'}",
+    ncclient: `${pySetup()}from ncclient import manager
+m = manager.connect(host=${pyArg('host')}, username=${pyArg('user', 'root')}, password=${pyArg('pass', 'juniper')},
                     hostkey_verify=False, device_params={"name":"junos"})
 m.lock("candidate")
 m.edit_config(target="candidate", config="""<configuration><routing-options><static>
@@ -1094,7 +1190,7 @@ m.commit(); m.unlock("candidate")`,
 </config>`,
     ncclient: `# Arista — typically via eAPI
 import jsonrpclib
-sw = jsonrpclib.Server("https://${conn().username}:${conn().password}@${conn().host}/command-api")
+sw = jsonrpclib.Server(${pyEapiUrl()})
 sw.runCmds(1, ["enable","configure","ip route ${v.prefix}/${v.cidr} ${v.nh}"])`,
     ansible: `- name: Static route ${v.prefix}/${v.cidr} via ${v.nh}
   arista.eos.eos_static_routes:
@@ -1127,7 +1223,7 @@ const AUTO_OSPF = {
 </config>`,
     ncclient: `# OSPF process ${v.pid}, network ${v.net} ${v.wild} area ${v.area}
 from ncclient import manager
-m = manager.connect(host="...", port=830, username="${conn().username}", password="${conn().password}",
+m = manager.connect(host=${pyArg('host')}, port=port=830,, username=${pyArg('user')}, password=${pyArg('pass')},
                     hostkey_verify=False, device_params={"name":"iosxe"})
 m.edit_config(target="running", config=open("ospf.xml").read())`,
     ansible: `- name: OSPF process ${v.pid}
@@ -1156,7 +1252,7 @@ m.edit_config(target="running", config=open("ospf.xml").read())`,
 </configuration>`,
     ncclient: `# Junos uses per-interface OSPF, not network statements
 from ncclient import manager
-m = manager.connect(host="...", username="${conn().username||'root'}", password="${conn().password||'juniper'}",
+m = manager.connect(host=${pyArg('host')}, username=${pyArg('user', 'root')}, password=${pyArg('pass', 'juniper')},
                     hostkey_verify=False, device_params={"name":"junos"})
 m.lock("candidate")
 m.edit_config(target="candidate", config="""<configuration><protocols><ospf>
@@ -1188,8 +1284,8 @@ m.commit(); m.unlock("candidate")`,
     </network-instance>
   </network-instances>
 </config>`,
-    ncclient: `import jsonrpclib
-sw = jsonrpclib.Server("https://${conn().username}:${conn().password}@${conn().host}/command-api")
+    ncclient: `${pySetup()}import jsonrpclib
+sw = jsonrpclib.Server(${pyEapiUrl()})
 sw.runCmds(1, ["enable","configure",
                "router ospf ${v.pid}",
                "network ${v.net}/${maskToCidr(v.wild.replace(/\./g,m=>m).split(".").map(x=>255-parseInt(x,10)).join("."))} area ${v.area}"])`,
@@ -1224,7 +1320,7 @@ const AUTO_BGP = {
 </config>`,
     ncclient: `# BGP AS${v.local_as}, neighbor ${v.peer} remote-as ${v.remote_as}
 from ncclient import manager
-m = manager.connect(host="...", username="${conn().username}", password="${conn().password}",
+m = manager.connect(host=${pyArg('host')}, username=${pyArg('user')}, password=${pyArg('pass')},
                     hostkey_verify=False, device_params={"name":"iosxe"})
 m.edit_config(target="running", config=open("bgp.xml").read())`,
     ansible: `- name: BGP AS ${v.local_as} neighbor ${v.peer}
@@ -1257,8 +1353,8 @@ m.edit_config(target="running", config=open("bgp.xml").read())`,
     </bgp>
   </protocols>
 </configuration>`,
-    ncclient: `from ncclient import manager
-m = manager.connect(host="...", username="${conn().username||'root'}", password="${conn().password||'juniper'}",
+    ncclient: `${pySetup()}from ncclient import manager
+m = manager.connect(host=${pyArg('host')}, username=${pyArg('user', 'root')}, password=${pyArg('pass', 'juniper')},
                     hostkey_verify=False, device_params={"name":"junos"})
 m.lock("candidate")
 m.edit_config(target="candidate", config="""<configuration>
@@ -1297,8 +1393,8 @@ m.commit(); m.unlock("candidate")`,
     </network-instance>
   </network-instances>
 </config>`,
-    ncclient: `import jsonrpclib
-sw = jsonrpclib.Server("https://${conn().username}:${conn().password}@${conn().host}/command-api")
+    ncclient: `${pySetup()}import jsonrpclib
+sw = jsonrpclib.Server(${pyEapiUrl()})
 sw.runCmds(1, ["enable","configure",
                "router bgp ${v.local_as}",
                "neighbor ${v.peer} remote-as ${v.remote_as}",
@@ -1329,7 +1425,7 @@ const AUTO_VLAN = {
 </config>`,
     ncclient: `# Create VLAN ${v.id} (${v.name})
 from ncclient import manager
-m = manager.connect(host="...", username="${conn().username}", password="${conn().password}",
+m = manager.connect(host=${pyArg('host')}, username=${pyArg('user')}, password=${pyArg('pass')},
                     hostkey_verify=False, device_params={"name":"iosxe"})
 m.edit_config(target="running", config=open("vlan.xml").read())`,
     ansible: `- name: Create VLAN ${v.id}
@@ -1349,8 +1445,8 @@ m.edit_config(target="running", config=open("vlan.xml").read())`,
     </vlan>
   </vlans>
 </configuration>`,
-    ncclient: `from ncclient import manager
-m = manager.connect(host="...", username="${conn().username||'root'}", password="${conn().password||'juniper'}",
+    ncclient: `${pySetup()}from ncclient import manager
+m = manager.connect(host=${pyArg('host')}, username=${pyArg('user', 'root')}, password=${pyArg('pass', 'juniper')},
                     hostkey_verify=False, device_params={"name":"junos"})
 m.lock("candidate")
 m.edit_config(target="candidate", config="""<configuration>
@@ -1379,8 +1475,8 @@ m.commit(); m.unlock("candidate")`,
     </network-instance>
   </network-instances>
 </config>`,
-    ncclient: `import jsonrpclib
-sw = jsonrpclib.Server("https://${conn().username}:${conn().password}@${conn().host}/command-api")
+    ncclient: `${pySetup()}import jsonrpclib
+sw = jsonrpclib.Server(${pyEapiUrl()})
 sw.runCmds(1, ["enable","configure","vlan ${v.id}","name ${v.name}"])`,
     ansible: `- name: Create VLAN ${v.id}
   arista.eos.eos_vlans:
@@ -1407,7 +1503,7 @@ const AUTO_SWITCHPORT = {
 </config>`,
     ncclient: `# Set ${v.ifname} to access VLAN ${v.vlan}
 from ncclient import manager
-m = manager.connect(host="...", username="${conn().username}", password="${conn().password}",
+m = manager.connect(host=${pyArg('host')}, username=${pyArg('user')}, password=${pyArg('pass')},
                     hostkey_verify=False, device_params={"name":"iosxe"})
 m.edit_config(target="running", config=open("switchport.xml").read())`,
     ansible: `- name: ${v.ifname} access VLAN ${v.vlan}
@@ -1433,7 +1529,7 @@ m.edit_config(target="running", config=open("switchport.xml").read())`,
 </configuration>`,
     ncclient: `# Junos access port for VLAN ${v.vlan}
 from ncclient import manager
-m = manager.connect(host="...", username="${conn().username||'root'}", password="${conn().password||'juniper'}",
+m = manager.connect(host=${pyArg('host')}, username=${pyArg('user', 'root')}, password=${pyArg('pass', 'juniper')},
                     hostkey_verify=False, device_params={"name":"junos"})
 m.lock("candidate")
 m.edit_config(target="candidate", config="""<configuration>
@@ -1470,8 +1566,8 @@ m.commit(); m.unlock("candidate")`,
     </interface>
   </interfaces>
 </config>`,
-    ncclient: `import jsonrpclib
-sw = jsonrpclib.Server("https://${conn().username}:${conn().password}@${conn().host}/command-api")
+    ncclient: `${pySetup()}import jsonrpclib
+sw = jsonrpclib.Server(${pyEapiUrl()})
 sw.runCmds(1, ["enable","configure",
                "interface ${v.ifname}",
                "switchport mode access",
@@ -1498,7 +1594,7 @@ const AUTO_NTP = {
 </config>`,
     ncclient: `# Add NTP server ${v.server}
 from ncclient import manager
-m = manager.connect(host="...", username="${conn().username}", password="${conn().password}",
+m = manager.connect(host=${pyArg('host')}, username=${pyArg('user')}, password=${pyArg('pass')},
                     hostkey_verify=False, device_params={"name":"iosxe"})
 m.edit_config(target="running", config=open("ntp.xml").read())`,
     ansible: `- name: NTP server ${v.server}
@@ -1518,8 +1614,8 @@ m.edit_config(target="running", config=open("ntp.xml").read())`,
     </ntp>
   </system>
 </configuration>`,
-    ncclient: `from ncclient import manager
-m = manager.connect(host="...", username="${conn().username||'root'}", password="${conn().password||'juniper'}",
+    ncclient: `${pySetup()}from ncclient import manager
+m = manager.connect(host=${pyArg('host')}, username=${pyArg('user', 'root')}, password=${pyArg('pass', 'juniper')},
                     hostkey_verify=False, device_params={"name":"junos"})
 m.lock("candidate")
 m.edit_config(target="candidate", config="""<configuration><system><ntp>
@@ -1542,8 +1638,8 @@ m.commit(); m.unlock("candidate")`,
     </server></servers></ntp>
   </system>
 </config>`,
-    ncclient: `import jsonrpclib
-sw = jsonrpclib.Server("https://${conn().username}:${conn().password}@${conn().host}/command-api")
+    ncclient: `${pySetup()}import jsonrpclib
+sw = jsonrpclib.Server(${pyEapiUrl()})
 sw.runCmds(1, ["enable","configure","ntp server ${v.server}"])`,
     ansible: `- name: NTP server ${v.server}
   arista.eos.eos_ntp_global:
@@ -1565,7 +1661,7 @@ const AUTO_SYSLOG = {
 </config>`,
     ncclient: `# Syslog to ${v.host}
 from ncclient import manager
-m = manager.connect(host="...", username="${conn().username}", password="${conn().password}",
+m = manager.connect(host=${pyArg('host')}, username=${pyArg('user')}, password=${pyArg('pass')},
                     hostkey_verify=False, device_params={"name":"iosxe"})
 m.edit_config(target="running", config=open("syslog.xml").read())`,
     ansible: `- name: Logging host ${v.host}
@@ -1586,8 +1682,8 @@ m.edit_config(target="running", config=open("syslog.xml").read())`,
     </syslog>
   </system>
 </configuration>`,
-    ncclient: `from ncclient import manager
-m = manager.connect(host="...", username="${conn().username||'root'}", password="${conn().password||'juniper'}",
+    ncclient: `${pySetup()}from ncclient import manager
+m = manager.connect(host=${pyArg('host')}, username=${pyArg('user', 'root')}, password=${pyArg('pass', 'juniper')},
                     hostkey_verify=False, device_params={"name":"junos"})
 m.lock("candidate")
 m.edit_config(target="candidate", config="""<configuration><system><syslog>
@@ -1615,8 +1711,8 @@ m.commit(); m.unlock("candidate")`,
     </remote-server></remote-servers></logging>
   </system>
 </config>`,
-    ncclient: `import jsonrpclib
-sw = jsonrpclib.Server("https://${conn().username}:${conn().password}@${conn().host}/command-api")
+    ncclient: `${pySetup()}import jsonrpclib
+sw = jsonrpclib.Server(${pyEapiUrl()})
 sw.runCmds(1, ["enable","configure","logging host ${v.host}"])`,
     ansible: `- name: Logging host ${v.host}
   arista.eos.eos_logging_global:
@@ -1634,8 +1730,8 @@ const AUTO_HOSTNAME = {
     <hostname>${escXml(v.hostname)}</hostname>
   </native>
 </config>`,
-    ncclient: `from ncclient import manager
-m = manager.connect(host="...", username="${conn().username}", password="${conn().password}",
+    ncclient: `${pySetup()}from ncclient import manager
+m = manager.connect(host=${pyArg('host')}, username=${pyArg('user')}, password=${pyArg('pass')},
                     hostkey_verify=False, device_params={"name":"iosxe"})
 m.edit_config(target="running", config="""<config>
   <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
@@ -1654,8 +1750,8 @@ m.edit_config(target="running", config="""<config>
     <host-name>${escXml(v.hostname)}</host-name>
   </system>
 </configuration>`,
-    ncclient: `from ncclient import manager
-m = manager.connect(host="...", username="${conn().username||'root'}", password="${conn().password||'juniper'}",
+    ncclient: `${pySetup()}from ncclient import manager
+m = manager.connect(host=${pyArg('host')}, username=${pyArg('user', 'root')}, password=${pyArg('pass', 'juniper')},
                     hostkey_verify=False, device_params={"name":"junos"})
 m.lock("candidate")
 m.edit_config(target="candidate", config="""<configuration><system>
@@ -1672,8 +1768,8 @@ m.commit(); m.unlock("candidate")`,
     <config><hostname>${escXml(v.hostname)}</hostname></config>
   </system>
 </config>`,
-    ncclient: `import jsonrpclib
-sw = jsonrpclib.Server("https://${conn().username}:${conn().password}@${conn().host}/command-api")
+    ncclient: `${pySetup()}import jsonrpclib
+sw = jsonrpclib.Server(${pyEapiUrl()})
 sw.runCmds(1, ["enable","configure","hostname ${v.hostname}"])`,
     ansible: `- name: Set hostname to ${v.hostname}
   arista.eos.eos_hostname:
@@ -1695,7 +1791,7 @@ const AUTO_IFDESC = {
 </config>`,
     ncclient: `# Description on ${v.ifname}
 from ncclient import manager
-m = manager.connect(host="...", username="${conn().username}", password="${conn().password}",
+m = manager.connect(host=${pyArg('host')}, username=${pyArg('user')}, password=${pyArg('pass')},
                     hostkey_verify=False, device_params={"name":"iosxe"})
 m.edit_config(target="running", config=open("desc.xml").read())`,
     ansible: `- name: Description on ${v.ifname}
@@ -1712,8 +1808,8 @@ m.edit_config(target="running", config=open("desc.xml").read())`,
     <description>${escXml(v.desc)}</description>
   </interface></interfaces>
 </configuration>`,
-    ncclient: `from ncclient import manager
-m = manager.connect(host="...", username="${conn().username||'root'}", password="${conn().password||'juniper'}",
+    ncclient: `${pySetup()}from ncclient import manager
+m = manager.connect(host=${pyArg('host')}, username=${pyArg('user', 'root')}, password=${pyArg('pass', 'juniper')},
                     hostkey_verify=False, device_params={"name":"junos"})
 m.lock("candidate")
 m.edit_config(target="candidate", config="""<configuration><interfaces><interface>
@@ -1740,8 +1836,8 @@ m.commit(); m.unlock("candidate")`,
     </interface>
   </interfaces>
 </config>`,
-    ncclient: `import jsonrpclib
-sw = jsonrpclib.Server("https://${conn().username}:${conn().password}@${conn().host}/command-api")
+    ncclient: `${pySetup()}import jsonrpclib
+sw = jsonrpclib.Server(${pyEapiUrl()})
 sw.runCmds(1, ["enable","configure","interface ${v.ifname}","description ${v.desc}"])`,
     ansible: `- name: Description on ${v.ifname}
   arista.eos.eos_interfaces:
@@ -1765,8 +1861,8 @@ const AUTO_LOOPBACK = {
     </Loopback></interface>
   </native>
 </config>`,
-    ncclient: `from ncclient import manager
-with manager.connect(host="\${conn().host}", username="\${conn().username}", password="\${conn().password}",
+    ncclient: `${pySetup()}from ncclient import manager
+with manager.connect(host=${pyArg('host')}, username=${pyArg('user')}, password=${pyArg('pass')},
                      hostkey_verify=False, device_params={"name":"iosxe"}) as m:
     m.edit_config(target="running", config="""<config>
       <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native"><interface><Loopback>
@@ -1793,8 +1889,8 @@ with manager.connect(host="\${conn().host}", username="\${conn().username}", pas
     </unit>
   </interface></interfaces>
 </configuration>`,
-    ncclient: `from ncclient import manager
-with manager.connect(host="\${conn().host}", username="\${conn().username||'root'}", password="\${conn().password||'juniper'}",
+    ncclient: `${pySetup()}from ncclient import manager
+with manager.connect(host=${pyArg('host')}, username=${pyArg('user', 'root')}, password=${pyArg('pass', 'juniper')},
                      hostkey_verify=False, device_params={"name":"junos"}) as m:
     m.lock("candidate")
     m.edit_config(target="candidate", config="""<configuration><interfaces><interface>
@@ -1830,8 +1926,8 @@ with manager.connect(host="\${conn().host}", username="\${conn().username||'root
     </interface>
   </interfaces>
 </config>`,
-    ncclient: `import jsonrpclib
-sw = jsonrpclib.Server("https://\${conn().username}:\${conn().password||'admin'}@\${conn().host}/command-api")
+    ncclient: `${pySetup()}import jsonrpclib
+sw = jsonrpclib.Server(${pyEapiUrl()})
 sw.runCmds(1, ["enable","configure",
                "interface Loopback${v.unit}",
                "ip address ${v.ip}/${v.cidr}"])`,
@@ -1860,7 +1956,7 @@ const AUTO_DEFAULTRT = {
 </config>`,
     ncclient: `# Default route via ${v.nh}
 from ncclient import manager
-m = manager.connect(host="\${conn().host}", username="\${conn().username}", password="\${conn().password}",
+m = manager.connect(host=${pyArg('host')}, username=${pyArg('user')}, password=${pyArg('pass')},
                     hostkey_verify=False, device_params={"name":"iosxe"})
 m.edit_config(target="running", config=open("default-route.xml").read())`,
     ansible: `- name: Default route via ${v.nh}
@@ -1886,8 +1982,8 @@ m.edit_config(target="running", config=open("default-route.xml").read())`,
     </static>
   </routing-options>
 </configuration>`,
-    ncclient: `from ncclient import manager
-m = manager.connect(host="\${conn().host}", username="\${conn().username||'root'}", password="\${conn().password||'juniper'}",
+    ncclient: `${pySetup()}from ncclient import manager
+m = manager.connect(host=${pyArg('host')}, username=${pyArg('user', 'root')}, password=${pyArg('pass', 'juniper')},
                     hostkey_verify=False, device_params={"name":"junos"})
 m.lock("candidate")
 m.edit_config(target="candidate", config="""<configuration><routing-options><static>
@@ -1924,8 +2020,8 @@ m.commit(); m.unlock("candidate")`,
     </network-instance>
   </network-instances>
 </config>`,
-    ncclient: `import jsonrpclib
-sw = jsonrpclib.Server("https://\${conn().username}:\${conn().password||'admin'}@\${conn().host}/command-api")
+    ncclient: `${pySetup()}import jsonrpclib
+sw = jsonrpclib.Server(${pyEapiUrl()})
 sw.runCmds(1, ["enable","configure","ip route 0.0.0.0/0 ${v.nh}"])`,
     ansible: `- name: Default route via ${v.nh}
   arista.eos.eos_static_routes:
@@ -1955,7 +2051,7 @@ const AUTO_TRUNK = {
 </config>`,
     ncclient: `# Set ${v.ifname} as trunk allowing VLANs: ${v.vlans}
 from ncclient import manager
-m = manager.connect(host="\${conn().host}", username="\${conn().username}", password="\${conn().password}",
+m = manager.connect(host=${pyArg('host')}, username=${pyArg('user')}, password=${pyArg('pass')},
                     hostkey_verify=False, device_params={"name":"iosxe"})
 m.edit_config(target="running", config=open("trunk.xml").read())`,
     ansible: `- name: ${v.ifname} trunk allowed VLANs ${v.vlans}
@@ -1982,8 +2078,8 @@ m.edit_config(target="running", config=open("trunk.xml").read())`,
     </unit>
   </interface></interfaces>
 </configuration>`,
-    ncclient: `from ncclient import manager
-m = manager.connect(host="\${conn().host}", username="\${conn().username||'root'}", password="\${conn().password||'juniper'}",
+    ncclient: `${pySetup()}from ncclient import manager
+m = manager.connect(host=${pyArg('host')}, username=${pyArg('user', 'root')}, password=${pyArg('pass', 'juniper')},
                     hostkey_verify=False, device_params={"name":"junos"})
 m.lock("candidate")
 m.edit_config(target="candidate", config=open("trunk.xml").read())
@@ -2013,8 +2109,8 @@ m.commit(); m.unlock("candidate")`,
     </interface>
   </interfaces>
 </config>`,
-    ncclient: `import jsonrpclib
-sw = jsonrpclib.Server("https://\${conn().username}:\${conn().password||'admin'}@\${conn().host}/command-api")
+    ncclient: `${pySetup()}import jsonrpclib
+sw = jsonrpclib.Server(${pyEapiUrl()})
 sw.runCmds(1, ["enable","configure",
                "interface ${v.ifname}",
                "switchport mode trunk",
@@ -2048,7 +2144,7 @@ const AUTO_RADIUS = {
 </config>`,
     ncclient: `# RADIUS server ${v.host}
 from ncclient import manager
-m = manager.connect(host="\${conn().host}", username="\${conn().username}", password="\${conn().password}",
+m = manager.connect(host=${pyArg('host')}, username=${pyArg('user')}, password=${pyArg('pass')},
                     hostkey_verify=False, device_params={"name":"iosxe"})
 m.edit_config(target="running", config=open("radius.xml").read())`,
     ansible: `- name: RADIUS server ${v.host}
@@ -2071,8 +2167,8 @@ m.edit_config(target="running", config=open("radius.xml").read())`,
     </radius-server>
   </system>
 </configuration>`,
-    ncclient: `from ncclient import manager
-m = manager.connect(host="\${conn().host}", username="\${conn().username||'root'}", password="\${conn().password||'juniper'}",
+    ncclient: `${pySetup()}from ncclient import manager
+m = manager.connect(host=${pyArg('host')}, username=${pyArg('user', 'root')}, password=${pyArg('pass', 'juniper')},
                     hostkey_verify=False, device_params={"name":"junos"})
 m.lock("candidate")
 m.edit_config(target="candidate", config="""<configuration><system>
@@ -2101,8 +2197,8 @@ m.commit(); m.unlock("candidate")`,
     </server-group></server-groups></aaa>
   </system>
 </config>`,
-    ncclient: `import jsonrpclib
-sw = jsonrpclib.Server("https://\${conn().username}:\${conn().password||'admin'}@\${conn().host}/command-api")
+    ncclient: `${pySetup()}import jsonrpclib
+sw = jsonrpclib.Server(${pyEapiUrl()})
 sw.runCmds(1, ["enable","configure",
                "radius-server host ${v.host} key ${v.key}"])`,
     ansible: `- name: RADIUS server ${v.host}
@@ -2126,7 +2222,7 @@ const AUTO_PORTCHANNEL = {
 </config>`,
     ncclient: `# Bundle ${v.ifname} into Port-channel${v.pcid} (LACP ${v.mode})
 from ncclient import manager
-m = manager.connect(host="\${conn().host}", username="\${conn().username}", password="\${conn().password}",
+m = manager.connect(host=${pyArg('host')}, username=${pyArg('user')}, password=${pyArg('pass')},
                     hostkey_verify=False, device_params={"name":"iosxe"})
 m.edit_config(target="running", config=open("lag.xml").read())`,
     ansible: `- name: Bundle ${v.ifname} into Port-channel${v.pcid}
@@ -2153,8 +2249,8 @@ m.edit_config(target="running", config=open("lag.xml").read())`,
     </aggregated-ether-options>
   </interface></interfaces>
 </configuration>`,
-    ncclient: `from ncclient import manager
-m = manager.connect(host="\${conn().host}", username="\${conn().username||'root'}", password="\${conn().password||'juniper'}",
+    ncclient: `${pySetup()}from ncclient import manager
+m = manager.connect(host=${pyArg('host')}, username=${pyArg('user', 'root')}, password=${pyArg('pass', 'juniper')},
                     hostkey_verify=False, device_params={"name":"junos"})
 m.lock("candidate")
 m.edit_config(target="candidate", config=open("lag.xml").read())
@@ -2185,8 +2281,8 @@ m.commit(); m.unlock("candidate")`,
     </interface>
   </interfaces>
 </config>`,
-    ncclient: `import jsonrpclib
-sw = jsonrpclib.Server("https://\${conn().username}:\${conn().password||'admin'}@\${conn().host}/command-api")
+    ncclient: `${pySetup()}import jsonrpclib
+sw = jsonrpclib.Server(${pyEapiUrl()})
 sw.runCmds(1, ["enable","configure",
                "interface ${v.ifname}",
                "channel-group ${v.pcid} mode ${v.mode}"])`,
@@ -2456,10 +2552,9 @@ const FALLBACK_RENDERERS = {
     const firstLine = lines[0] || d.cmd.trim().split("\n")[0] || "";
     if(info.isShow){
       return {
-        netmiko: `from netmiko import ConnectHandler
+        netmiko: `${pySetup()}from netmiko import ConnectHandler
 
-device = {"device_type":"cisco_ios","host":"10.0.0.1",
-          "username":"admin","password":"cisco"}
+device = {"device_type":"cisco_ios","host":${pyArg('host')},"username":${pyArg('user')},"password":${pyArg('pass')}}
 
 with ConnectHandler(**device) as net:
     output = net.send_command(${JSON.stringify(firstLine)})
@@ -2473,44 +2568,42 @@ ${yamlList(lines, "      ")}
 - name: Display output
   ansible.builtin.debug:
     var: result.stdout_lines`,
-        napalm: `# Show commands run via device.cli() — no commit needed
+        napalm: `${pySetup()}# Show commands run via device.cli() — no commit needed
 import napalm
 driver = napalm.get_network_driver("ios")
-with driver("${conn().host}", "${conn().username}", "${conn().password}") as d:
+with driver(${pyArg('host')}, ${pyArg('user')}, ${pyArg('pass')}) as d:
     output = d.cli([${JSON.stringify(firstLine)}])
     print(output[${JSON.stringify(firstLine)}])`,
       };
     }
     if(info.isOps){
       return {
-        netmiko: `from netmiko import ConnectHandler
+        netmiko: `${pySetup()}from netmiko import ConnectHandler
 
-device = {"device_type":"cisco_ios","host":"10.0.0.1",
-          "username":"admin","password":"cisco"}
+device = {"device_type":"cisco_ios","host":${pyArg('host')},"username":${pyArg('user')},"password":${pyArg('pass')}}
 
 with ConnectHandler(**device) as net:
     # Privileged exec command (e.g. write/copy/reload/clear)
     out = net.send_command_timing(${JSON.stringify(firstLine)})
     print(out)`,
-        ansible: `# Operational commands are typically wrapped in ios_command (run in enable mode)
+        ansible: `${pySetup()}# Operational commands are typically wrapped in ios_command (run in enable mode)
 - name: Run operational command
   cisco.ios.ios_command:
     commands:
 ${yamlList(lines, "      ")}`,
-        napalm: `# NAPALM exposes specific ops via methods (commit/discard/load_replace/...).
+        napalm: `${pySetup()}# NAPALM exposes specific ops via methods (commit/discard/load_replace/...).
 # For arbitrary EXEC, use device.cli([...]).
 import napalm
 driver = napalm.get_network_driver("ios")
-with driver("${conn().host}", "${conn().username}", "${conn().password}") as d:
+with driver(${pyArg('host')}, ${pyArg('user')}, ${pyArg('pass')}) as d:
     print(d.cli([${JSON.stringify(firstLine)}]))`,
       };
     }
     // config path
     return {
-      netmiko: `from netmiko import ConnectHandler
+      netmiko: `${pySetup()}from netmiko import ConnectHandler
 
-device = {"device_type":"cisco_ios","host":"10.0.0.1",
-          "username":"admin","password":"cisco"}
+device = {"device_type":"cisco_ios","host":${pyArg('host')},"username":${pyArg('user')},"password":${pyArg('pass')}}
 
 config_lines = ${JSON.stringify(lines, null, 2).replace(/\n/g, "\n")}
 
@@ -2534,7 +2627,7 @@ import napalm
 config = """${escDoubleQuote(lines.join("\n"))}"""
 
 driver = napalm.get_network_driver("ios")
-with driver("${conn().host}", "${conn().username}", "${conn().password}") as d:
+with driver(${pyArg('host')}, ${pyArg('user')}, ${pyArg('pass')}) as d:
     d.load_merge_candidate(config=config)
     diff = d.compare_config()
     print("Diff:", diff)
@@ -2551,9 +2644,9 @@ with driver("${conn().host}", "${conn().username}", "${conn().password}") as d:
     const firstLine = lines[0] || d.cmd.trim().split("\n")[0] || "";
     if(info.isShow){
       return {
-        netmiko: `from netmiko import ConnectHandler
+        netmiko: `${pySetup()}from netmiko import ConnectHandler
 
-device = {"device_type":"juniper_junos","host":"${conn().host}","username":"${conn().username||'root'}","password":"${conn().password||'juniper'}"}
+device = {"device_type":"juniper_junos","host":${pyArg('host')},"username":${pyArg('user', 'root')},"password":${pyArg('pass', 'juniper')}}
 
 with ConnectHandler(**device) as net:
     output = net.send_command(${JSON.stringify(firstLine)})
@@ -2570,16 +2663,16 @@ ${yamlList(lines, "      ")}
         napalm: `# Junos: use Junos PyEZ (jnpr.junos) for native ops; NAPALM .cli() wraps RPCs
 import napalm
 driver = napalm.get_network_driver("junos")
-with driver("${conn().host}", "${conn().username||'root'}", "${conn().password||'juniper'}") as d:
+with driver(${pyArg('host')}, ${pyArg('user')}, ${pyArg('pass', 'juniper')}) as d:
     print(d.cli([${JSON.stringify(firstLine)}]))`,
       };
     }
     // Junos config path — must be 'set' style for ios_config-like fallback
     const isAlreadySet = info.isJunosSet;
     return {
-      netmiko: `from netmiko import ConnectHandler
+      netmiko: `${pySetup()}from netmiko import ConnectHandler
 
-device = {"device_type":"juniper_junos","host":"${conn().host}","username":"${conn().username||'root'}","password":"${conn().password||'juniper'}"}
+device = {"device_type":"juniper_junos","host":${pyArg('host')},"username":${pyArg('user', 'root')},"password":${pyArg('pass', 'juniper')}}
 
 # Junos uses 'set' style commands in candidate → commit
 config_lines = ${JSON.stringify(lines, null, 2)}
@@ -2602,7 +2695,7 @@ import napalm
 config = """${escDoubleQuote(lines.join("\n"))}"""
 
 driver = napalm.get_network_driver("junos")
-with driver("${conn().host}", "${conn().username||'root'}", "${conn().password||'juniper'}") as d:
+with driver(${pyArg('host')}, ${pyArg('user')}, ${pyArg('pass', 'juniper')}) as d:
     d.load_merge_candidate(config=config)
     diff = d.compare_config()
     print("Diff:", diff)
@@ -2619,9 +2712,9 @@ with driver("${conn().host}", "${conn().username||'root'}", "${conn().password||
     const firstLine = lines[0] || d.cmd.trim().split("\n")[0] || "";
     if(info.isShow){
       return {
-        netmiko: `from netmiko import ConnectHandler
+        netmiko: `${pySetup()}from netmiko import ConnectHandler
 
-device = {"device_type":"arista_eos","host":"${conn().host}","username":"${conn().username}","password":"${conn().password||'admin'}"}
+device = {"device_type":"arista_eos","host":${pyArg('host')},"username":${pyArg('user')},"password":${pyArg('pass', 'admin')}}
 
 with ConnectHandler(**device) as net:
     output = net.send_command(${JSON.stringify(firstLine)})
@@ -2635,17 +2728,17 @@ ${yamlList(lines, "      ")}
 - name: Display output
   ansible.builtin.debug:
     var: result.stdout_lines`,
-        napalm: `# Arista preferred path is eAPI (JSON-RPC) — typically structured output:
+        napalm: `${pySetup()}# Arista preferred path is eAPI (JSON-RPC) — typically structured output:
 import jsonrpclib
-sw = jsonrpclib.Server("https://${conn().username}:${conn().password}@${conn().host}/command-api")
+sw = jsonrpclib.Server(${pyEapiUrl()})
 result = sw.runCmds(1, [${JSON.stringify(firstLine)}])
 print(result)`,
       };
     }
     return {
-      netmiko: `from netmiko import ConnectHandler
+      netmiko: `${pySetup()}from netmiko import ConnectHandler
 
-device = {"device_type":"arista_eos","host":"${conn().host}","username":"${conn().username}","password":"${conn().password||'admin'}"}
+device = {"device_type":"arista_eos","host":${pyArg('host')},"username":${pyArg('user')},"password":${pyArg('pass', 'admin')}}
 
 config_lines = ${JSON.stringify(lines, null, 2)}
 
@@ -2659,9 +2752,9 @@ with ConnectHandler(**device) as net:
 ${yamlList(lines, "      ")}
     save_when: modified
   register: change`,
-      napalm: `# Arista eAPI direct (most idiomatic for EOS):
+      napalm: `${pySetup()}# Arista eAPI direct (most idiomatic for EOS):
 import jsonrpclib
-sw = jsonrpclib.Server("https://${conn().username}:${conn().password}@${conn().host}/command-api")
+sw = jsonrpclib.Server(${pyEapiUrl()})
 sw.runCmds(1, ["enable", "configure",
 ${lines.map(l => "               "+JSON.stringify(l)).join(",\n")}])
 
@@ -2669,7 +2762,7 @@ ${lines.map(l => "               "+JSON.stringify(l)).join(",\n")}])
 import napalm
 config = """${escDoubleQuote(lines.join("\n"))}"""
 driver = napalm.get_network_driver("eos")
-with driver("${conn().host}", "${conn().username}", "${conn().password||'admin'}") as d:
+with driver(${pyArg('host')}, ${pyArg('user')}, ${pyArg('pass', 'admin')}) as d:
     d.load_merge_candidate(config=config)
     print(d.compare_config())
     d.commit_config()`,
@@ -2684,9 +2777,9 @@ with driver("${conn().host}", "${conn().username}", "${conn().password||'admin'}
     const firstLine = lines[0] || d.cmd.trim().split("\n")[0] || "";
     if(info.isShow){
       return {
-        netmiko: `from netmiko import ConnectHandler
+        netmiko: `${pySetup()}from netmiko import ConnectHandler
 
-device = {"device_type":"frrouting","host":"${conn().host}","username":"${conn().username||'frr'}","password":"${conn().password||'frr'}"}
+device = {"device_type":"frrouting","host":${pyArg('host')},"username":${pyArg('user', 'frr')},"password":${pyArg('pass', 'frr')}}
 
 with ConnectHandler(**device) as net:
     # FRR drops to bash by default — drive vtysh explicitly for show commands.
@@ -2702,20 +2795,20 @@ ${yamlList(lines, "    - ")}
 - name: Display output
   ansible.builtin.debug:
     var: result.results | map(attribute='stdout_lines') | list`,
-        napalm: `# NAPALM doesn't ship an FRR driver upstream. Use napalm-frr (community):
+        napalm: `${pySetup()}# NAPALM doesn't ship an FRR driver upstream. Use napalm-frr (community):
 #   pip install napalm-frr-driver
 import napalm
 driver = napalm.get_network_driver("frr")
-with driver("${conn().host}", "${conn().username||'frr'}", "${conn().password||'frr'}") as d:
+with driver(${pyArg('host')}, ${pyArg('user')}, ${pyArg('pass', 'frr')}) as d:
     print(d.cli([${JSON.stringify(firstLine)}]))`,
       };
     }
     // config path — FRR config is applied either via vtysh -c or by sending a multi-line
     // config block into vtysh stdin. Most automation prefers the latter for atomicity.
     return {
-      netmiko: `from netmiko import ConnectHandler
+      netmiko: `${pySetup()}from netmiko import ConnectHandler
 
-device = {"device_type":"frrouting","host":"${conn().host}","username":"${conn().username||'frr'}","password":"${conn().password||'frr'}"}
+device = {"device_type":"frrouting","host":${pyArg('host')},"username":${pyArg('user', 'frr')},"password":${pyArg('pass', 'frr')}}
 
 config_lines = ${JSON.stringify(lines, null, 2)}
 
@@ -2734,11 +2827,11 @@ ${lines.map(l => "    "+l).join("\n")}
     EOF
   register: change
   changed_when: "'write memory' in change.stdout"`,
-      napalm: `# NAPALM-FRR community driver — load/commit semantics like other vendors:
+      napalm: `${pySetup()}# NAPALM-FRR community driver — load/commit semantics like other vendors:
 import napalm
 config = """${escDoubleQuote(lines.join("\n"))}"""
 driver = napalm.get_network_driver("frr")
-with driver("${conn().host}", "${conn().username||'frr'}", "${conn().password||'frr'}") as d:
+with driver(${pyArg('host')}, ${pyArg('user')}, ${pyArg('pass', 'frr')}) as d:
     d.load_merge_candidate(config=config)
     print(d.compare_config())
     d.commit_config()`,
@@ -3292,6 +3385,35 @@ function buildParamsEditor(d, found, active, vendors){
   }
   wrap.appendChild(body);
 
+  // Secret Mode row — controls how generated snippets handle credentials.
+  // Three options: inline (legacy), .env via python-dotenv, or keyring.
+  const secretRow = el("div",{class:"pp-actions pp-secret"});
+  secretRow.appendChild(el("span",{class:"pp-label",
+    title:"Controls how generated snippets read your password.\n"
+        + "• Inline = hard-codes the password (quick demo only)\n"
+        + "• .env  = uses os.environ / python-dotenv (safe default)\n"
+        + "• keyring = uses the keyring library and your OS credential store"
+  }, "🔐 Secret mode:"));
+  const mode = secretMode();
+  const SECRET_MODES = [
+    {k:"inline",  label:"Inline",  desc:"hard-coded (demo)"},
+    {k:"env",     label:".env",    desc:"python-dotenv"},
+    {k:"keyring", label:"keyring", desc:"OS credential store"},
+  ];
+  SECRET_MODES.forEach(opt => {
+    const btn = el("button", {
+      class: "sm-pill" + (mode === opt.k ? " on" : ""),
+      title: opt.desc,
+      onClick: () => {
+        connState.secretMode = opt.k; persistConn();
+        buildAndReplaceParams(d, found, active, vendors);
+        rerenderAutoBlocks(d, found, active);
+      }
+    }, opt.label);
+    secretRow.appendChild(btn);
+  });
+  wrap.appendChild(secretRow);
+
   // Action row
   const actions = el("div",{class:"pp-actions"});
   const redactCb = el("input",{type:"checkbox",checked:!!connState.redact,
@@ -3402,6 +3524,15 @@ function renderAutoBody(d, found, active, vendors){
     body.appendChild(mkBlock("Python (Netmiko) snippet", out.netmiko, "python"));
     body.appendChild(mkBlock("Ansible task (YAML)", out.ansible, "yaml"));
     body.appendChild(mkBlock("NAPALM snippet", out.napalm, "python"));
+  }
+
+  // Secret-Mode companion block: render the .env.example or keyring-seed
+  // command alongside the snippets so engineers can copy both halves at once.
+  const mode = secretMode();
+  if(mode === "env"){
+    body.appendChild(mkBlock("📄 .env.example (drop next to your script)", envExampleBlock(), "dotenv"));
+  } else if(mode === "keyring"){
+    body.appendChild(mkBlock("🔑 Seed the OS keyring (run once)", keyringSeedCmd(), "bash"));
   }
 }
 

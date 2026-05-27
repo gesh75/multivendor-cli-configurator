@@ -22,6 +22,7 @@
 Each command card has:
 - **Copy / + CLI / See equivalents ↗** — usual operations
 - **🔧 Automate** — *new*. For 10 of the most common patterns, opens a drawer showing the NETCONF XML, ncclient Python snippet, and Ansible task **pre-filled with the values from your specific command** (extracts your IP, VLAN, ASN, etc. via regex and substitutes into vendor-correct templates).
+- **🔐 Secret mode** — pick how generated snippets read credentials: **Inline** (literals, demo only), **.env** (python-dotenv, default — safer pasteboard), or **keyring** (OS credential store). Toggling re-renders every snippet in place. A companion `.env.example` or `keyring set` one-liner appears alongside the code so engineers can copy both halves.
 
 Opens in any modern browser. No build, no install, zero JS dependencies.
 
