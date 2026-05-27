@@ -1,0 +1,3908 @@
+[
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "Show Management Interface",
+  "cmd": "Show Management Interface",
+  "desc": "Interfaces — Please check [show ip interfaces](#show-ip-interfaces)"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config --help",
+  "cmd": "config --help",
+  "desc": "System — This command lists all the possible configuration commands at the top level. - Usage: config --help - Example: admin@sonic:~$ config --help Usage: config [OPTIONS] COMMAND [ARGS] SONiC command line - 'config' command Op…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show help",
+  "cmd": "show help",
+  "desc": "Troubleshooting — This command displays the full list of show commands available in the software; the output of each of those show commands can be used to analyze, debug or troubleshoot the network node."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "Show Versions",
+  "cmd": "Show Versions",
+  "desc": "Troubleshooting"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show version",
+  "cmd": "show version",
+  "desc": "Troubleshooting — This command displays software component versions of the currently running SONiC image."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "Show System Status",
+  "cmd": "Show System Status",
+  "desc": "Troubleshooting — This sub-section explains some set of sub-commands that are used to display the status of various parameters pertaining to the physical state of the network node."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show clock",
+  "cmd": "show clock",
+  "desc": "Troubleshooting — This command displays the current date and time configured on the system - Usage: show clock - Example: admin@sonic:~$ show clock Mon Mar 25 20:25:16 UTC 2019"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config clock date",
+  "cmd": "config clock date",
+  "desc": "System — This command will set the date-time of the systetm, given strings with date-time format <YYYY-MM-DD> <HH:MM:SS> - Usage: config clock date <YYYY-MM-DD> <HH:MM:SS> - Parameters: - _date_: valid date in format YYYY-MM-DD…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config clock timezone",
+  "cmd": "config clock timezone",
+  "desc": "System — This command will set the timezone of the systetm, given a string of a valid timezone."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show clock timezones",
+  "cmd": "show clock timezones",
+  "desc": "Troubleshooting — This command Will display list of all valid timezones to be configured. - Usage: show clock timezones - Example: root@host:~$ show clock timezones Africa/Abidjan Africa/Accra Africa/Addis_Ababa Africa/Algiers Africa/Asm…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show boot",
+  "cmd": "show boot",
+  "desc": "Troubleshooting — This command displays the current OS image, the image to be loaded on next reboot, and lists all the available images installed on the device - Usage: show boot - Example: admin@sonic:~$ show boot Current: SONiC-OS-2018…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show environment",
+  "cmd": "show environment",
+  "desc": "Troubleshooting — This command displays the platform environmentals, such as voltages, temperatures and fan speeds - Usage: show environment - Example: admin@sonic:~$ show environment coretemp-isa-0000 Adapter: ISA adapter Core 0: +28.0…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show reboot-cause",
+  "cmd": "show reboot-cause",
+  "desc": "Troubleshooting — This command displays the cause of the previous reboot - Usage: show reboot-cause - Example: ### Shown below is the output of the CLI when executed on the NPU admin@sonic:~$ show reboot-cause User issued reboot command…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show reboot-cause all",
+  "cmd": "show reboot-cause all",
+  "desc": "Troubleshooting — This command displays the cause of the previous reboot for the Switch and the DPUs for which the midplane interfaces are up."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show reboot-cause history",
+  "cmd": "show reboot-cause history",
+  "desc": "Troubleshooting — This command displays the history of the previous reboots up to 10 entry - Usage: show reboot-cause history - Example: ### Shown below is the output of the CLI when executed on the NPU root@MtFuji:/home/cisco# show rebo…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show reboot-cause history all",
+  "cmd": "show reboot-cause history all",
+  "desc": "Troubleshooting — This command displays the history of the previous reboots up to 10 entry of the Switch and the DPUs for which the midplane interfaces are up."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show reboot-cause history DPU1",
+  "cmd": "show reboot-cause history DPU1",
+  "desc": "Troubleshooting — This command displays the history of the previous reboots up to 10 entry of DPU1."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show uptime",
+  "cmd": "show uptime",
+  "desc": "Troubleshooting — This command displays the current system uptime - Usage: show uptime - Example: admin@sonic:~$ show uptime up 2 days, 21 hours, 30 minutes"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Logging",
+  "title": "show logging",
+  "cmd": "show logging",
+  "desc": "Logging — This command displays all the currently stored log messages. All the latest processes and corresponding transactions are stored in the \"syslog\" file."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show users",
+  "cmd": "show users",
+  "desc": "Troubleshooting — This command displays a list of users currently logged in to the device - Usage: show users - Examples: admin@sonic:~$ show users admin pts/9 Mar 25 20:31 (100.127.20.23) admin@sonic:~$ show users admin ttyS1 2019-03-25…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "Show Hardware Platform",
+  "cmd": "Show Hardware Platform",
+  "desc": "Troubleshooting — The information displayed in this set of commands partially overlaps with the one generated by “show envinronment” instruction."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show platform summary",
+  "cmd": "show platform summary",
+  "desc": "Troubleshooting — This command displays a summary of the device's hardware platform - Usage: show platform summary - Example: admin@sonic:~$ show platform summary Platform: x86_64-mlnx_msn2700-r0 HwSKU: Mellanox-SN2700 ASIC: mellanox ASI…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show platform syseeprom",
+  "cmd": "show platform syseeprom",
+  "desc": "Troubleshooting — This command displays information stored on the system EEPROM. Note that the output of this command is not the same for all vendor's platforms."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show platform ssdhealth",
+  "cmd": "show platform ssdhealth",
+  "desc": "Troubleshooting — This command displays health parameters of the device's SSD - Usage: show platform ssdhealth [--vendor] - Example: admin@sonic:~$ show platform ssdhealth Device Model : M.2 (S42) 3IE3 Health : 99.665% Temperature : 30C"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show platform psustatus",
+  "cmd": "show platform psustatus",
+  "desc": "Troubleshooting — This command displays the status of the device's power supply units - Usage: show platform psustatus - Example: admin@sonic:~$ show platform psustatus PSU Model Serial HW Rev Voltage (V) Current (A) Power (W) Status LED…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show platform fan",
+  "cmd": "show platform fan",
+  "desc": "Troubleshooting — This command displays the status of the device's fans - Usage: show platform fan - Example: admin@sonic:~$ show platform fan FAN Speed Direction Presence Status Timestamp ----------- -------- ----------- ---------- ----…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show platform temperature",
+  "cmd": "show platform temperature",
+  "desc": "Troubleshooting — This command displays the status of the device's thermal sensors - Usage: show platform temperature - Example: admin@sonic:~$ show platform temperature NAME Temperature High Th Low Th Crit High Th Crit Low Th Warning Ti…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show platform bmc summary",
+  "cmd": "show platform bmc summary",
+  "desc": "Troubleshooting — This command displays BMC summary information including manufacturer, model, part number, serial number, power state, and firmware version - Usage: show platform bmc summary [--json] - Options: - --json: Output informat…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show platform bmc eeprom",
+  "cmd": "show platform bmc eeprom",
+  "desc": "Troubleshooting — This command displays BMC EEPROM information - Usage: show platform bmc eeprom [--json] - Options: - --json: Output information in JSON format - Example: admin@sonic:~$ show platform bmc eeprom Manufacturer: ASPEED Mode…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show interfaces transceiver",
+  "cmd": "show interfaces transceiver",
+  "desc": "Troubleshooting — This command displays information for all the interfaces for the transceiver requested or a specific interface if the optional \"interface_name\" is specified."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "AAA",
+  "title": "show aaa",
+  "cmd": "show aaa",
+  "desc": "AAA — This command displays the AAA settings currently present in the network node - Usage: show aaa - Example: admin@sonic:~$ show aaa AAA authentication login local (default) AAA authentication failthrough True (default) AA…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "AAA",
+  "title": "show tacacs",
+  "cmd": "show tacacs",
+  "desc": "AAA — This command displays the global configuration fields and the list of all tacacs servers and their correponding configurations."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "AAA",
+  "title": "config tacacs add",
+  "cmd": "config tacacs add",
+  "desc": "AAA — This command is used to add a TACACS+ server to the tacacs server list. Note that more than one tacacs+ (maximum of seven) can be added in the device."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "AAA",
+  "title": "config tacacs delete",
+  "cmd": "config tacacs delete",
+  "desc": "AAA — This command is used to delete the tacacs+ servers configured. - Usage: config tacacs delete <ip_address> - Example: admin@sonic:~$ sudo config tacacs delete 10.11.12.13"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "AAA",
+  "title": "config tacacs authtype",
+  "cmd": "config tacacs authtype",
+  "desc": "AAA — This command is used to modify the global value for the TACACS+ authtype. When user has not configured server specific authtype, this global value shall be used for that server."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "AAA",
+  "title": "config tacacs default",
+  "cmd": "config tacacs default",
+  "desc": "AAA — This command is used to reset the global value for authtype or passkey or timeout to default value."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "AAA",
+  "title": "config tacacs passkey",
+  "cmd": "config tacacs passkey",
+  "desc": "AAA — This command is used to modify the global value for the TACACS+ passkey. When user has not configured server specific passkey, this global value shall be used for that server."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "AAA",
+  "title": "config tacacs timeout",
+  "cmd": "config tacacs timeout",
+  "desc": "AAA — This command is used to modify the global value for the TACACS+ timeout. When user has not configured server specific timeout, this global value shall be used for that server."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "ACL",
+  "title": "show acl table",
+  "cmd": "show acl table",
+  "desc": "ACL — This command displays either all the ACL tables that are configured or only the specified \"TABLE_NAME\"."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "ACL",
+  "title": "show acl rule",
+  "cmd": "show acl rule",
+  "desc": "ACL — This command displays all the ACL rules present in all the ACL tables or only the rules present in specified table \"TABLE_NAME\" or only the rule matching the RULE_ID option."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "ACL",
+  "title": "config acl update full",
+  "cmd": "config acl update full",
+  "desc": "ACL — This command is to update the rules in all the tables or in one specific table in full."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "ACL",
+  "title": "config acl update incremental",
+  "cmd": "config acl update incremental",
+  "desc": "ACL — This command is used to perform incremental update of ACL rule table. This command gets existing rules from Config DB and compares with rules specified in input file and performs corresponding modifications."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "ACL",
+  "title": "config acl add table",
+  "cmd": "config acl add table",
+  "desc": "ACL — This command is used to create new ACL tables. - Usage: config acl add table [OPTIONS] <table_name> <table_type> [-d <description>] [-p <ports>] [-s (ingress | egress)] [-n <namespace>] - Parameters: - table_name: The n…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "ACL",
+  "title": "config acl remove table",
+  "cmd": "config acl remove table",
+  "desc": "ACL — This command is used to remove an ACL table. - Usage: config acl remove table <table_name> [-n <namespace>] - Parameters: - table_name: The name of the ACL table to remove."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config asic-sdk-health-event suppress",
+  "cmd": "config asic-sdk-health-event suppress",
+  "desc": "System — This command is for a customer to configure the categories that he/she wants to suppress for a certain severity."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show asic-sdk-health-event received",
+  "cmd": "show asic-sdk-health-event received",
+  "desc": "Troubleshooting — This command displays the received ASIC/SDK health events. - Usage: show asic-sdk-health-event received [-n <asicname>] - Details: - show asic-sdk-health-event received: Display the ASIC/SDK health events received on al…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show asic-sdk-health-event suppress-configuration",
+  "cmd": "show asic-sdk-health-event suppress-configuration",
+  "desc": "Troubleshooting — This command displays the suppressed category list and maximum number of events of ASIC/SDK health events."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show arp",
+  "cmd": "show arp",
+  "desc": "Troubleshooting — This command displays the ARP entries in the device with following options. 1) Display the entire table."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show ndp",
+  "cmd": "show ndp",
+  "desc": "Troubleshooting — This command displays either all the IPv6 neighbor mac addresses, or for a particular IPv6 neighbor, or for all IPv6 neighbors reachable via a specific interface."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config bmc open-session",
+  "cmd": "config bmc open-session",
+  "desc": "System — This command opens a session with the BMC and returns session credentials - Usage: config bmc open-session - Example: admin@sonic:~$ sudo config bmc open-session Session ID: qL8mAGlFvw Token: ndCMbgPVd3d1LpRXXkTJ"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config bmc close-session",
+  "cmd": "config bmc close-session",
+  "desc": "System — This command closes a BMC session using the provided session ID - Usage: config bmc close-session --session-id <session_id> - Options: - -s, --session-id: Session ID to close (required) - Example: admin@sonic:~$ sudo co…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config bmc reset-root-password",
+  "cmd": "config bmc reset-root-password",
+  "desc": "System — This command resets the BMC root password to default - Usage: config bmc reset-root-password - Example: admin@sonic:~$ sudo config bmc reset-root-password BMC root password reset successful Go Back To [Beginning of the…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "BFD",
+  "title": "show bfd summary",
+  "cmd": "show bfd summary",
+  "desc": "BFD — This command displays the state and key parameters of all BFD sessions. - Usage: show bfd summary [-n <namespace>] - Example: >> show bfd summary Total number of BFD sessions: 3 Peer Addr Interface Vrf State Type Local…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "BFD",
+  "title": "show bfd peer",
+  "cmd": "show bfd peer",
+  "desc": "BFD — This command displays the state and key parameters of all BFD sessions that match an IP address."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "BGP",
+  "title": "show bgp summary (Versions >= 201904 using default FRR routing stack)",
+  "cmd": "show bgp summary (Versions >= 201904 using default FRR routing stack)",
+  "desc": "BGP"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "BGP",
+  "title": "show ip bgp summary (Versions <= 201811 using Quagga routing stack)",
+  "cmd": "show ip bgp summary (Versions <= 201811 using Quagga routing stack)",
+  "desc": "BGP — This command displays the summary of all IPv4 & IPv6 bgp neighbors that are configured and the corresponding states."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "BGP",
+  "title": "show bgp neighbors (Versions >= 201904 using default FRR routing stack)",
+  "cmd": "show bgp neighbors (Versions >= 201904 using default FRR routing stack)",
+  "desc": "BGP"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "BGP",
+  "title": "show ip bgp neighbors (Versions <= 201811 using Quagga routing stack)",
+  "cmd": "show ip bgp neighbors (Versions <= 201811 using Quagga routing stack)",
+  "desc": "BGP — This command displays all the details of IPv4 & IPv6 BGP neighbors when no optional argument is specified."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "BGP",
+  "title": "show ip bgp network [[<ipv4-address>|<ipv4-prefix>] [(bestpath | multipath | longer-prefi…",
+  "cmd": "show ip bgp network [[<ipv4-address>|<ipv4-prefix>] [(bestpath | multipath | longer-prefixes | json)]]",
+  "desc": "BGP — This command displays all the details of IPv4 Border Gateway Protocol (BGP) prefixes."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "BGP",
+  "title": "show bgp ipv6 summary (Versions >= 201904 using default FRR routing stack)",
+  "cmd": "show bgp ipv6 summary (Versions >= 201904 using default FRR routing stack)",
+  "desc": "BGP"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "BGP",
+  "title": "show ipv6 bgp summary (Versions <= 201811 using Quagga routing stack)",
+  "cmd": "show ipv6 bgp summary (Versions <= 201811 using Quagga routing stack)",
+  "desc": "BGP — This command displays the summary of all IPv6 bgp neighbors that are configured and the corresponding states."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "BGP",
+  "title": "show bgp ipv6 neighbors (Versions >= 201904 using default FRR routing stack)",
+  "cmd": "show bgp ipv6 neighbors (Versions >= 201904 using default FRR routing stack)",
+  "desc": "BGP"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "BGP",
+  "title": "show ipv6 bgp neighbors (Versions <= 201811 using Quagga routing stack)",
+  "cmd": "show ipv6 bgp neighbors (Versions <= 201811 using Quagga routing stack)",
+  "desc": "BGP — This command displays all the details of one particular IPv6 Border Gateway Protocol (BGP) neighbor."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show route-map",
+  "cmd": "show route-map",
+  "desc": "Troubleshooting — This command displays the routing policy that takes precedence over the other route processes that are configured."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show suppress-fib-pending",
+  "cmd": "show suppress-fib-pending",
+  "desc": "Troubleshooting — This command is used to show the status of suppress pending FIB feature. When enabled, BGP will not advertise routes which aren't yet offloaded."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "BGP",
+  "title": "show bgp device-global",
+  "cmd": "show bgp device-global",
+  "desc": "BGP — This command displays BGP device global configuration. - Usage: bash show bgp device-global - Options: - _-j,--json_: display in JSON format - Example: bash admin@sonic:~$ show bgp device-global TSA W-ECMP ------- -----…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "BGP",
+  "title": "show ip bgp aggregate-address",
+  "cmd": "show ip bgp aggregate-address",
+  "desc": "BGP — This command displays configured IPv4 BGP aggregate addresses from the CONFIG_DB."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "BGP",
+  "title": "show ipv6 bgp aggregate-address",
+  "cmd": "show ipv6 bgp aggregate-address",
+  "desc": "BGP — This command displays configured IPv6 BGP aggregate addresses from the CONFIG_DB."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "BGP",
+  "title": "config bgp shutdown all",
+  "cmd": "config bgp shutdown all",
+  "desc": "BGP — This command is used to shutdown all the BGP IPv4 & IPv6 sessions. When the session is shutdown using this command, BGP state in \"show ip bgp summary\" is displayed as \"Idle (Admin)\" - Usage: config bgp shutdown all - Ex…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "BGP",
+  "title": "config bgp shutdown neighbor",
+  "cmd": "config bgp shutdown neighbor",
+  "desc": "BGP — This command is to shut down a BGP session with a neighbor by that neighbor's IP address or hostname - Usage: sudo config bgp shutdown neighbor (<ip_address> | <hostname>) - Examples: admin@sonic:~$ sudo config bgp shut…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "BGP",
+  "title": "config bgp startup all",
+  "cmd": "config bgp startup all",
+  "desc": "BGP — This command is used to start up all the IPv4 & IPv6 BGP neighbors - Usage: config bgp startup all - Example: admin@sonic:~$ sudo config bgp startup all"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "BGP",
+  "title": "config bgp startup neighbor",
+  "cmd": "config bgp startup neighbor",
+  "desc": "BGP — This command is used to start up the particular IPv4 or IPv6 BGP neighbor using either the IP address or hostname."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "BGP",
+  "title": "config bgp remove neighbor",
+  "cmd": "config bgp remove neighbor",
+  "desc": "BGP — This command is used to remove particular IPv4 or IPv6 BGP neighbor configuration using either the IP address or hostname."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config suppress-fib-pending",
+  "cmd": "config suppress-fib-pending",
+  "desc": "System — This command is used to enable or disable announcements of routes not yet installed in the HW."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "BGP",
+  "title": "config bgp device-global tsa/w-ecmp",
+  "cmd": "config bgp device-global tsa/w-ecmp",
+  "desc": "BGP — This command is used to manage BGP device global configuration. Feature list: 1."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "BGP",
+  "title": "config bgp aggregate-address add",
+  "cmd": "config bgp aggregate-address add",
+  "desc": "BGP — This command adds a BGP aggregate address entry to the CONFIG_DB. - Usage: config bgp aggregate-address add <ip-prefix> [--bbr-required] [--summary-only] [--as-set] [--aggregate-address-prefix-list <name>] [--contributi…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "BGP",
+  "title": "config bgp aggregate-address remove",
+  "cmd": "config bgp aggregate-address remove",
+  "desc": "BGP — This command removes a BGP aggregate address entry from the CONFIG_DB. - Usage: config bgp aggregate-address remove <ip-prefix> - Example: admin@sonic:~$ sudo config bgp aggregate-address remove 192.168.0.0/24 Go Back T…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show line",
+  "cmd": "show line",
+  "desc": "Troubleshooting — This command displays serial port or a virtual network connection status. - Usage: show line (-b|--breif) - Example: admin@sonic:~$ show line Line Baud Flow Control PID Start Time Device ------ ------ -------------- ---…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config console enable",
+  "cmd": "config console enable",
+  "desc": "System — This command is used to enable SONiC console switch feature. - Usage: config console enable - Example: admin@sonic:~$ sudo config console enable"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config console disable",
+  "cmd": "config console disable",
+  "desc": "System — This command is used to disable SONiC console switch feature. - Usage: config console disable - Example: admin@sonic:~$ sudo config console disable"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config console add",
+  "cmd": "config console add",
+  "desc": "System — This command is used to add a console port setting. - Usage: config console add <port_name> [--baud|-b <baud_rate>] [--flowcontrol|-f] [--devicename|-d <remote_device>] - Example: admin@sonic:~$ config console add 1 --b…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config console del",
+  "cmd": "config console del",
+  "desc": "System — This command is used to remove a console port setting. - Usage: config console del <port_name> - Example: admin@sonic:~$ sudo config console del 1"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config console remote_device",
+  "cmd": "config console remote_device",
+  "desc": "System — This command is used to update the remote device name for a console port. - Usage: config console remote_device <port_name> <remote_device> - Example: admin@sonic:~$ sudo config console remote_device 1 switch1"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config console baud",
+  "cmd": "config console baud",
+  "desc": "System — This command is used to update the baud rate for a console port. - Usage: config console baud <port_name> <baud_rate> - Example: admin@sonic:~$ sudo config console baud 1 9600"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config console flow_control",
+  "cmd": "config console flow_control",
+  "desc": "System — This command is used to enable or disable flow control feature for a console port."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show dhcp_relay ipv4 helper",
+  "cmd": "show dhcp_relay ipv4 helper",
+  "desc": "Troubleshooting — This command is used to show ipv4 dhcp_relay helper. - Usage: show dhcp_relay ipv4 helper - Example: admin@sonic:~$ show dhcp_relay ipv4 helper +-------------+----------------------+ | Interface | DHCP Relay Address | +…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show dhcp_relay ipv6 destination",
+  "cmd": "show dhcp_relay ipv6 destination",
+  "desc": "Troubleshooting — This command is used to show ipv6 dhcp_relay destination. - Usage: show dhcp_relay ipv6 destination - Example: admin@sonic:~$ show dhcp_relay ipv6 destination +-------------+---------------------+ | Interface | DHCP Rel…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show dhcp_relay ipv6 counters",
+  "cmd": "show dhcp_relay ipv6 counters",
+  "desc": "Troubleshooting — This command is used to show ipv6 dhcp_relay counters. - Usage: show dhcp_relay ipv6 counters - Example: admin@sonic:~$ sudo sonic-clear dhcp_relay counters Message Type Vlan1000 ------------------- ---------- Unknown 0…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show dhcp_relay ipv4 counters",
+  "cmd": "show dhcp_relay ipv4 counters",
+  "desc": "Troubleshooting — This command is used to show ipv4 dhcp_relay counters - Usage: show dhcp_relay ipv4 counters [--dir (TX|RX)] [--type <type>] [<vlan_interface>] Options: --dir [TX|RX] --type [Unknown|Discover|Offer|Request|Decline|Ack|N…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "VLAN",
+  "title": "config vlan dhcp_relay add",
+  "cmd": "config vlan dhcp_relay add",
+  "desc": "VLAN — This command is used to add a DHCP Relay Destination IP address or multiple IP addresses to a VLAN."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "VLAN",
+  "title": "config vlan dhcp_relay delete",
+  "cmd": "config vlan dhcp_relay delete",
+  "desc": "VLAN — This command is used to delete a configured DHCP Relay Destination IP address or multiple IP addresses from a VLAN interface."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config dhcp_relay ipv4 helper add/del",
+  "cmd": "config dhcp_relay ipv4 helper add/del",
+  "desc": "System — This command is used to add or delete IPv4 DHCP Relay helper addresses to a VLAN."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config dhcp_relay ipv6 destination add/del",
+  "cmd": "config dhcp_relay ipv6 destination add/del",
+  "desc": "System — This command is used to add or del IPv6 DHCP Relay destination addresses to a VLAN."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show dhcp_server info",
+  "cmd": "show dhcp_server info",
+  "desc": "Troubleshooting — This command is used to show dhcp_server config. - Usage show dhcp_server ipv4 info [--with_customize_option] [<dhcp_interface>] - Example show dhcp_server ipv4 info Vlan1000 +-------------+--------+-------------+------…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show dhcp_server range",
+  "cmd": "show dhcp_server range",
+  "desc": "Troubleshooting — This command is used to show dhcp_server ip range. - Usage show dhcp_server ipv4 range [<range_name>] - Example show dhcp_server ipv4 range range_1 +---------+-------------+--------------+------------+ | Range | IP Star…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show dhcp_server option",
+  "cmd": "show dhcp_server option",
+  "desc": "Troubleshooting — This command is used to show dhcp_server customized option. - Usage show dhcp_server ipv4 option [<option_name>] - Example show dhcp_server ipv4 option option_1 +---------------+-------------+---------+--------+ | Optio…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show dhcp_server lease",
+  "cmd": "show dhcp_server lease",
+  "desc": "Troubleshooting — This command is used to show dhcp_server lease. - Usage show dhcp_server ipv4 lease [<dhcp_interface>] - Example show dhcp_server ipv4 lease +--------------------+-------------------+-------------+---------------------+…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "show dhcp_server port",
+  "cmd": "show dhcp_server port",
+  "desc": "Interfaces — This command is used to show dhcp_server port binding. - Usage show dhcp_server ipv4 port [<dhcp_interface>] - Example show dhcp_server ipv4 port Vlan1000 +---------------------+--------------+ | Interface | Bind | +===…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config dhcp_server add",
+  "cmd": "config dhcp_server add",
+  "desc": "System — This command is used to add dhcp_server for DHCP interface. - Usage config dhcp_server ipv4 add --mode <mode> [--dup_gw_nm] [--lease_time <lease_time>] [--gateway <gateway>] [--netmask <netmask>] <dhcp_interface> Option…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config dhcp_server del",
+  "cmd": "config dhcp_server del",
+  "desc": "System — This command is used to delete all dhcp_server config for DHCP interface, to be clarify that delete a enable dhcp_server is not allowed."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config dhcp_server enable/disable",
+  "cmd": "config dhcp_server enable/disable",
+  "desc": "System — This command is used to enable or disable dhcp_server for DHCP interface, this state is set to disable by default while adding a new dhcp_server."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config dhcp_server update",
+  "cmd": "config dhcp_server update",
+  "desc": "System — This command is used to update dhcp_server config. - Usage config dhcp_server ipv4 update --mode <mode> [--dup_gw_nm] [--lease_time <lease_time>] [--gateway <gateway>] [--netmask <netmask>] <dhcp_interface> - Example co…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config dhcp_server range add/del/update",
+  "cmd": "config dhcp_server range add/del/update",
+  "desc": "System — This command is used to config ip range. - Usage # <ip_end> is not required, if not given, means ip_end is equal to ip_start config dhcp_server ipv4 range add <range_name> <ip_start> [<ip_end>] config dhcp_server ipv4 r…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config dhcp_server bind/unbind",
+  "cmd": "config dhcp_server bind/unbind",
+  "desc": "System — This command is used to config dhcp ip per interface. - Usage config dhcp_server ipv4 bind <vlan_interface> <interface> (--range <ip_range_list> | <ip_list>) config dhcp_server ipv4 unbind <vlan_interface> <interface> (…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config dhcp_server option add",
+  "cmd": "config dhcp_server option add",
+  "desc": "System — This command is used to add dhcp option. Type field can refer to [Customize DHCP Packet Options](#customize-dhcp-packet-options)."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config dhcp_server option del",
+  "cmd": "config dhcp_server option del",
+  "desc": "System — This command is used to del dhcp option. - Usage config dhcp_server ipv4 option del <option_name> - Example config dhcp_server ipv4 option del option_1"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config dhcp_server option bind",
+  "cmd": "config dhcp_server option bind",
+  "desc": "System — This command is used to bind dhcp option per dhcp interface. - Usage config dhcp_server ipv4 option bind <dhcp_interface> <option_list> - Example config dhcp_server ipv4 option bind Vlan1000 option_1"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config dhcp_server option unbind",
+  "cmd": "config dhcp_server option unbind",
+  "desc": "System — This command is used to unbind dhcp option. - Usage config dhcp_server ipv4 option unbind <dhcp_interface> (--all | <option_name>) - Exampe config dhcp_server ipv4 option unbind Vlan1000 --all config dhcp_server ipv4 op…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show dropcounters capabilities",
+  "cmd": "show dropcounters capabilities",
+  "desc": "Troubleshooting — This command is used to show the drop counter capabilities that are available on this device."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show dropcounters configuration",
+  "cmd": "show dropcounters configuration",
+  "desc": "Troubleshooting — This command is used to show the current running configuration of the drop counters on this device."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show dropcounters counts",
+  "cmd": "show dropcounters counts",
+  "desc": "Troubleshooting — This command is used to show the current statistics for the configured drop counters."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config dropcounters install",
+  "cmd": "config dropcounters install",
+  "desc": "System — This command is used to initialize a new drop counter. The user must specify a name, type, and initial list of drop reasons."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config dropcounters add_reasons",
+  "cmd": "config dropcounters add_reasons",
+  "desc": "System — This command is used to add drop reasons to an already initialized counter. This command will fail if any of the specified drop reasons are not supported."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config dropcounters remove_reasons",
+  "cmd": "config dropcounters remove_reasons",
+  "desc": "System — This command is used to remove drop reasons from an already initialized counter."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config dropcounters delete",
+  "cmd": "config dropcounters delete",
+  "desc": "System — This command is used to delete a drop counter. - Usage: config dropcounters delete <counter name> - Example: admin@sonic:~$ sudo config dropcounters delete DEBUG_2"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config interface cable_length",
+  "cmd": "config interface cable_length",
+  "desc": "Interfaces — This command is used to configure the length of the cable connected to a port. The cable_length is in unit of meters and must be suffixed with \"m\"."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config interface buffer priority-group lossless",
+  "cmd": "config interface buffer priority-group lossless",
+  "desc": "Interfaces — This command is used to configure the priority groups on which lossless traffic runs."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config interface buffer queue",
+  "cmd": "config interface buffer queue",
+  "desc": "Interfaces — This command is used to configure the buffer profiles for queues. - Usage: config interface buffer queue add <interface_name> <queue_map> <profile> config interface buffer queue set <interface_name> <queue_map> <profile…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "Show commands",
+  "cmd": "Show commands",
+  "desc": "Troubleshooting"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show buffer information",
+  "cmd": "show buffer information",
+  "desc": "Troubleshooting — This command is used to display the status of buffer pools and profiles currently deployed to the ASIC."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show buffer configuration",
+  "cmd": "show buffer configuration",
+  "desc": "Troubleshooting — This command is used to display the status of buffer pools and profiles currently configured."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show ecn",
+  "cmd": "show ecn",
+  "desc": "Troubleshooting — This command displays all the WRED profiles that are configured in the device. - Usage: show ecn - Example: admin@sonic:~$ show ecn Profile: **AZURE_LOSSLESS** ----------------------- ------- red_max_threshold 2097152 r…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config ecn",
+  "cmd": "config ecn",
+  "desc": "System — This command configures the possible fields in a particular WRED profile that is specified using \"-profile <profilename>\" argument."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config fabric port isolate <portId>",
+  "cmd": "config fabric port isolate <portId>",
+  "desc": "Interfaces"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config fabric port unisolate <portId>",
+  "cmd": "config fabric port unisolate <portId>",
+  "desc": "Interfaces — The above two commands can be used to manually isolate and unisolate a fabric link."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config fabric port monitor error threshold <crcCells> <rxCells>",
+  "cmd": "config fabric port monitor error threshold <crcCells> <rxCells>",
+  "desc": "Interfaces — This command sets a fabric link monitoring error threshold - Usage: config fabric port monitor error threshold [OPTIONS] <crcCells> <rxCells> - Example: admin@sonic:~$ config fabric port monitor error threshold 2 610351…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config fabric port monitor poll threshold isolation <pollnumber>",
+  "cmd": "config fabric port monitor poll threshold isolation <pollnumber>",
+  "desc": "Interfaces — This command sets the number of consecutive polls in which the threshold needs to be detected to isolate a link - Usage: config fabric port monitor poll threshold isolation [OPTIONS] <pollCount> - Example: admin@sonic:~…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config fabric port monitor poll threshold recovery <pollnumber>",
+  "cmd": "config fabric port monitor poll threshold recovery <pollnumber>",
+  "desc": "Interfaces — This command sets the number of consecutive polls in which no error is detected to unisolate a link - Usage: config fabric port monitor poll threshold recovery [OPTIONS] <pollCount> - Example: admin@sonic:~$ config fabr…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config fabric port monitor state <enable/disable>",
+  "cmd": "config fabric port monitor state <enable/disable>",
+  "desc": "Interfaces — This command sets the monitor state in CONFIG_DB to enable/disable the fabric monitor feature."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show feature config",
+  "cmd": "show feature config",
+  "desc": "Troubleshooting — Shows the config of given feature or all if no feature is given. The \"fallback\" is shown only if configured."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show feature status",
+  "cmd": "show feature status",
+  "desc": "Troubleshooting — Shows the status of given feature or all if no feature is given. The \"fallback\" defaults to \"true\" when not configured."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config feature owner",
+  "cmd": "config feature owner",
+  "desc": "System — Configures the owner for a feature as \"local\" or \"kube\". The \"local\" implies starting the feature container from local image."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config feature fallback",
+  "cmd": "config feature fallback",
+  "desc": "System — Features configured for \"kube\" deployment could be allowed to fallback to using local image, until the point of successful kube deployment."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show feature autorestart",
+  "cmd": "show feature autorestart",
+  "desc": "Troubleshooting — This command will display the status of auto-restart for feature container. - Usage: show feature autorestart [<feature_name>] admin@sonic:~$ show feature autorestart Feature AutoRestart ---------- -------------- bgp en…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config feature state <feature_name> <state>",
+  "cmd": "config feature state <feature_name> <state>",
+  "desc": "System — This command will configure the state for a specific feature. - Usage: config feature state <feature_name> (enabled | disabled) admin@sonic:~$ sudo config feature state bgp disabled To make the command wait until the co…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config feature autorestart <feature_name> <autorestart_status>",
+  "cmd": "config feature autorestart <feature_name> <autorestart_status>",
+  "desc": "System — This command will configure the status of auto-restart for a specific feature container."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show flowcnt-trap stats",
+  "cmd": "show flowcnt-trap stats",
+  "desc": "Troubleshooting — This command is used to show the current statistics for the registered host interface traps."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show flowcnt-route stats",
+  "cmd": "show flowcnt-route stats",
+  "desc": "Troubleshooting — This command is used to show the current statistics for route flow patterns. Because clear (see below) is handled on a per-user basis different users may see different counts."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config flowcnt-route pattern add",
+  "cmd": "config flowcnt-route pattern add",
+  "desc": "System — This command is used to add or update the route pattern which is used by route flow counter to match route entries."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config flowcnt-route pattern remove",
+  "cmd": "config flowcnt-route pattern remove",
+  "desc": "System — This command is used to remove the route pattern which is used by route flow counter to match route entries."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show gearbox interfaces status",
+  "cmd": "show gearbox interfaces status",
+  "desc": "Troubleshooting — This command displays information about the gearbox phy interface lanes, speeds and status."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show gearbox phys status",
+  "cmd": "show gearbox phys status",
+  "desc": "Troubleshooting — This command displays basic information about the gearbox phys configured on the switch."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show gearbox interfaces fec-stats",
+  "cmd": "show gearbox interfaces fec-stats",
+  "desc": "Troubleshooting — This command displays FEC statistics for gearbox interfaces from the GB_COUNTERS_DB."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show gearbox interfaces fec-histogram",
+  "cmd": "show gearbox interfaces fec-histogram",
+  "desc": "Troubleshooting — This command displays the FEC codeword error histogram for gearbox interfaces. Histogram bins (BIN0–BIN15) count codewords with a given number of symbol errors."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config hostname",
+  "cmd": "config hostname",
+  "desc": "System — This command is used to change device hostname without traffic being impacted. - Usage: config hostname <new_hostname> - Example: `` admin@sonic:~$ sudo config hostname CSW06 Please note loaded setting will be lost afte…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show switch-hash global",
+  "cmd": "show switch-hash global",
+  "desc": "Troubleshooting — This command displays switch hash global configuration. - Usage: bash show switch-hash global [--json] show switch-hash -n <namespace> global [--json] - Options: - _-j,--json_: display in JSON format - _-n,--namespace_:…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show switch-hash capabilities",
+  "cmd": "show switch-hash capabilities",
+  "desc": "Troubleshooting — This command displays switch hash capabilities. - Usage: bash show switch-hash capabilities [--json] show switch-hash -n <namespace> capabilities [--json] - Options: - _-j,--json_: display in JSON format - _-n,--namespa…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "EtherChannel",
+  "title": "config switch-hash global ecmp/lag hash",
+  "cmd": "config switch-hash global ecmp/lag hash",
+  "desc": "EtherChannel — This command is used to manage switch hash global configuration. - Usage: bash config switch-hash global ecmp-hash <hash_field_list> config switch-hash global lag-hash <hash_field_list> config switch-hash global -n <nam…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "EtherChannel",
+  "title": "config switch-hash global ecmp/lag hash algorithm",
+  "cmd": "config switch-hash global ecmp/lag hash algorithm",
+  "desc": "EtherChannel — This command is used to manage switch hash algorithm global configuration. - Usage: bash config switch-hash global ecmp-hash-algorithm <hash_algorithm> config switch-hash global lag-hash-algorithm <hash_algorithm> confi…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show switch-fast-linkup global",
+  "cmd": "show switch-fast-linkup global",
+  "desc": "Troubleshooting — Display switch Fast Link-Up global configuration. - Usage: bash show switch-fast-linkup global [--json] - Examples: bash admin@sonic:~$ show switch-fast-linkup global Field Value ------------- ----- polling_time 60 guar…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show interfaces fast-linkup status",
+  "cmd": "show interfaces fast-linkup status",
+  "desc": "Troubleshooting — Display per-interface Fast Link-Up mode. - Usage: bash show interfaces fast-linkup status - Example: bash admin@sonic:~$ show interfaces fast-linkup status Interface fast_linkup ----------- ----------- Ethernet0 true Et…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config switch-fast-linkup global",
+  "cmd": "config switch-fast-linkup global",
+  "desc": "System — Configure the switch Fast Link-Up global parameters. - Usage: bash config switch-fast-linkup global [--polling-time <sec>] [--guard-time <sec>] [--ber <exp>] - Parameters: - _polling-time_: time in seconds to attempt fa…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config interface fast-linkup",
+  "cmd": "config interface fast-linkup",
+  "desc": "Interfaces — Enable/disable Fast Link-Up per interface. - Usage: bash config interface fast-linkup <interface_name> <enabled|disabled> - Behavior: - Writes PORT|<interface_name>:fast_linkup as true (enabled) or false (disabled)."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show interfaces autoneg",
+  "cmd": "show interfaces autoneg",
+  "desc": "Troubleshooting — This show command displays the port auto negotiation status for all interfaces i.e."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show interfaces breakout (Versions >= 202006)",
+  "cmd": "show interfaces breakout (Versions >= 202006)",
+  "desc": "Troubleshooting — This show command displays the port capability for all interfaces i.e. index, lanes, default_brkout_mode, breakout_modes(i.e."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show interfaces counters",
+  "cmd": "show interfaces counters",
+  "desc": "Troubleshooting — This show command displays packet counters for all interfaces(except the \"show interface detailed\" command) since the last time the counters were cleared."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show interfaces description",
+  "cmd": "show interfaces description",
+  "desc": "Troubleshooting — This command displays the key fields of the interfaces such as Operational Status, Administrative Status, Alias and Description."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show interfaces fec status (Versions >= 202311)",
+  "cmd": "show interfaces fec status (Versions >= 202311)",
+  "desc": "Troubleshooting — This command is to display the FEC status of the selected interfaces. If **interface_name** is not specicied, this command shows the FEC status of all interfaces."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show interfaces link-training (Versions >= 202211)",
+  "cmd": "show interfaces link-training (Versions >= 202211)",
+  "desc": "Troubleshooting — This command is to display the link-training status of the selected interfaces. If **interface_name** is not specicied, this command shows the link-training status of all interfaces."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show interfaces phy",
+  "cmd": "show interfaces phy",
+  "desc": "Troubleshooting — This command displays Layer 1 physical layer (PHY) diagnostics for interfaces. The command has two subcommands: - phy-signal - Displays boolean link/signal status indicators (quick health check) - phy-serdes - Displays…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show interfaces flap",
+  "cmd": "show interfaces flap",
+  "desc": "Troubleshooting — The show interfaces flap command provides detailed insights into interface events, including the timestamp of the last link down event and the total flap count (number of times the link has gone up and down)."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show interfaces errors",
+  "cmd": "show interfaces errors",
+  "desc": "Troubleshooting — The show interface errors command provides detailed statistics and error counters for MAC-level operations on an interface."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "MPLS",
+  "title": "show interfaces mpls",
+  "cmd": "show interfaces mpls",
+  "desc": "MPLS — This command is used to display the configured MPLS state for the list of configured parent interfaces."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "show interfaces loopback-action",
+  "cmd": "show interfaces loopback-action",
+  "desc": "Interfaces — This command displays the configured loopback action - Usage: show ip interfaces loopback-action - Example: root@sonic:~# show ip interfaces loopback-action Interface Action ------------ ---------- Ethernet232 drop Vlan…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show interfaces tpid",
+  "cmd": "show interfaces tpid",
+  "desc": "Troubleshooting — This command displays the key fields of the interfaces such as Operational Status, Administrative Status, Alias and TPID."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show interfaces naming_mode",
+  "cmd": "show interfaces naming_mode",
+  "desc": "Troubleshooting — Refer sub-section [Interface-Naming-Mode](#Interface-Naming-Mode)"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "BGP",
+  "title": "show interfaces neighbor",
+  "cmd": "show interfaces neighbor",
+  "desc": "BGP — This command is used to display the list of expected neighbors for all interfaces (or for a particular interface) that is configured."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show interfaces portchannel",
+  "cmd": "show interfaces portchannel",
+  "desc": "Troubleshooting — This command displays information regarding port-channel interfaces - Usage: show interfaces portchannel - Example: admin@sonic:~$ show interfaces portchannel Flags: A - active, I - inactive, Up - up, Dw - Down, N/A - n…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "show interface status",
+  "cmd": "show interface status",
+  "desc": "Interfaces — This command displays some more fields such as Lanes, Speed, MTU, Type, Asymmetric PFC status and also the operational and administrative status of the interfaces - Usage: show interfaces status [<interface_name>] - Exa…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "show interface switchport status",
+  "cmd": "show interface switchport status",
+  "desc": "Interfaces — This command displays switchport modes status of the interfaces - Usage: show interfaces switchport status - Example (show interface switchport status of all interfaces): admin@sonic:~$ show interfaces switchport status…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "show interface switchport config",
+  "cmd": "show interface switchport config",
+  "desc": "Interfaces — This command displays switchport modes configuration of the interfaces - Usage: show interfaces switchport config - Example (show interface switchport config of all interfaces): admin@sonic:~$ show interfaces switchport…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config interface ip add <interface_name> <ip_addr> [default_gw] (Versions >= 201904)",
+  "cmd": "config interface ip add <interface_name> <ip_addr> [default_gw] (Versions >= 201904)",
+  "desc": "Interfaces"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config interface <interface_name> ip add <ip_addr> (Versions <= 201811)",
+  "cmd": "config interface <interface_name> ip add <ip_addr> (Versions <= 201811)",
+  "desc": "Interfaces — This command is used for adding the IP address for an interface. IP address for either physical interface or for portchannel or for VLAN interface or for Loopback interface can be configured using this command."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config interface ip remove <interface_name> <ip_addr> (Versions >= 201904)",
+  "cmd": "config interface ip remove <interface_name> <ip_addr> (Versions >= 201904)",
+  "desc": "Interfaces"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config interface <interface_name> ip remove <ip_addr> (Versions <= 201811)",
+  "cmd": "config interface <interface_name> ip remove <ip_addr> (Versions <= 201811)",
+  "desc": "Interfaces — - Usage: *Versions >= 201904* config interface ip remove <interface_name> <ip_addr> *Versions <= 201811* config interface ip remove <interface_name> <ip_addr> - Example: *Versions >= 201904* admin@sonic:~$ sudo config i…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config interface pfc priority <interface_name> <priority> (on | off)",
+  "cmd": "config interface pfc priority <interface_name> <priority> (on | off)",
+  "desc": "Interfaces — This command is used to set PFC on a given priority of a given interface to either \"on\" or \"off\"."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config interface pfc asymmetric <interface_name> (Versions >= 201904)",
+  "cmd": "config interface pfc asymmetric <interface_name> (Versions >= 201904)",
+  "desc": "Interfaces"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config interface <interface_name> pfc asymmetric (Versions <= 201811)",
+  "cmd": "config interface <interface_name> pfc asymmetric (Versions <= 201811)",
+  "desc": "Interfaces — This command is used for setting the asymmetric PFC for an interface to either \"on\" or \"off\"."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config interface shutdown <interface_name> (Versions >= 201904)",
+  "cmd": "config interface shutdown <interface_name> (Versions >= 201904)",
+  "desc": "Interfaces"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config interface <interface_name> shutdown (Versions <= 201811)",
+  "cmd": "config interface <interface_name> shutdown (Versions <= 201811)",
+  "desc": "Interfaces — This command is used to administratively shut down either the Physical interface or port channel interface."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config interface startup <interface_name> (Versions >= 201904)",
+  "cmd": "config interface startup <interface_name> (Versions >= 201904)",
+  "desc": "Interfaces"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config interface <interface_name> startup (Versions <= 201811)",
+  "cmd": "config interface <interface_name> startup (Versions <= 201811)",
+  "desc": "Interfaces — This command is used for administratively bringing up the Physical interface or port channel interface.Once if it is configured, use \"show interfaces status\" to check the same."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config interface <interface_name> speed (Versions >= 202006)",
+  "cmd": "config interface <interface_name> speed (Versions >= 202006)",
+  "desc": "Interfaces — Dynamic breakout feature is supported in SONiC from 202006 version. User can configure any speed specified under \"breakout_modes\" keys for the parent interface in the platform-specific port configuration file (i.e."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config interface speed <interface_name> (Versions >= 201904)",
+  "cmd": "config interface speed <interface_name> (Versions >= 201904)",
+  "desc": "Interfaces"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config interface <interface_name> speed (Versions <= 201811)",
+  "cmd": "config interface <interface_name> speed (Versions <= 201811)",
+  "desc": "Interfaces — This command is used to configure the speed for the Physical interface. Use the value 40000 for setting it to 40G and 100000 for 100G."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config interface transceiver lpmode",
+  "cmd": "config interface transceiver lpmode",
+  "desc": "Interfaces — This command is used to enable or disable low-power mode for an SFP transceiver - Usage: config interface transceiver lpmode <interface_name> (enable | disable) - Examples: user@sonic~$ sudo config interface transceiver…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config interface transceiver frequency",
+  "cmd": "config interface transceiver frequency",
+  "desc": "Interfaces — This command is used to set the coherent module laser frequency - Usage: config interface transceiver frequency <interface_name> <frequency_value> - Examples: user@sonic:~# config interface transceiver frequency Etherne…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config interface transceiver tx_power",
+  "cmd": "config interface transceiver tx_power",
+  "desc": "Interfaces — This command is used to set the coherent module tx power - Usage: config interface transceiver tx_power <interface_name> <tx_power_value> - Examples: user@sonic:~# config interface transceiver tx_power Ethernet0 -- -10.…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config interface transceiver reset",
+  "cmd": "config interface transceiver reset",
+  "desc": "Interfaces — This command is used to reset an SFP transceiver - Usage: config interface transceiver reset <interface_name> - Examples: user@sonic~$ sudo config interface transceiver reset Ethernet0 Resetting port Ethernet0..."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config interface transceiver dom",
+  "cmd": "config interface transceiver dom",
+  "desc": "Interfaces — This command is used to configure the Digital Optical Monitoring (DOM) for an interface."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config interface mtu <interface_name> (Versions >= 201904)",
+  "cmd": "config interface mtu <interface_name> (Versions >= 201904)",
+  "desc": "Interfaces — This command is used to configure the mtu for the Physical interface. Use the value 1500 for setting max transfer unit size to 1500 bytes."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config interface tpid <interface_name> (Versions >= 202106)",
+  "cmd": "config interface tpid <interface_name> (Versions >= 202106)",
+  "desc": "Interfaces — This command is used to configure the TPID for the Physical/PortChannel interface."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config interface breakout (Versions >= 202006)",
+  "cmd": "config interface breakout (Versions >= 202006)",
+  "desc": "Interfaces — This command is used to set active breakout mode available for user-specified interface based on the platform-specific port configuration file(i.e."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config interface autoneg <interface_name> (Versions >= 202106)",
+  "cmd": "config interface autoneg <interface_name> (Versions >= 202106)",
+  "desc": "Interfaces — This command is used to set port auto negotiation mode. - Usage: sudo config interface autoneg --help Usage: config interface autoneg [OPTIONS] <interface_name> <mode> Set interface auto negotiation mode Options: -v, --…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config interface advertised-speeds <interface_name> (Versions >= 202106)",
+  "cmd": "config interface advertised-speeds <interface_name> (Versions >= 202106)",
+  "desc": "Interfaces — This command is used to set port advertised speed. - Usage: sudo config interface advertised-speeds --help Usage: config interface advertised-speeds [OPTIONS] <interface_name> <speed_list> Set interface advertised speed…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config interface advertised-types <interface_name> (Versions >= 202106)",
+  "cmd": "config interface advertised-types <interface_name> (Versions >= 202106)",
+  "desc": "Interfaces — This command is used to set port advertised interface types. - Usage: sudo config interface advertised-types --help Usage: config interface advertised-types [OPTIONS] <interface_name> <interface_type_list> Set interface…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config interface type <interface_name> (Versions >= 202106)",
+  "cmd": "config interface type <interface_name> (Versions >= 202106)",
+  "desc": "Interfaces — This command is used to set port interface type. - Usage: sudo config interface type --help Usage: config interface type [OPTIONS] <interface_name> <interface_type_value> Set interface type Options: -v, --verbose Enable…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config interface cable_length (Versions >= 202006)",
+  "cmd": "config interface cable_length (Versions >= 202006)",
+  "desc": "Interfaces — This command is used to configure the length of the cable connected to a port. The cable_length is in unit of meters and must be suffixed with \"m\"."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config interface lossless_pg (Versions >= 202006)",
+  "cmd": "config interface lossless_pg (Versions >= 202006)",
+  "desc": "Interfaces — This command is used to configure the priority groups on which lossless traffic runs."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config interface headroom_override (Versions >= 202006)",
+  "cmd": "config interface headroom_override (Versions >= 202006)",
+  "desc": "Interfaces — This command is used to configure a static buffer profile on a port's lossless priorities."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "MPLS",
+  "title": "config interface mpls add <interface_name> (Versions >= 202106)",
+  "cmd": "config interface mpls add <interface_name> (Versions >= 202106)",
+  "desc": "MPLS — This command is used for adding MPLS operation on the interface. MPLS operation for either physical, portchannel, or VLAN interface can be configured using this command."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "MPLS",
+  "title": "config interface mpls remove <interface_name> (Versions >= 202106)",
+  "cmd": "config interface mpls remove <interface_name> (Versions >= 202106)",
+  "desc": "MPLS — This command is used for removing MPLS operation on the interface. MPLS operation for either physical, portchannel, or VLAN interface can be configured using this command."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config interface ip loopback-action <interface_name> <action> (Versions >= 202205)",
+  "cmd": "config interface ip loopback-action <interface_name> <action> (Versions >= 202205)",
+  "desc": "Interfaces — This command is used for setting the action being taken on packets that ingress and get routed on the same IP interface."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config interface link-training <interface_name> (Versions >= 202211)",
+  "cmd": "config interface link-training <interface_name> (Versions >= 202211)",
+  "desc": "Interfaces — This command is used for setting link-training mode of a interface. - Usage: sudo config interface link-training --help Usage: config interface link-training [OPTIONS] <interface_name> <mode> Set interface link-training…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config interface_naming_ mode",
+  "cmd": "config interface_naming_ mode",
+  "desc": "System — This command is used to change the interface naming mode. Users can select between default mode (SONiC interface names) or alias mode (Hardware vendor names)."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config interface vrf bind",
+  "cmd": "config interface vrf bind",
+  "desc": "Interfaces — This command is used to bind a interface to a vrf as well as vnet. By default, all L3 interfaces will be in default vrf."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config interface vrf unbind",
+  "cmd": "config interface vrf unbind",
+  "desc": "Interfaces — This command is used to ubind a interface from a vrf/vnet. This will move the interface to default vrf/vnet."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show ip route",
+  "cmd": "show ip route",
+  "desc": "Troubleshooting — This command displays either all the route entries from the routing table or a specific route."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show ip interfaces",
+  "cmd": "show ip interfaces",
+  "desc": "Troubleshooting — This command displays the details about all the Layer3 IP interfaces in the device for which IP address has been assigned."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show ip protocol",
+  "cmd": "show ip protocol",
+  "desc": "Troubleshooting — This command displays the route-map that is configured for the routing protocol."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show ipv6 route",
+  "cmd": "show ipv6 route",
+  "desc": "Troubleshooting — This command displays either all the IPv6 route entries from the routing table or a specific IPv6 route."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show ipv6 interfaces",
+  "cmd": "show ipv6 interfaces",
+  "desc": "Troubleshooting — This command displays the details about all the Layer3 IPv6 interfaces in the device for which IPv6 address has been assigned."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show ipv6 protocol",
+  "cmd": "show ipv6 protocol",
+  "desc": "Troubleshooting — This command displays the route-map that is configured for the IPv6 routing protocol."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config interface ipv6 enable use-link-local-only <interface_name>",
+  "cmd": "config interface ipv6 enable use-link-local-only <interface_name>",
+  "desc": "Interfaces — This command enables user to enable an interface to forward L3 traffic with out configuring an address."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config interface ipv6 disable use-link-local-only <interface_name>",
+  "cmd": "config interface ipv6 disable use-link-local-only <interface_name>",
+  "desc": "Interfaces — This command enables user to disable use-link-local-only configuration on an interface."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config ipv6 enable link-local",
+  "cmd": "config ipv6 enable link-local",
+  "desc": "System — This command enables user to enable use-link-local-only command on all the interfaces globally."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config ipv6 disable link-local",
+  "cmd": "config ipv6 disable link-local",
+  "desc": "System — This command enables user to disable use-link-local-only command on all the interfaces globally."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show ipv6 link-local-mode",
+  "cmd": "show ipv6 link-local-mode",
+  "desc": "Troubleshooting — This command displays the link local mode of all the interfaces. - Usage: show ipv6 link-local-mode - Example: root@sonic:/home/admin# show ipv6 link-local-mode +------------------+----------+ | Interface Name | Mode |…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show kubernetes server config",
+  "cmd": "show kubernetes server config",
+  "desc": "Troubleshooting — This command displays the kubernetes server configuration, if any, else would report as not configured."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show kubernetes server status",
+  "cmd": "show kubernetes server status",
+  "desc": "Troubleshooting — This command displays the kubernetes server status. - Usage: show kubernetes server status - Example: admin@sonic:~$ show kubernetes server status ip port connected update-time ----------- ------ ----------- -----------…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show LDAP global commands",
+  "cmd": "show LDAP global commands",
+  "desc": "Troubleshooting — This command displays the global LDAP configuration that includes the following parameters: base_dn, bind_password, bind_timeout, version, port, timeout."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show LDAP server commands",
+  "cmd": "show LDAP server commands",
+  "desc": "Troubleshooting — This command displays the global LDAP configuration that includes the following parameters: base_dn, bind_password, bind_timeout, version, port, timeout."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show kdump config",
+  "cmd": "show kdump config",
+  "desc": "Troubleshooting — This command shows the configuration of Linux kernel dump. - Usage: show kdump config - Example: admin@sonic:$ show kdump config Kdump administrative mode: Disabled Kdump operational mode: Unready Kdump memory researvat…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show kdump files",
+  "cmd": "show kdump files",
+  "desc": "Troubleshooting — This command shows the Linux kernel core dump files and dmesg files which are generated by kernel dump tool."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Logging",
+  "title": "show kdump logging <file_name> <num_of_lines>",
+  "cmd": "show kdump logging <file_name> <num_of_lines>",
+  "desc": "Logging — By default, this command will show the last 10 lines of latest dmesg file. This command can also accept a specific file name and number of lines as arguments."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config kdump",
+  "cmd": "config kdump",
+  "desc": "System — Administrative state of kdump is stored in ConfigDB. The variable USE_KDUMP in the file /etc/default/kdump-tools is set to 0 to disable kdump, and set to 1 to enable kdump."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show lldp table",
+  "cmd": "show lldp table",
+  "desc": "Troubleshooting — This command displays the brief summary of all LLDP neighbors. - Usage: show lldp table - Example: admin@sonic:~$ show lldp table Capability codes: (R) Router, (B) Bridge, (O) Other LocalPort RemoteDevice RemotePortID C…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show lldp neighbors",
+  "cmd": "show lldp neighbors",
+  "desc": "Troubleshooting — This command displays more details about all LLDP neighbors or only the neighbors connected to a specific interface."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config load",
+  "cmd": "config load",
+  "desc": "System — This command is used to load the configuration from a JSON file like the file which SONiC saves its configuration to, /etc/sonic/config_db.json This command loads the configuration from the input file (if user specifies…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config load_minigraph",
+  "cmd": "config load_minigraph",
+  "desc": "System — This command is used to load the configuration from /etc/sonic/minigraph.xml. When users do not want to use configuration from config_db.json, they can copy the minigraph.xml configuration file to the device and load it…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config reload",
+  "cmd": "config reload",
+  "desc": "System — This command is used to clear current configuration and import new configurationn from the input file or from /etc/sonic/config_db.json."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config load_mgmt_config",
+  "cmd": "config load_mgmt_config",
+  "desc": "System — This command is used to reconfigure hostname and mgmt interface based on device description file."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config save",
+  "cmd": "config save",
+  "desc": "System — This command is to save the config DB configuration into the user-specified filename or into the default /etc/sonic/config_db.json."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config interface loopback",
+  "cmd": "config interface loopback",
+  "desc": "Interfaces — This command is used to add or delete loopback interfaces. It is recommended to use loopback names in the format \"Loopbackxxx\", where \"xxx\" is number of 1 to 3 digits."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show vrf",
+  "cmd": "show vrf",
+  "desc": "Troubleshooting — This command displays all vrfs configured on the system along with interface binding to the vrf."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config vrf add",
+  "cmd": "config vrf add",
+  "desc": "System — This command creates vrf in SONiC system with provided vrf-name. - Usage: config vrf add <vrf-name> Note: vrf-name should always start with keyword \"Vrf\""
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config vrf del <vrf-name>",
+  "cmd": "config vrf del <vrf-name>",
+  "desc": "System — This command deletes vrf with name vrf-name. - Usage: config vrf del <vrf-name> Go Back To [Beginning of the document](#) or [Beginning of this section](#vrf-configuration)"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show mgmt-vrf",
+  "cmd": "show mgmt-vrf",
+  "desc": "Troubleshooting — This command displays whether the management VRF is enabled or disabled. It also displays the details about the the links (eth0, mgmt, lo-m) that are related to management VRF."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show mgmt-vrf routes",
+  "cmd": "show mgmt-vrf routes",
+  "desc": "Troubleshooting — This command displays the routes that are present in the routing table 6000 that is meant for management VRF."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show management_interface address",
+  "cmd": "show management_interface address",
+  "desc": "Troubleshooting — This command displays the IP address(es) configured for the management interface \"eth0\" and the management network default gateway."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show snmpagentaddress",
+  "cmd": "show snmpagentaddress",
+  "desc": "Troubleshooting — This command displays the configured SNMP agent IP addresses. - Usage: show snmpagentaddress - Example: admin@sonic:~$ show snmpagentaddress ListenIP ListenPort ListenVrf ---------- ------------ ----------- 1.2.3.4 787…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show snmptrap",
+  "cmd": "show snmptrap",
+  "desc": "Troubleshooting — This command displays the configured SNMP Trap server IP addresses. - Usage: show snmptrap - Example: admin@sonic:~$ show snmptrap Version TrapReceiverIP Port VRF Community --------- ---------------- ------ ----- ------…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config vrf add mgmt",
+  "cmd": "config vrf add mgmt",
+  "desc": "System — This command enables the management VRF in the system. This command restarts the \"interfaces-config\" service which in turn regenerates the /etc/network/interfaces file and restarts the \"networking\" service."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config vrf del mgmt",
+  "cmd": "config vrf del mgmt",
+  "desc": "System — This command disables the management VRF in the system. This command restarts the \"interfaces-config\" service which in turn regenerates the /etc/network/interfaces file and restarts the \"networking\" service."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config snmpagentaddress add",
+  "cmd": "config snmpagentaddress add",
+  "desc": "System — This command adds the SNMP agent IP address on which the SNMP agent is expected to listen."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config snmpagentaddress del",
+  "cmd": "config snmpagentaddress del",
+  "desc": "System — This command deletes the SNMP agent IP address on which the SNMP agent is expected to listen."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config snmptrap modify",
+  "cmd": "config snmptrap modify",
+  "desc": "System — This command modifies the SNMP trap server IP address to which the SNMP agent is expected to send the traps."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config snmptrap del",
+  "cmd": "config snmptrap del",
+  "desc": "System — This command deletes the SNMP Trap server IP address to which SNMP agent is expected to send TRAPs."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show muxcable status",
+  "cmd": "show muxcable status",
+  "desc": "Troubleshooting — This command displays all the status of either all the ports which are connected to muxcable or any individual port selected by the user."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show muxcable config",
+  "cmd": "show muxcable config",
+  "desc": "Troubleshooting — This command displays all the configurations of either all the ports which are connected to muxcable or any individual port selected by the user."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show muxcable ber-info",
+  "cmd": "show muxcable ber-info",
+  "desc": "Troubleshooting — This command displays the ber(Bit error rate) of the port user provides on the target user provides."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "show muxcable health <port>",
+  "cmd": "show muxcable health <port>",
+  "desc": "Interfaces — This command displays the hardware health of the Y-cable which are connected to muxcable."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "show muxcable queueinfo <port>",
+  "cmd": "show muxcable queueinfo <port>",
+  "desc": "Interfaces — This command displays the queue info of the Y-cable which are connected to muxcable."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "show muxcable operationtime <port>",
+  "cmd": "show muxcable operationtime <port>",
+  "desc": "Interfaces — This command displays the operationtime of the Y-cable which are connected to muxcable."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "show muxcable resetcause <port>",
+  "cmd": "show muxcable resetcause <port>",
+  "desc": "Interfaces — This command displays the resetcause of the Y-cable which are connected to muxcable."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config muxcable mode",
+  "cmd": "config muxcable mode",
+  "desc": "System — This command is used for setting the configuration of a muxcable Port/all ports to be active or auto."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config muxcable prbs enable/disable",
+  "cmd": "config muxcable prbs enable/disable",
+  "desc": "System — This command is used for setting the configuration and enable/diable of prbs on a port user provides."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config muxcable loopback enable/disable",
+  "cmd": "config muxcable loopback enable/disable",
+  "desc": "Interfaces — This command is used for setting the configuration and enable/disable of loopback on a port user provides."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show mirror_session",
+  "cmd": "show mirror_session",
+  "desc": "Troubleshooting — This command displays all the mirror sessions that are configured. - Usage: show mirror_session - Example: admin@sonic:~$ show mirror_session ERSPAN Sessions Name Status SRC IP DST IP GRE DSCP TTL Queue Policer Monitor…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config mirror_session",
+  "cmd": "config mirror_session",
+  "desc": "System — This command is used to add or remove mirroring sessions. Mirror session is identified by \"session_name\"."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show mmu",
+  "cmd": "show mmu",
+  "desc": "Troubleshooting — This command displays MMU configuration. - Usage: bash show mmu [OPTIONS] - Options: - _-n,--namespace_: namespace name or all - _-vv,--verbose_: enable verbose output - Example: bash admin@sonic:~$ show mmu Pool: ingre…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config mmu",
+  "cmd": "config mmu",
+  "desc": "System — This command is used to manage switch MMU configuration. - Usage: bash config mmu [OPTIONS] - Options: - _-p_: profile name - _-a_: set alpha for profile type dynamic - _-s_: set staticth for profile type static - _-t_:…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "NAT",
+  "title": "show nat config",
+  "cmd": "show nat config",
+  "desc": "NAT — This command displays the NAT configuration. - Usage: show nat config [static | pool | bindings | globalvalues | zones] With no optional arguments, the whole NAT configuration is displayed."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "NAT",
+  "title": "show nat statistics",
+  "cmd": "show nat statistics",
+  "desc": "NAT — This command displays the NAT translation statistics for each entry. - Usage: show nat statistics - Example: admin@sonic:~$ show nat statistics Protocol Source Destination Packets Bytes -------- --------- --------------…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "NAT",
+  "title": "show nat translations",
+  "cmd": "show nat translations",
+  "desc": "NAT — This command displays the NAT translation entries. - Usage: show nat translations [count] Giving the optional count argument displays only the details about the number of translation entries."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "NAT",
+  "title": "config nat add static",
+  "cmd": "config nat add static",
+  "desc": "NAT — This command is used to add a static NAT or NAPT entry. When configuring the Static NAT entry, user has to specify the following fields with 'basic' keyword."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "NAT",
+  "title": "config nat add pool",
+  "cmd": "config nat add pool",
+  "desc": "NAT — This command is used to create a NAT pool used for dynamic Source NAT or NAPT translations."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "NAT",
+  "title": "config nat add binding",
+  "cmd": "config nat add binding",
+  "desc": "NAT — This command is used to create a NAT binding between a pool and an ACL. The following fields are needed for configuring the binding."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "NAT",
+  "title": "config nat add interface",
+  "cmd": "config nat add interface",
+  "desc": "NAT — This command is used to configure NAT zone on an L3 interface. Default value of NAT zone on an L3 interface is 0."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "NAT",
+  "title": "config nat set",
+  "cmd": "config nat set",
+  "desc": "NAT — This command is used to set the NAT timeout values. Different timeout values can be configured for the NAT entry timeout, NAPT TCP entry timeout, NAPT UDP entry timeout."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "NAT",
+  "title": "config nat feature",
+  "cmd": "config nat feature",
+  "desc": "NAT — This command is used to enable or disable the NAT feature. - Usage: config nat feature {enable | disable} - Example: admin@sonic:~$ sudo config nat feature enable admin@sonic:~$ sudo config nat feature disable"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "NTP",
+  "title": "show ntp",
+  "cmd": "show ntp",
+  "desc": "NTP — This command displays a list of NTP peers known to the server as well as a summary of their state."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "NTP",
+  "title": "config ntp add",
+  "cmd": "config ntp add",
+  "desc": "NTP — This command is used to add a NTP server IP address to the NTP server list. Note that more that one NTP server IP address can be added in the device."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "NTP",
+  "title": "config ntp delete",
+  "cmd": "config ntp delete",
+  "desc": "NTP — This command is used to delete a configured NTP server IP address. - Usage: config ntp del <ip_address> - Example: admin@sonic:~$ sudo config ntp del 9.9.9.9 NTP server 9.9.9.9 removed from configuration Restarting ntp-…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config pfcwd start <arguments>",
+  "cmd": "config pfcwd start <arguments>",
+  "desc": "System — This command starts PFC Watchdog - Usage: config pfcwd start --action drop all 400 --restoration-time 400 config pfcwd start --action forward Ethernet0 Ethernet8 400 config pfcwd start --action drop all 400 --restoratio…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config pfcwd stop",
+  "cmd": "config pfcwd stop",
+  "desc": "System — This command stops PFC Watchdog - Usage: config pfcwd stop"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config pfcwd interval <interval_in_ms>",
+  "cmd": "config pfcwd interval <interval_in_ms>",
+  "desc": "System — This command sets PFC Watchdog counter polling interval (in ms) - Usage: config pfcwd interval 200"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config pfcwd counter_poll <enable/disable>",
+  "cmd": "config pfcwd counter_poll <enable/disable>",
+  "desc": "System — This command enables or disables PFCWD related counters polling - Usage: config pfcwd counter_poll disable"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config pfcwd big_red_switch <enable/disable>",
+  "cmd": "config pfcwd big_red_switch <enable/disable>",
+  "desc": "System — This command enables or disables PFCWD's \"BIG RED SWITCH\"(BRS). After enabling BRS PFC Watchdog will be activated on all ports/queues it is configured for no matter whether the storm was detected or not - Usage: config…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config pfcwd pfc_stat_history <enable/disable> <ports>",
+  "cmd": "config pfcwd pfc_stat_history <enable/disable> <ports>",
+  "desc": "System — This command enables or disables PFCWD's PFC Historical Statistics estimation. After enabling, PFC Watchdog will be configured to estimate pause transitions, total pause time, and the pause time and timstamp of the most…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config pfcwd start_default",
+  "cmd": "config pfcwd start_default",
+  "desc": "System — This command starts PFC Watchdog with the default settings. - Usage: config pfcwd start_default Default values are the following: - detection time - 200ms - restoration time - 200ms - polling interval - 200ms - action -…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show pfcwd config",
+  "cmd": "show pfcwd config",
+  "desc": "Troubleshooting — This command shows current PFC Watchdog configuration - Usage: show pfcwd config"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show pfcwd stats",
+  "cmd": "show pfcwd stats",
+  "desc": "Troubleshooting — This command shows current PFC Watchdog statistics (storms detected, packets dropped, etc) - Usage: show pfcwd stats Go Back To [Beginning of the document](#) or [Beginning of this section](#pfc-watchdog-commands)"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show platform firmware status",
+  "cmd": "show platform firmware status",
+  "desc": "Troubleshooting — This command displays platform components firmware status information. - Usage: bash show platform firmware status - Example: bash admin@sonic:~$ sudo show platform firmware status Chassis Module Component Version Descr…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show platform firmware updates",
+  "cmd": "show platform firmware updates",
+  "desc": "Troubleshooting — This command displays platform components firmware updates information. - Usage: bash show platform firmware updates [-i|--image] - Options: - _-i|--image_: show updates using current/next SONiC image Valid values: - cu…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show platform firmware version",
+  "cmd": "show platform firmware version",
+  "desc": "Troubleshooting — This command displays platform components firmware utility version. - Usage: bash show platform firmware version - Example: bash admin@sonic:~$ show platform firmware version fwutil version 2.0.0.0"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config platform firmware install",
+  "cmd": "config platform firmware install",
+  "desc": "System — This command is used to install a platform component firmware. Both modular and non modular chassis platforms are supported."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config platform firmware update",
+  "cmd": "config platform firmware update",
+  "desc": "System — This command is used to update a platform component firmware from current/next SONiC image."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show platform barefoot profile",
+  "cmd": "show platform barefoot profile",
+  "desc": "Troubleshooting — This command displays active P4 profile and lists available ones. - Usage: show platform barefoot profile - Example: admin@sonic:~$ show platform barefoot profile Current profile: x1 Available profile(s): x1 x2"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config platform barefoot profile",
+  "cmd": "config platform barefoot profile",
+  "desc": "System — This command sets P4 profile. - Usage: config platform barefoot profile <p4_profile> [-y|--yes] - Example: admin@sonic:~$ sudo config platform barefoot profile x1 Swss service will be restarted, continue?"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config portchannel",
+  "cmd": "config portchannel",
+  "desc": "System — This command is used to add or delete the portchannel. It is recommended to use portchannel names in the format \"PortChannelxxxx\", where \"xxxx\" is number of 1 to 4 digits."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config portchannel member",
+  "cmd": "config portchannel member",
+  "desc": "System — This command adds or deletes a member port to/from the already created portchannel."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show switch-trimming global",
+  "cmd": "show switch-trimming global",
+  "desc": "Troubleshooting — This command displays switch trimming global configuration. - Usage: bash show switch-trimming global [OPTIONS] - Options: - _-j,--json_: display in JSON format - Example: bash admin@sonic:~$ show switch-trimming global…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config switch-trimming global",
+  "cmd": "config switch-trimming global",
+  "desc": "System — This command is used to manage switch trimming global configuration. - Usage: bash config switch-trimming global [OPTIONS] - Options: - _-s,--size_: size (in bytes) to trim eligible packet - _-d,--dscp_: dscp value assi…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show nvgre-tunnel",
+  "cmd": "show nvgre-tunnel",
+  "desc": "Troubleshooting — This command displays the NVGRE tunnel configuration. - Usage: bash show nvgre-tunnel - Example: bash admin@sonic:~$ show nvgre-tunnel TUNNEL NAME SRC IP ------------- -------- tunnel_1 10.0.0.1"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show nvgre-tunnel-map",
+  "cmd": "show nvgre-tunnel-map",
+  "desc": "Troubleshooting — This command displays the NVGRE tunnel map configuration. - Usage: bash show nvgre-tunnel-map - Example: bash admin@sonic:~$ show nvgre-tunnel-map TUNNEL NAME TUNNEL MAP NAME VLAN ID VSID ------------- -----------------…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config nvgre-tunnel",
+  "cmd": "config nvgre-tunnel",
+  "desc": "System — This command is used to manage the NVGRE tunnel objects. It supports add/delete operations."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config nvgre-tunnel-map",
+  "cmd": "config nvgre-tunnel-map",
+  "desc": "System — This command is used to manage the NVGRE tunnel map objects. It supports add/delete operations."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show pbh table",
+  "cmd": "show pbh table",
+  "desc": "Troubleshooting — This command displays PBH table configuration. - Usage: bash show pbh table - Example: bash admin@sonic:~$ show pbh table NAME INTERFACE DESCRIPTION --------- --------------- --------------- pbh_table Ethernet0 NVGRE an…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show pbh rule",
+  "cmd": "show pbh rule",
+  "desc": "Troubleshooting — This command displays PBH rule configuration. - Usage: bash show pbh rule - Example: bash admin@sonic:~$ show pbh rule TABLE RULE PRIORITY MATCH HASH ACTION COUNTER --------- ------ ---------- --------------------------…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show pbh hash",
+  "cmd": "show pbh hash",
+  "desc": "Troubleshooting — This command displays PBH hash configuration. - Usage: bash show pbh hash - Example: bash admin@sonic:~$ show pbh hash NAME HASH FIELD ------------- ----------------- inner_v4_hash inner_ip_proto inner_l4_dst_port inner…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show pbh hash-field",
+  "cmd": "show pbh hash-field",
+  "desc": "Troubleshooting — This command displays PBH hash field configuration. - Usage: bash show pbh hash-field - Example: bash admin@sonic:~$ show pbh hash-field NAME FIELD MASK SEQUENCE SYMMETRIC ----------------- ----------------- --------- -…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show pbh statistics",
+  "cmd": "show pbh statistics",
+  "desc": "Troubleshooting — This command displays PBH statistics. - Usage: bash show pbh statistics - Example: bash admin@sonic:~$ show pbh statistics TABLE RULE RX PACKETS COUNT RX BYTES COUNT --------- ------ ------------------ ----------------…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config pbh table",
+  "cmd": "config pbh table",
+  "desc": "System — This command is used to manage PBH table objects. It supports add/update/remove operations."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config pbh rule",
+  "cmd": "config pbh rule",
+  "desc": "System — This command is used to manage PBH rule objects. It supports add/update/remove operations."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config pbh hash",
+  "cmd": "config pbh hash",
+  "desc": "System — This command is used to manage PBH hash objects. It supports add/update/remove operations."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config pbh hash-field",
+  "cmd": "config pbh hash-field",
+  "desc": "System — This command is used to manage PBH hash field objects. It supports add/update/remove operations."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show p4-table",
+  "cmd": "show p4-table",
+  "desc": "Troubleshooting — This command displays the P4RT (P4 Runtime) tables in the application database. These tables are used by PINS (P4 Integrated Network Stack) for orchagent to communicate with the P4RT application."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show pfc counters",
+  "cmd": "show pfc counters",
+  "desc": "Troubleshooting — This command displays the details of Rx & Tx priority-flow-control (pfc) for all ports."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show pfc asymmetric",
+  "cmd": "show pfc asymmetric",
+  "desc": "Troubleshooting — This command displays the status of asymmetric PFC for all interfaces or a given interface."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show pfc priority",
+  "cmd": "show pfc priority",
+  "desc": "Troubleshooting — This command displays the lossless priorities for all interfaces or a given interface."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show queue counters",
+  "cmd": "show queue counters",
+  "desc": "Troubleshooting — This command displays packet and byte counters for all queues of all ports or one specific-port given as arguement."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show queue watermark",
+  "cmd": "show queue watermark",
+  "desc": "Troubleshooting — This command displays the user watermark for the queues (Egress shared pool occupancy per queue) for either the unicast queues or multicast queues for all ports - Usage: show queue watermark (multicast | unicast) - Exam…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show priority-group",
+  "cmd": "show priority-group",
+  "desc": "Troubleshooting — This command displays: 1) The user watermark or persistent-watermark for the Ingress \"headroom\" or \"shared pool occupancy\" per priority-group for all ports."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show queue persistent-watermark",
+  "cmd": "show queue persistent-watermark",
+  "desc": "Troubleshooting — This command displays the user persistet-watermark for the queues (Egress shared pool occupancy per queue) for either the unicast queues or multicast queues for all ports - Usage: show queue persistent-watermark (unicas…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show queue wredcounters",
+  "cmd": "show queue wredcounters",
+  "desc": "Troubleshooting — This command displays wred-drop packet/byte and ecn-marked packet/byte counters for all queues of all ports or one specific-port given as arguement."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show buffer_pool watermark",
+  "cmd": "show buffer_pool watermark",
+  "desc": "Troubleshooting — This command displays the user watermark for all the buffer pools - Usage: show buffer_pool watermark - Example: admin@sonic:~$ show buffer_pool watermark Shared pool maximum occupancy: Pool Bytes ---------------------…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show buffer_pool persistent-watermark",
+  "cmd": "show buffer_pool persistent-watermark",
+  "desc": "Troubleshooting — This command displays the user persistent-watermark for all the buffer pools - Usage: show buffer_pool persistent-watermark - Example: admin@sonic:~$ show buffer_pool persistent-watermark Shared pool maximum occupancy:…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "QoS",
+  "title": "config qos clear",
+  "cmd": "config qos clear",
+  "desc": "QoS — This command is used to clear all the QoS configuration from all the following QOS Tables in ConfigDB."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "QoS",
+  "title": "config qos reload",
+  "cmd": "config qos reload",
+  "desc": "QoS — This command is used to reload the QoS configuration. QoS configuration has got two sets of configurations."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "QoS",
+  "title": "config qos reload --ports port_list",
+  "cmd": "config qos reload --ports port_list",
+  "desc": "QoS — This command is used to reload the default QoS configuration on a group of ports."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "AAA",
+  "title": "show radius commands",
+  "cmd": "show radius commands",
+  "desc": "AAA — This command displays the global radius configuration that includes the auth_type, retransmit, timeout and passkey."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show switch counters",
+  "cmd": "show switch counters",
+  "desc": "Troubleshooting — This command displays switch stats. - Usage: bash show switch counters [OPTIONS] show switch counters all [OPTIONS] show switch counters trim [OPTIONS] show switch counters detailed [OPTIONS] - Options: - _-p,--period_:…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show sflow",
+  "cmd": "show sflow",
+  "desc": "Troubleshooting — This command displays the global sFlow configuration that includes the admin state, collectors, the Agent ID and counter polling interval."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "show sflow interface",
+  "cmd": "show sflow interface",
+  "desc": "Interfaces — This command displays the per-interface sflow admin status and the sampling rate."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config sflow collector add",
+  "cmd": "config sflow collector add",
+  "desc": "System — This command is used to add a sFlow collector. Note that a maximum of 2 collectors is allowed."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config sflow collector del",
+  "cmd": "config sflow collector del",
+  "desc": "System — This command is used to delete a sFlow collector with the given name. - Usage: config sflow collector del <collector-name> - Parameters: - collector-name: unique name of the sFlow collector - Example: admin@sonic:~# sud…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config sflow agent-id",
+  "cmd": "config sflow agent-id",
+  "desc": "System — This command is used to add/delete the sFlow agent-id. This setting is global (applicable to both collectors) and optional."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config sflow",
+  "cmd": "config sflow",
+  "desc": "System — Globally, sFlow is disabled by default. When sFlow is enabled globally, the sflow deamon is started and sampling will start on all interfaces which have sFlow enabled at the interface level (see “config sflow interface……"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config sflow sample-direction",
+  "cmd": "config sflow sample-direction",
+  "desc": "System — This command takes global sflow sample direction. If not configured, default is \"rx\" for backward compatibility."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config sflow interface",
+  "cmd": "config sflow interface",
+  "desc": "Interfaces — Enable/disable sflow at an interface level. By default, sflow is enabled on all interfaces at the interface level."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config sflow interface sample-direction",
+  "cmd": "config sflow interface sample-direction",
+  "desc": "Interfaces — Set sample direction to determine ingress sampling or egress sampling or both. If not configured, default is \"rx\"."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Interfaces",
+  "title": "config sflow interface sample-rate",
+  "cmd": "config sflow interface sample-rate",
+  "desc": "Interfaces — Configure the sample-rate for a specific interface. The default sample rate for any interface is (ifSpeed / 1e6) where ifSpeed is in bits/sec."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config sflow polling-interval",
+  "cmd": "config sflow polling-interval",
+  "desc": "System — This command is used to set the counter polling interval. Default is 20 seconds."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "SNMP",
+  "title": "show runningconfiguration snmp",
+  "cmd": "show runningconfiguration snmp",
+  "desc": "SNMP — This command displays the global SNMP configuration that includes the location, contact, community, and user settings."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "SNMP",
+  "title": "show runningconfiguration snmp location",
+  "cmd": "show runningconfiguration snmp location",
+  "desc": "SNMP — This command displays the SNMP location setting. - Usage: show runningconfiguration snmp location - Example: admin@sonic:~$ show runningconfiguration snmp location Location ------------ Emerald City - Usage: show runnin…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "SNMP",
+  "title": "show runningconfiguration snmp contact",
+  "cmd": "show runningconfiguration snmp contact",
+  "desc": "SNMP — This command displays the SNMP contact setting. - Usage: show runningconfiguration snmp contact - Example: admin@sonic:~$ show runningconfiguration snmp contact Contact Contact Email --------- --------------- joe joe@co…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "SNMP",
+  "title": "show runningconfiguration snmp community",
+  "cmd": "show runningconfiguration snmp community",
+  "desc": "SNMP — This command display the SNMP community settings. - Usage: show runningconfiguration snmp community - Example: admin@sonic:~$ show runningconfiguration snmp community Community String Community Type ------------------ -…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "SNMP",
+  "title": "show runningconfiguration snmp user",
+  "cmd": "show runningconfiguration snmp user",
+  "desc": "SNMP — This command display the SNMP user settings. - Usage: show runningconfiguration snmp user - Example: admin@sonic:~$ show runningconfiguration snmp user User Permission Type Type Auth Type Auth Password Encryption Type E…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "SNMP",
+  "title": "config snmp location add/del/modify",
+  "cmd": "config snmp location add/del/modify",
+  "desc": "SNMP — This command is used to add, delete, or modify the SNMP location. - Usage: config snmp location (add | del | modify) <location> - Example (Add new SNMP location \"Emerald City\" if it does not already exist): admin@sonic:…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "SNMP",
+  "title": "config snmp contact add/del/modify",
+  "cmd": "config snmp contact add/del/modify",
+  "desc": "SNMP — This command is used to add, delete, or modify the SNMP contact. - Usage: config snmp contact add <contact> <contact_email> - Example: admin@sonic:~$ sudo config snmp contact add joe joe@contoso.com Contact name joe and…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "SNMP",
+  "title": "config snmp community add/del/replace",
+  "cmd": "config snmp community add/del/replace",
+  "desc": "SNMP — This command is used to add, delete, or replace the SNMP community. - Usage: config snmp community add <community> (RO | RW) - Example: admin@sonic:~$ sudo config snmp community add testcomm ro SNMP community testcomm a…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "SNMP",
+  "title": "config snmp user add/del",
+  "cmd": "config snmp user add/del",
+  "desc": "SNMP — This command is used to add or delete the SNMP user for SNMPv3. - Usage: config snmp user add <user> (noAuthNoPriv | AuthNoPriv | Priv) (RO | RW) [[(MD5 | SHA | MMAC-SHA-2) <auth_password>] [(DES |AES) <encrypt_password…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "BGP",
+  "title": "show startupconfiguration bgp",
+  "cmd": "show startupconfiguration bgp",
+  "desc": "BGP — This command is used to display the startup configuration for the BGP module. - Usage: show startupconfiguration bgp - Example: admin@sonic:~$ show startupconfiguration bgp Routing-Stack is: quagga !"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show runningconfiguration all",
+  "cmd": "show runningconfiguration all",
+  "desc": "Troubleshooting — This command displays the entire running configuration. - Usage: show runningconfiguration all - Example: admin@sonic:~$ show runningconfiguration all"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "BGP",
+  "title": "show runningconfiguration bgp",
+  "cmd": "show runningconfiguration bgp",
+  "desc": "BGP — This command displays the running configuration of the BGP module. - Usage: show runningconfiguration bgp - Example: admin@sonic:~$ show runningconfiguration bgp"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show runningconfiguration interfaces",
+  "cmd": "show runningconfiguration interfaces",
+  "desc": "Troubleshooting — This command displays the running configuration for the \"interfaces\". - Usage: show runningconfiguration interfaces - Example: admin@sonic:~$ show runningconfiguration interfaces"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "NTP",
+  "title": "show runningconfiguration ntp",
+  "cmd": "show runningconfiguration ntp",
+  "desc": "NTP — This command displays the running configuration of the ntp module. - Usage: show runningconfiguration ntp - Example: admin@sonic:~$ show runningconfiguration ntp NTP Servers ------------- 1.1.1.1 2.2.2.2"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Logging",
+  "title": "show runningconfiguration syslog",
+  "cmd": "show runningconfiguration syslog",
+  "desc": "Logging — This command displays the running configuration of the syslog module. - Usage: show runningconfiguration syslog - Example: admin@sonic:~$ show runningconfiguration syslog Syslog Servers ---------------- 4.4.4.4 5.5.5.5"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "ACL",
+  "title": "show runningconfiguration acl",
+  "cmd": "show runningconfiguration acl",
+  "desc": "ACL — This command displays the running configuration of the acls - Usage: show runningconfiguration acl - Example: admin@sonic:~$ show runningconfiguration acl"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show runningconfiguration ports",
+  "cmd": "show runningconfiguration ports",
+  "desc": "Troubleshooting — This command displays the running configuration of the ports - Usage: show runningconfiguration ports [<portname>] - Examples: admin@sonic:~$ show runningconfiguration ports admin@sonic:~$ show runningconfiguration port…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show runningconfiguration copp",
+  "cmd": "show runningconfiguration copp",
+  "desc": "Troubleshooting — This command displays the running configuration of copp - Usage: show runningconfiguration copp - Example: admin@sonic:~$ show runningconfiguration copp Go Back To [Beginning of the document](#) or [Beginning of this se…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config route add",
+  "cmd": "config route add",
+  "desc": "System — This command is used to add a static route. Note that prefix /nexthop vrfs and interface name are optional."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config route del",
+  "cmd": "config route del",
+  "desc": "System — This command is used to remove a static route. Note that prefix /nexthop vrfs and interface name are optional."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show subinterfaces status",
+  "cmd": "show subinterfaces status",
+  "desc": "Troubleshooting — This command displays all the subinterfaces that are configured on the device and its current status."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config subinterface add",
+  "cmd": "config subinterface add",
+  "desc": "System — This command is used to add a subinterface. - Usage: config subinterface [-n <namespace>] [-s <redis_unix_socket_path>] add <subinterface_name> [<vid>] - Options: - _-n,--namespace_: Namespace name (required on multi-AS…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config subinterface del",
+  "cmd": "config subinterface del",
+  "desc": "System — This command is used to delete a subinterface. - Usage: config subinterface [-n <namespace>] [-s <redis_unix_socket_path>] del <subinterface_name> - Options: - _-n,--namespace_: Namespace name (required on multi-ASIC sy…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config switchport mode",
+  "cmd": "config switchport mode",
+  "desc": "System — Usage: config switchport mode <access|trunk|routed> <member_portname/member_portchannel> - Example (Config switchport mode access on \"Ethernet0): admin@sonic:~$ sudo config switchport mode access Ethernet0 - Example (Co…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Logging",
+  "title": "show syslog",
+  "cmd": "show syslog",
+  "desc": "Logging — This command displays configured syslog servers. - Usage: show syslog - Example: admin@sonic:~$ show syslog SERVER IP SOURCE IP PORT VRF ----------- ----------- ------ ------- 2.2.2.2 1.1.1.1 514 default"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Logging",
+  "title": "show syslog rate-limit-host",
+  "cmd": "show syslog rate-limit-host",
+  "desc": "Logging — This command displays rate limit configuration for host. - Usage show syslog rate-limit-host - Example: admin@sonic:~$ show syslog rate-limit-host INTERVAL BURST ---------- -------- 500 50000"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Logging",
+  "title": "show syslog rate-limit-container",
+  "cmd": "show syslog rate-limit-container",
+  "desc": "Logging — This command displays rate limit configuration for containers. - Usage show syslog rate-limit-container [<service_name>] -n [<namespace>] - Example: admin@sonic:~$ show syslog rate-limit-container SERVICE INTERVAL BURST…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Logging",
+  "title": "config syslog add",
+  "cmd": "config syslog add",
+  "desc": "Logging — This command is used to add a syslog server to the syslog server list. Note that more that one syslog server can be added in the device."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Logging",
+  "title": "config syslog del",
+  "cmd": "config syslog del",
+  "desc": "Logging — This command is used to delete the configured syslog server. - Usage: config syslog del <server_address> - Parameters: - _server_address_: syslog server IP address - Example: admin@sonic:~$ sudo config syslog del 2.2.2.…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Logging",
+  "title": "config syslog rate-limit-host",
+  "cmd": "config syslog rate-limit-host",
+  "desc": "Logging — This command is used to configure syslog rate limit for host. - Usage: config syslog rate-limit-host - Parameters: - _interval_: determines the amount of time that is being measured for rate limiting."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Logging",
+  "title": "config syslog rate-limit-container",
+  "cmd": "config syslog rate-limit-container",
+  "desc": "Logging — This command is used to configure syslog rate limit for containers. - Usage: config syslog rate-limit-container <container-name> - Parameters: - _interval_: determines the amount of time that is being measured for rate…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Logging",
+  "title": "config syslog rate-limit-feature enable",
+  "cmd": "config syslog rate-limit-feature enable",
+  "desc": "Logging — This command is used to enable syslog rate limit feature. - Usage: config syslog rate-limit-feature enable [<service_name>] -n [<namespace>] - Example: # Enable syslog rate limit for all services in all namespaces admin…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Logging",
+  "title": "config syslog rate-limit-feature disable",
+  "cmd": "config syslog rate-limit-feature disable",
+  "desc": "Logging — This command is used to disable syslog rate limit feature. - Usage: config syslog rate-limit-feature disable [<service_name>] -n [<namespace>] - Example: # Disable syslog rate limit for all services in all namespaces ad…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Logging",
+  "title": "config syslog level",
+  "cmd": "config syslog level",
+  "desc": "Logging — This command is used to configure log level for a given log identifier. - Usage: config syslog level -i <log_identifier> -l <log_level> --container [<container_name>] --program [<program_name>] config syslog level -i <l…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show processes cpu",
+  "cmd": "show processes cpu",
+  "desc": "Troubleshooting — This command displays the current CPU usage by process. This command uses linux's \"top -bn 1 -o %CPU\" command to display the output."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show processes memory",
+  "cmd": "show processes memory",
+  "desc": "Troubleshooting — This command displays the current memory usage by processes. This command uses linux's \"top -bn 1 -o %MEM\" command to display the output."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show processes summary",
+  "cmd": "show processes summary",
+  "desc": "Troubleshooting — This command displays the current summary information about all the processes - Usage: show processes summary - Example: admin@sonic:~$ show processes summary PID PPID CMD %MEM %CPU 1 0 /sbin/init 0.0 0.0 2 0 [kthreadd]…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show services",
+  "cmd": "show services",
+  "desc": "Troubleshooting — This command displays the state of all the SONiC processes running inside a docker container."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show system-memory",
+  "cmd": "show system-memory",
+  "desc": "Troubleshooting — This command displays the system-wide memory utilization information – just a wrapper over linux native “free” command - Usage: show system-memory - Example: admin@sonic:~$ show system-memory Command: free -m -h total u…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show system-health summary",
+  "cmd": "show system-health summary",
+  "desc": "Troubleshooting — This command displays the current status of 'Services' and 'Hardware' under monitoring."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show system-health monitor-list",
+  "cmd": "show system-health monitor-list",
+  "desc": "Troubleshooting — This command displays a list of all current 'Services' and 'Hardware' being monitored, their status and type."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show system-health detail",
+  "cmd": "show system-health detail",
+  "desc": "Troubleshooting — This command displays the current status of 'Services' and 'Hardware' under monitoring."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show system-health dpu <option>",
+  "cmd": "show system-health dpu <option>",
+  "desc": "Troubleshooting — This is a smartswitch specific cli. This cli shows the midplane, control plane and data plane health of the DPU modules in the smartswitch."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "VLAN",
+  "title": "show vlan brief",
+  "cmd": "show vlan brief",
+  "desc": "VLAN — This command displays brief information about all the vlans configured in the device."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "VLAN",
+  "title": "show vlan config",
+  "cmd": "show vlan config",
+  "desc": "VLAN — This command displays all the vlan configuration. On multi-ASIC platforms, use -n to show a specific namespace or omit to show all namespaces."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "VLAN",
+  "title": "config vlan add/del",
+  "cmd": "config vlan add/del",
+  "desc": "VLAN — This command is used to add or delete the vlan. - Usage: config vlan [-n <namespace>] (add | del) <vlan_id> - Example (Create the VLAN \"Vlan100\" if it does not already exist): admin@sonic:~$ sudo config vlan add 100"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "VLAN",
+  "title": "config vlan add/del -m",
+  "cmd": "config vlan add/del -m",
+  "desc": "VLAN — This command is used to add or delete multiple vlans via single command. - Usage: config vlan [-n <namespace>] (add | del) -m <vlan_id> - Example01 (Create the VLAN \"Vlan100, Vlan101, Vlan102, Vlan103\" if these does not…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "VLAN",
+  "title": "config vlan member add/del",
+  "cmd": "config vlan member add/del",
+  "desc": "VLAN — This command is to add or delete a member port into the already created vlan. - Usage: config vlan [-n <namespace>] member add/del [-u|--untagged] <vlan_id> <member_portname> *NOTE: Adding the -u or --untagged flag will…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "VLAN",
+  "title": "config vlan member add/del -m -e",
+  "cmd": "config vlan member add/del -m -e",
+  "desc": "VLAN — This command is to add or delete a member port into multiple already created vlans."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config proxy_arp enabled/disabled",
+  "cmd": "config proxy_arp enabled/disabled",
+  "desc": "System — This command is used to enable or disable proxy ARP for a VLAN interface - Usage: config vlan [-n <namespace>] proxy_arp <vlan_id> enabled/disabled - Example: admin@sonic:~$ sudo config vlan proxy_arp 1000 enabled This…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show mac",
+  "cmd": "show mac",
+  "desc": "Troubleshooting — This command displays the MAC (FDB) entries either in full or partial as given below."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show mac aging-time",
+  "cmd": "show mac aging-time",
+  "desc": "Troubleshooting — This command displays the default mac aging time on the switch admin@sonic:~$ show mac aging-time Aging time for switch is 600 seconds **sonic-clear fdb all** Clear the FDB table."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "BGP",
+  "title": "show vxlan tunnel",
+  "cmd": "show vxlan tunnel",
+  "desc": "BGP — This command displays brief information about all the vxlans configured in the device."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "BGP",
+  "title": "show vxlan name <vxlan_name>",
+  "cmd": "show vxlan name <vxlan_name>",
+  "desc": "BGP — This command displays <vlan_name> configuration. - Usage: show vxlan [ -n <namespace> ] name <vxlan_name> - Example: admin@sonic:~$ show vxlan name tunnel3 vxlan tunnel name source ip destination ip tunnel map name tunn…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show vnet brief",
+  "cmd": "show vnet brief",
+  "desc": "Troubleshooting — This command displays brief information about all the vnets configured in the device."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show vnet endpoint <ip/ipv6>",
+  "cmd": "show vnet endpoint <ip/ipv6>",
+  "desc": "Troubleshooting — This command displays the list or vxlan tunnel endpoints and their status. In addition it also shows the number of prefixes associated with each endpoints in the tunnels."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show vnet name <vnet_name>",
+  "cmd": "show vnet name <vnet_name>",
+  "desc": "Troubleshooting — This command displays brief information about <vnet_name> configured in the device."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show vnet interfaces",
+  "cmd": "show vnet interfaces",
+  "desc": "Troubleshooting — This command displays vnet interfaces information about all the vnets configured in the device."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show vnet neighbors",
+  "cmd": "show vnet neighbors",
+  "desc": "Troubleshooting — This command displays vnet neighbor information about all the vnets configured in the device."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show vnet routes all [<vnet_name>]",
+  "cmd": "show vnet routes all [<vnet_name>]",
+  "desc": "Troubleshooting — This command displays either all routes information about all the vnets or a specified vnet configured in the device."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show vnet routes local [<vnet_name>]",
+  "cmd": "show vnet routes local [<vnet_name>]",
+  "desc": "Troubleshooting — This command displays either local routes information about all the vnets or a specified vnet configured in the device."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show vnet routes tunnel [<vnet_name>]",
+  "cmd": "show vnet routes tunnel [<vnet_name>]",
+  "desc": "Troubleshooting — This command displays tunnel routes information about all the vnets or a specified vnet configured in the device."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config vnet add",
+  "cmd": "config vnet add",
+  "desc": "System — This command creates vnet in SONiC system with provided vnet-name. - Usage: config vnet [ -n <namespace> ] add <vnet-name> <vni> <vxlan-tunnel> [<peer_list>] [<guid>] [<scope>] [<advertise_prefix>] [<overlay_dmac>] [<sr…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config vnet del",
+  "cmd": "config vnet del",
+  "desc": "System — This command deletes vnet with vnet-name and its associated binded interfaces and routes."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config vnet add route",
+  "cmd": "config vnet add route",
+  "desc": "System — This command creates vnet route in SONiC system with provided vnet-name and prefix."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config vnet del-route <vnet-name>",
+  "cmd": "config vnet del-route <vnet-name>",
+  "desc": "System — This command deletes a vnet route with vnet-name and prefix. It deletes all routes for the provided vnet if prefix isnt specified."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show warm_restart config",
+  "cmd": "show warm_restart config",
+  "desc": "Troubleshooting — This command displays all the configuration related to warm_restart. - Usage: show warm_restart config - Example: admin@sonic:~$ show warm_restart config name enable timer_name timer_duration ------ -------- -----------…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show warm_restart state",
+  "cmd": "show warm_restart state",
+  "desc": "Troubleshooting — This command displays the warm_restart state. - Usage: show warm_restart state - Example: admin@sonic:~$ show warm_restart state name restore_count state ---------- --------------- ---------- orchagent 0 vlanmgrd 0 bgp…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config warm_restart bgp_timer",
+  "cmd": "config warm_restart bgp_timer",
+  "desc": "System — This command is used to set the bgp_timer value for warm_restart of BGP service."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config warm_restart enable/disable",
+  "cmd": "config warm_restart enable/disable",
+  "desc": "System — This command is used to enable or disable the warm_restart for a particular service that supports warm reboot."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config warm_restart neighsyncd_timer",
+  "cmd": "config warm_restart neighsyncd_timer",
+  "desc": "System — This command is used to set the neighsyncd_timer value for warm_restart of \"swss\" service."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config warm_restart teamsyncd_timer",
+  "cmd": "config warm_restart teamsyncd_timer",
+  "desc": "System — This command is used to set the teamsyncd_timer value for warm_restart of teamd service."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show watermark telemetry interval",
+  "cmd": "show watermark telemetry interval",
+  "desc": "Troubleshooting — This command displays the configured interval for the telemetry. - Usage: show watermark telemetry interval - Example: admin@sonic:~$ show watermark telemetry interval Telemetry interval 120 second(s)"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config watermark telemetry interval",
+  "cmd": "config watermark telemetry interval",
+  "desc": "System — This command is used to configure the interval for telemetry. The default interval is 120 seconds."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config auto-techsupport global commands",
+  "cmd": "config auto-techsupport global commands",
+  "desc": "System"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config auto-techsupport global state",
+  "cmd": "config auto-techsupport global state",
+  "desc": "System — - Usage: config auto-techsupport global state <enabled/disabled> - Example: config auto-techsupport global state enabled"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config auto-techsupport global rate-limit-interval <uint16>",
+  "cmd": "config auto-techsupport global rate-limit-interval <uint16>",
+  "desc": "System — - Usage: config auto-techsupport global rate-limit-interval <uint16> - Parameters: - rate-limit-interval: Minimum time in seconds to wait after the last techsupport creation time before invoking a new one."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config auto-techsupport global max-techsupport-limit <float upto two decimal places>",
+  "cmd": "config auto-techsupport global max-techsupport-limit <float upto two decimal places>",
+  "desc": "System — - Usage: config auto-techsupport global max-techsupport-limit <float upto two decimal places> - Parameters: - max-techsupport-limit: A percentage value should be specified."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config auto-techsupport global max-core-limit <float upto two decimal places>",
+  "cmd": "config auto-techsupport global max-core-limit <float upto two decimal places>",
+  "desc": "System — - Usage: config auto-techsupport global max-core-limit <float upto two decimal places> - Parameters: - max-core-limit: A percentage value should be specified."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config auto-techsupport global since",
+  "cmd": "config auto-techsupport global since",
+  "desc": "System — - Usage: config auto-techsupport global since <string> - Parameters: - since: This limits the auto-invoked techsupport to only collect the logs & core-dumps generated since the time provided."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config auto-techsupport global available-mem-threshold",
+  "cmd": "config auto-techsupport global available-mem-threshold",
+  "desc": "System — Configure available memory threshold in %. System will automatically generate a techsupport dump when available memory goes below the configured threshold."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config auto-techsupport global min-available-mem",
+  "cmd": "config auto-techsupport global min-available-mem",
+  "desc": "System — Configure minimum available memory in MB. System will automatically generate a techsupport dump when available memory goes below the configured threshold."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config auto-techsupport-feature commands",
+  "cmd": "config auto-techsupport-feature commands",
+  "desc": "System"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config auto-techsupport-feature add",
+  "cmd": "config auto-techsupport-feature add",
+  "desc": "System — - Usage: config auto-techsupport-feature add <feature_name> --state <enabled/disabled> --rate-limit-interval <uint16> --available-mem-threshold <float up to two decimal places> - Parameters: - state: enable/disable the…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config auto-techsupport-feature delete",
+  "cmd": "config auto-techsupport-feature delete",
+  "desc": "System — - Usage: config auto-techsupport-feature delete <feature_name> - Example: config auto-techsupport-feature delete swss"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config auto-techsupport-feature update",
+  "cmd": "config auto-techsupport-feature update",
+  "desc": "System — - Usage: config auto-techsupport-feature update <feature_name> --state <enabled/disabled> config auto-techsupport-feature update <feature_name> --rate-limit-interval <uint16> config auto-techsupport-feature update <feat…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show auto-techsupport commands",
+  "cmd": "show auto-techsupport commands",
+  "desc": "Troubleshooting"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show auto-techsupport global",
+  "cmd": "show auto-techsupport global",
+  "desc": "Troubleshooting — - Usage: show auto-techsupport global - Example: admin@sonic:~$ show auto-techsupport global STATE RATE LIMIT INTERVAL (sec) MAX TECHSUPPORT LIMIT (%) MAX CORE LIMIT (%) AVAILABLE MEM THRESHOLD (%) MIN AVAILABLE MEM (Kb…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show auto-techsupport-feature",
+  "cmd": "show auto-techsupport-feature",
+  "desc": "Troubleshooting — - Usage: show auto-techsupport-feature - Example: admin@sonic:~$ show auto-techsupport-feature FEATURE NAME STATE RATE LIMIT INTERVAL (sec) AVAILABLE MEM THRESHOLD (%) -------------- -------- --------------------------…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show auto-techsupport history",
+  "cmd": "show auto-techsupport history",
+  "desc": "Troubleshooting — - Usage: show auto-techsupport history - Example: admin@sonic:~$ show auto-techsupport history TECHSUPPORT DUMP TRIGGERED BY EVENT TYPE CORE DUMP ---------------------------------------- -------------- -------------- --…"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "BGP",
+  "title": "show ip bgp summary",
+  "cmd": "show ip bgp summary",
+  "desc": "BGP — This command displays the summary of all IPv4 bgp neighbors that are configured and the corresponding states."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "BGP",
+  "title": "show ip bgp neighbors",
+  "cmd": "show ip bgp neighbors",
+  "desc": "BGP — This command displays all the details of IPv4 & IPv6 BGP neighbors when no optional argument is specified."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "BGP",
+  "title": "show ipv6 bgp summary",
+  "cmd": "show ipv6 bgp summary",
+  "desc": "BGP — This command displays the summary of all IPv4 bgp neighbors that are configured and the corresponding states."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "BGP",
+  "title": "show ipv6 bgp neighbors",
+  "cmd": "show ipv6 bgp neighbors",
+  "desc": "BGP — This command displays all the details of one particular IPv6 Border Gateway Protocol (BGP) neighbor."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "show ztp status",
+  "cmd": "show ztp status",
+  "desc": "Troubleshooting — This command displays the current ZTP configuration of the switch. It also displays detailed information about current state of a ZTP session."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config ztp enable",
+  "cmd": "config ztp enable",
+  "desc": "System — Use this command to enable ZTP administrative mode - Usage: config ztp enable - Example: root@sonic:/home/admin# config ztp enable Running command: ztp enable"
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config ztp disable",
+  "cmd": "config ztp disable",
+  "desc": "System — Use this command to disable ZTP administrative mode. This command can also be used to abort a current ZTP session and load the factory default switch configuration."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "System",
+  "title": "config ztp run",
+  "cmd": "config ztp run",
+  "desc": "System — Use this command to manually restart a new ZTP session. This command deletes the existing */etc/sonic/config_db.json* file and stats ZTP service."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "Show CoPP Configuration",
+  "cmd": "Show CoPP Configuration",
+  "desc": "Troubleshooting — Command to display the current CoPP configurations and hardware status of the traps."
+ },
+ {
+  "os": "sonic",
+  "role": "switch",
+  "vendor": "SONiC",
+  "cat": "Troubleshooting",
+  "title": "Show CoPP Configuration Detailed",
+  "cmd": "Show CoPP Configuration Detailed",
+  "desc": "Troubleshooting — Command to display the detailed CoPP configuration of a specific trap ID. bash admin@sonic:~$ show copp configuration detailed --trapid neighbor_miss **Sample Output**: bash Trap Group.................."
+ }
+]

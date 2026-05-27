@@ -13,11 +13,11 @@
 ## What's here
 
 **[Cheatsheet](https://gesh75.github.io/multivendor-cli-configurator/)** (`index.html`) —
-11,542 commands searchable, filterable, deep-linkable, with three view modes:
+**29,509 commands** across **14 vendors**, searchable, filterable, deep-linkable, with three view modes:
 
 - **Cards** (default) — auto-fit grid grouped by category
 - **Table** — sortable, exportable to CSV / Markdown / JSON / TXT
-- **Compare** — row-aligned Cisco · Juniper · Arista · FRR side-by-side (n-vendor aware — filter to any subset)
+- **Compare** — row-aligned side-by-side. N-vendor aware: defaults to Cisco · Juniper · Arista · FRR, filter to any subset of the 14 supported vendors.
 
 Each command card has:
 - **Copy / + CLI / See equivalents ↗** — usual operations
@@ -34,16 +34,26 @@ A legacy `configurator.html` is kept in the repo for archive purposes — it's a
 
 | Vendor | OS | Commands |
 |---|---|---|
-| **Cisco** | IOS / IOS-XE (3,512) · ASA 9.24 (352) · NX-OS (67) | 3,931 |
-| **Juniper** | Junos (MX / EX / QFX / SRX) | 3,007 |
+| **Cisco** | IOS / IOS-XE (3,765) · ASA 9.24 (352) · NX-OS (67) | 4,184 |
+| **VyOS** | VyOS (Sphinx + MyST full config tree) | 3,592 |
+| **Juniper** | Junos (MX / EX / QFX / SRX) | 3,276 |
 | **Arista** | EOS | 2,869 |
+| **Extreme** | EXOS (VLAN-centric, STP, OSPF, SummitStacking, MLAG, ACLs) | 2,771 |
 | **FRR** | FRRouting (vtysh) — official docs **+ commands verified live on a 10-node Docker FRR lab**. ~870 rows tagged `● live` (368 doc + live, 502 live-only / undocumented). | 2,210 |
-| **TOTAL** | | **12,017** |
+| **Aruba** | AOS-CX (modular `1/1/N` interfaces, MSTP/RPVST, VSX, OSPF/BGP) | 2,212 |
+| **Huawei** | VRP (bracketed prompts, GigabitEthernet, iStack, Eth-Trunk, OSPF/BGP) | 2,163 |
+| **Mikrotik** | RouterOS (`/path` syntax, 80+ VLANs, firewall filters, queues) | 1,209 |
+| **PAN-OS** | Palo Alto firewalls (`set rulebase security ...`, virtual routers) | 1,216 |
+| **FortiOS** | Fortinet (`config / set / end` blocks, REST cmdb) | 1,188 |
+| **NVIDIA** | Cumulus Linux 5.x with NVUE (`nv set/show`) | 1,149 |
+| **Nokia** | SR Linux (declarative `enter candidate`/`commit now`, gNMI) | 1,053 |
+| **SONiC** | OCP / Azure SONiC (Click CLI, `show ip ...`) | 417 |
+| **TOTAL** | | **29,509** |
 
-By category (top 10): System 2,320 · Interfaces 1,166 · BGP 1,080 · Troubleshooting 1,017 ·
-Routing 905 · VLAN 635 · OSPF 635 · Multicast 541 · MPLS 315 · AAA 279.
+By category (top 10): Interfaces 6,374 · VLAN 3,963 · System 3,348 · Routing 2,188 · BGP 2,007 ·
+Troubleshooting 1,652 · Firewall 1,608 · OSPF 1,455 · ACL 1,024 · DHCP 546.
 
-By role: router 8,254 · switch 2,811 · firewall 477.
+By role: router 16,215 · switch 10,413 · firewall 2,881.
 
 ---
 

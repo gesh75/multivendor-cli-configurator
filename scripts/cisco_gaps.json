@@ -1,0 +1,2297 @@
+[
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "class-map match-any Class-Voice-1",
+  "cmd": "class-map match-any Class-Voice-1",
+  "desc": "QoS — Create QoS class-map Class-Voice-1 matching any matching parameters."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "class-map match-any Class-Voice-1",
+  "cmd": "class-map match-any Class-Voice-1\nmatch dscp ef",
+  "desc": "QoS — Configure QoS voice packet match criteria to match Expedited Forwarding (DSCP EF) tags."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "class-map match-any Class-Voice-1",
+  "cmd": "class-map match-any Class-Voice-1\nmatch ip precedence 5",
+  "desc": "QoS — Match IP packet precedence 5 tags (representing critical voice stream traffic)."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "class-map match-any Class-Voice-2",
+  "cmd": "class-map match-any Class-Voice-2",
+  "desc": "QoS — Create QoS class-map Class-Voice-2 matching any matching parameters."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "class-map match-any Class-Voice-2",
+  "cmd": "class-map match-any Class-Voice-2\nmatch dscp ef",
+  "desc": "QoS — Configure QoS voice packet match criteria to match Expedited Forwarding (DSCP EF) tags."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "class-map match-any Class-Voice-2",
+  "cmd": "class-map match-any Class-Voice-2\nmatch ip precedence 5",
+  "desc": "QoS — Match IP packet precedence 5 tags (representing critical voice stream traffic)."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "class-map match-any Class-Voice-3",
+  "cmd": "class-map match-any Class-Voice-3",
+  "desc": "QoS — Create QoS class-map Class-Voice-3 matching any matching parameters."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "class-map match-any Class-Voice-3",
+  "cmd": "class-map match-any Class-Voice-3\nmatch dscp ef",
+  "desc": "QoS — Configure QoS voice packet match criteria to match Expedited Forwarding (DSCP EF) tags."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "class-map match-any Class-Voice-3",
+  "cmd": "class-map match-any Class-Voice-3\nmatch ip precedence 5",
+  "desc": "QoS — Match IP packet precedence 5 tags (representing critical voice stream traffic)."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "class-map match-any Class-Voice-4",
+  "cmd": "class-map match-any Class-Voice-4",
+  "desc": "QoS — Create QoS class-map Class-Voice-4 matching any matching parameters."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "class-map match-any Class-Voice-4",
+  "cmd": "class-map match-any Class-Voice-4\nmatch dscp ef",
+  "desc": "QoS — Configure QoS voice packet match criteria to match Expedited Forwarding (DSCP EF) tags."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "class-map match-any Class-Voice-4",
+  "cmd": "class-map match-any Class-Voice-4\nmatch ip precedence 5",
+  "desc": "QoS — Match IP packet precedence 5 tags (representing critical voice stream traffic)."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "class-map match-any Class-Voice-5",
+  "cmd": "class-map match-any Class-Voice-5",
+  "desc": "QoS — Create QoS class-map Class-Voice-5 matching any matching parameters."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "class-map match-any Class-Voice-5",
+  "cmd": "class-map match-any Class-Voice-5\nmatch dscp ef",
+  "desc": "QoS — Configure QoS voice packet match criteria to match Expedited Forwarding (DSCP EF) tags."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "class-map match-any Class-Voice-5",
+  "cmd": "class-map match-any Class-Voice-5\nmatch ip precedence 5",
+  "desc": "QoS — Match IP packet precedence 5 tags (representing critical voice stream traffic)."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "class-map match-any Class-Voice-6",
+  "cmd": "class-map match-any Class-Voice-6",
+  "desc": "QoS — Create QoS class-map Class-Voice-6 matching any matching parameters."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "class-map match-any Class-Voice-6",
+  "cmd": "class-map match-any Class-Voice-6\nmatch dscp ef",
+  "desc": "QoS — Configure QoS voice packet match criteria to match Expedited Forwarding (DSCP EF) tags."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "class-map match-any Class-Voice-6",
+  "cmd": "class-map match-any Class-Voice-6\nmatch ip precedence 5",
+  "desc": "QoS — Match IP packet precedence 5 tags (representing critical voice stream traffic)."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "class-map match-any Class-Voice-7",
+  "cmd": "class-map match-any Class-Voice-7",
+  "desc": "QoS — Create QoS class-map Class-Voice-7 matching any matching parameters."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "class-map match-any Class-Voice-7",
+  "cmd": "class-map match-any Class-Voice-7\nmatch dscp ef",
+  "desc": "QoS — Configure QoS voice packet match criteria to match Expedited Forwarding (DSCP EF) tags."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "class-map match-any Class-Voice-7",
+  "cmd": "class-map match-any Class-Voice-7\nmatch ip precedence 5",
+  "desc": "QoS — Match IP packet precedence 5 tags (representing critical voice stream traffic)."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "class-map match-any Class-Voice-8",
+  "cmd": "class-map match-any Class-Voice-8",
+  "desc": "QoS — Create QoS class-map Class-Voice-8 matching any matching parameters."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "class-map match-any Class-Voice-8",
+  "cmd": "class-map match-any Class-Voice-8\nmatch dscp ef",
+  "desc": "QoS — Configure QoS voice packet match criteria to match Expedited Forwarding (DSCP EF) tags."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "class-map match-any Class-Voice-8",
+  "cmd": "class-map match-any Class-Voice-8\nmatch ip precedence 5",
+  "desc": "QoS — Match IP packet precedence 5 tags (representing critical voice stream traffic)."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "class-map match-any Class-Voice-9",
+  "cmd": "class-map match-any Class-Voice-9",
+  "desc": "QoS — Create QoS class-map Class-Voice-9 matching any matching parameters."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "class-map match-any Class-Voice-9",
+  "cmd": "class-map match-any Class-Voice-9\nmatch dscp ef",
+  "desc": "QoS — Configure QoS voice packet match criteria to match Expedited Forwarding (DSCP EF) tags."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "class-map match-any Class-Voice-9",
+  "cmd": "class-map match-any Class-Voice-9\nmatch ip precedence 5",
+  "desc": "QoS — Match IP packet precedence 5 tags (representing critical voice stream traffic)."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "class-map match-any Class-Voice-10",
+  "cmd": "class-map match-any Class-Voice-10",
+  "desc": "QoS — Create QoS class-map Class-Voice-10 matching any matching parameters."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "class-map match-any Class-Voice-10",
+  "cmd": "class-map match-any Class-Voice-10\nmatch dscp ef",
+  "desc": "QoS — Configure QoS voice packet match criteria to match Expedited Forwarding (DSCP EF) tags."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "class-map match-any Class-Voice-10",
+  "cmd": "class-map match-any Class-Voice-10\nmatch ip precedence 5",
+  "desc": "QoS — Match IP packet precedence 5 tags (representing critical voice stream traffic)."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "class-map match-any Class-Voice-11",
+  "cmd": "class-map match-any Class-Voice-11",
+  "desc": "QoS — Create QoS class-map Class-Voice-11 matching any matching parameters."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "class-map match-any Class-Voice-11",
+  "cmd": "class-map match-any Class-Voice-11\nmatch dscp ef",
+  "desc": "QoS — Configure QoS voice packet match criteria to match Expedited Forwarding (DSCP EF) tags."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "class-map match-any Class-Voice-11",
+  "cmd": "class-map match-any Class-Voice-11\nmatch ip precedence 5",
+  "desc": "QoS — Match IP packet precedence 5 tags (representing critical voice stream traffic)."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "class-map match-any Class-Voice-12",
+  "cmd": "class-map match-any Class-Voice-12",
+  "desc": "QoS — Create QoS class-map Class-Voice-12 matching any matching parameters."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "class-map match-any Class-Voice-12",
+  "cmd": "class-map match-any Class-Voice-12\nmatch dscp ef",
+  "desc": "QoS — Configure QoS voice packet match criteria to match Expedited Forwarding (DSCP EF) tags."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "class-map match-any Class-Voice-12",
+  "cmd": "class-map match-any Class-Voice-12\nmatch ip precedence 5",
+  "desc": "QoS — Match IP packet precedence 5 tags (representing critical voice stream traffic)."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "policy-map WAN-Traffic-Shaping-1",
+  "cmd": "policy-map WAN-Traffic-Shaping-1",
+  "desc": "QoS — Create WAN QoS policy-map traffic shaper WAN-Traffic-Shaping-1."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "policy-map WAN-Traffic-Shaping-1",
+  "cmd": "policy-map WAN-Traffic-Shaping-1\nclass Class-Voice-1\npriority",
+  "desc": "QoS — Assign strict LLQ (Low Latency Queueing) voice class priority scheduling inside policy-map."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "policy-map WAN-Traffic-Shaping-1",
+  "cmd": "policy-map WAN-Traffic-Shaping-1\nclass Class-Voice-1\npolice 10000000 125000 conform-action transmit exceed-action drop",
+  "desc": "QoS — Apply class policy rate limit (traffic policing) to 10Mbps maximum with drop exceed-action."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "policy-map WAN-Traffic-Shaping-1",
+  "cmd": "policy-map WAN-Traffic-Shaping-1\nclass class-default\nshape average 10000000",
+  "desc": "QoS — Apply default class queue outbound traffic shaping rate limiter to 10Mbps."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface GigabitEthernet0/1",
+  "cmd": "interface GigabitEthernet0/1\nservice-policy output WAN-Traffic-Shaping-1",
+  "desc": "Interfaces — Bind outbound WAN QoS traffic shaper service-policy to interface GigabitEthernet0/1."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "policy-map WAN-Traffic-Shaping-2",
+  "cmd": "policy-map WAN-Traffic-Shaping-2",
+  "desc": "QoS — Create WAN QoS policy-map traffic shaper WAN-Traffic-Shaping-2."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "policy-map WAN-Traffic-Shaping-2",
+  "cmd": "policy-map WAN-Traffic-Shaping-2\nclass Class-Voice-2\npriority",
+  "desc": "QoS — Assign strict LLQ (Low Latency Queueing) voice class priority scheduling inside policy-map."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "policy-map WAN-Traffic-Shaping-2",
+  "cmd": "policy-map WAN-Traffic-Shaping-2\nclass Class-Voice-2\npolice 10000000 125000 conform-action transmit exceed-action drop",
+  "desc": "QoS — Apply class policy rate limit (traffic policing) to 10Mbps maximum with drop exceed-action."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "policy-map WAN-Traffic-Shaping-2",
+  "cmd": "policy-map WAN-Traffic-Shaping-2\nclass class-default\nshape average 20000000",
+  "desc": "QoS — Apply default class queue outbound traffic shaping rate limiter to 20Mbps."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface GigabitEthernet0/2",
+  "cmd": "interface GigabitEthernet0/2\nservice-policy output WAN-Traffic-Shaping-2",
+  "desc": "Interfaces — Bind outbound WAN QoS traffic shaper service-policy to interface GigabitEthernet0/2."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "policy-map WAN-Traffic-Shaping-3",
+  "cmd": "policy-map WAN-Traffic-Shaping-3",
+  "desc": "QoS — Create WAN QoS policy-map traffic shaper WAN-Traffic-Shaping-3."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "policy-map WAN-Traffic-Shaping-3",
+  "cmd": "policy-map WAN-Traffic-Shaping-3\nclass Class-Voice-3\npriority",
+  "desc": "QoS — Assign strict LLQ (Low Latency Queueing) voice class priority scheduling inside policy-map."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "policy-map WAN-Traffic-Shaping-3",
+  "cmd": "policy-map WAN-Traffic-Shaping-3\nclass Class-Voice-3\npolice 10000000 125000 conform-action transmit exceed-action drop",
+  "desc": "QoS — Apply class policy rate limit (traffic policing) to 10Mbps maximum with drop exceed-action."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "policy-map WAN-Traffic-Shaping-3",
+  "cmd": "policy-map WAN-Traffic-Shaping-3\nclass class-default\nshape average 30000000",
+  "desc": "QoS — Apply default class queue outbound traffic shaping rate limiter to 30Mbps."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface GigabitEthernet0/3",
+  "cmd": "interface GigabitEthernet0/3\nservice-policy output WAN-Traffic-Shaping-3",
+  "desc": "Interfaces — Bind outbound WAN QoS traffic shaper service-policy to interface GigabitEthernet0/3."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "policy-map WAN-Traffic-Shaping-4",
+  "cmd": "policy-map WAN-Traffic-Shaping-4",
+  "desc": "QoS — Create WAN QoS policy-map traffic shaper WAN-Traffic-Shaping-4."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "policy-map WAN-Traffic-Shaping-4",
+  "cmd": "policy-map WAN-Traffic-Shaping-4\nclass Class-Voice-4\npriority",
+  "desc": "QoS — Assign strict LLQ (Low Latency Queueing) voice class priority scheduling inside policy-map."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "policy-map WAN-Traffic-Shaping-4",
+  "cmd": "policy-map WAN-Traffic-Shaping-4\nclass Class-Voice-4\npolice 10000000 125000 conform-action transmit exceed-action drop",
+  "desc": "QoS — Apply class policy rate limit (traffic policing) to 10Mbps maximum with drop exceed-action."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "policy-map WAN-Traffic-Shaping-4",
+  "cmd": "policy-map WAN-Traffic-Shaping-4\nclass class-default\nshape average 40000000",
+  "desc": "QoS — Apply default class queue outbound traffic shaping rate limiter to 40Mbps."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface GigabitEthernet0/4",
+  "cmd": "interface GigabitEthernet0/4\nservice-policy output WAN-Traffic-Shaping-4",
+  "desc": "Interfaces — Bind outbound WAN QoS traffic shaper service-policy to interface GigabitEthernet0/4."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "policy-map WAN-Traffic-Shaping-5",
+  "cmd": "policy-map WAN-Traffic-Shaping-5",
+  "desc": "QoS — Create WAN QoS policy-map traffic shaper WAN-Traffic-Shaping-5."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "policy-map WAN-Traffic-Shaping-5",
+  "cmd": "policy-map WAN-Traffic-Shaping-5\nclass Class-Voice-5\npriority",
+  "desc": "QoS — Assign strict LLQ (Low Latency Queueing) voice class priority scheduling inside policy-map."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "policy-map WAN-Traffic-Shaping-5",
+  "cmd": "policy-map WAN-Traffic-Shaping-5\nclass Class-Voice-5\npolice 10000000 125000 conform-action transmit exceed-action drop",
+  "desc": "QoS — Apply class policy rate limit (traffic policing) to 10Mbps maximum with drop exceed-action."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "policy-map WAN-Traffic-Shaping-5",
+  "cmd": "policy-map WAN-Traffic-Shaping-5\nclass class-default\nshape average 50000000",
+  "desc": "QoS — Apply default class queue outbound traffic shaping rate limiter to 50Mbps."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface GigabitEthernet0/5",
+  "cmd": "interface GigabitEthernet0/5\nservice-policy output WAN-Traffic-Shaping-5",
+  "desc": "Interfaces — Bind outbound WAN QoS traffic shaper service-policy to interface GigabitEthernet0/5."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "policy-map WAN-Traffic-Shaping-6",
+  "cmd": "policy-map WAN-Traffic-Shaping-6",
+  "desc": "QoS — Create WAN QoS policy-map traffic shaper WAN-Traffic-Shaping-6."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "policy-map WAN-Traffic-Shaping-6",
+  "cmd": "policy-map WAN-Traffic-Shaping-6\nclass Class-Voice-6\npriority",
+  "desc": "QoS — Assign strict LLQ (Low Latency Queueing) voice class priority scheduling inside policy-map."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "policy-map WAN-Traffic-Shaping-6",
+  "cmd": "policy-map WAN-Traffic-Shaping-6\nclass Class-Voice-6\npolice 10000000 125000 conform-action transmit exceed-action drop",
+  "desc": "QoS — Apply class policy rate limit (traffic policing) to 10Mbps maximum with drop exceed-action."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "policy-map WAN-Traffic-Shaping-6",
+  "cmd": "policy-map WAN-Traffic-Shaping-6\nclass class-default\nshape average 60000000",
+  "desc": "QoS — Apply default class queue outbound traffic shaping rate limiter to 60Mbps."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface GigabitEthernet0/6",
+  "cmd": "interface GigabitEthernet0/6\nservice-policy output WAN-Traffic-Shaping-6",
+  "desc": "Interfaces — Bind outbound WAN QoS traffic shaper service-policy to interface GigabitEthernet0/6."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "policy-map WAN-Traffic-Shaping-7",
+  "cmd": "policy-map WAN-Traffic-Shaping-7",
+  "desc": "QoS — Create WAN QoS policy-map traffic shaper WAN-Traffic-Shaping-7."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "policy-map WAN-Traffic-Shaping-7",
+  "cmd": "policy-map WAN-Traffic-Shaping-7\nclass Class-Voice-7\npriority",
+  "desc": "QoS — Assign strict LLQ (Low Latency Queueing) voice class priority scheduling inside policy-map."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "policy-map WAN-Traffic-Shaping-7",
+  "cmd": "policy-map WAN-Traffic-Shaping-7\nclass Class-Voice-7\npolice 10000000 125000 conform-action transmit exceed-action drop",
+  "desc": "QoS — Apply class policy rate limit (traffic policing) to 10Mbps maximum with drop exceed-action."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "policy-map WAN-Traffic-Shaping-7",
+  "cmd": "policy-map WAN-Traffic-Shaping-7\nclass class-default\nshape average 70000000",
+  "desc": "QoS — Apply default class queue outbound traffic shaping rate limiter to 70Mbps."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface GigabitEthernet0/7",
+  "cmd": "interface GigabitEthernet0/7\nservice-policy output WAN-Traffic-Shaping-7",
+  "desc": "Interfaces — Bind outbound WAN QoS traffic shaper service-policy to interface GigabitEthernet0/7."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "policy-map WAN-Traffic-Shaping-8",
+  "cmd": "policy-map WAN-Traffic-Shaping-8",
+  "desc": "QoS — Create WAN QoS policy-map traffic shaper WAN-Traffic-Shaping-8."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "policy-map WAN-Traffic-Shaping-8",
+  "cmd": "policy-map WAN-Traffic-Shaping-8\nclass Class-Voice-8\npriority",
+  "desc": "QoS — Assign strict LLQ (Low Latency Queueing) voice class priority scheduling inside policy-map."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "policy-map WAN-Traffic-Shaping-8",
+  "cmd": "policy-map WAN-Traffic-Shaping-8\nclass Class-Voice-8\npolice 10000000 125000 conform-action transmit exceed-action drop",
+  "desc": "QoS — Apply class policy rate limit (traffic policing) to 10Mbps maximum with drop exceed-action."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "policy-map WAN-Traffic-Shaping-8",
+  "cmd": "policy-map WAN-Traffic-Shaping-8\nclass class-default\nshape average 80000000",
+  "desc": "QoS — Apply default class queue outbound traffic shaping rate limiter to 80Mbps."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface GigabitEthernet0/8",
+  "cmd": "interface GigabitEthernet0/8\nservice-policy output WAN-Traffic-Shaping-8",
+  "desc": "Interfaces — Bind outbound WAN QoS traffic shaper service-policy to interface GigabitEthernet0/8."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "policy-map WAN-Traffic-Shaping-9",
+  "cmd": "policy-map WAN-Traffic-Shaping-9",
+  "desc": "QoS — Create WAN QoS policy-map traffic shaper WAN-Traffic-Shaping-9."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "policy-map WAN-Traffic-Shaping-9",
+  "cmd": "policy-map WAN-Traffic-Shaping-9\nclass Class-Voice-9\npriority",
+  "desc": "QoS — Assign strict LLQ (Low Latency Queueing) voice class priority scheduling inside policy-map."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "policy-map WAN-Traffic-Shaping-9",
+  "cmd": "policy-map WAN-Traffic-Shaping-9\nclass Class-Voice-9\npolice 10000000 125000 conform-action transmit exceed-action drop",
+  "desc": "QoS — Apply class policy rate limit (traffic policing) to 10Mbps maximum with drop exceed-action."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "policy-map WAN-Traffic-Shaping-9",
+  "cmd": "policy-map WAN-Traffic-Shaping-9\nclass class-default\nshape average 90000000",
+  "desc": "QoS — Apply default class queue outbound traffic shaping rate limiter to 90Mbps."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface GigabitEthernet0/9",
+  "cmd": "interface GigabitEthernet0/9\nservice-policy output WAN-Traffic-Shaping-9",
+  "desc": "Interfaces — Bind outbound WAN QoS traffic shaper service-policy to interface GigabitEthernet0/9."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "policy-map WAN-Traffic-Shaping-10",
+  "cmd": "policy-map WAN-Traffic-Shaping-10",
+  "desc": "QoS — Create WAN QoS policy-map traffic shaper WAN-Traffic-Shaping-10."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "policy-map WAN-Traffic-Shaping-10",
+  "cmd": "policy-map WAN-Traffic-Shaping-10\nclass Class-Voice-10\npriority",
+  "desc": "QoS — Assign strict LLQ (Low Latency Queueing) voice class priority scheduling inside policy-map."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "policy-map WAN-Traffic-Shaping-10",
+  "cmd": "policy-map WAN-Traffic-Shaping-10\nclass Class-Voice-10\npolice 10000000 125000 conform-action transmit exceed-action drop",
+  "desc": "QoS — Apply class policy rate limit (traffic policing) to 10Mbps maximum with drop exceed-action."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "QoS",
+  "title": "policy-map WAN-Traffic-Shaping-10",
+  "cmd": "policy-map WAN-Traffic-Shaping-10\nclass class-default\nshape average 100000000",
+  "desc": "QoS — Apply default class queue outbound traffic shaping rate limiter to 100Mbps."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface GigabitEthernet0/10",
+  "cmd": "interface GigabitEthernet0/10\nservice-policy output WAN-Traffic-Shaping-10",
+  "desc": "Interfaces — Bind outbound WAN QoS traffic shaper service-policy to interface GigabitEthernet0/10."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "feature vpc",
+  "cmd": "feature vpc",
+  "desc": "HA — Enable modular Virtual Port Channel (vPC) feature-set services globally on an NX-OS switch."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "EtherChannel",
+  "title": "feature lacp",
+  "cmd": "feature lacp",
+  "desc": "EtherChannel — Enable dynamic Link Aggregation Control Protocol (LACP) services globally on NX-OS."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "vpc domain 1",
+  "cmd": "vpc domain 1",
+  "desc": "HA — Create administrative vPC group cluster domain ID 1."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "vpc domain 1",
+  "cmd": "vpc domain 1\npeer-keepalive destination 192.168.255.2 source 192.168.255.1 vrf management",
+  "desc": "HA — Configure vPC peer-keepalive link out-of-band diagnostic endpoints using management VRF inside domain 1."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "vpc domain 1",
+  "cmd": "vpc domain 1\npeer-gateway",
+  "desc": "HA — Enable vPC peer-gateway forwarding optimization parameter to allow active-active local frame routing inside domain 1."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "vpc domain 1",
+  "cmd": "vpc domain 1\nauto-recovery",
+  "desc": "HA — Enable automatic self-healing switch recovery mechanisms if control split-brain links fail inside domain 1."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "vpc domain 2",
+  "cmd": "vpc domain 2",
+  "desc": "HA — Create administrative vPC group cluster domain ID 2."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "vpc domain 2",
+  "cmd": "vpc domain 2\npeer-keepalive destination 192.168.255.2 source 192.168.255.1 vrf management",
+  "desc": "HA — Configure vPC peer-keepalive link out-of-band diagnostic endpoints using management VRF inside domain 2."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "vpc domain 2",
+  "cmd": "vpc domain 2\npeer-gateway",
+  "desc": "HA — Enable vPC peer-gateway forwarding optimization parameter to allow active-active local frame routing inside domain 2."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "vpc domain 2",
+  "cmd": "vpc domain 2\nauto-recovery",
+  "desc": "HA — Enable automatic self-healing switch recovery mechanisms if control split-brain links fail inside domain 2."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "vpc domain 3",
+  "cmd": "vpc domain 3",
+  "desc": "HA — Create administrative vPC group cluster domain ID 3."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "vpc domain 3",
+  "cmd": "vpc domain 3\npeer-keepalive destination 192.168.255.2 source 192.168.255.1 vrf management",
+  "desc": "HA — Configure vPC peer-keepalive link out-of-band diagnostic endpoints using management VRF inside domain 3."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "vpc domain 3",
+  "cmd": "vpc domain 3\npeer-gateway",
+  "desc": "HA — Enable vPC peer-gateway forwarding optimization parameter to allow active-active local frame routing inside domain 3."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "vpc domain 3",
+  "cmd": "vpc domain 3\nauto-recovery",
+  "desc": "HA — Enable automatic self-healing switch recovery mechanisms if control split-brain links fail inside domain 3."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "vpc domain 4",
+  "cmd": "vpc domain 4",
+  "desc": "HA — Create administrative vPC group cluster domain ID 4."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "vpc domain 4",
+  "cmd": "vpc domain 4\npeer-keepalive destination 192.168.255.2 source 192.168.255.1 vrf management",
+  "desc": "HA — Configure vPC peer-keepalive link out-of-band diagnostic endpoints using management VRF inside domain 4."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "vpc domain 4",
+  "cmd": "vpc domain 4\npeer-gateway",
+  "desc": "HA — Enable vPC peer-gateway forwarding optimization parameter to allow active-active local frame routing inside domain 4."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "vpc domain 4",
+  "cmd": "vpc domain 4\nauto-recovery",
+  "desc": "HA — Enable automatic self-healing switch recovery mechanisms if control split-brain links fail inside domain 4."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "vpc domain 5",
+  "cmd": "vpc domain 5",
+  "desc": "HA — Create administrative vPC group cluster domain ID 5."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "vpc domain 5",
+  "cmd": "vpc domain 5\npeer-keepalive destination 192.168.255.2 source 192.168.255.1 vrf management",
+  "desc": "HA — Configure vPC peer-keepalive link out-of-band diagnostic endpoints using management VRF inside domain 5."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "vpc domain 5",
+  "cmd": "vpc domain 5\npeer-gateway",
+  "desc": "HA — Enable vPC peer-gateway forwarding optimization parameter to allow active-active local frame routing inside domain 5."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "vpc domain 5",
+  "cmd": "vpc domain 5\nauto-recovery",
+  "desc": "HA — Enable automatic self-healing switch recovery mechanisms if control split-brain links fail inside domain 5."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "vpc domain 6",
+  "cmd": "vpc domain 6",
+  "desc": "HA — Create administrative vPC group cluster domain ID 6."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "vpc domain 6",
+  "cmd": "vpc domain 6\npeer-keepalive destination 192.168.255.2 source 192.168.255.1 vrf management",
+  "desc": "HA — Configure vPC peer-keepalive link out-of-band diagnostic endpoints using management VRF inside domain 6."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "vpc domain 6",
+  "cmd": "vpc domain 6\npeer-gateway",
+  "desc": "HA — Enable vPC peer-gateway forwarding optimization parameter to allow active-active local frame routing inside domain 6."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "vpc domain 6",
+  "cmd": "vpc domain 6\nauto-recovery",
+  "desc": "HA — Enable automatic self-healing switch recovery mechanisms if control split-brain links fail inside domain 6."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "vpc domain 7",
+  "cmd": "vpc domain 7",
+  "desc": "HA — Create administrative vPC group cluster domain ID 7."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "vpc domain 7",
+  "cmd": "vpc domain 7\npeer-keepalive destination 192.168.255.2 source 192.168.255.1 vrf management",
+  "desc": "HA — Configure vPC peer-keepalive link out-of-band diagnostic endpoints using management VRF inside domain 7."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "vpc domain 7",
+  "cmd": "vpc domain 7\npeer-gateway",
+  "desc": "HA — Enable vPC peer-gateway forwarding optimization parameter to allow active-active local frame routing inside domain 7."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "vpc domain 7",
+  "cmd": "vpc domain 7\nauto-recovery",
+  "desc": "HA — Enable automatic self-healing switch recovery mechanisms if control split-brain links fail inside domain 7."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "vpc domain 8",
+  "cmd": "vpc domain 8",
+  "desc": "HA — Create administrative vPC group cluster domain ID 8."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "vpc domain 8",
+  "cmd": "vpc domain 8\npeer-keepalive destination 192.168.255.2 source 192.168.255.1 vrf management",
+  "desc": "HA — Configure vPC peer-keepalive link out-of-band diagnostic endpoints using management VRF inside domain 8."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "vpc domain 8",
+  "cmd": "vpc domain 8\npeer-gateway",
+  "desc": "HA — Enable vPC peer-gateway forwarding optimization parameter to allow active-active local frame routing inside domain 8."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "vpc domain 8",
+  "cmd": "vpc domain 8\nauto-recovery",
+  "desc": "HA — Enable automatic self-healing switch recovery mechanisms if control split-brain links fail inside domain 8."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "vpc domain 9",
+  "cmd": "vpc domain 9",
+  "desc": "HA — Create administrative vPC group cluster domain ID 9."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "vpc domain 9",
+  "cmd": "vpc domain 9\npeer-keepalive destination 192.168.255.2 source 192.168.255.1 vrf management",
+  "desc": "HA — Configure vPC peer-keepalive link out-of-band diagnostic endpoints using management VRF inside domain 9."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "vpc domain 9",
+  "cmd": "vpc domain 9\npeer-gateway",
+  "desc": "HA — Enable vPC peer-gateway forwarding optimization parameter to allow active-active local frame routing inside domain 9."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "vpc domain 9",
+  "cmd": "vpc domain 9\nauto-recovery",
+  "desc": "HA — Enable automatic self-healing switch recovery mechanisms if control split-brain links fail inside domain 9."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "vpc domain 10",
+  "cmd": "vpc domain 10",
+  "desc": "HA — Create administrative vPC group cluster domain ID 10."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "vpc domain 10",
+  "cmd": "vpc domain 10\npeer-keepalive destination 192.168.255.2 source 192.168.255.1 vrf management",
+  "desc": "HA — Configure vPC peer-keepalive link out-of-band diagnostic endpoints using management VRF inside domain 10."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "vpc domain 10",
+  "cmd": "vpc domain 10\npeer-gateway",
+  "desc": "HA — Enable vPC peer-gateway forwarding optimization parameter to allow active-active local frame routing inside domain 10."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "vpc domain 10",
+  "cmd": "vpc domain 10\nauto-recovery",
+  "desc": "HA — Enable automatic self-healing switch recovery mechanisms if control split-brain links fail inside domain 10."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "interface port-channel 1",
+  "cmd": "interface port-channel 1\nvpc peer-link",
+  "desc": "HA — Designate aggregate port-channel interface 1 as supervisor peer-link synchronization trunk."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "interface port-channel 11",
+  "cmd": "interface port-channel 11\nvpc 1",
+  "desc": "HA — Assign switch fabric port-channel link 11 to carry active virtual vPC channel ID 1."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "interface port-channel 2",
+  "cmd": "interface port-channel 2\nvpc peer-link",
+  "desc": "HA — Designate aggregate port-channel interface 2 as supervisor peer-link synchronization trunk."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "interface port-channel 12",
+  "cmd": "interface port-channel 12\nvpc 2",
+  "desc": "HA — Assign switch fabric port-channel link 12 to carry active virtual vPC channel ID 2."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "interface port-channel 3",
+  "cmd": "interface port-channel 3\nvpc peer-link",
+  "desc": "HA — Designate aggregate port-channel interface 3 as supervisor peer-link synchronization trunk."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "interface port-channel 13",
+  "cmd": "interface port-channel 13\nvpc 3",
+  "desc": "HA — Assign switch fabric port-channel link 13 to carry active virtual vPC channel ID 3."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "interface port-channel 4",
+  "cmd": "interface port-channel 4\nvpc peer-link",
+  "desc": "HA — Designate aggregate port-channel interface 4 as supervisor peer-link synchronization trunk."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "interface port-channel 14",
+  "cmd": "interface port-channel 14\nvpc 4",
+  "desc": "HA — Assign switch fabric port-channel link 14 to carry active virtual vPC channel ID 4."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "interface port-channel 5",
+  "cmd": "interface port-channel 5\nvpc peer-link",
+  "desc": "HA — Designate aggregate port-channel interface 5 as supervisor peer-link synchronization trunk."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "interface port-channel 15",
+  "cmd": "interface port-channel 15\nvpc 5",
+  "desc": "HA — Assign switch fabric port-channel link 15 to carry active virtual vPC channel ID 5."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "interface port-channel 6",
+  "cmd": "interface port-channel 6\nvpc peer-link",
+  "desc": "HA — Designate aggregate port-channel interface 6 as supervisor peer-link synchronization trunk."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "interface port-channel 16",
+  "cmd": "interface port-channel 16\nvpc 6",
+  "desc": "HA — Assign switch fabric port-channel link 16 to carry active virtual vPC channel ID 6."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "interface port-channel 7",
+  "cmd": "interface port-channel 7\nvpc peer-link",
+  "desc": "HA — Designate aggregate port-channel interface 7 as supervisor peer-link synchronization trunk."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "interface port-channel 17",
+  "cmd": "interface port-channel 17\nvpc 7",
+  "desc": "HA — Assign switch fabric port-channel link 17 to carry active virtual vPC channel ID 7."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "interface port-channel 8",
+  "cmd": "interface port-channel 8\nvpc peer-link",
+  "desc": "HA — Designate aggregate port-channel interface 8 as supervisor peer-link synchronization trunk."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "interface port-channel 18",
+  "cmd": "interface port-channel 18\nvpc 8",
+  "desc": "HA — Assign switch fabric port-channel link 18 to carry active virtual vPC channel ID 8."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "interface port-channel 9",
+  "cmd": "interface port-channel 9\nvpc peer-link",
+  "desc": "HA — Designate aggregate port-channel interface 9 as supervisor peer-link synchronization trunk."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "interface port-channel 19",
+  "cmd": "interface port-channel 19\nvpc 9",
+  "desc": "HA — Assign switch fabric port-channel link 19 to carry active virtual vPC channel ID 9."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "interface port-channel 10",
+  "cmd": "interface port-channel 10\nvpc peer-link",
+  "desc": "HA — Designate aggregate port-channel interface 10 as supervisor peer-link synchronization trunk."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "interface port-channel 20",
+  "cmd": "interface port-channel 20\nvpc 10",
+  "desc": "HA — Assign switch fabric port-channel link 20 to carry active virtual vPC channel ID 10."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "interface port-channel 11",
+  "cmd": "interface port-channel 11\nvpc peer-link",
+  "desc": "HA — Designate aggregate port-channel interface 11 as supervisor peer-link synchronization trunk."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "interface port-channel 21",
+  "cmd": "interface port-channel 21\nvpc 11",
+  "desc": "HA — Assign switch fabric port-channel link 21 to carry active virtual vPC channel ID 11."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "interface port-channel 12",
+  "cmd": "interface port-channel 12\nvpc peer-link",
+  "desc": "HA — Designate aggregate port-channel interface 12 as supervisor peer-link synchronization trunk."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "interface port-channel 22",
+  "cmd": "interface port-channel 22\nvpc 12",
+  "desc": "HA — Assign switch fabric port-channel link 22 to carry active virtual vPC channel ID 12."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "show vpc",
+  "cmd": "show vpc",
+  "desc": "HA — Verify vPC redundancy parameters, peer-link status flags, role statuses, and inconsistencies for show vpc."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "show vpc brief",
+  "cmd": "show vpc brief",
+  "desc": "HA — Verify vPC redundancy parameters, peer-link status flags, role statuses, and inconsistencies for show vpc brief."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "show vpc role",
+  "cmd": "show vpc role",
+  "desc": "HA — Verify vPC redundancy parameters, peer-link status flags, role statuses, and inconsistencies for show vpc role."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "show vpc consistency-parameters global",
+  "cmd": "show vpc consistency-parameters global",
+  "desc": "HA — Verify vPC redundancy parameters, peer-link status flags, role statuses, and inconsistencies for show vpc consistency-parameters global."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "HA",
+  "title": "show vpc peer-keepalive",
+  "cmd": "show vpc peer-keepalive",
+  "desc": "HA — Verify vPC redundancy parameters, peer-link status flags, role statuses, and inconsistencies for show vpc peer-keepalive."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Routing",
+  "title": "feature nv overlay",
+  "cmd": "feature nv overlay",
+  "desc": "Routing — Enable Network Virtualization (NV) overlay features required to build VXLAN tunnels on NX-OS."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "feature vn-segment-vlan-based",
+  "cmd": "feature vn-segment-vlan-based",
+  "desc": "VLAN — Enable VLAN-to-VNI encapsulation mapping features globally."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface nve1",
+  "cmd": "interface nve1\nmember vni 10010 associate-vrf",
+  "desc": "Interfaces — Configure logical NVE interface to associate VNI 10010 to wrap an Layer 3 tenant VRF instance."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface nve1",
+  "cmd": "interface nve1\nmember vni 10010 mcast-group 239.1.1.1",
+  "desc": "Interfaces — Map VNI tunnel 10010 to replication multicast group address 239.1.1.1 for flood traffic replication."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface nve1",
+  "cmd": "interface nve1\nsource-interface loopback1",
+  "desc": "Interfaces — Configure tunnel source local VTEP endpoints IP address from logical interface loopback1."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface nve1",
+  "cmd": "interface nve1\nmember vni 10020 associate-vrf",
+  "desc": "Interfaces — Configure logical NVE interface to associate VNI 10020 to wrap an Layer 3 tenant VRF instance."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface nve1",
+  "cmd": "interface nve1\nmember vni 10020 mcast-group 239.1.1.2",
+  "desc": "Interfaces — Map VNI tunnel 10020 to replication multicast group address 239.1.1.2 for flood traffic replication."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface nve1",
+  "cmd": "interface nve1\nsource-interface loopback2",
+  "desc": "Interfaces — Configure tunnel source local VTEP endpoints IP address from logical interface loopback2."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface nve1",
+  "cmd": "interface nve1\nmember vni 10030 associate-vrf",
+  "desc": "Interfaces — Configure logical NVE interface to associate VNI 10030 to wrap an Layer 3 tenant VRF instance."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface nve1",
+  "cmd": "interface nve1\nmember vni 10030 mcast-group 239.1.1.3",
+  "desc": "Interfaces — Map VNI tunnel 10030 to replication multicast group address 239.1.1.3 for flood traffic replication."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface nve1",
+  "cmd": "interface nve1\nsource-interface loopback3",
+  "desc": "Interfaces — Configure tunnel source local VTEP endpoints IP address from logical interface loopback3."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface nve1",
+  "cmd": "interface nve1\nmember vni 10040 associate-vrf",
+  "desc": "Interfaces — Configure logical NVE interface to associate VNI 10040 to wrap an Layer 3 tenant VRF instance."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface nve1",
+  "cmd": "interface nve1\nmember vni 10040 mcast-group 239.1.1.4",
+  "desc": "Interfaces — Map VNI tunnel 10040 to replication multicast group address 239.1.1.4 for flood traffic replication."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface nve1",
+  "cmd": "interface nve1\nsource-interface loopback4",
+  "desc": "Interfaces — Configure tunnel source local VTEP endpoints IP address from logical interface loopback4."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface nve1",
+  "cmd": "interface nve1\nmember vni 10050 associate-vrf",
+  "desc": "Interfaces — Configure logical NVE interface to associate VNI 10050 to wrap an Layer 3 tenant VRF instance."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface nve1",
+  "cmd": "interface nve1\nmember vni 10050 mcast-group 239.1.1.5",
+  "desc": "Interfaces — Map VNI tunnel 10050 to replication multicast group address 239.1.1.5 for flood traffic replication."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface nve1",
+  "cmd": "interface nve1\nsource-interface loopback5",
+  "desc": "Interfaces — Configure tunnel source local VTEP endpoints IP address from logical interface loopback5."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface nve1",
+  "cmd": "interface nve1\nmember vni 10060 associate-vrf",
+  "desc": "Interfaces — Configure logical NVE interface to associate VNI 10060 to wrap an Layer 3 tenant VRF instance."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface nve1",
+  "cmd": "interface nve1\nmember vni 10060 mcast-group 239.1.1.6",
+  "desc": "Interfaces — Map VNI tunnel 10060 to replication multicast group address 239.1.1.6 for flood traffic replication."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface nve1",
+  "cmd": "interface nve1\nsource-interface loopback6",
+  "desc": "Interfaces — Configure tunnel source local VTEP endpoints IP address from logical interface loopback6."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface nve1",
+  "cmd": "interface nve1\nmember vni 10070 associate-vrf",
+  "desc": "Interfaces — Configure logical NVE interface to associate VNI 10070 to wrap an Layer 3 tenant VRF instance."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface nve1",
+  "cmd": "interface nve1\nmember vni 10070 mcast-group 239.1.1.7",
+  "desc": "Interfaces — Map VNI tunnel 10070 to replication multicast group address 239.1.1.7 for flood traffic replication."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface nve1",
+  "cmd": "interface nve1\nsource-interface loopback7",
+  "desc": "Interfaces — Configure tunnel source local VTEP endpoints IP address from logical interface loopback7."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface nve1",
+  "cmd": "interface nve1\nmember vni 10080 associate-vrf",
+  "desc": "Interfaces — Configure logical NVE interface to associate VNI 10080 to wrap an Layer 3 tenant VRF instance."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface nve1",
+  "cmd": "interface nve1\nmember vni 10080 mcast-group 239.1.1.8",
+  "desc": "Interfaces — Map VNI tunnel 10080 to replication multicast group address 239.1.1.8 for flood traffic replication."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface nve1",
+  "cmd": "interface nve1\nsource-interface loopback8",
+  "desc": "Interfaces — Configure tunnel source local VTEP endpoints IP address from logical interface loopback8."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface nve1",
+  "cmd": "interface nve1\nmember vni 10090 associate-vrf",
+  "desc": "Interfaces — Configure logical NVE interface to associate VNI 10090 to wrap an Layer 3 tenant VRF instance."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface nve1",
+  "cmd": "interface nve1\nmember vni 10090 mcast-group 239.1.1.9",
+  "desc": "Interfaces — Map VNI tunnel 10090 to replication multicast group address 239.1.1.9 for flood traffic replication."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface nve1",
+  "cmd": "interface nve1\nsource-interface loopback9",
+  "desc": "Interfaces — Configure tunnel source local VTEP endpoints IP address from logical interface loopback9."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface nve1",
+  "cmd": "interface nve1\nmember vni 10100 associate-vrf",
+  "desc": "Interfaces — Configure logical NVE interface to associate VNI 10100 to wrap an Layer 3 tenant VRF instance."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface nve1",
+  "cmd": "interface nve1\nmember vni 10100 mcast-group 239.1.1.10",
+  "desc": "Interfaces — Map VNI tunnel 10100 to replication multicast group address 239.1.1.10 for flood traffic replication."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface nve1",
+  "cmd": "interface nve1\nsource-interface loopback10",
+  "desc": "Interfaces — Configure tunnel source local VTEP endpoints IP address from logical interface loopback10."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface GigabitEthernet0/1",
+  "cmd": "interface GigabitEthernet0/1\nnameif outside",
+  "desc": "Interfaces — Configure security zone logical name outside on interface GigabitEthernet0/1."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface GigabitEthernet0/1",
+  "cmd": "interface GigabitEthernet0/1\nsecurity-level 0",
+  "desc": "Interfaces — Configure security value 0 (higher trusts lower traffic flows automatically) on interface GigabitEthernet0/1."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface GigabitEthernet0/2",
+  "cmd": "interface GigabitEthernet0/2\nnameif dmz",
+  "desc": "Interfaces — Configure security zone logical name dmz on interface GigabitEthernet0/2."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface GigabitEthernet0/2",
+  "cmd": "interface GigabitEthernet0/2\nsecurity-level 50",
+  "desc": "Interfaces — Configure security value 50 (higher trusts lower traffic flows automatically) on interface GigabitEthernet0/2."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface GigabitEthernet0/3",
+  "cmd": "interface GigabitEthernet0/3\nnameif inside",
+  "desc": "Interfaces — Configure security zone logical name inside on interface GigabitEthernet0/3."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface GigabitEthernet0/3",
+  "cmd": "interface GigabitEthernet0/3\nsecurity-level 100",
+  "desc": "Interfaces — Configure security value 100 (higher trusts lower traffic flows automatically) on interface GigabitEthernet0/3."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface GigabitEthernet0/4",
+  "cmd": "interface GigabitEthernet0/4\nnameif outside",
+  "desc": "Interfaces — Configure security zone logical name outside on interface GigabitEthernet0/4."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface GigabitEthernet0/4",
+  "cmd": "interface GigabitEthernet0/4\nsecurity-level 0",
+  "desc": "Interfaces — Configure security value 0 (higher trusts lower traffic flows automatically) on interface GigabitEthernet0/4."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface GigabitEthernet0/5",
+  "cmd": "interface GigabitEthernet0/5\nnameif dmz",
+  "desc": "Interfaces — Configure security zone logical name dmz on interface GigabitEthernet0/5."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface GigabitEthernet0/5",
+  "cmd": "interface GigabitEthernet0/5\nsecurity-level 50",
+  "desc": "Interfaces — Configure security value 50 (higher trusts lower traffic flows automatically) on interface GigabitEthernet0/5."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface GigabitEthernet0/6",
+  "cmd": "interface GigabitEthernet0/6\nnameif inside",
+  "desc": "Interfaces — Configure security zone logical name inside on interface GigabitEthernet0/6."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface GigabitEthernet0/6",
+  "cmd": "interface GigabitEthernet0/6\nsecurity-level 100",
+  "desc": "Interfaces — Configure security value 100 (higher trusts lower traffic flows automatically) on interface GigabitEthernet0/6."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface GigabitEthernet0/7",
+  "cmd": "interface GigabitEthernet0/7\nnameif outside",
+  "desc": "Interfaces — Configure security zone logical name outside on interface GigabitEthernet0/7."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface GigabitEthernet0/7",
+  "cmd": "interface GigabitEthernet0/7\nsecurity-level 0",
+  "desc": "Interfaces — Configure security value 0 (higher trusts lower traffic flows automatically) on interface GigabitEthernet0/7."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface GigabitEthernet0/8",
+  "cmd": "interface GigabitEthernet0/8\nnameif dmz",
+  "desc": "Interfaces — Configure security zone logical name dmz on interface GigabitEthernet0/8."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface GigabitEthernet0/8",
+  "cmd": "interface GigabitEthernet0/8\nsecurity-level 50",
+  "desc": "Interfaces — Configure security value 50 (higher trusts lower traffic flows automatically) on interface GigabitEthernet0/8."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface GigabitEthernet0/9",
+  "cmd": "interface GigabitEthernet0/9\nnameif inside",
+  "desc": "Interfaces — Configure security zone logical name inside on interface GigabitEthernet0/9."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface GigabitEthernet0/9",
+  "cmd": "interface GigabitEthernet0/9\nsecurity-level 100",
+  "desc": "Interfaces — Configure security value 100 (higher trusts lower traffic flows automatically) on interface GigabitEthernet0/9."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface GigabitEthernet0/10",
+  "cmd": "interface GigabitEthernet0/10\nnameif outside",
+  "desc": "Interfaces — Configure security zone logical name outside on interface GigabitEthernet0/10."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface GigabitEthernet0/10",
+  "cmd": "interface GigabitEthernet0/10\nsecurity-level 0",
+  "desc": "Interfaces — Configure security value 0 (higher trusts lower traffic flows automatically) on interface GigabitEthernet0/10."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface GigabitEthernet0/11",
+  "cmd": "interface GigabitEthernet0/11\nnameif dmz",
+  "desc": "Interfaces — Configure security zone logical name dmz on interface GigabitEthernet0/11."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface GigabitEthernet0/11",
+  "cmd": "interface GigabitEthernet0/11\nsecurity-level 50",
+  "desc": "Interfaces — Configure security value 50 (higher trusts lower traffic flows automatically) on interface GigabitEthernet0/11."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface GigabitEthernet0/12",
+  "cmd": "interface GigabitEthernet0/12\nnameif inside",
+  "desc": "Interfaces — Configure security zone logical name inside on interface GigabitEthernet0/12."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Interfaces",
+  "title": "interface GigabitEthernet0/12",
+  "cmd": "interface GigabitEthernet0/12\nsecurity-level 100",
+  "desc": "Interfaces — Configure security value 100 (higher trusts lower traffic flows automatically) on interface GigabitEthernet0/12."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Firewall",
+  "title": "object network OBJ-HOST-SERVER-1",
+  "cmd": "object network OBJ-HOST-SERVER-1\nhost 10.0.1.1",
+  "desc": "Firewall — Define network object group IP host OBJ-HOST-SERVER-1 destination IP 10.0.1.1."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Firewall",
+  "title": "object network OBJ-SUBNET-LAN-1",
+  "cmd": "object network OBJ-SUBNET-LAN-1\nsubnet 192.168.1.0 255.255.255.0",
+  "desc": "Firewall — Define network object group subnet OBJ-SUBNET-LAN-1 netmask 192.168.1.0/24."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Firewall",
+  "title": "object network OBJ-HOST-SERVER-2",
+  "cmd": "object network OBJ-HOST-SERVER-2\nhost 10.0.1.2",
+  "desc": "Firewall — Define network object group IP host OBJ-HOST-SERVER-2 destination IP 10.0.1.2."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Firewall",
+  "title": "object network OBJ-SUBNET-LAN-2",
+  "cmd": "object network OBJ-SUBNET-LAN-2\nsubnet 192.168.2.0 255.255.255.0",
+  "desc": "Firewall — Define network object group subnet OBJ-SUBNET-LAN-2 netmask 192.168.2.0/24."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Firewall",
+  "title": "object network OBJ-HOST-SERVER-3",
+  "cmd": "object network OBJ-HOST-SERVER-3\nhost 10.0.1.3",
+  "desc": "Firewall — Define network object group IP host OBJ-HOST-SERVER-3 destination IP 10.0.1.3."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Firewall",
+  "title": "object network OBJ-SUBNET-LAN-3",
+  "cmd": "object network OBJ-SUBNET-LAN-3\nsubnet 192.168.3.0 255.255.255.0",
+  "desc": "Firewall — Define network object group subnet OBJ-SUBNET-LAN-3 netmask 192.168.3.0/24."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Firewall",
+  "title": "object network OBJ-HOST-SERVER-4",
+  "cmd": "object network OBJ-HOST-SERVER-4\nhost 10.0.1.4",
+  "desc": "Firewall — Define network object group IP host OBJ-HOST-SERVER-4 destination IP 10.0.1.4."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Firewall",
+  "title": "object network OBJ-SUBNET-LAN-4",
+  "cmd": "object network OBJ-SUBNET-LAN-4\nsubnet 192.168.4.0 255.255.255.0",
+  "desc": "Firewall — Define network object group subnet OBJ-SUBNET-LAN-4 netmask 192.168.4.0/24."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Firewall",
+  "title": "object network OBJ-HOST-SERVER-5",
+  "cmd": "object network OBJ-HOST-SERVER-5\nhost 10.0.1.5",
+  "desc": "Firewall — Define network object group IP host OBJ-HOST-SERVER-5 destination IP 10.0.1.5."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Firewall",
+  "title": "object network OBJ-SUBNET-LAN-5",
+  "cmd": "object network OBJ-SUBNET-LAN-5\nsubnet 192.168.5.0 255.255.255.0",
+  "desc": "Firewall — Define network object group subnet OBJ-SUBNET-LAN-5 netmask 192.168.5.0/24."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Firewall",
+  "title": "object network OBJ-HOST-SERVER-6",
+  "cmd": "object network OBJ-HOST-SERVER-6\nhost 10.0.1.6",
+  "desc": "Firewall — Define network object group IP host OBJ-HOST-SERVER-6 destination IP 10.0.1.6."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Firewall",
+  "title": "object network OBJ-SUBNET-LAN-6",
+  "cmd": "object network OBJ-SUBNET-LAN-6\nsubnet 192.168.6.0 255.255.255.0",
+  "desc": "Firewall — Define network object group subnet OBJ-SUBNET-LAN-6 netmask 192.168.6.0/24."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Firewall",
+  "title": "object network OBJ-HOST-SERVER-7",
+  "cmd": "object network OBJ-HOST-SERVER-7\nhost 10.0.1.7",
+  "desc": "Firewall — Define network object group IP host OBJ-HOST-SERVER-7 destination IP 10.0.1.7."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Firewall",
+  "title": "object network OBJ-SUBNET-LAN-7",
+  "cmd": "object network OBJ-SUBNET-LAN-7\nsubnet 192.168.7.0 255.255.255.0",
+  "desc": "Firewall — Define network object group subnet OBJ-SUBNET-LAN-7 netmask 192.168.7.0/24."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Firewall",
+  "title": "object network OBJ-HOST-SERVER-8",
+  "cmd": "object network OBJ-HOST-SERVER-8\nhost 10.0.1.8",
+  "desc": "Firewall — Define network object group IP host OBJ-HOST-SERVER-8 destination IP 10.0.1.8."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Firewall",
+  "title": "object network OBJ-SUBNET-LAN-8",
+  "cmd": "object network OBJ-SUBNET-LAN-8\nsubnet 192.168.8.0 255.255.255.0",
+  "desc": "Firewall — Define network object group subnet OBJ-SUBNET-LAN-8 netmask 192.168.8.0/24."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Firewall",
+  "title": "object network OBJ-HOST-SERVER-9",
+  "cmd": "object network OBJ-HOST-SERVER-9\nhost 10.0.1.9",
+  "desc": "Firewall — Define network object group IP host OBJ-HOST-SERVER-9 destination IP 10.0.1.9."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Firewall",
+  "title": "object network OBJ-SUBNET-LAN-9",
+  "cmd": "object network OBJ-SUBNET-LAN-9\nsubnet 192.168.9.0 255.255.255.0",
+  "desc": "Firewall — Define network object group subnet OBJ-SUBNET-LAN-9 netmask 192.168.9.0/24."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Firewall",
+  "title": "object network OBJ-HOST-SERVER-10",
+  "cmd": "object network OBJ-HOST-SERVER-10\nhost 10.0.1.10",
+  "desc": "Firewall — Define network object group IP host OBJ-HOST-SERVER-10 destination IP 10.0.1.10."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "Firewall",
+  "title": "object network OBJ-SUBNET-LAN-10",
+  "cmd": "object network OBJ-SUBNET-LAN-10\nsubnet 192.168.10.0 255.255.255.0",
+  "desc": "Firewall — Define network object group subnet OBJ-SUBNET-LAN-10 netmask 192.168.10.0/24."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "access-list ACL-OUTSIDE extended permit tcp any host 10.0.1.1 eq 80",
+  "cmd": "access-list ACL-OUTSIDE extended permit tcp any host 10.0.1.1 eq 80",
+  "desc": "VLAN — Create access list ACL-OUTSIDE rule permitting external HTTP packets targeting internal server 10.0.1.1."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "access-list ACL-OUTSIDE extended permit tcp any host 10.0.1.1 eq 443",
+  "cmd": "access-list ACL-OUTSIDE extended permit tcp any host 10.0.1.1 eq 443",
+  "desc": "VLAN — Create access list ACL-OUTSIDE rule permitting external HTTPS packets targeting internal server 10.0.1.1."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "access-list ACL-OUTSIDE extended permit tcp any host 10.0.1.2 eq 80",
+  "cmd": "access-list ACL-OUTSIDE extended permit tcp any host 10.0.1.2 eq 80",
+  "desc": "VLAN — Create access list ACL-OUTSIDE rule permitting external HTTP packets targeting internal server 10.0.1.2."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "access-list ACL-OUTSIDE extended permit tcp any host 10.0.1.2 eq 443",
+  "cmd": "access-list ACL-OUTSIDE extended permit tcp any host 10.0.1.2 eq 443",
+  "desc": "VLAN — Create access list ACL-OUTSIDE rule permitting external HTTPS packets targeting internal server 10.0.1.2."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "access-list ACL-OUTSIDE extended permit tcp any host 10.0.1.3 eq 80",
+  "cmd": "access-list ACL-OUTSIDE extended permit tcp any host 10.0.1.3 eq 80",
+  "desc": "VLAN — Create access list ACL-OUTSIDE rule permitting external HTTP packets targeting internal server 10.0.1.3."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "access-list ACL-OUTSIDE extended permit tcp any host 10.0.1.3 eq 443",
+  "cmd": "access-list ACL-OUTSIDE extended permit tcp any host 10.0.1.3 eq 443",
+  "desc": "VLAN — Create access list ACL-OUTSIDE rule permitting external HTTPS packets targeting internal server 10.0.1.3."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "access-list ACL-OUTSIDE extended permit tcp any host 10.0.1.4 eq 80",
+  "cmd": "access-list ACL-OUTSIDE extended permit tcp any host 10.0.1.4 eq 80",
+  "desc": "VLAN — Create access list ACL-OUTSIDE rule permitting external HTTP packets targeting internal server 10.0.1.4."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "access-list ACL-OUTSIDE extended permit tcp any host 10.0.1.4 eq 443",
+  "cmd": "access-list ACL-OUTSIDE extended permit tcp any host 10.0.1.4 eq 443",
+  "desc": "VLAN — Create access list ACL-OUTSIDE rule permitting external HTTPS packets targeting internal server 10.0.1.4."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "access-list ACL-OUTSIDE extended permit tcp any host 10.0.1.5 eq 80",
+  "cmd": "access-list ACL-OUTSIDE extended permit tcp any host 10.0.1.5 eq 80",
+  "desc": "VLAN — Create access list ACL-OUTSIDE rule permitting external HTTP packets targeting internal server 10.0.1.5."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "access-list ACL-OUTSIDE extended permit tcp any host 10.0.1.5 eq 443",
+  "cmd": "access-list ACL-OUTSIDE extended permit tcp any host 10.0.1.5 eq 443",
+  "desc": "VLAN — Create access list ACL-OUTSIDE rule permitting external HTTPS packets targeting internal server 10.0.1.5."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "access-list ACL-OUTSIDE extended permit tcp any host 10.0.1.6 eq 80",
+  "cmd": "access-list ACL-OUTSIDE extended permit tcp any host 10.0.1.6 eq 80",
+  "desc": "VLAN — Create access list ACL-OUTSIDE rule permitting external HTTP packets targeting internal server 10.0.1.6."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "access-list ACL-OUTSIDE extended permit tcp any host 10.0.1.6 eq 443",
+  "cmd": "access-list ACL-OUTSIDE extended permit tcp any host 10.0.1.6 eq 443",
+  "desc": "VLAN — Create access list ACL-OUTSIDE rule permitting external HTTPS packets targeting internal server 10.0.1.6."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "access-list ACL-OUTSIDE extended permit tcp any host 10.0.1.7 eq 80",
+  "cmd": "access-list ACL-OUTSIDE extended permit tcp any host 10.0.1.7 eq 80",
+  "desc": "VLAN — Create access list ACL-OUTSIDE rule permitting external HTTP packets targeting internal server 10.0.1.7."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "access-list ACL-OUTSIDE extended permit tcp any host 10.0.1.7 eq 443",
+  "cmd": "access-list ACL-OUTSIDE extended permit tcp any host 10.0.1.7 eq 443",
+  "desc": "VLAN — Create access list ACL-OUTSIDE rule permitting external HTTPS packets targeting internal server 10.0.1.7."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "access-list ACL-OUTSIDE extended permit tcp any host 10.0.1.8 eq 80",
+  "cmd": "access-list ACL-OUTSIDE extended permit tcp any host 10.0.1.8 eq 80",
+  "desc": "VLAN — Create access list ACL-OUTSIDE rule permitting external HTTP packets targeting internal server 10.0.1.8."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "access-list ACL-OUTSIDE extended permit tcp any host 10.0.1.8 eq 443",
+  "cmd": "access-list ACL-OUTSIDE extended permit tcp any host 10.0.1.8 eq 443",
+  "desc": "VLAN — Create access list ACL-OUTSIDE rule permitting external HTTPS packets targeting internal server 10.0.1.8."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "access-list ACL-OUTSIDE extended permit tcp any host 10.0.1.9 eq 80",
+  "cmd": "access-list ACL-OUTSIDE extended permit tcp any host 10.0.1.9 eq 80",
+  "desc": "VLAN — Create access list ACL-OUTSIDE rule permitting external HTTP packets targeting internal server 10.0.1.9."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "access-list ACL-OUTSIDE extended permit tcp any host 10.0.1.9 eq 443",
+  "cmd": "access-list ACL-OUTSIDE extended permit tcp any host 10.0.1.9 eq 443",
+  "desc": "VLAN — Create access list ACL-OUTSIDE rule permitting external HTTPS packets targeting internal server 10.0.1.9."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "access-list ACL-OUTSIDE extended permit tcp any host 10.0.1.10 eq 80",
+  "cmd": "access-list ACL-OUTSIDE extended permit tcp any host 10.0.1.10 eq 80",
+  "desc": "VLAN — Create access list ACL-OUTSIDE rule permitting external HTTP packets targeting internal server 10.0.1.10."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "access-list ACL-OUTSIDE extended permit tcp any host 10.0.1.10 eq 443",
+  "cmd": "access-list ACL-OUTSIDE extended permit tcp any host 10.0.1.10 eq 443",
+  "desc": "VLAN — Create access list ACL-OUTSIDE rule permitting external HTTPS packets targeting internal server 10.0.1.10."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "VLAN",
+  "title": "access-group ACL-OUTSIDE in interface outside",
+  "cmd": "access-group ACL-OUTSIDE in interface outside",
+  "desc": "VLAN — Bind input access list filtering parameters ACL-OUTSIDE to outside firewall interface."
+ },
+ {
+  "os": "ios",
+  "role": "router",
+  "vendor": "Cisco",
+  "cat": "NAT",
+  "title": "nat (inside,outside) source dynamic any interface",
+  "cmd": "nat (inside,outside) source dynamic any interface",
+  "desc": "NAT — Configure dynamic PAT source address translation mapping internal networks to the external interface public IP."
+ }
+]

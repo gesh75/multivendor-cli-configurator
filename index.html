@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Multivendor CLI Reference — Cisco · Juniper · Arista · FRR</title>
-<meta name="description" content="11,000+ commands across Cisco IOS / IOS-XE / NX-OS / ASA, Juniper Junos (MX/EX/QFX/SRX), Arista EOS, and FRRouting. Searchable, comparable, exportable." />
+<title>Multivendor CLI Reference — 14 vendors, 29K+ commands</title>
+<meta name="description" content="29,000+ commands across Cisco · Juniper · Arista · FRR · VyOS · SONiC · NVIDIA NVUE · Palo Alto PAN-OS · Nokia SR Linux · Fortinet FortiOS · Mikrotik RouterOS · Extreme EXOS · Aruba AOS-CX · Huawei VRP. Searchable, comparable, exportable." />
 <style>
 :root[data-theme="dark"]{
   --bg:#0b1020;--panel:#0f1530;--panel-2:#121a3a;--ink:#cfd6f5;--ink-dim:#8892b8;--ink-muted:#5b6a99;
@@ -12,6 +12,8 @@
   --line:#1f2a55;--line-2:#19234a;--chip:#16204a;--chip-on:#1e2a66;
   --code-bg:#070b1e;--code-ink:#e2e8f0;
   --cisco:#3b82f6;--juniper:#22c55e;--arista:#a855f7;--frr:#f97316;
+  --vyos:#06b6d4;--sonic:#14b8a6;--nvidia:#84cc16;--pan-os:#ec4899;
+  --nokia:#6366f1;--fortios:#dc2626;--mikrotik:#eab308;--extreme:#d946ef;--aruba:#059669;--huawei:#f43f5e;
   --kw:#22d3ee;--param:#ffb020;--cmt:#5b7c5e;--str:#9cffa0;--placeholder:#fbbf24;
 }
 :root[data-theme="light"]{
@@ -20,6 +22,8 @@
   --line:#dde3ee;--line-2:#e8edf6;--chip:#f0f3fa;--chip-on:#e0e9fb;
   --code-bg:#0b1430;--code-ink:#e2e8f0;
   --cisco:#1d4ed8;--juniper:#15803d;--arista:#7e22ce;--frr:#c2410c;
+  --vyos:#0e7490;--sonic:#0f766e;--nvidia:#65a30d;--pan-os:#be185d;
+  --nokia:#4338ca;--fortios:#b91c1c;--mikrotik:#a16207;--extreme:#a21caf;--aruba:#047857;--huawei:#be123c;
   --kw:#0e7490;--param:#b45309;--cmt:#64748b;--str:#15803d;--placeholder:#b45309;
 }
 *{box-sizing:border-box}
@@ -80,6 +84,16 @@ main.lcollapsed aside.side{visibility:hidden;pointer-events:none;width:0;border:
 .chip.juniper.on{border-color:var(--juniper);color:var(--juniper);box-shadow:0 0 0 1px var(--juniper) inset}
 .chip.arista.on{border-color:var(--arista);color:var(--arista);box-shadow:0 0 0 1px var(--arista) inset}
 .chip.frr.on{border-color:var(--frr);color:var(--frr);box-shadow:0 0 0 1px var(--frr) inset}
+.chip.vyos.on{border-color:var(--vyos);color:var(--vyos);box-shadow:0 0 0 1px var(--vyos) inset}
+.chip.sonic.on{border-color:var(--sonic);color:var(--sonic);box-shadow:0 0 0 1px var(--sonic) inset}
+.chip.nvidia.on{border-color:var(--nvidia);color:var(--nvidia);box-shadow:0 0 0 1px var(--nvidia) inset}
+.chip.pan-os.on{border-color:var(--pan-os);color:var(--pan-os);box-shadow:0 0 0 1px var(--pan-os) inset}
+.chip.nokia.on{border-color:var(--nokia);color:var(--nokia);box-shadow:0 0 0 1px var(--nokia) inset}
+.chip.fortios.on{border-color:var(--fortios);color:var(--fortios);box-shadow:0 0 0 1px var(--fortios) inset}
+.chip.mikrotik.on{border-color:var(--mikrotik);color:var(--mikrotik);box-shadow:0 0 0 1px var(--mikrotik) inset}
+.chip.extreme.on{border-color:var(--extreme);color:var(--extreme);box-shadow:0 0 0 1px var(--extreme) inset}
+.chip.aruba.on{border-color:var(--aruba);color:var(--aruba);box-shadow:0 0 0 1px var(--aruba) inset}
+.chip.huawei.on{border-color:var(--huawei);color:var(--huawei);box-shadow:0 0 0 1px var(--huawei) inset}
 .cat-group{margin-top:8px}
 .cat-group h6{margin:8px 0 4px;font-size:9px;color:var(--ink-muted);letter-spacing:1.2px;text-transform:uppercase;font-weight:600}
 .recent-item{display:flex;align-items:center;gap:6px;padding:5px 6px;cursor:pointer;border-radius:4px;font-size:11px;color:var(--ink-dim)}
@@ -89,6 +103,16 @@ main.lcollapsed aside.side{visibility:hidden;pointer-events:none;width:0;border:
 .recent-item .rdot.juniper{background:var(--juniper)}
 .recent-item .rdot.arista{background:var(--arista)}
 .recent-item .rdot.frr{background:var(--frr)}
+.recent-item .rdot.vyos{background:var(--vyos)}
+.recent-item .rdot.sonic{background:var(--sonic)}
+.recent-item .rdot.nvidia{background:var(--nvidia)}
+.recent-item .rdot.pan-os{background:var(--pan-os)}
+.recent-item .rdot.nokia{background:var(--nokia)}
+.recent-item .rdot.fortios{background:var(--fortios)}
+.recent-item .rdot.mikrotik{background:var(--mikrotik)}
+.recent-item .rdot.extreme{background:var(--extreme)}
+.recent-item .rdot.aruba{background:var(--aruba)}
+.recent-item .rdot.huawei{background:var(--huawei)}
 .recent-item .rtxt{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
 .active-bar{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:10px 12px;background:var(--panel-2);border:1px solid var(--line);border-radius:10px;margin-bottom:12px}
@@ -116,6 +140,16 @@ main.lcollapsed aside.side{visibility:hidden;pointer-events:none;width:0;border:
 .cmp-cat-hdr .ct.ct-j{color:var(--juniper);border-color:var(--juniper)}
 .cmp-cat-hdr .ct.ct-a{color:var(--arista);border-color:var(--arista)}
 .cmp-cat-hdr .ct.ct-f{color:var(--frr);border-color:var(--frr)}
+.cmp-cat-hdr .ct.ct-v{color:var(--vyos);border-color:var(--vyos)}
+.cmp-cat-hdr .ct.ct-s{color:var(--sonic);border-color:var(--sonic)}
+.cmp-cat-hdr .ct.ct-n{color:var(--nvidia);border-color:var(--nvidia)}
+.cmp-cat-hdr .ct.ct-p{color:var(--pan-os);border-color:var(--pan-os)}
+.cmp-cat-hdr .ct.ct-o{color:var(--nokia);border-color:var(--nokia)}
+.cmp-cat-hdr .ct.ct-fo{color:var(--fortios);border-color:var(--fortios)}
+.cmp-cat-hdr .ct.ct-m{color:var(--mikrotik);border-color:var(--mikrotik)}
+.cmp-cat-hdr .ct.ct-e{color:var(--extreme);border-color:var(--extreme)}
+.cmp-cat-hdr .ct.ct-ar{color:var(--aruba);border-color:var(--aruba)}
+.cmp-cat-hdr .ct.ct-h{color:var(--huawei);border-color:var(--huawei)}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:10px;align-items:start}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;display:flex;flex-direction:column;gap:8px;position:relative;overflow:hidden;transition:border-color .15s}
 .card:hover{border-color:var(--accent)}
@@ -124,6 +158,16 @@ main.lcollapsed aside.side{visibility:hidden;pointer-events:none;width:0;border:
 .card.juniper .stripe{background:var(--juniper)}
 .card.arista .stripe{background:var(--arista)}
 .card.frr .stripe{background:var(--frr)}
+.card.vyos .stripe{background:var(--vyos)}
+.card.sonic .stripe{background:var(--sonic)}
+.card.nvidia .stripe{background:var(--nvidia)}
+.card.pan-os .stripe{background:var(--pan-os)}
+.card.nokia .stripe{background:var(--nokia)}
+.card.fortios .stripe{background:var(--fortios)}
+.card.mikrotik .stripe{background:var(--mikrotik)}
+.card.extreme .stripe{background:var(--extreme)}
+.card.aruba .stripe{background:var(--aruba)}
+.card.huawei .stripe{background:var(--huawei)}
 .card .body{padding:11px 12px 10px 15px;display:flex;flex-direction:column;gap:7px}
 .card .head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
 .card .title{font-weight:600;font-size:13px;line-height:1.35;color:var(--ink)}
@@ -143,6 +187,16 @@ main.lcollapsed aside.side{visibility:hidden;pointer-events:none;width:0;border:
 .tag.v.juniper{color:var(--juniper);border-color:var(--juniper)}
 .tag.v.arista{color:var(--arista);border-color:var(--arista)}
 .tag.v.frr{color:var(--frr);border-color:var(--frr)}
+.tag.v.vyos{color:var(--vyos);border-color:var(--vyos)}
+.tag.v.sonic{color:var(--sonic);border-color:var(--sonic)}
+.tag.v.nvidia{color:var(--nvidia);border-color:var(--nvidia)}
+.tag.v.pan-os{color:var(--pan-os);border-color:var(--pan-os)}
+.tag.v.nokia{color:var(--nokia);border-color:var(--nokia)}
+.tag.v.fortios{color:var(--fortios);border-color:var(--fortios)}
+.tag.v.mikrotik{color:var(--mikrotik);border-color:var(--mikrotik)}
+.tag.v.extreme{color:var(--extreme);border-color:var(--extreme)}
+.tag.v.aruba{color:var(--aruba);border-color:var(--aruba)}
+.tag.v.huawei{color:var(--huawei);border-color:var(--huawei)}
 /* "● live" badge — applied to FRR rows whose command was observed on real Docker FRR routers. */
 .tag.live{color:var(--good);border-color:var(--good);background:color-mix(in srgb,var(--good) 12%,transparent);font-weight:600;cursor:help}
 .tag.live::before{content:"●";margin-right:3px;font-size:9px}
@@ -195,6 +249,16 @@ table.cmd thead th:nth-child(2){z-index:4}
 .cmp-row.cmp-head .cmp-cell.juniper{color:var(--juniper)}
 .cmp-row.cmp-head .cmp-cell.arista{color:var(--arista)}
 .cmp-row.cmp-head .cmp-cell.frr{color:var(--frr)}
+.cmp-row.cmp-head .cmp-cell.vyos{color:var(--vyos)}
+.cmp-row.cmp-head .cmp-cell.sonic{color:var(--sonic)}
+.cmp-row.cmp-head .cmp-cell.nvidia{color:var(--nvidia)}
+.cmp-row.cmp-head .cmp-cell.pan-os{color:var(--pan-os)}
+.cmp-row.cmp-head .cmp-cell.nokia{color:var(--nokia)}
+.cmp-row.cmp-head .cmp-cell.fortios{color:var(--fortios)}
+.cmp-row.cmp-head .cmp-cell.mikrotik{color:var(--mikrotik)}
+.cmp-row.cmp-head .cmp-cell.extreme{color:var(--extreme)}
+.cmp-row.cmp-head .cmp-cell.aruba{color:var(--aruba)}
+.cmp-row.cmp-head .cmp-cell.huawei{color:var(--huawei)}
 .cmp-concept{padding:9px 10px;background:var(--panel-2);border-right:1px solid var(--line);color:var(--ink-dim);font:11px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-weight:500;display:flex;align-items:center;position:sticky;left:0;z-index:1}
 .cmp-row.cmp-head .cmp-concept{background:var(--panel-2);color:var(--ink);font-weight:700;z-index:2}
 .cmp-cell{padding:8px;border-right:1px solid var(--line-2);min-width:0}
@@ -203,6 +267,16 @@ table.cmd thead th:nth-child(2){z-index:4}
 .cmp-cell.juniper{border-left:3px solid var(--juniper)}
 .cmp-cell.arista{border-left:3px solid var(--arista)}
 .cmp-cell.frr{border-left:3px solid var(--frr)}
+.cmp-cell.vyos{border-left:3px solid var(--vyos)}
+.cmp-cell.sonic{border-left:3px solid var(--sonic)}
+.cmp-cell.nvidia{border-left:3px solid var(--nvidia)}
+.cmp-cell.pan-os{border-left:3px solid var(--pan-os)}
+.cmp-cell.nokia{border-left:3px solid var(--nokia)}
+.cmp-cell.fortios{border-left:3px solid var(--fortios)}
+.cmp-cell.mikrotik{border-left:3px solid var(--mikrotik)}
+.cmp-cell.extreme{border-left:3px solid var(--extreme)}
+.cmp-cell.aruba{border-left:3px solid var(--aruba)}
+.cmp-cell.huawei{border-left:3px solid var(--huawei)}
 .cmp-cell.empty{display:flex;align-items:center;justify-content:center;color:var(--ink-muted);font-style:italic}
 .cmp-cell.empty .dash{font-size:18px}
 .cmp-inner{margin-bottom:6px}
@@ -275,6 +349,16 @@ table.cmd thead th:nth-child(2){z-index:4}
 .auto-tabs .tab-juniper.on{color:var(--juniper);border-bottom-color:var(--juniper)}
 .auto-tabs .tab-arista.on{color:var(--arista);border-bottom-color:var(--arista)}
 .auto-tabs .tab-frr.on{color:var(--frr);border-bottom-color:var(--frr)}
+.auto-tabs .tab-vyos.on{color:var(--vyos);border-bottom-color:var(--vyos)}
+.auto-tabs .tab-sonic.on{color:var(--sonic);border-bottom-color:var(--sonic)}
+.auto-tabs .tab-nvidia.on{color:var(--nvidia);border-bottom-color:var(--nvidia)}
+.auto-tabs .tab-pan-os.on{color:var(--pan-os);border-bottom-color:var(--pan-os)}
+.auto-tabs .tab-nokia.on{color:var(--nokia);border-bottom-color:var(--nokia)}
+.auto-tabs .tab-fortios.on{color:var(--fortios);border-bottom-color:var(--fortios)}
+.auto-tabs .tab-mikrotik.on{color:var(--mikrotik);border-bottom-color:var(--mikrotik)}
+.auto-tabs .tab-extreme.on{color:var(--extreme);border-bottom-color:var(--extreme)}
+.auto-tabs .tab-aruba.on{color:var(--aruba);border-bottom-color:var(--aruba)}
+.auto-tabs .tab-huawei.on{color:var(--huawei);border-bottom-color:var(--huawei)}
 .auto-block{margin-bottom:14px;background:var(--panel-2);border:1px solid var(--line);border-radius:8px;overflow:hidden}
 .auto-block .bhdr{padding:8px 11px;background:var(--code-bg);display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line)}
 .auto-block .bhdr .label{font:11px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--ink-dim);letter-spacing:1.2px;text-transform:uppercase}
@@ -420,7 +504,7 @@ mark{background:rgba(34,211,238,.25);color:inherit;border-radius:3px;padding:0 2
 
 <header>
   <div class="bar">
-    <div class="brand"><span class="dot"></span>Multivendor CLI <small>Cisco · Juniper · Arista · FRR</small></div>
+    <div class="brand"><span class="dot"></span>Multivendor CLI <small>14 vendors · 29K+ commands</small></div>
     <div class="search-wrap">
       <div class="search">
         <span style="color:var(--ink-dim)">⌕</span>
@@ -592,7 +676,12 @@ mark{background:rgba(34,211,238,.25);color:inherit;border-radius:3px;padding:0 2
 <script>
 "use strict";
 
-const OSLABEL = {ios:"IOS / IOS-XE",iosxe:"IOS-XE",nxos:"NX-OS",asa:"ASA",junos:"Junos",eos:"EOS",frr:"FRR"};
+const OSLABEL = {
+  ios:"IOS / IOS-XE", iosxe:"IOS-XE", nxos:"NX-OS", asa:"ASA",
+  junos:"Junos", eos:"EOS", frr:"FRR",
+  vyos:"VyOS", sonic:"SONiC", nvue:"Cumulus NVUE",
+  panos:"PAN-OS", srlinux:"SR Linux", fortios:"FortiOS", routeros:"RouterOS", exos:"Extreme EXOS", aoscx:"Aruba AOS-CX", vrp:"Huawei VRP",
+};
 const VENDOR_KEY = v => (v||"").toLowerCase();
 
 /* ─────────────────────────────────────────────────────────────────────
@@ -2837,6 +2926,417 @@ with driver(${pyArg('host')}, ${pyArg('user')}, ${pyArg('pass', 'frr')}) as d:
     d.commit_config()`,
     };
   },
+
+  // --- "Wave 2" fallback renderers ------------------------------------------
+  // Each emits Netmiko (most universal), an Ansible task using the vendor's
+  // community/native collection, and a third-party Python snippet appropriate
+  // for that vendor (NAPALM, REST, etc.). All use the same `${pySetup()}` +
+  // `${pyArg(...)}` Secret-Mode helpers so the credentials story is uniform.
+
+  VyOS: (d) => {
+    const lines = getCmdLines(d.cmd);
+    const firstLine = lines[0] || d.cmd.trim().split("\n")[0] || "";
+    const info = classifyCmd(d.cmd);
+    if(info.isShow){
+      return {
+        netmiko: `${pySetup()}from netmiko import ConnectHandler
+
+device = {"device_type":"vyos","host":${pyArg('host')},"username":${pyArg('user', 'vyos')},"password":${pyArg('pass', 'vyos')}}
+
+with ConnectHandler(**device) as net:
+    print(net.send_command(${JSON.stringify(firstLine)}))`,
+        ansible: `- name: VyOS show command
+  vyos.vyos.vyos_command:
+    commands:
+${yamlList(lines, "      ")}
+  register: result
+
+- ansible.builtin.debug:
+    var: result.stdout_lines`,
+        napalm: `${pySetup()}# VyOS via NAPALM (community napalm-vyos driver):
+import napalm
+driver = napalm.get_network_driver("vyos")
+with driver(${pyArg('host')}, ${pyArg('user', 'vyos')}, ${pyArg('pass', 'vyos')}) as d:
+    print(d.cli([${JSON.stringify(firstLine)}]))`,
+      };
+    }
+    return {
+      netmiko: `${pySetup()}from netmiko import ConnectHandler
+
+device = {"device_type":"vyos","host":${pyArg('host')},"username":${pyArg('user', 'vyos')},"password":${pyArg('pass', 'vyos')}}
+
+# VyOS uses 'configure' / 'commit' / 'save' semantics — netmiko wraps this.
+config_lines = ${JSON.stringify(lines, null, 2)}
+
+with ConnectHandler(**device) as net:
+    out = net.send_config_set(config_lines, exit_config_mode=False)
+    out += net.send_command("commit")
+    out += net.send_command("save")
+    out += net.send_command("exit")
+    print(out)`,
+      ansible: `- name: VyOS configuration push
+  vyos.vyos.vyos_config:
+    lines:
+${yamlList(lines, "      ")}
+    save: true`,
+      napalm: `${pySetup()}# VyOS via NAPALM (community napalm-vyos driver):
+import napalm
+config = """${escDoubleQuote(lines.join("\n"))}"""
+driver = napalm.get_network_driver("vyos")
+with driver(${pyArg('host')}, ${pyArg('user', 'vyos')}, ${pyArg('pass', 'vyos')}) as d:
+    d.load_merge_candidate(config=config)
+    print(d.compare_config())
+    d.commit_config()`,
+    };
+  },
+
+  // SONiC — SSH lands you in Linux bash; commands run via `show ...` /
+  // `sudo config ...` CLI wrappers. Netmiko ships `linux` for the SSH layer.
+  SONiC: (d) => {
+    const lines = getCmdLines(d.cmd);
+    const firstLine = lines[0] || d.cmd.trim().split("\n")[0] || "";
+    return {
+      netmiko: `${pySetup()}from netmiko import ConnectHandler
+
+device = {"device_type":"linux","host":${pyArg('host')},"username":${pyArg('user', 'admin')},"password":${pyArg('pass', 'YourPaSsWoRd')}}
+
+with ConnectHandler(**device) as net:
+    print(net.send_command(${JSON.stringify(firstLine)}))`,
+      ansible: `- name: SONiC CLI command
+  ansible.builtin.shell: "{{ item }}"
+  loop:
+${yamlList(lines, "    - ")}
+  register: out
+  changed_when: false
+
+- ansible.builtin.debug:
+    var: out.results | map(attribute='stdout_lines') | list`,
+      napalm: `${pySetup()}# SONiC has no upstream NAPALM driver — community napalm-sonic exists.
+# For most operational work use the SONiC management framework REST API:
+import requests
+r = requests.get(
+    f"https://{HOST}/restconf/data/sonic-port:sonic-port/PORT",
+    auth=(USER, PASS), verify=False,
+)
+print(r.json())`,
+    };
+  },
+
+  // NVIDIA Cumulus Linux 5.x / NVUE — commands start with `nv set/show`.
+  // Native automation path is the NVUE REST API (port 8765).
+  NVIDIA: (d) => {
+    const lines = getCmdLines(d.cmd);
+    const firstLine = lines[0] || d.cmd.trim().split("\n")[0] || "";
+    const isShow = /^\s*nv\s+show\b/i.test(firstLine);
+    const cfgBody = isShow
+      ? `print(net.send_command(${JSON.stringify(firstLine)}))`
+      : `out = net.send_config_set(${JSON.stringify(lines, null, 2)})
+    out += net.send_command("nv config apply")
+    print(out)`;
+    return {
+      netmiko: `${pySetup()}from netmiko import ConnectHandler
+
+device = {"device_type":"linux","host":${pyArg('host')},"username":${pyArg('user', 'cumulus')},"password":${pyArg('pass', 'cumulus')}}
+
+with ConnectHandler(**device) as net:
+    ${cfgBody}`,
+      ansible: `- name: NVUE configuration
+  nvidia.nvue.command:
+    commands:
+${yamlList(lines, "      ")}`,
+      napalm: `${pySetup()}# NVUE REST API — fully YAML-modelled, no NAPALM driver:
+import requests
+r = requests.post(
+    f"https://{HOST}:8765/nvue_v1/revision/applied",
+    auth=(USER, PASS), verify=False,
+    json={"commands": ${JSON.stringify(lines)}},
+)
+print(r.json())`,
+    };
+  },
+
+  // Palo Alto PAN-OS — Netmiko `paloalto_panos`, Ansible `paloaltonetworks.panos`,
+  // or the canonical XML/REST API via pan-os-python (preferred).
+  "PAN-OS": (d) => {
+    const lines = getCmdLines(d.cmd);
+    const firstLine = lines[0] || d.cmd.trim().split("\n")[0] || "";
+    return {
+      netmiko: `${pySetup()}from netmiko import ConnectHandler
+
+device = {"device_type":"paloalto_panos","host":${pyArg('host')},"username":${pyArg('user', 'admin')},"password":${pyArg('pass', 'admin')}}
+
+with ConnectHandler(**device) as net:
+    out = net.send_config_set(${JSON.stringify(lines, null, 2)})
+    out += net.commit()       # Panos.commit() blocks until commit succeeds
+    print(out)`,
+      ansible: `- name: PAN-OS command via panos collection
+  paloaltonetworks.panos.panos_op:
+    provider: "{{ panos_provider }}"
+    cmd: ${JSON.stringify(firstLine)}`,
+      napalm: `${pySetup()}# PAN-OS via pan-os-python (Palo Alto's official SDK):
+from panos.firewall import Firewall
+fw = Firewall(HOST, api_username=USER, api_password=PASS)
+fw.op("<show><system><info/></system></show>", cmd_xml=False)
+# For set-style config pushes:
+fw.set_config_changes(${JSON.stringify(lines)})
+fw.commit(sync=True)`,
+    };
+  },
+
+  // Nokia SR Linux — declarative CLI with `enter candidate` / `commit now`.
+  // Native gNMI (port 57400) is the recommended automation path.
+  Nokia: (d) => {
+    const lines = getCmdLines(d.cmd);
+    const firstLine = lines[0] || d.cmd.trim().split("\n")[0] || "";
+    return {
+      netmiko: `${pySetup()}from netmiko import ConnectHandler
+
+device = {"device_type":"nokia_srl","host":${pyArg('host')},"username":${pyArg('user', 'admin')},"password":${pyArg('pass', 'NokiaSrl1!')}}
+
+with ConnectHandler(**device) as net:
+    out = net.send_config_set([
+      "enter candidate",
+      ${lines.map(l => JSON.stringify(l)).join(",\n      ")},
+      "commit now",
+    ])
+    print(out)`,
+      ansible: `- name: SR Linux config via nokia.srlinux collection
+  nokia.srlinux.config:
+    update:
+      - path: "/"
+        value: |
+${lines.map(l => "          "+l).join("\n")}
+    yang_models: srl`,
+      napalm: `${pySetup()}# SR Linux native automation: gNMI (pygnmi) or JSON-RPC over HTTPS:
+from pygnmi.client import gNMIclient
+with gNMIclient(target=(HOST, 57400), username=USER, password=PASS, insecure=True) as gc:
+    print(gc.capabilities())
+    # Or: gc.set(update=[("interface[name=ethernet-1/1]/description", "core")])`,
+    };
+  },
+
+  // Fortinet FortiOS — Netmiko `fortinet`, Ansible `fortinet.fortios`. The
+  // parser already split FortiGate's `->` one-liners into multiple lines.
+  FortiOS: (d) => {
+    const lines = getCmdLines(d.cmd);
+    const firstLine = lines[0] || d.cmd.trim().split("\n")[0] || "";
+    return {
+      netmiko: `${pySetup()}from netmiko import ConnectHandler
+
+device = {"device_type":"fortinet","host":${pyArg('host')},"username":${pyArg('user', 'admin')},"password":${pyArg('pass', '')}}
+
+with ConnectHandler(**device) as net:
+    out = net.send_config_set(${JSON.stringify(lines, null, 2)})
+    print(out)`,
+      ansible: `- name: FortiOS CLI command via fortinet.fortios
+  fortinet.fortios.fortios_monitor:
+    vdom: root
+    selector: system_status
+  # For config writes, prefer fortios_<feature> resource modules — they call
+  # the REST API under the hood and avoid CLI parsing.`,
+      napalm: `${pySetup()}# FortiOS REST API (recommended for automation):
+import requests
+r = requests.get(
+    f"https://{HOST}/api/v2/cmdb/system/interface",
+    headers={"Authorization": f"Bearer {PASS}"}, verify=False,
+)
+print(r.json())`,
+    };
+  },
+
+  // Mikrotik RouterOS — Netmiko `mikrotik_routeros` (legacy API also on 8728).
+  Mikrotik: (d) => {
+    const lines = getCmdLines(d.cmd);
+    const firstLine = lines[0] || d.cmd.trim().split("\n")[0] || "";
+    return {
+      netmiko: `${pySetup()}from netmiko import ConnectHandler
+
+device = {"device_type":"mikrotik_routeros","host":${pyArg('host')},"username":${pyArg('user', 'admin')},"password":${pyArg('pass', '')}}
+
+with ConnectHandler(**device) as net:
+    print(net.send_command(${JSON.stringify(firstLine)}))`,
+      ansible: `- name: Mikrotik RouterOS command
+  community.routeros.command:
+    commands:
+${yamlList(lines, "      ")}`,
+      napalm: `${pySetup()}# RouterOS 7+ has a native REST API (port 443):
+import requests
+r = requests.get(
+    f"https://{HOST}/rest/interface",
+    auth=(USER, PASS), verify=False,
+)
+print(r.json())
+# Legacy: RouterOS API on TCP/8728 via librouteros / RouterOS-api.`,
+    };
+  },
+
+  // Extreme Networks EXOS — Netmiko `extreme_exos`, Ansible
+  // `community.network.exos_command`. EXOS also has a JSON-RPC API.
+  Extreme: (d) => {
+    const lines = getCmdLines(d.cmd);
+    const firstLine = lines[0] || d.cmd.trim().split("\n")[0] || "";
+    const info = classifyCmd(d.cmd);
+    if(info.isShow){
+      return {
+        netmiko: `${pySetup()}from netmiko import ConnectHandler
+
+device = {"device_type":"extreme_exos","host":${pyArg('host')},"username":${pyArg('user', 'admin')},"password":${pyArg('pass', '')}}
+
+with ConnectHandler(**device) as net:
+    print(net.send_command(${JSON.stringify(firstLine)}))`,
+        ansible: `- name: Extreme EXOS show command
+  community.network.exos_command:
+    commands:
+${yamlList(lines, "      ")}
+  register: result
+
+- ansible.builtin.debug:
+    var: result.stdout_lines`,
+        napalm: `${pySetup()}# EXOS JSON-RPC (recommended over CLI scraping):
+import requests
+r = requests.post(
+    f"https://{HOST}/jsonrpc",
+    auth=(USER, PASS), verify=False,
+    json={"jsonrpc":"2.0","id":1,"method":"cli","params":[${JSON.stringify(firstLine)}]},
+)
+print(r.json())`,
+      };
+    }
+    return {
+      netmiko: `${pySetup()}from netmiko import ConnectHandler
+
+device = {"device_type":"extreme_exos","host":${pyArg('host')},"username":${pyArg('user', 'admin')},"password":${pyArg('pass', '')}}
+
+with ConnectHandler(**device) as net:
+    out = net.send_config_set(${JSON.stringify(lines, null, 2)})
+    out += net.send_command("save configuration")
+    print(out)`,
+      ansible: `- name: Extreme EXOS configuration
+  community.network.exos_config:
+    lines:
+${yamlList(lines, "      ")}
+    save: true`,
+      napalm: `${pySetup()}# EXOS JSON-RPC: push CLI lines via the cli method:
+import requests
+for cmd in ${JSON.stringify(lines)}:
+    requests.post(
+        f"https://{HOST}/jsonrpc",
+        auth=(USER, PASS), verify=False,
+        json={"jsonrpc":"2.0","id":1,"method":"cli","params":[cmd]},
+    )`,
+    };
+  },
+
+  // HPE Aruba AOS-CX — Netmiko `aruba_aoscx`, Ansible `arubanetworks.aoscx`,
+  // and a first-class REST API via the pyaoscx SDK (recommended for writes).
+  Aruba: (d) => {
+    const lines = getCmdLines(d.cmd);
+    const firstLine = lines[0] || d.cmd.trim().split("\n")[0] || "";
+    const info = classifyCmd(d.cmd);
+    if(info.isShow){
+      return {
+        netmiko: `${pySetup()}from netmiko import ConnectHandler
+
+device = {"device_type":"aruba_aoscx","host":${pyArg('host')},"username":${pyArg('user', 'admin')},"password":${pyArg('pass', '')}}
+
+with ConnectHandler(**device) as net:
+    print(net.send_command(${JSON.stringify(firstLine)}))`,
+        ansible: `- name: Aruba AOS-CX show command
+  arubanetworks.aoscx.aoscx_command:
+    commands:
+${yamlList(lines, "      ")}
+  register: result
+
+- ansible.builtin.debug:
+    var: result.stdout_lines`,
+        napalm: `${pySetup()}# AOS-CX REST API (recommended for automation):
+from pyaoscx.session import Session
+from pyaoscx.device import Device
+s = Session.login(HOST, USER, PASS)
+print(Device(s).get_system_info())`,
+      };
+    }
+    return {
+      netmiko: `${pySetup()}from netmiko import ConnectHandler
+
+device = {"device_type":"aruba_aoscx","host":${pyArg('host')},"username":${pyArg('user', 'admin')},"password":${pyArg('pass', '')}}
+
+with ConnectHandler(**device) as net:
+    out = net.send_config_set(${JSON.stringify(lines, null, 2)})
+    out += net.send_command("write memory")
+    print(out)`,
+      ansible: `- name: Aruba AOS-CX configuration
+  arubanetworks.aoscx.aoscx_config:
+    lines:
+${yamlList(lines, "      ")}
+    save_when: modified`,
+      napalm: `${pySetup()}# AOS-CX REST API — resource-oriented (Interface, Vlan, ...) is preferred,
+# but raw CLI can be sent via the cli endpoint:
+import requests, urllib3; urllib3.disable_warnings()
+from pyaoscx.session import Session
+s = Session.login(HOST, USER, PASS)
+for cmd in ${JSON.stringify(lines)}:
+    requests.post(f"https://{HOST}/rest/v10.04/fullconfigs/running-config/cli",
+                  cookies=s.cookies, json={"command": cmd}, verify=False)
+s.logout()`,
+    };
+  },
+
+  // Huawei VRP — Netmiko `huawei`, Ansible `community.network.ce_*`. VRP
+  // enters config via `system-view`; NETCONF on port 830 is the cleanest API.
+  Huawei: (d) => {
+    const lines = getCmdLines(d.cmd);
+    const firstLine = lines[0] || d.cmd.trim().split("\n")[0] || "";
+    const info = classifyCmd(d.cmd);
+    if(info.isShow){
+      return {
+        netmiko: `${pySetup()}from netmiko import ConnectHandler
+
+device = {"device_type":"huawei","host":${pyArg('host')},"username":${pyArg('user', 'admin')},"password":${pyArg('pass', '')}}
+
+with ConnectHandler(**device) as net:
+    # Huawei uses 'display' instead of 'show' — paste the command verbatim:
+    print(net.send_command(${JSON.stringify(firstLine)}))`,
+        ansible: `- name: Huawei VRP display command
+  community.network.ce_command:
+    commands:
+${yamlList(lines, "      ")}
+  register: result
+
+- ansible.builtin.debug:
+    var: result.stdout_lines`,
+        napalm: `${pySetup()}# Huawei NETCONF via ncclient (VRP supports NETCONF on port 830):
+from ncclient import manager
+with manager.connect(host=HOST, port=830, username=USER, password=PASS,
+                     hostkey_verify=False, device_params={"name":"huawei"}) as m:
+    print(m.get(filter=("subtree",
+        "<system xmlns='urn:huawei:yang:huawei-system'/>")))`,
+      };
+    }
+    return {
+      netmiko: `${pySetup()}from netmiko import ConnectHandler
+
+device = {"device_type":"huawei","host":${pyArg('host')},"username":${pyArg('user', 'admin')},"password":${pyArg('pass', '')}}
+
+# Huawei VRP enters config via 'system-view'; netmiko handles entry/exit.
+with ConnectHandler(**device) as net:
+    out = net.send_config_set(${JSON.stringify(lines, null, 2)})
+    out += net.save_config()    # answers the 'save y/n' prompt
+    print(out)`,
+      ansible: `- name: Huawei VRP configuration
+  community.network.ce_config:
+    lines:
+${yamlList(lines, "      ")}
+    save: true`,
+      napalm: `${pySetup()}# Huawei via NETCONF/YANG (preferred — VRP NETCONF is robust):
+from ncclient import manager
+config = """${escDoubleQuote(lines.join("\n"))}"""
+with manager.connect(host=HOST, port=830, username=USER, password=PASS,
+                     hostkey_verify=False, device_params={"name":"huawei"}) as m:
+    m.edit_config(target="running", config=config)
+    m.commit()`,
+    };
+  },
 };
 
 const CAT_GROUPS = [
@@ -3309,12 +3809,11 @@ function openAutomation(d){
   drawer.classList.add("open");
   // Compute vendors offered for this command. Specific mapping = whatever the
   // mapping renders; fallback = all 3.
-  // Native YANG mappings only cover Cisco/Juniper/Arista today, so the model-driven
-  // tab list stays 3-vendor. The CLI-fallback path adds FRR as a 4th tab — Netmiko
-  // has a real `frrouting` device_type and vtysh wraps the rest.
+  // Native YANG mappings only cover Cisco/Juniper/Arista today. The CLI-fallback
+  // path supports all 11 vendors (Netmiko ships device_types for every one).
   const vendors = found
     ? ["Cisco","Juniper","Arista"].filter(v => found.mapping.render(v, found.vals))
-    : ["Cisco","Juniper","Arista","FRR"];
+    : ["Cisco","Juniper","Arista","FRR","VyOS","SONiC","NVIDIA","PAN-OS","Nokia","FortiOS","Mikrotik","Extreme","Aruba","Huawei"];
   const active = vendors.includes(d.vendor) ? d.vendor : vendors[0];
 
   // Title
@@ -3546,7 +4045,7 @@ function openEquivalents(d){
   const body = $("equiv-body"); body.replaceChildren();
 
   const tokens = d.title.toLowerCase().split(/\W+/).filter(t=>t.length>2);
-  ["Cisco","Juniper","Arista","FRR"].forEach(v=>{
+  ["Cisco","Juniper","Arista","FRR","VyOS","SONiC","NVIDIA","PAN-OS","Nokia","FortiOS","Mikrotik","Extreme","Aruba","Huawei"].forEach(v=>{
     const section = el("div",{class:"equiv-section"});
     section.appendChild(el("div",{class:"sh "+VENDOR_KEY(v)}, " "+v));
     const cands = DATA
@@ -3823,14 +4322,17 @@ function conceptKey(d){
 }
 
 function renderCompare(filtered, results){
-  // Compare view is now N-vendor aware. The user's vendor filter chooses which
-  // columns to render; with no filter we show all 4 currently-supported vendors.
-  const ALL_VENDORS = ["Cisco","Juniper","Arista","FRR"];
-  const VEND_SHORT  = {Cisco:"C", Juniper:"J", Arista:"A", FRR:"F"};
-  const VEND_CT_CLS = {Cisco:"ct-c", Juniper:"ct-j", Arista:"ct-a", FRR:"ct-f"};
+  // Compare view is N-vendor aware. With 11 supported vendors, rendering all
+  // columns by default would be cramped — so when the user hasn't filtered,
+  // we default to the four with deepest coverage (Cisco · Juniper · Arista
+  // · FRR). The user opts into the rest via the vendor chips in the sidebar.
+  const ALL_VENDORS = ["Cisco","Juniper","Arista","FRR","VyOS","SONiC","NVIDIA","PAN-OS","Nokia","FortiOS","Mikrotik","Extreme","Aruba","Huawei"];
+  const VEND_SHORT  = {Cisco:"C", Juniper:"J", Arista:"A", FRR:"F", VyOS:"V", SONiC:"S", NVIDIA:"N", "PAN-OS":"P", Nokia:"K", FortiOS:"FT", Mikrotik:"MT", Extreme:"E", Aruba:"AR", Huawei:"HW"};
+  const VEND_CT_CLS = {Cisco:"ct-c", Juniper:"ct-j", Arista:"ct-a", FRR:"ct-f", VyOS:"ct-v", SONiC:"ct-s", NVIDIA:"ct-n", "PAN-OS":"ct-p", Nokia:"ct-o", FortiOS:"ct-fo", Mikrotik:"ct-m", Extreme:"ct-e", Aruba:"ct-ar", Huawei:"ct-h"};
+  const DEFAULT_VENDORS = ["Cisco","Juniper","Arista","FRR"];
   const cmpVendors = state.vendor.size > 0
     ? ALL_VENDORS.filter(v => state.vendor.has(v))
-    : ALL_VENDORS;
+    : DEFAULT_VENDORS;
   if(cmpVendors.length < 2){
     const tip = el("div", {class:"empty",
       style:"margin-bottom:14px;border-color:var(--accent);color:var(--ink);text-align:left;padding:14px 18px"});

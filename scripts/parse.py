@@ -367,6 +367,31 @@ def main():
                 seen.add(key); cmds.append(s); added += 1
         print(f"  merged FRR: {added} new entries (deduped from {len(frr)})", file=sys.stderr)
 
+    # Merge "wave 2" datasets emitted by scripts/parse_extras.py — 7 new
+    # vendors (VyOS, SONiC, NVIDIA NVUE, Palo Alto PAN-OS, Nokia SR Linux,
+    # FortiOS, Mikrotik RouterOS) and 2 backfill files for Cisco / Juniper
+    # gaps. All share the same row schema so we use a uniform dedupe loop.
+    extras = [
+        "cisco_gaps.json", "juniper_gaps.json",
+        "vyos.json", "sonic.json", "nvue.json", "panos.json",
+        "srlinux.json", "fortios.json", "routeros.json", "exos.json",
+        "aoscx.json", "vrp.json",
+    ]
+    for name in extras:
+        p = pathlib.Path(__file__).parent / name
+        if not p.exists():
+            continue
+        rows = json.loads(p.read_text())
+        added = 0
+        for s in rows:
+            if not (s.get("cmd") and s.get("vendor")):
+                continue
+            key = re.sub(r"\s+", " ", s["cmd"]).lower()
+            if key in seen:
+                continue
+            seen.add(key); cmds.append(s); added += 1
+        print(f"  merged {name}: {added} new entries (deduped from {len(rows)})", file=sys.stderr)
+
     # Merge external dataset (~10k commands previously curated outside this repo).
     # Already in the same {os,role,vendor,cat,title,cmd,desc} schema → straight dedupe by cmd.
     ext_path = pathlib.Path(__file__).parent / "external_merged.json"

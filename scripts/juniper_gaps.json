@@ -1,0 +1,2441 @@
+[
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "ACL",
+  "title": "set firewall filter PROTECT-SSH term ALLOW-ESTABLISHED from tcp-established",
+  "cmd": "set firewall filter PROTECT-SSH term ALLOW-ESTABLISHED from tcp-established",
+  "desc": "ACL — Allow established TCP session return traffic inside firewall filter PROTECT-SSH."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "ACL",
+  "title": "set firewall filter PROTECT-SSH term ALLOW-ESTABLISHED then accept",
+  "cmd": "set firewall filter PROTECT-SSH term ALLOW-ESTABLISHED then accept",
+  "desc": "ACL — Accept packet if it belongs to established TCP session inside term ALLOW-ESTABLISHED."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term ALLOW-ESTABLISHED from tcp-established",
+  "cmd": "set firewall filter PROTECT-BGP term ALLOW-ESTABLISHED from tcp-established",
+  "desc": "BGP — Allow established TCP session return traffic inside firewall filter PROTECT-BGP."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term ALLOW-ESTABLISHED then accept",
+  "cmd": "set firewall filter PROTECT-BGP term ALLOW-ESTABLISHED then accept",
+  "desc": "BGP — Accept packet if it belongs to established TCP session inside term ALLOW-ESTABLISHED."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "OSPF",
+  "title": "set firewall filter PROTECT-OSPF term ALLOW-ESTABLISHED from tcp-established",
+  "cmd": "set firewall filter PROTECT-OSPF term ALLOW-ESTABLISHED from tcp-established",
+  "desc": "OSPF — Allow established TCP session return traffic inside firewall filter PROTECT-OSPF."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "OSPF",
+  "title": "set firewall filter PROTECT-OSPF term ALLOW-ESTABLISHED then accept",
+  "cmd": "set firewall filter PROTECT-OSPF term ALLOW-ESTABLISHED then accept",
+  "desc": "OSPF — Accept packet if it belongs to established TCP session inside term ALLOW-ESTABLISHED."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "ACL",
+  "title": "set firewall filter PROTECT-SNMP term ALLOW-ESTABLISHED from tcp-established",
+  "cmd": "set firewall filter PROTECT-SNMP term ALLOW-ESTABLISHED from tcp-established",
+  "desc": "ACL — Allow established TCP session return traffic inside firewall filter PROTECT-SNMP."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "ACL",
+  "title": "set firewall filter PROTECT-SNMP term ALLOW-ESTABLISHED then accept",
+  "cmd": "set firewall filter PROTECT-SNMP term ALLOW-ESTABLISHED then accept",
+  "desc": "ACL — Accept packet if it belongs to established TCP session inside term ALLOW-ESTABLISHED."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "ACL",
+  "title": "set firewall filter EDGE-INBOUND term ALLOW-ESTABLISHED from tcp-established",
+  "cmd": "set firewall filter EDGE-INBOUND term ALLOW-ESTABLISHED from tcp-established",
+  "desc": "ACL — Allow established TCP session return traffic inside firewall filter EDGE-INBOUND."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "ACL",
+  "title": "set firewall filter EDGE-INBOUND term ALLOW-ESTABLISHED then accept",
+  "cmd": "set firewall filter EDGE-INBOUND term ALLOW-ESTABLISHED then accept",
+  "desc": "ACL — Accept packet if it belongs to established TCP session inside term ALLOW-ESTABLISHED."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "ACL",
+  "title": "set firewall filter EDGE-OUTBOUND term ALLOW-ESTABLISHED from tcp-established",
+  "cmd": "set firewall filter EDGE-OUTBOUND term ALLOW-ESTABLISHED from tcp-established",
+  "desc": "ACL — Allow established TCP session return traffic inside firewall filter EDGE-OUTBOUND."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "ACL",
+  "title": "set firewall filter EDGE-OUTBOUND term ALLOW-ESTABLISHED then accept",
+  "cmd": "set firewall filter EDGE-OUTBOUND term ALLOW-ESTABLISHED then accept",
+  "desc": "ACL — Accept packet if it belongs to established TCP session inside term ALLOW-ESTABLISHED."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term TERM-1 from source-address 10.255.1.0/24",
+  "cmd": "set firewall filter PROTECT-BGP term TERM-1 from source-address 10.255.1.0/24",
+  "desc": "BGP — Specify source BGP peer address network block 10.255.1.0/24 to match inside term term-1."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term TERM-1 from protocol tcp",
+  "cmd": "set firewall filter PROTECT-BGP term TERM-1 from protocol tcp",
+  "desc": "BGP — Match TCP protocol inside BGP firewall filter term term-1."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term TERM-1 from destination-port 179",
+  "cmd": "set firewall filter PROTECT-BGP term TERM-1 from destination-port 179",
+  "desc": "BGP — Match standard TCP BGP routing destination port 179 inside firewall filter term term-1."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term TERM-1 then accept",
+  "cmd": "set firewall filter PROTECT-BGP term TERM-1 then accept",
+  "desc": "BGP — Configure accept action for packets matching term-1 inside BGP control filter."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "ACL",
+  "title": "set interfaces ge-0/0/1 unit 0 family inet filter input EDGE-INBOUND",
+  "cmd": "set interfaces ge-0/0/1 unit 0 family inet filter input EDGE-INBOUND",
+  "desc": "ACL — Bind inbound traffic firewall filter EDGE-INBOUND to logical unit unit 0 on interface ge-0/0/1."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term TERM-2 from source-address 10.255.2.0/24",
+  "cmd": "set firewall filter PROTECT-BGP term TERM-2 from source-address 10.255.2.0/24",
+  "desc": "BGP — Specify source BGP peer address network block 10.255.2.0/24 to match inside term term-2."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term TERM-2 from protocol tcp",
+  "cmd": "set firewall filter PROTECT-BGP term TERM-2 from protocol tcp",
+  "desc": "BGP — Match TCP protocol inside BGP firewall filter term term-2."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term TERM-2 from destination-port 179",
+  "cmd": "set firewall filter PROTECT-BGP term TERM-2 from destination-port 179",
+  "desc": "BGP — Match standard TCP BGP routing destination port 179 inside firewall filter term term-2."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term TERM-2 then accept",
+  "cmd": "set firewall filter PROTECT-BGP term TERM-2 then accept",
+  "desc": "BGP — Configure accept action for packets matching term-2 inside BGP control filter."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "ACL",
+  "title": "set interfaces ge-0/0/2 unit 0 family inet filter input EDGE-INBOUND",
+  "cmd": "set interfaces ge-0/0/2 unit 0 family inet filter input EDGE-INBOUND",
+  "desc": "ACL — Bind inbound traffic firewall filter EDGE-INBOUND to logical unit unit 0 on interface ge-0/0/2."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term TERM-3 from source-address 10.255.3.0/24",
+  "cmd": "set firewall filter PROTECT-BGP term TERM-3 from source-address 10.255.3.0/24",
+  "desc": "BGP — Specify source BGP peer address network block 10.255.3.0/24 to match inside term term-3."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term TERM-3 from protocol tcp",
+  "cmd": "set firewall filter PROTECT-BGP term TERM-3 from protocol tcp",
+  "desc": "BGP — Match TCP protocol inside BGP firewall filter term term-3."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term TERM-3 from destination-port 179",
+  "cmd": "set firewall filter PROTECT-BGP term TERM-3 from destination-port 179",
+  "desc": "BGP — Match standard TCP BGP routing destination port 179 inside firewall filter term term-3."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term TERM-3 then accept",
+  "cmd": "set firewall filter PROTECT-BGP term TERM-3 then accept",
+  "desc": "BGP — Configure accept action for packets matching term-3 inside BGP control filter."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "ACL",
+  "title": "set interfaces ge-0/0/3 unit 0 family inet filter input EDGE-INBOUND",
+  "cmd": "set interfaces ge-0/0/3 unit 0 family inet filter input EDGE-INBOUND",
+  "desc": "ACL — Bind inbound traffic firewall filter EDGE-INBOUND to logical unit unit 0 on interface ge-0/0/3."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term TERM-4 from source-address 10.255.4.0/24",
+  "cmd": "set firewall filter PROTECT-BGP term TERM-4 from source-address 10.255.4.0/24",
+  "desc": "BGP — Specify source BGP peer address network block 10.255.4.0/24 to match inside term term-4."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term TERM-4 from protocol tcp",
+  "cmd": "set firewall filter PROTECT-BGP term TERM-4 from protocol tcp",
+  "desc": "BGP — Match TCP protocol inside BGP firewall filter term term-4."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term TERM-4 from destination-port 179",
+  "cmd": "set firewall filter PROTECT-BGP term TERM-4 from destination-port 179",
+  "desc": "BGP — Match standard TCP BGP routing destination port 179 inside firewall filter term term-4."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term TERM-4 then accept",
+  "cmd": "set firewall filter PROTECT-BGP term TERM-4 then accept",
+  "desc": "BGP — Configure accept action for packets matching term-4 inside BGP control filter."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "ACL",
+  "title": "set interfaces ge-0/0/4 unit 0 family inet filter input EDGE-INBOUND",
+  "cmd": "set interfaces ge-0/0/4 unit 0 family inet filter input EDGE-INBOUND",
+  "desc": "ACL — Bind inbound traffic firewall filter EDGE-INBOUND to logical unit unit 0 on interface ge-0/0/4."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term TERM-5 from source-address 10.255.5.0/24",
+  "cmd": "set firewall filter PROTECT-BGP term TERM-5 from source-address 10.255.5.0/24",
+  "desc": "BGP — Specify source BGP peer address network block 10.255.5.0/24 to match inside term term-5."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term TERM-5 from protocol tcp",
+  "cmd": "set firewall filter PROTECT-BGP term TERM-5 from protocol tcp",
+  "desc": "BGP — Match TCP protocol inside BGP firewall filter term term-5."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term TERM-5 from destination-port 179",
+  "cmd": "set firewall filter PROTECT-BGP term TERM-5 from destination-port 179",
+  "desc": "BGP — Match standard TCP BGP routing destination port 179 inside firewall filter term term-5."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term TERM-5 then accept",
+  "cmd": "set firewall filter PROTECT-BGP term TERM-5 then accept",
+  "desc": "BGP — Configure accept action for packets matching term-5 inside BGP control filter."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "ACL",
+  "title": "set interfaces ge-0/0/5 unit 0 family inet filter input EDGE-INBOUND",
+  "cmd": "set interfaces ge-0/0/5 unit 0 family inet filter input EDGE-INBOUND",
+  "desc": "ACL — Bind inbound traffic firewall filter EDGE-INBOUND to logical unit unit 0 on interface ge-0/0/5."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term TERM-6 from source-address 10.255.6.0/24",
+  "cmd": "set firewall filter PROTECT-BGP term TERM-6 from source-address 10.255.6.0/24",
+  "desc": "BGP — Specify source BGP peer address network block 10.255.6.0/24 to match inside term term-6."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term TERM-6 from protocol tcp",
+  "cmd": "set firewall filter PROTECT-BGP term TERM-6 from protocol tcp",
+  "desc": "BGP — Match TCP protocol inside BGP firewall filter term term-6."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term TERM-6 from destination-port 179",
+  "cmd": "set firewall filter PROTECT-BGP term TERM-6 from destination-port 179",
+  "desc": "BGP — Match standard TCP BGP routing destination port 179 inside firewall filter term term-6."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term TERM-6 then accept",
+  "cmd": "set firewall filter PROTECT-BGP term TERM-6 then accept",
+  "desc": "BGP — Configure accept action for packets matching term-6 inside BGP control filter."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "ACL",
+  "title": "set interfaces ge-0/0/6 unit 0 family inet filter input EDGE-INBOUND",
+  "cmd": "set interfaces ge-0/0/6 unit 0 family inet filter input EDGE-INBOUND",
+  "desc": "ACL — Bind inbound traffic firewall filter EDGE-INBOUND to logical unit unit 0 on interface ge-0/0/6."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term TERM-7 from source-address 10.255.7.0/24",
+  "cmd": "set firewall filter PROTECT-BGP term TERM-7 from source-address 10.255.7.0/24",
+  "desc": "BGP — Specify source BGP peer address network block 10.255.7.0/24 to match inside term term-7."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term TERM-7 from protocol tcp",
+  "cmd": "set firewall filter PROTECT-BGP term TERM-7 from protocol tcp",
+  "desc": "BGP — Match TCP protocol inside BGP firewall filter term term-7."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term TERM-7 from destination-port 179",
+  "cmd": "set firewall filter PROTECT-BGP term TERM-7 from destination-port 179",
+  "desc": "BGP — Match standard TCP BGP routing destination port 179 inside firewall filter term term-7."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term TERM-7 then accept",
+  "cmd": "set firewall filter PROTECT-BGP term TERM-7 then accept",
+  "desc": "BGP — Configure accept action for packets matching term-7 inside BGP control filter."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "ACL",
+  "title": "set interfaces ge-0/0/7 unit 0 family inet filter input EDGE-INBOUND",
+  "cmd": "set interfaces ge-0/0/7 unit 0 family inet filter input EDGE-INBOUND",
+  "desc": "ACL — Bind inbound traffic firewall filter EDGE-INBOUND to logical unit unit 0 on interface ge-0/0/7."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term TERM-8 from source-address 10.255.8.0/24",
+  "cmd": "set firewall filter PROTECT-BGP term TERM-8 from source-address 10.255.8.0/24",
+  "desc": "BGP — Specify source BGP peer address network block 10.255.8.0/24 to match inside term term-8."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term TERM-8 from protocol tcp",
+  "cmd": "set firewall filter PROTECT-BGP term TERM-8 from protocol tcp",
+  "desc": "BGP — Match TCP protocol inside BGP firewall filter term term-8."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term TERM-8 from destination-port 179",
+  "cmd": "set firewall filter PROTECT-BGP term TERM-8 from destination-port 179",
+  "desc": "BGP — Match standard TCP BGP routing destination port 179 inside firewall filter term term-8."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term TERM-8 then accept",
+  "cmd": "set firewall filter PROTECT-BGP term TERM-8 then accept",
+  "desc": "BGP — Configure accept action for packets matching term-8 inside BGP control filter."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "ACL",
+  "title": "set interfaces ge-0/0/8 unit 0 family inet filter input EDGE-INBOUND",
+  "cmd": "set interfaces ge-0/0/8 unit 0 family inet filter input EDGE-INBOUND",
+  "desc": "ACL — Bind inbound traffic firewall filter EDGE-INBOUND to logical unit unit 0 on interface ge-0/0/8."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term TERM-9 from source-address 10.255.9.0/24",
+  "cmd": "set firewall filter PROTECT-BGP term TERM-9 from source-address 10.255.9.0/24",
+  "desc": "BGP — Specify source BGP peer address network block 10.255.9.0/24 to match inside term term-9."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term TERM-9 from protocol tcp",
+  "cmd": "set firewall filter PROTECT-BGP term TERM-9 from protocol tcp",
+  "desc": "BGP — Match TCP protocol inside BGP firewall filter term term-9."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term TERM-9 from destination-port 179",
+  "cmd": "set firewall filter PROTECT-BGP term TERM-9 from destination-port 179",
+  "desc": "BGP — Match standard TCP BGP routing destination port 179 inside firewall filter term term-9."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term TERM-9 then accept",
+  "cmd": "set firewall filter PROTECT-BGP term TERM-9 then accept",
+  "desc": "BGP — Configure accept action for packets matching term-9 inside BGP control filter."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "ACL",
+  "title": "set interfaces ge-0/0/9 unit 0 family inet filter input EDGE-INBOUND",
+  "cmd": "set interfaces ge-0/0/9 unit 0 family inet filter input EDGE-INBOUND",
+  "desc": "ACL — Bind inbound traffic firewall filter EDGE-INBOUND to logical unit unit 0 on interface ge-0/0/9."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term TERM-10 from source-address 10.255.10.0/24",
+  "cmd": "set firewall filter PROTECT-BGP term TERM-10 from source-address 10.255.10.0/24",
+  "desc": "BGP — Specify source BGP peer address network block 10.255.10.0/24 to match inside term term-10."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term TERM-10 from protocol tcp",
+  "cmd": "set firewall filter PROTECT-BGP term TERM-10 from protocol tcp",
+  "desc": "BGP — Match TCP protocol inside BGP firewall filter term term-10."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term TERM-10 from destination-port 179",
+  "cmd": "set firewall filter PROTECT-BGP term TERM-10 from destination-port 179",
+  "desc": "BGP — Match standard TCP BGP routing destination port 179 inside firewall filter term term-10."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term TERM-10 then accept",
+  "cmd": "set firewall filter PROTECT-BGP term TERM-10 then accept",
+  "desc": "BGP — Configure accept action for packets matching term-10 inside BGP control filter."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "ACL",
+  "title": "set interfaces ge-0/0/10 unit 0 family inet filter input EDGE-INBOUND",
+  "cmd": "set interfaces ge-0/0/10 unit 0 family inet filter input EDGE-INBOUND",
+  "desc": "ACL — Bind inbound traffic firewall filter EDGE-INBOUND to logical unit unit 0 on interface ge-0/0/10."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term TERM-11 from source-address 10.255.11.0/24",
+  "cmd": "set firewall filter PROTECT-BGP term TERM-11 from source-address 10.255.11.0/24",
+  "desc": "BGP — Specify source BGP peer address network block 10.255.11.0/24 to match inside term term-11."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term TERM-11 from protocol tcp",
+  "cmd": "set firewall filter PROTECT-BGP term TERM-11 from protocol tcp",
+  "desc": "BGP — Match TCP protocol inside BGP firewall filter term term-11."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term TERM-11 from destination-port 179",
+  "cmd": "set firewall filter PROTECT-BGP term TERM-11 from destination-port 179",
+  "desc": "BGP — Match standard TCP BGP routing destination port 179 inside firewall filter term term-11."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term TERM-11 then accept",
+  "cmd": "set firewall filter PROTECT-BGP term TERM-11 then accept",
+  "desc": "BGP — Configure accept action for packets matching term-11 inside BGP control filter."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "ACL",
+  "title": "set interfaces ge-0/0/11 unit 0 family inet filter input EDGE-INBOUND",
+  "cmd": "set interfaces ge-0/0/11 unit 0 family inet filter input EDGE-INBOUND",
+  "desc": "ACL — Bind inbound traffic firewall filter EDGE-INBOUND to logical unit unit 0 on interface ge-0/0/11."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term TERM-12 from source-address 10.255.12.0/24",
+  "cmd": "set firewall filter PROTECT-BGP term TERM-12 from source-address 10.255.12.0/24",
+  "desc": "BGP — Specify source BGP peer address network block 10.255.12.0/24 to match inside term term-12."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term TERM-12 from protocol tcp",
+  "cmd": "set firewall filter PROTECT-BGP term TERM-12 from protocol tcp",
+  "desc": "BGP — Match TCP protocol inside BGP firewall filter term term-12."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term TERM-12 from destination-port 179",
+  "cmd": "set firewall filter PROTECT-BGP term TERM-12 from destination-port 179",
+  "desc": "BGP — Match standard TCP BGP routing destination port 179 inside firewall filter term term-12."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set firewall filter PROTECT-BGP term TERM-12 then accept",
+  "cmd": "set firewall filter PROTECT-BGP term TERM-12 then accept",
+  "desc": "BGP — Configure accept action for packets matching term-12 inside BGP control filter."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "ACL",
+  "title": "set interfaces ge-0/0/12 unit 0 family inet filter input EDGE-INBOUND",
+  "cmd": "set interfaces ge-0/0/12 unit 0 family inet filter input EDGE-INBOUND",
+  "desc": "ACL — Bind inbound traffic firewall filter EDGE-INBOUND to logical unit unit 0 on interface ge-0/0/12."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "ACL",
+  "title": "set firewall filter PROTECT-CONTROL term BLOCK-OTHERS then discard",
+  "cmd": "set firewall filter PROTECT-CONTROL term BLOCK-OTHERS then discard",
+  "desc": "ACL — Configure explicit silent discard packet drop action for mismatched traffic inside term BLOCK-OTHERS."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "ACL",
+  "title": "set firewall filter PROTECT-CONTROL term BLOCK-OTHERS then count mismatch-counter",
+  "cmd": "set firewall filter PROTECT-CONTROL term BLOCK-OTHERS then count mismatch-counter",
+  "desc": "ACL — Increment log tracking counter mismatch-counter for packets dropped in control-plane."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "ACL",
+  "title": "set interfaces lo0 unit 0 family inet filter input PROTECT-CONTROL",
+  "cmd": "set interfaces lo0 unit 0 family inet filter input PROTECT-CONTROL",
+  "desc": "ACL — Bind firewall filter PROTECT-CONTROL to system loopback interface lo0 unit 0 input to protect router supervisor CPU."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set interfaces ge-0/0/1 unit 0 family inet address 10.1.1.2/24 vrrp-group 1 virtual-addre…",
+  "cmd": "set interfaces ge-0/0/1 unit 0 family inet address 10.1.1.2/24 vrrp-group 1 virtual-address 10.1.1.1",
+  "desc": "HA — Configure shared active virtual gateway IP address 10.1.1.1 inside VRRP group 1 on ge-0/0/1."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set interfaces ge-0/0/1 unit 0 family inet address 10.1.1.2/24 vrrp-group 1 priority 90",
+  "cmd": "set interfaces ge-0/0/1 unit 0 family inet address 10.1.1.2/24 vrrp-group 1 priority 90",
+  "desc": "HA — Set router local VRRP group priority priority 90 (default 100, highest wins) to control master election."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set interfaces ge-0/0/1 unit 0 family inet address 10.1.1.2/24 vrrp-group 1 preempt",
+  "cmd": "set interfaces ge-0/0/1 unit 0 family inet address 10.1.1.2/24 vrrp-group 1 preempt",
+  "desc": "HA — Enable preemption to let a higher priority node preempt and claim Active status."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set interfaces ge-0/0/1 unit 0 family inet address 10.1.1.2/24 vrrp-group 1 track interfa…",
+  "cmd": "set interfaces ge-0/0/1 unit 0 family inet address 10.1.1.2/24 vrrp-group 1 track interface ge-0/0/0 priority-cost 20",
+  "desc": "HA — Track upstream interface ge-0/0/0, decrementing local priority by cost 20 if it fails."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set interfaces ge-0/0/2 unit 0 family inet address 10.2.1.2/24 vrrp-group 2 virtual-addre…",
+  "cmd": "set interfaces ge-0/0/2 unit 0 family inet address 10.2.1.2/24 vrrp-group 2 virtual-address 10.2.1.1",
+  "desc": "HA — Configure shared active virtual gateway IP address 10.2.1.1 inside VRRP group 2 on ge-0/0/2."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set interfaces ge-0/0/2 unit 0 family inet address 10.2.1.2/24 vrrp-group 2 priority 110",
+  "cmd": "set interfaces ge-0/0/2 unit 0 family inet address 10.2.1.2/24 vrrp-group 2 priority 110",
+  "desc": "HA — Set router local VRRP group priority priority 110 (default 100, highest wins) to control master election."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set interfaces ge-0/0/2 unit 0 family inet address 10.2.1.2/24 vrrp-group 2 preempt",
+  "cmd": "set interfaces ge-0/0/2 unit 0 family inet address 10.2.1.2/24 vrrp-group 2 preempt",
+  "desc": "HA — Enable preemption to let a higher priority node preempt and claim Active status."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set interfaces ge-0/0/2 unit 0 family inet address 10.2.1.2/24 vrrp-group 2 track interfa…",
+  "cmd": "set interfaces ge-0/0/2 unit 0 family inet address 10.2.1.2/24 vrrp-group 2 track interface ge-0/0/0 priority-cost 20",
+  "desc": "HA — Track upstream interface ge-0/0/0, decrementing local priority by cost 20 if it fails."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set interfaces ge-0/0/3 unit 0 family inet address 10.3.1.2/24 vrrp-group 3 virtual-addre…",
+  "cmd": "set interfaces ge-0/0/3 unit 0 family inet address 10.3.1.2/24 vrrp-group 3 virtual-address 10.3.1.1",
+  "desc": "HA — Configure shared active virtual gateway IP address 10.3.1.1 inside VRRP group 3 on ge-0/0/3."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set interfaces ge-0/0/3 unit 0 family inet address 10.3.1.2/24 vrrp-group 3 priority 90",
+  "cmd": "set interfaces ge-0/0/3 unit 0 family inet address 10.3.1.2/24 vrrp-group 3 priority 90",
+  "desc": "HA — Set router local VRRP group priority priority 90 (default 100, highest wins) to control master election."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set interfaces ge-0/0/3 unit 0 family inet address 10.3.1.2/24 vrrp-group 3 preempt",
+  "cmd": "set interfaces ge-0/0/3 unit 0 family inet address 10.3.1.2/24 vrrp-group 3 preempt",
+  "desc": "HA — Enable preemption to let a higher priority node preempt and claim Active status."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set interfaces ge-0/0/3 unit 0 family inet address 10.3.1.2/24 vrrp-group 3 track interfa…",
+  "cmd": "set interfaces ge-0/0/3 unit 0 family inet address 10.3.1.2/24 vrrp-group 3 track interface ge-0/0/0 priority-cost 20",
+  "desc": "HA — Track upstream interface ge-0/0/0, decrementing local priority by cost 20 if it fails."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set interfaces ge-0/0/4 unit 0 family inet address 10.4.1.2/24 vrrp-group 4 virtual-addre…",
+  "cmd": "set interfaces ge-0/0/4 unit 0 family inet address 10.4.1.2/24 vrrp-group 4 virtual-address 10.4.1.1",
+  "desc": "HA — Configure shared active virtual gateway IP address 10.4.1.1 inside VRRP group 4 on ge-0/0/4."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set interfaces ge-0/0/4 unit 0 family inet address 10.4.1.2/24 vrrp-group 4 priority 110",
+  "cmd": "set interfaces ge-0/0/4 unit 0 family inet address 10.4.1.2/24 vrrp-group 4 priority 110",
+  "desc": "HA — Set router local VRRP group priority priority 110 (default 100, highest wins) to control master election."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set interfaces ge-0/0/4 unit 0 family inet address 10.4.1.2/24 vrrp-group 4 preempt",
+  "cmd": "set interfaces ge-0/0/4 unit 0 family inet address 10.4.1.2/24 vrrp-group 4 preempt",
+  "desc": "HA — Enable preemption to let a higher priority node preempt and claim Active status."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set interfaces ge-0/0/4 unit 0 family inet address 10.4.1.2/24 vrrp-group 4 track interfa…",
+  "cmd": "set interfaces ge-0/0/4 unit 0 family inet address 10.4.1.2/24 vrrp-group 4 track interface ge-0/0/0 priority-cost 20",
+  "desc": "HA — Track upstream interface ge-0/0/0, decrementing local priority by cost 20 if it fails."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set interfaces ge-0/0/5 unit 0 family inet address 10.5.1.2/24 vrrp-group 5 virtual-addre…",
+  "cmd": "set interfaces ge-0/0/5 unit 0 family inet address 10.5.1.2/24 vrrp-group 5 virtual-address 10.5.1.1",
+  "desc": "HA — Configure shared active virtual gateway IP address 10.5.1.1 inside VRRP group 5 on ge-0/0/5."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set interfaces ge-0/0/5 unit 0 family inet address 10.5.1.2/24 vrrp-group 5 priority 90",
+  "cmd": "set interfaces ge-0/0/5 unit 0 family inet address 10.5.1.2/24 vrrp-group 5 priority 90",
+  "desc": "HA — Set router local VRRP group priority priority 90 (default 100, highest wins) to control master election."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set interfaces ge-0/0/5 unit 0 family inet address 10.5.1.2/24 vrrp-group 5 preempt",
+  "cmd": "set interfaces ge-0/0/5 unit 0 family inet address 10.5.1.2/24 vrrp-group 5 preempt",
+  "desc": "HA — Enable preemption to let a higher priority node preempt and claim Active status."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set interfaces ge-0/0/5 unit 0 family inet address 10.5.1.2/24 vrrp-group 5 track interfa…",
+  "cmd": "set interfaces ge-0/0/5 unit 0 family inet address 10.5.1.2/24 vrrp-group 5 track interface ge-0/0/0 priority-cost 20",
+  "desc": "HA — Track upstream interface ge-0/0/0, decrementing local priority by cost 20 if it fails."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set interfaces ge-0/0/6 unit 0 family inet address 10.6.1.2/24 vrrp-group 6 virtual-addre…",
+  "cmd": "set interfaces ge-0/0/6 unit 0 family inet address 10.6.1.2/24 vrrp-group 6 virtual-address 10.6.1.1",
+  "desc": "HA — Configure shared active virtual gateway IP address 10.6.1.1 inside VRRP group 6 on ge-0/0/6."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set interfaces ge-0/0/6 unit 0 family inet address 10.6.1.2/24 vrrp-group 6 priority 110",
+  "cmd": "set interfaces ge-0/0/6 unit 0 family inet address 10.6.1.2/24 vrrp-group 6 priority 110",
+  "desc": "HA — Set router local VRRP group priority priority 110 (default 100, highest wins) to control master election."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set interfaces ge-0/0/6 unit 0 family inet address 10.6.1.2/24 vrrp-group 6 preempt",
+  "cmd": "set interfaces ge-0/0/6 unit 0 family inet address 10.6.1.2/24 vrrp-group 6 preempt",
+  "desc": "HA — Enable preemption to let a higher priority node preempt and claim Active status."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set interfaces ge-0/0/6 unit 0 family inet address 10.6.1.2/24 vrrp-group 6 track interfa…",
+  "cmd": "set interfaces ge-0/0/6 unit 0 family inet address 10.6.1.2/24 vrrp-group 6 track interface ge-0/0/0 priority-cost 20",
+  "desc": "HA — Track upstream interface ge-0/0/0, decrementing local priority by cost 20 if it fails."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set interfaces ge-0/0/7 unit 0 family inet address 10.7.1.2/24 vrrp-group 7 virtual-addre…",
+  "cmd": "set interfaces ge-0/0/7 unit 0 family inet address 10.7.1.2/24 vrrp-group 7 virtual-address 10.7.1.1",
+  "desc": "HA — Configure shared active virtual gateway IP address 10.7.1.1 inside VRRP group 7 on ge-0/0/7."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set interfaces ge-0/0/7 unit 0 family inet address 10.7.1.2/24 vrrp-group 7 priority 90",
+  "cmd": "set interfaces ge-0/0/7 unit 0 family inet address 10.7.1.2/24 vrrp-group 7 priority 90",
+  "desc": "HA — Set router local VRRP group priority priority 90 (default 100, highest wins) to control master election."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set interfaces ge-0/0/7 unit 0 family inet address 10.7.1.2/24 vrrp-group 7 preempt",
+  "cmd": "set interfaces ge-0/0/7 unit 0 family inet address 10.7.1.2/24 vrrp-group 7 preempt",
+  "desc": "HA — Enable preemption to let a higher priority node preempt and claim Active status."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set interfaces ge-0/0/7 unit 0 family inet address 10.7.1.2/24 vrrp-group 7 track interfa…",
+  "cmd": "set interfaces ge-0/0/7 unit 0 family inet address 10.7.1.2/24 vrrp-group 7 track interface ge-0/0/0 priority-cost 20",
+  "desc": "HA — Track upstream interface ge-0/0/0, decrementing local priority by cost 20 if it fails."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set interfaces ge-0/0/8 unit 0 family inet address 10.8.1.2/24 vrrp-group 8 virtual-addre…",
+  "cmd": "set interfaces ge-0/0/8 unit 0 family inet address 10.8.1.2/24 vrrp-group 8 virtual-address 10.8.1.1",
+  "desc": "HA — Configure shared active virtual gateway IP address 10.8.1.1 inside VRRP group 8 on ge-0/0/8."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set interfaces ge-0/0/8 unit 0 family inet address 10.8.1.2/24 vrrp-group 8 priority 110",
+  "cmd": "set interfaces ge-0/0/8 unit 0 family inet address 10.8.1.2/24 vrrp-group 8 priority 110",
+  "desc": "HA — Set router local VRRP group priority priority 110 (default 100, highest wins) to control master election."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set interfaces ge-0/0/8 unit 0 family inet address 10.8.1.2/24 vrrp-group 8 preempt",
+  "cmd": "set interfaces ge-0/0/8 unit 0 family inet address 10.8.1.2/24 vrrp-group 8 preempt",
+  "desc": "HA — Enable preemption to let a higher priority node preempt and claim Active status."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set interfaces ge-0/0/8 unit 0 family inet address 10.8.1.2/24 vrrp-group 8 track interfa…",
+  "cmd": "set interfaces ge-0/0/8 unit 0 family inet address 10.8.1.2/24 vrrp-group 8 track interface ge-0/0/0 priority-cost 20",
+  "desc": "HA — Track upstream interface ge-0/0/0, decrementing local priority by cost 20 if it fails."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set interfaces ge-0/0/9 unit 0 family inet address 10.9.1.2/24 vrrp-group 9 virtual-addre…",
+  "cmd": "set interfaces ge-0/0/9 unit 0 family inet address 10.9.1.2/24 vrrp-group 9 virtual-address 10.9.1.1",
+  "desc": "HA — Configure shared active virtual gateway IP address 10.9.1.1 inside VRRP group 9 on ge-0/0/9."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set interfaces ge-0/0/9 unit 0 family inet address 10.9.1.2/24 vrrp-group 9 priority 90",
+  "cmd": "set interfaces ge-0/0/9 unit 0 family inet address 10.9.1.2/24 vrrp-group 9 priority 90",
+  "desc": "HA — Set router local VRRP group priority priority 90 (default 100, highest wins) to control master election."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set interfaces ge-0/0/9 unit 0 family inet address 10.9.1.2/24 vrrp-group 9 preempt",
+  "cmd": "set interfaces ge-0/0/9 unit 0 family inet address 10.9.1.2/24 vrrp-group 9 preempt",
+  "desc": "HA — Enable preemption to let a higher priority node preempt and claim Active status."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set interfaces ge-0/0/9 unit 0 family inet address 10.9.1.2/24 vrrp-group 9 track interfa…",
+  "cmd": "set interfaces ge-0/0/9 unit 0 family inet address 10.9.1.2/24 vrrp-group 9 track interface ge-0/0/0 priority-cost 20",
+  "desc": "HA — Track upstream interface ge-0/0/0, decrementing local priority by cost 20 if it fails."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set interfaces ge-0/0/10 unit 0 family inet address 10.10.1.2/24 vrrp-group 10 virtual-ad…",
+  "cmd": "set interfaces ge-0/0/10 unit 0 family inet address 10.10.1.2/24 vrrp-group 10 virtual-address 10.10.1.1",
+  "desc": "HA — Configure shared active virtual gateway IP address 10.10.1.1 inside VRRP group 10 on ge-0/0/10."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set interfaces ge-0/0/10 unit 0 family inet address 10.10.1.2/24 vrrp-group 10 priority 1…",
+  "cmd": "set interfaces ge-0/0/10 unit 0 family inet address 10.10.1.2/24 vrrp-group 10 priority 110",
+  "desc": "HA — Set router local VRRP group priority priority 110 (default 100, highest wins) to control master election."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set interfaces ge-0/0/10 unit 0 family inet address 10.10.1.2/24 vrrp-group 10 preempt",
+  "cmd": "set interfaces ge-0/0/10 unit 0 family inet address 10.10.1.2/24 vrrp-group 10 preempt",
+  "desc": "HA — Enable preemption to let a higher priority node preempt and claim Active status."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set interfaces ge-0/0/10 unit 0 family inet address 10.10.1.2/24 vrrp-group 10 track inte…",
+  "cmd": "set interfaces ge-0/0/10 unit 0 family inet address 10.10.1.2/24 vrrp-group 10 track interface ge-0/0/0 priority-cost 20",
+  "desc": "HA — Track upstream interface ge-0/0/0, decrementing local priority by cost 20 if it fails."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set interfaces ge-0/0/11 unit 0 family inet address 10.11.1.2/24 vrrp-group 11 virtual-ad…",
+  "cmd": "set interfaces ge-0/0/11 unit 0 family inet address 10.11.1.2/24 vrrp-group 11 virtual-address 10.11.1.1",
+  "desc": "HA — Configure shared active virtual gateway IP address 10.11.1.1 inside VRRP group 11 on ge-0/0/11."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set interfaces ge-0/0/11 unit 0 family inet address 10.11.1.2/24 vrrp-group 11 priority 90",
+  "cmd": "set interfaces ge-0/0/11 unit 0 family inet address 10.11.1.2/24 vrrp-group 11 priority 90",
+  "desc": "HA — Set router local VRRP group priority priority 90 (default 100, highest wins) to control master election."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set interfaces ge-0/0/11 unit 0 family inet address 10.11.1.2/24 vrrp-group 11 preempt",
+  "cmd": "set interfaces ge-0/0/11 unit 0 family inet address 10.11.1.2/24 vrrp-group 11 preempt",
+  "desc": "HA — Enable preemption to let a higher priority node preempt and claim Active status."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set interfaces ge-0/0/11 unit 0 family inet address 10.11.1.2/24 vrrp-group 11 track inte…",
+  "cmd": "set interfaces ge-0/0/11 unit 0 family inet address 10.11.1.2/24 vrrp-group 11 track interface ge-0/0/0 priority-cost 20",
+  "desc": "HA — Track upstream interface ge-0/0/0, decrementing local priority by cost 20 if it fails."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set interfaces ge-0/0/12 unit 0 family inet address 10.12.1.2/24 vrrp-group 12 virtual-ad…",
+  "cmd": "set interfaces ge-0/0/12 unit 0 family inet address 10.12.1.2/24 vrrp-group 12 virtual-address 10.12.1.1",
+  "desc": "HA — Configure shared active virtual gateway IP address 10.12.1.1 inside VRRP group 12 on ge-0/0/12."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set interfaces ge-0/0/12 unit 0 family inet address 10.12.1.2/24 vrrp-group 12 priority 1…",
+  "cmd": "set interfaces ge-0/0/12 unit 0 family inet address 10.12.1.2/24 vrrp-group 12 priority 110",
+  "desc": "HA — Set router local VRRP group priority priority 110 (default 100, highest wins) to control master election."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set interfaces ge-0/0/12 unit 0 family inet address 10.12.1.2/24 vrrp-group 12 preempt",
+  "cmd": "set interfaces ge-0/0/12 unit 0 family inet address 10.12.1.2/24 vrrp-group 12 preempt",
+  "desc": "HA — Enable preemption to let a higher priority node preempt and claim Active status."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set interfaces ge-0/0/12 unit 0 family inet address 10.12.1.2/24 vrrp-group 12 track inte…",
+  "cmd": "set interfaces ge-0/0/12 unit 0 family inet address 10.12.1.2/24 vrrp-group 12 track interface ge-0/0/0 priority-cost 20",
+  "desc": "HA — Track upstream interface ge-0/0/0, decrementing local priority by cost 20 if it fails."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "Troubleshooting",
+  "title": "show virtual-chassis status",
+  "cmd": "show virtual-chassis status",
+  "desc": "Troubleshooting — Display stacking operational status of members, showing roles (Master, Backup, Line), serials, and priorities."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "Interfaces",
+  "title": "show virtual-chassis vc-port",
+  "cmd": "show virtual-chassis vc-port",
+  "desc": "Interfaces — Display operational state and speeds of active Virtual Chassis stacking interface ports."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "Interfaces",
+  "title": "request virtual-chassis vc-port set pic-slot 0 port 0 member 0",
+  "cmd": "request virtual-chassis vc-port set pic-slot 0 port 0 member 0",
+  "desc": "Interfaces — Convert standard uplink network port to a dedicated Virtual Chassis stacking port (VCP) on member 0."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set virtual-chassis member 0 role master-delegate",
+  "cmd": "set virtual-chassis member 0 role master-delegate",
+  "desc": "HA — Configure member chassis slot 0 role permissions eligibility for master election."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set virtual-chassis member 0 priority 255",
+  "cmd": "set virtual-chassis member 0 priority 255",
+  "desc": "HA — Force supervisor priority 255 to secure supervisor mastership status for member 0."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "Interfaces",
+  "title": "request virtual-chassis vc-port set pic-slot 0 port 1 member 0",
+  "cmd": "request virtual-chassis vc-port set pic-slot 0 port 1 member 0",
+  "desc": "Interfaces — Convert standard uplink network port to a dedicated Virtual Chassis stacking port (VCP) on member 0."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "Interfaces",
+  "title": "request virtual-chassis vc-port set pic-slot 1 port 0 member 1",
+  "cmd": "request virtual-chassis vc-port set pic-slot 1 port 0 member 1",
+  "desc": "Interfaces — Convert standard uplink network port to a dedicated Virtual Chassis stacking port (VCP) on member 1."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set virtual-chassis member 1 role master-delegate",
+  "cmd": "set virtual-chassis member 1 role master-delegate",
+  "desc": "HA — Configure member chassis slot 1 role permissions eligibility for master election."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set virtual-chassis member 1 priority 255",
+  "cmd": "set virtual-chassis member 1 priority 255",
+  "desc": "HA — Force supervisor priority 255 to secure supervisor mastership status for member 1."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "Interfaces",
+  "title": "request virtual-chassis vc-port set pic-slot 1 port 1 member 1",
+  "cmd": "request virtual-chassis vc-port set pic-slot 1 port 1 member 1",
+  "desc": "Interfaces — Convert standard uplink network port to a dedicated Virtual Chassis stacking port (VCP) on member 1."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "Interfaces",
+  "title": "request virtual-chassis vc-port set pic-slot 2 port 0 member 2",
+  "cmd": "request virtual-chassis vc-port set pic-slot 2 port 0 member 2",
+  "desc": "Interfaces — Convert standard uplink network port to a dedicated Virtual Chassis stacking port (VCP) on member 2."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set virtual-chassis member 2 role master-delegate",
+  "cmd": "set virtual-chassis member 2 role master-delegate",
+  "desc": "HA — Configure member chassis slot 2 role permissions eligibility for master election."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set virtual-chassis member 2 priority 255",
+  "cmd": "set virtual-chassis member 2 priority 255",
+  "desc": "HA — Force supervisor priority 255 to secure supervisor mastership status for member 2."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "Interfaces",
+  "title": "request virtual-chassis vc-port set pic-slot 2 port 1 member 2",
+  "cmd": "request virtual-chassis vc-port set pic-slot 2 port 1 member 2",
+  "desc": "Interfaces — Convert standard uplink network port to a dedicated Virtual Chassis stacking port (VCP) on member 2."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "Interfaces",
+  "title": "request virtual-chassis vc-port set pic-slot 3 port 0 member 3",
+  "cmd": "request virtual-chassis vc-port set pic-slot 3 port 0 member 3",
+  "desc": "Interfaces — Convert standard uplink network port to a dedicated Virtual Chassis stacking port (VCP) on member 3."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set virtual-chassis member 3 role master-delegate",
+  "cmd": "set virtual-chassis member 3 role master-delegate",
+  "desc": "HA — Configure member chassis slot 3 role permissions eligibility for master election."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "HA",
+  "title": "set virtual-chassis member 3 priority 255",
+  "cmd": "set virtual-chassis member 3 priority 255",
+  "desc": "HA — Force supervisor priority 255 to secure supervisor mastership status for member 3."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "Interfaces",
+  "title": "request virtual-chassis vc-port set pic-slot 3 port 1 member 3",
+  "cmd": "request virtual-chassis vc-port set pic-slot 3 port 1 member 3",
+  "desc": "Interfaces — Convert standard uplink network port to a dedicated Virtual Chassis stacking port (VCP) on member 3."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set vlans Vlan-ID-10 vlan-id 10",
+  "cmd": "set vlans Vlan-ID-10 vlan-id 10",
+  "desc": "VLAN — Create standard L2 switching VLAN and assign tag identifier 10."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set vlans Vlan-ID-20 vlan-id 20",
+  "cmd": "set vlans Vlan-ID-20 vlan-id 20",
+  "desc": "VLAN — Create standard L2 switching VLAN and assign tag identifier 20."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set vlans Vlan-ID-30 vlan-id 30",
+  "cmd": "set vlans Vlan-ID-30 vlan-id 30",
+  "desc": "VLAN — Create standard L2 switching VLAN and assign tag identifier 30."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set vlans Vlan-ID-40 vlan-id 40",
+  "cmd": "set vlans Vlan-ID-40 vlan-id 40",
+  "desc": "VLAN — Create standard L2 switching VLAN and assign tag identifier 40."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set vlans Vlan-ID-50 vlan-id 50",
+  "cmd": "set vlans Vlan-ID-50 vlan-id 50",
+  "desc": "VLAN — Create standard L2 switching VLAN and assign tag identifier 50."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set vlans Vlan-ID-100 vlan-id 100",
+  "cmd": "set vlans Vlan-ID-100 vlan-id 100",
+  "desc": "VLAN — Create standard L2 switching VLAN and assign tag identifier 100."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set vlans Vlan-ID-200 vlan-id 200",
+  "cmd": "set vlans Vlan-ID-200 vlan-id 200",
+  "desc": "VLAN — Create standard L2 switching VLAN and assign tag identifier 200."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set vlans Vlan-ID-300 vlan-id 300",
+  "cmd": "set vlans Vlan-ID-300 vlan-id 300",
+  "desc": "VLAN — Create standard L2 switching VLAN and assign tag identifier 300."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set vlans Vlan-ID-400 vlan-id 400",
+  "cmd": "set vlans Vlan-ID-400 vlan-id 400",
+  "desc": "VLAN — Create standard L2 switching VLAN and assign tag identifier 400."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set vlans Vlan-ID-500 vlan-id 500",
+  "cmd": "set vlans Vlan-ID-500 vlan-id 500",
+  "desc": "VLAN — Create standard L2 switching VLAN and assign tag identifier 500."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/1 unit 0 family ethernet-switching port-mode access",
+  "cmd": "set interfaces ge-0/0/1 unit 0 family ethernet-switching port-mode access",
+  "desc": "VLAN — Set interface ge-0/0/1 switching port-mode to access carrying single native untagged VLAN."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/1 unit 0 family ethernet-switching vlan members Vlan-ID-10",
+  "cmd": "set interfaces ge-0/0/1 unit 0 family ethernet-switching vlan members Vlan-ID-10",
+  "desc": "VLAN — Bind access port ge-0/0/1 to become member of access VLAN Vlan-ID-10."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/1 unit 0 family ethernet-switching port-mode trunk",
+  "cmd": "set interfaces ge-0/0/1 unit 0 family ethernet-switching port-mode trunk",
+  "desc": "VLAN — Set port-mode to trunk on switching logical interface ge-0/0/1 to multiplex multiple VLANs."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/1 unit 0 family ethernet-switching vlan members all",
+  "cmd": "set interfaces ge-0/0/1 unit 0 family ethernet-switching vlan members all",
+  "desc": "VLAN — Allow all configured system trunk VLANs to pass through interface ge-0/0/1."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/1 unit 0 family ethernet-switching native-vlan-id 1",
+  "cmd": "set interfaces ge-0/0/1 unit 0 family ethernet-switching native-vlan-id 1",
+  "desc": "VLAN — Configure native VLAN ID 1 to carry untagged frames passing trunk interface ge-0/0/1."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/2 unit 0 family ethernet-switching port-mode access",
+  "cmd": "set interfaces ge-0/0/2 unit 0 family ethernet-switching port-mode access",
+  "desc": "VLAN — Set interface ge-0/0/2 switching port-mode to access carrying single native untagged VLAN."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/2 unit 0 family ethernet-switching vlan members Vlan-ID-10",
+  "cmd": "set interfaces ge-0/0/2 unit 0 family ethernet-switching vlan members Vlan-ID-10",
+  "desc": "VLAN — Bind access port ge-0/0/2 to become member of access VLAN Vlan-ID-10."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/2 unit 0 family ethernet-switching port-mode trunk",
+  "cmd": "set interfaces ge-0/0/2 unit 0 family ethernet-switching port-mode trunk",
+  "desc": "VLAN — Set port-mode to trunk on switching logical interface ge-0/0/2 to multiplex multiple VLANs."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/2 unit 0 family ethernet-switching vlan members all",
+  "cmd": "set interfaces ge-0/0/2 unit 0 family ethernet-switching vlan members all",
+  "desc": "VLAN — Allow all configured system trunk VLANs to pass through interface ge-0/0/2."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/2 unit 0 family ethernet-switching native-vlan-id 1",
+  "cmd": "set interfaces ge-0/0/2 unit 0 family ethernet-switching native-vlan-id 1",
+  "desc": "VLAN — Configure native VLAN ID 1 to carry untagged frames passing trunk interface ge-0/0/2."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/3 unit 0 family ethernet-switching port-mode access",
+  "cmd": "set interfaces ge-0/0/3 unit 0 family ethernet-switching port-mode access",
+  "desc": "VLAN — Set interface ge-0/0/3 switching port-mode to access carrying single native untagged VLAN."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/3 unit 0 family ethernet-switching vlan members Vlan-ID-10",
+  "cmd": "set interfaces ge-0/0/3 unit 0 family ethernet-switching vlan members Vlan-ID-10",
+  "desc": "VLAN — Bind access port ge-0/0/3 to become member of access VLAN Vlan-ID-10."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/3 unit 0 family ethernet-switching port-mode trunk",
+  "cmd": "set interfaces ge-0/0/3 unit 0 family ethernet-switching port-mode trunk",
+  "desc": "VLAN — Set port-mode to trunk on switching logical interface ge-0/0/3 to multiplex multiple VLANs."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/3 unit 0 family ethernet-switching vlan members all",
+  "cmd": "set interfaces ge-0/0/3 unit 0 family ethernet-switching vlan members all",
+  "desc": "VLAN — Allow all configured system trunk VLANs to pass through interface ge-0/0/3."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/3 unit 0 family ethernet-switching native-vlan-id 1",
+  "cmd": "set interfaces ge-0/0/3 unit 0 family ethernet-switching native-vlan-id 1",
+  "desc": "VLAN — Configure native VLAN ID 1 to carry untagged frames passing trunk interface ge-0/0/3."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/4 unit 0 family ethernet-switching port-mode access",
+  "cmd": "set interfaces ge-0/0/4 unit 0 family ethernet-switching port-mode access",
+  "desc": "VLAN — Set interface ge-0/0/4 switching port-mode to access carrying single native untagged VLAN."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/4 unit 0 family ethernet-switching vlan members Vlan-ID-10",
+  "cmd": "set interfaces ge-0/0/4 unit 0 family ethernet-switching vlan members Vlan-ID-10",
+  "desc": "VLAN — Bind access port ge-0/0/4 to become member of access VLAN Vlan-ID-10."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/4 unit 0 family ethernet-switching port-mode trunk",
+  "cmd": "set interfaces ge-0/0/4 unit 0 family ethernet-switching port-mode trunk",
+  "desc": "VLAN — Set port-mode to trunk on switching logical interface ge-0/0/4 to multiplex multiple VLANs."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/4 unit 0 family ethernet-switching vlan members all",
+  "cmd": "set interfaces ge-0/0/4 unit 0 family ethernet-switching vlan members all",
+  "desc": "VLAN — Allow all configured system trunk VLANs to pass through interface ge-0/0/4."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/4 unit 0 family ethernet-switching native-vlan-id 1",
+  "cmd": "set interfaces ge-0/0/4 unit 0 family ethernet-switching native-vlan-id 1",
+  "desc": "VLAN — Configure native VLAN ID 1 to carry untagged frames passing trunk interface ge-0/0/4."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/5 unit 0 family ethernet-switching port-mode access",
+  "cmd": "set interfaces ge-0/0/5 unit 0 family ethernet-switching port-mode access",
+  "desc": "VLAN — Set interface ge-0/0/5 switching port-mode to access carrying single native untagged VLAN."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/5 unit 0 family ethernet-switching vlan members Vlan-ID-10",
+  "cmd": "set interfaces ge-0/0/5 unit 0 family ethernet-switching vlan members Vlan-ID-10",
+  "desc": "VLAN — Bind access port ge-0/0/5 to become member of access VLAN Vlan-ID-10."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/5 unit 0 family ethernet-switching port-mode trunk",
+  "cmd": "set interfaces ge-0/0/5 unit 0 family ethernet-switching port-mode trunk",
+  "desc": "VLAN — Set port-mode to trunk on switching logical interface ge-0/0/5 to multiplex multiple VLANs."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/5 unit 0 family ethernet-switching vlan members all",
+  "cmd": "set interfaces ge-0/0/5 unit 0 family ethernet-switching vlan members all",
+  "desc": "VLAN — Allow all configured system trunk VLANs to pass through interface ge-0/0/5."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/5 unit 0 family ethernet-switching native-vlan-id 1",
+  "cmd": "set interfaces ge-0/0/5 unit 0 family ethernet-switching native-vlan-id 1",
+  "desc": "VLAN — Configure native VLAN ID 1 to carry untagged frames passing trunk interface ge-0/0/5."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/6 unit 0 family ethernet-switching port-mode access",
+  "cmd": "set interfaces ge-0/0/6 unit 0 family ethernet-switching port-mode access",
+  "desc": "VLAN — Set interface ge-0/0/6 switching port-mode to access carrying single native untagged VLAN."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/6 unit 0 family ethernet-switching vlan members Vlan-ID-10",
+  "cmd": "set interfaces ge-0/0/6 unit 0 family ethernet-switching vlan members Vlan-ID-10",
+  "desc": "VLAN — Bind access port ge-0/0/6 to become member of access VLAN Vlan-ID-10."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/6 unit 0 family ethernet-switching port-mode trunk",
+  "cmd": "set interfaces ge-0/0/6 unit 0 family ethernet-switching port-mode trunk",
+  "desc": "VLAN — Set port-mode to trunk on switching logical interface ge-0/0/6 to multiplex multiple VLANs."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/6 unit 0 family ethernet-switching vlan members all",
+  "cmd": "set interfaces ge-0/0/6 unit 0 family ethernet-switching vlan members all",
+  "desc": "VLAN — Allow all configured system trunk VLANs to pass through interface ge-0/0/6."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/6 unit 0 family ethernet-switching native-vlan-id 1",
+  "cmd": "set interfaces ge-0/0/6 unit 0 family ethernet-switching native-vlan-id 1",
+  "desc": "VLAN — Configure native VLAN ID 1 to carry untagged frames passing trunk interface ge-0/0/6."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/7 unit 0 family ethernet-switching port-mode access",
+  "cmd": "set interfaces ge-0/0/7 unit 0 family ethernet-switching port-mode access",
+  "desc": "VLAN — Set interface ge-0/0/7 switching port-mode to access carrying single native untagged VLAN."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/7 unit 0 family ethernet-switching vlan members Vlan-ID-10",
+  "cmd": "set interfaces ge-0/0/7 unit 0 family ethernet-switching vlan members Vlan-ID-10",
+  "desc": "VLAN — Bind access port ge-0/0/7 to become member of access VLAN Vlan-ID-10."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/7 unit 0 family ethernet-switching port-mode trunk",
+  "cmd": "set interfaces ge-0/0/7 unit 0 family ethernet-switching port-mode trunk",
+  "desc": "VLAN — Set port-mode to trunk on switching logical interface ge-0/0/7 to multiplex multiple VLANs."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/7 unit 0 family ethernet-switching vlan members all",
+  "cmd": "set interfaces ge-0/0/7 unit 0 family ethernet-switching vlan members all",
+  "desc": "VLAN — Allow all configured system trunk VLANs to pass through interface ge-0/0/7."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/7 unit 0 family ethernet-switching native-vlan-id 1",
+  "cmd": "set interfaces ge-0/0/7 unit 0 family ethernet-switching native-vlan-id 1",
+  "desc": "VLAN — Configure native VLAN ID 1 to carry untagged frames passing trunk interface ge-0/0/7."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/8 unit 0 family ethernet-switching port-mode access",
+  "cmd": "set interfaces ge-0/0/8 unit 0 family ethernet-switching port-mode access",
+  "desc": "VLAN — Set interface ge-0/0/8 switching port-mode to access carrying single native untagged VLAN."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/8 unit 0 family ethernet-switching vlan members Vlan-ID-10",
+  "cmd": "set interfaces ge-0/0/8 unit 0 family ethernet-switching vlan members Vlan-ID-10",
+  "desc": "VLAN — Bind access port ge-0/0/8 to become member of access VLAN Vlan-ID-10."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/8 unit 0 family ethernet-switching port-mode trunk",
+  "cmd": "set interfaces ge-0/0/8 unit 0 family ethernet-switching port-mode trunk",
+  "desc": "VLAN — Set port-mode to trunk on switching logical interface ge-0/0/8 to multiplex multiple VLANs."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/8 unit 0 family ethernet-switching vlan members all",
+  "cmd": "set interfaces ge-0/0/8 unit 0 family ethernet-switching vlan members all",
+  "desc": "VLAN — Allow all configured system trunk VLANs to pass through interface ge-0/0/8."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/8 unit 0 family ethernet-switching native-vlan-id 1",
+  "cmd": "set interfaces ge-0/0/8 unit 0 family ethernet-switching native-vlan-id 1",
+  "desc": "VLAN — Configure native VLAN ID 1 to carry untagged frames passing trunk interface ge-0/0/8."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/9 unit 0 family ethernet-switching port-mode access",
+  "cmd": "set interfaces ge-0/0/9 unit 0 family ethernet-switching port-mode access",
+  "desc": "VLAN — Set interface ge-0/0/9 switching port-mode to access carrying single native untagged VLAN."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/9 unit 0 family ethernet-switching vlan members Vlan-ID-10",
+  "cmd": "set interfaces ge-0/0/9 unit 0 family ethernet-switching vlan members Vlan-ID-10",
+  "desc": "VLAN — Bind access port ge-0/0/9 to become member of access VLAN Vlan-ID-10."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/9 unit 0 family ethernet-switching port-mode trunk",
+  "cmd": "set interfaces ge-0/0/9 unit 0 family ethernet-switching port-mode trunk",
+  "desc": "VLAN — Set port-mode to trunk on switching logical interface ge-0/0/9 to multiplex multiple VLANs."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/9 unit 0 family ethernet-switching vlan members all",
+  "cmd": "set interfaces ge-0/0/9 unit 0 family ethernet-switching vlan members all",
+  "desc": "VLAN — Allow all configured system trunk VLANs to pass through interface ge-0/0/9."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/9 unit 0 family ethernet-switching native-vlan-id 1",
+  "cmd": "set interfaces ge-0/0/9 unit 0 family ethernet-switching native-vlan-id 1",
+  "desc": "VLAN — Configure native VLAN ID 1 to carry untagged frames passing trunk interface ge-0/0/9."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/10 unit 0 family ethernet-switching port-mode access",
+  "cmd": "set interfaces ge-0/0/10 unit 0 family ethernet-switching port-mode access",
+  "desc": "VLAN — Set interface ge-0/0/10 switching port-mode to access carrying single native untagged VLAN."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/10 unit 0 family ethernet-switching vlan members Vlan-ID-10",
+  "cmd": "set interfaces ge-0/0/10 unit 0 family ethernet-switching vlan members Vlan-ID-10",
+  "desc": "VLAN — Bind access port ge-0/0/10 to become member of access VLAN Vlan-ID-10."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/10 unit 0 family ethernet-switching port-mode trunk",
+  "cmd": "set interfaces ge-0/0/10 unit 0 family ethernet-switching port-mode trunk",
+  "desc": "VLAN — Set port-mode to trunk on switching logical interface ge-0/0/10 to multiplex multiple VLANs."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/10 unit 0 family ethernet-switching vlan members all",
+  "cmd": "set interfaces ge-0/0/10 unit 0 family ethernet-switching vlan members all",
+  "desc": "VLAN — Allow all configured system trunk VLANs to pass through interface ge-0/0/10."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/10 unit 0 family ethernet-switching native-vlan-id 1",
+  "cmd": "set interfaces ge-0/0/10 unit 0 family ethernet-switching native-vlan-id 1",
+  "desc": "VLAN — Configure native VLAN ID 1 to carry untagged frames passing trunk interface ge-0/0/10."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/11 unit 0 family ethernet-switching port-mode access",
+  "cmd": "set interfaces ge-0/0/11 unit 0 family ethernet-switching port-mode access",
+  "desc": "VLAN — Set interface ge-0/0/11 switching port-mode to access carrying single native untagged VLAN."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/11 unit 0 family ethernet-switching vlan members Vlan-ID-10",
+  "cmd": "set interfaces ge-0/0/11 unit 0 family ethernet-switching vlan members Vlan-ID-10",
+  "desc": "VLAN — Bind access port ge-0/0/11 to become member of access VLAN Vlan-ID-10."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/11 unit 0 family ethernet-switching port-mode trunk",
+  "cmd": "set interfaces ge-0/0/11 unit 0 family ethernet-switching port-mode trunk",
+  "desc": "VLAN — Set port-mode to trunk on switching logical interface ge-0/0/11 to multiplex multiple VLANs."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/11 unit 0 family ethernet-switching vlan members all",
+  "cmd": "set interfaces ge-0/0/11 unit 0 family ethernet-switching vlan members all",
+  "desc": "VLAN — Allow all configured system trunk VLANs to pass through interface ge-0/0/11."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/11 unit 0 family ethernet-switching native-vlan-id 1",
+  "cmd": "set interfaces ge-0/0/11 unit 0 family ethernet-switching native-vlan-id 1",
+  "desc": "VLAN — Configure native VLAN ID 1 to carry untagged frames passing trunk interface ge-0/0/11."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/12 unit 0 family ethernet-switching port-mode access",
+  "cmd": "set interfaces ge-0/0/12 unit 0 family ethernet-switching port-mode access",
+  "desc": "VLAN — Set interface ge-0/0/12 switching port-mode to access carrying single native untagged VLAN."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/12 unit 0 family ethernet-switching vlan members Vlan-ID-10",
+  "cmd": "set interfaces ge-0/0/12 unit 0 family ethernet-switching vlan members Vlan-ID-10",
+  "desc": "VLAN — Bind access port ge-0/0/12 to become member of access VLAN Vlan-ID-10."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/12 unit 0 family ethernet-switching port-mode trunk",
+  "cmd": "set interfaces ge-0/0/12 unit 0 family ethernet-switching port-mode trunk",
+  "desc": "VLAN — Set port-mode to trunk on switching logical interface ge-0/0/12 to multiplex multiple VLANs."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/12 unit 0 family ethernet-switching vlan members all",
+  "cmd": "set interfaces ge-0/0/12 unit 0 family ethernet-switching vlan members all",
+  "desc": "VLAN — Allow all configured system trunk VLANs to pass through interface ge-0/0/12."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "VLAN",
+  "title": "set interfaces ge-0/0/12 unit 0 family ethernet-switching native-vlan-id 1",
+  "cmd": "set interfaces ge-0/0/12 unit 0 family ethernet-switching native-vlan-id 1",
+  "desc": "VLAN — Configure native VLAN ID 1 to carry untagged frames passing trunk interface ge-0/0/12."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "ACL",
+  "title": "set policy-options prefix-list PL-ROUTES-1 192.168.10.0/24",
+  "cmd": "set policy-options prefix-list PL-ROUTES-1 192.168.10.0/24",
+  "desc": "ACL — Define prefix list PL-ROUTES-1 network block match destination 192.168.10.0/24."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set policy-options policy-statement EXPORT-BGP-POLICY-1 term Matchterm from prefix-list P…",
+  "cmd": "set policy-options policy-statement EXPORT-BGP-POLICY-1 term Matchterm from prefix-list PL-ROUTES-1",
+  "desc": "BGP — Define term filter matching networks matched inside prefix-list PL-ROUTES-1 inside EXPORT-BGP-POLICY-1."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set policy-options policy-statement EXPORT-BGP-POLICY-1 term Matchterm then local-prefere…",
+  "cmd": "set policy-options policy-statement EXPORT-BGP-POLICY-1 term Matchterm then local-preference 150",
+  "desc": "BGP — Adjust inbound BGP Local Preference metric attribute to 150 inside policy term Matchterm."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set policy-options policy-statement EXPORT-BGP-POLICY-1 term Matchterm then metric 50",
+  "cmd": "set policy-options policy-statement EXPORT-BGP-POLICY-1 term Matchterm then metric 50",
+  "desc": "BGP — Adjust route cost metric to 50 for advertisements matching term Matchterm."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set policy-options policy-statement EXPORT-BGP-POLICY-1 term Matchterm then accept",
+  "cmd": "set policy-options policy-statement EXPORT-BGP-POLICY-1 term Matchterm then accept",
+  "desc": "BGP — Accept routing entries matching filter criteria inside term Matchterm."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set protocols bgp group EBGP-Peers neighbor 10.255.1.1 import EXPORT-BGP-POLICY-1",
+  "cmd": "set protocols bgp group EBGP-Peers neighbor 10.255.1.1 import EXPORT-BGP-POLICY-1",
+  "desc": "BGP — Apply policy statement EXPORT-BGP-POLICY-1 as dynamic inbound import route filter on neighbor peer 10.255.1.1."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "ACL",
+  "title": "set policy-options prefix-list PL-ROUTES-2 192.168.20.0/24",
+  "cmd": "set policy-options prefix-list PL-ROUTES-2 192.168.20.0/24",
+  "desc": "ACL — Define prefix list PL-ROUTES-2 network block match destination 192.168.20.0/24."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set policy-options policy-statement EXPORT-BGP-POLICY-2 term Matchterm from prefix-list P…",
+  "cmd": "set policy-options policy-statement EXPORT-BGP-POLICY-2 term Matchterm from prefix-list PL-ROUTES-2",
+  "desc": "BGP — Define term filter matching networks matched inside prefix-list PL-ROUTES-2 inside EXPORT-BGP-POLICY-2."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set policy-options policy-statement EXPORT-BGP-POLICY-2 term Matchterm then local-prefere…",
+  "cmd": "set policy-options policy-statement EXPORT-BGP-POLICY-2 term Matchterm then local-preference 150",
+  "desc": "BGP — Adjust inbound BGP Local Preference metric attribute to 150 inside policy term Matchterm."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set policy-options policy-statement EXPORT-BGP-POLICY-2 term Matchterm then metric 50",
+  "cmd": "set policy-options policy-statement EXPORT-BGP-POLICY-2 term Matchterm then metric 50",
+  "desc": "BGP — Adjust route cost metric to 50 for advertisements matching term Matchterm."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set policy-options policy-statement EXPORT-BGP-POLICY-2 term Matchterm then accept",
+  "cmd": "set policy-options policy-statement EXPORT-BGP-POLICY-2 term Matchterm then accept",
+  "desc": "BGP — Accept routing entries matching filter criteria inside term Matchterm."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set protocols bgp group EBGP-Peers neighbor 10.255.2.1 import EXPORT-BGP-POLICY-2",
+  "cmd": "set protocols bgp group EBGP-Peers neighbor 10.255.2.1 import EXPORT-BGP-POLICY-2",
+  "desc": "BGP — Apply policy statement EXPORT-BGP-POLICY-2 as dynamic inbound import route filter on neighbor peer 10.255.2.1."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "ACL",
+  "title": "set policy-options prefix-list PL-ROUTES-3 192.168.30.0/24",
+  "cmd": "set policy-options prefix-list PL-ROUTES-3 192.168.30.0/24",
+  "desc": "ACL — Define prefix list PL-ROUTES-3 network block match destination 192.168.30.0/24."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set policy-options policy-statement EXPORT-BGP-POLICY-3 term Matchterm from prefix-list P…",
+  "cmd": "set policy-options policy-statement EXPORT-BGP-POLICY-3 term Matchterm from prefix-list PL-ROUTES-3",
+  "desc": "BGP — Define term filter matching networks matched inside prefix-list PL-ROUTES-3 inside EXPORT-BGP-POLICY-3."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set policy-options policy-statement EXPORT-BGP-POLICY-3 term Matchterm then local-prefere…",
+  "cmd": "set policy-options policy-statement EXPORT-BGP-POLICY-3 term Matchterm then local-preference 150",
+  "desc": "BGP — Adjust inbound BGP Local Preference metric attribute to 150 inside policy term Matchterm."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set policy-options policy-statement EXPORT-BGP-POLICY-3 term Matchterm then metric 50",
+  "cmd": "set policy-options policy-statement EXPORT-BGP-POLICY-3 term Matchterm then metric 50",
+  "desc": "BGP — Adjust route cost metric to 50 for advertisements matching term Matchterm."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set policy-options policy-statement EXPORT-BGP-POLICY-3 term Matchterm then accept",
+  "cmd": "set policy-options policy-statement EXPORT-BGP-POLICY-3 term Matchterm then accept",
+  "desc": "BGP — Accept routing entries matching filter criteria inside term Matchterm."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set protocols bgp group EBGP-Peers neighbor 10.255.3.1 import EXPORT-BGP-POLICY-3",
+  "cmd": "set protocols bgp group EBGP-Peers neighbor 10.255.3.1 import EXPORT-BGP-POLICY-3",
+  "desc": "BGP — Apply policy statement EXPORT-BGP-POLICY-3 as dynamic inbound import route filter on neighbor peer 10.255.3.1."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "ACL",
+  "title": "set policy-options prefix-list PL-ROUTES-4 192.168.40.0/24",
+  "cmd": "set policy-options prefix-list PL-ROUTES-4 192.168.40.0/24",
+  "desc": "ACL — Define prefix list PL-ROUTES-4 network block match destination 192.168.40.0/24."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set policy-options policy-statement EXPORT-BGP-POLICY-4 term Matchterm from prefix-list P…",
+  "cmd": "set policy-options policy-statement EXPORT-BGP-POLICY-4 term Matchterm from prefix-list PL-ROUTES-4",
+  "desc": "BGP — Define term filter matching networks matched inside prefix-list PL-ROUTES-4 inside EXPORT-BGP-POLICY-4."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set policy-options policy-statement EXPORT-BGP-POLICY-4 term Matchterm then local-prefere…",
+  "cmd": "set policy-options policy-statement EXPORT-BGP-POLICY-4 term Matchterm then local-preference 150",
+  "desc": "BGP — Adjust inbound BGP Local Preference metric attribute to 150 inside policy term Matchterm."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set policy-options policy-statement EXPORT-BGP-POLICY-4 term Matchterm then metric 50",
+  "cmd": "set policy-options policy-statement EXPORT-BGP-POLICY-4 term Matchterm then metric 50",
+  "desc": "BGP — Adjust route cost metric to 50 for advertisements matching term Matchterm."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set policy-options policy-statement EXPORT-BGP-POLICY-4 term Matchterm then accept",
+  "cmd": "set policy-options policy-statement EXPORT-BGP-POLICY-4 term Matchterm then accept",
+  "desc": "BGP — Accept routing entries matching filter criteria inside term Matchterm."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set protocols bgp group EBGP-Peers neighbor 10.255.4.1 import EXPORT-BGP-POLICY-4",
+  "cmd": "set protocols bgp group EBGP-Peers neighbor 10.255.4.1 import EXPORT-BGP-POLICY-4",
+  "desc": "BGP — Apply policy statement EXPORT-BGP-POLICY-4 as dynamic inbound import route filter on neighbor peer 10.255.4.1."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "ACL",
+  "title": "set policy-options prefix-list PL-ROUTES-5 192.168.50.0/24",
+  "cmd": "set policy-options prefix-list PL-ROUTES-5 192.168.50.0/24",
+  "desc": "ACL — Define prefix list PL-ROUTES-5 network block match destination 192.168.50.0/24."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set policy-options policy-statement EXPORT-BGP-POLICY-5 term Matchterm from prefix-list P…",
+  "cmd": "set policy-options policy-statement EXPORT-BGP-POLICY-5 term Matchterm from prefix-list PL-ROUTES-5",
+  "desc": "BGP — Define term filter matching networks matched inside prefix-list PL-ROUTES-5 inside EXPORT-BGP-POLICY-5."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set policy-options policy-statement EXPORT-BGP-POLICY-5 term Matchterm then local-prefere…",
+  "cmd": "set policy-options policy-statement EXPORT-BGP-POLICY-5 term Matchterm then local-preference 150",
+  "desc": "BGP — Adjust inbound BGP Local Preference metric attribute to 150 inside policy term Matchterm."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set policy-options policy-statement EXPORT-BGP-POLICY-5 term Matchterm then metric 50",
+  "cmd": "set policy-options policy-statement EXPORT-BGP-POLICY-5 term Matchterm then metric 50",
+  "desc": "BGP — Adjust route cost metric to 50 for advertisements matching term Matchterm."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set policy-options policy-statement EXPORT-BGP-POLICY-5 term Matchterm then accept",
+  "cmd": "set policy-options policy-statement EXPORT-BGP-POLICY-5 term Matchterm then accept",
+  "desc": "BGP — Accept routing entries matching filter criteria inside term Matchterm."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set protocols bgp group EBGP-Peers neighbor 10.255.5.1 import EXPORT-BGP-POLICY-5",
+  "cmd": "set protocols bgp group EBGP-Peers neighbor 10.255.5.1 import EXPORT-BGP-POLICY-5",
+  "desc": "BGP — Apply policy statement EXPORT-BGP-POLICY-5 as dynamic inbound import route filter on neighbor peer 10.255.5.1."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "ACL",
+  "title": "set policy-options prefix-list PL-ROUTES-6 192.168.60.0/24",
+  "cmd": "set policy-options prefix-list PL-ROUTES-6 192.168.60.0/24",
+  "desc": "ACL — Define prefix list PL-ROUTES-6 network block match destination 192.168.60.0/24."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set policy-options policy-statement EXPORT-BGP-POLICY-6 term Matchterm from prefix-list P…",
+  "cmd": "set policy-options policy-statement EXPORT-BGP-POLICY-6 term Matchterm from prefix-list PL-ROUTES-6",
+  "desc": "BGP — Define term filter matching networks matched inside prefix-list PL-ROUTES-6 inside EXPORT-BGP-POLICY-6."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set policy-options policy-statement EXPORT-BGP-POLICY-6 term Matchterm then local-prefere…",
+  "cmd": "set policy-options policy-statement EXPORT-BGP-POLICY-6 term Matchterm then local-preference 150",
+  "desc": "BGP — Adjust inbound BGP Local Preference metric attribute to 150 inside policy term Matchterm."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set policy-options policy-statement EXPORT-BGP-POLICY-6 term Matchterm then metric 50",
+  "cmd": "set policy-options policy-statement EXPORT-BGP-POLICY-6 term Matchterm then metric 50",
+  "desc": "BGP — Adjust route cost metric to 50 for advertisements matching term Matchterm."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set policy-options policy-statement EXPORT-BGP-POLICY-6 term Matchterm then accept",
+  "cmd": "set policy-options policy-statement EXPORT-BGP-POLICY-6 term Matchterm then accept",
+  "desc": "BGP — Accept routing entries matching filter criteria inside term Matchterm."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set protocols bgp group EBGP-Peers neighbor 10.255.6.1 import EXPORT-BGP-POLICY-6",
+  "cmd": "set protocols bgp group EBGP-Peers neighbor 10.255.6.1 import EXPORT-BGP-POLICY-6",
+  "desc": "BGP — Apply policy statement EXPORT-BGP-POLICY-6 as dynamic inbound import route filter on neighbor peer 10.255.6.1."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "ACL",
+  "title": "set policy-options prefix-list PL-ROUTES-7 192.168.70.0/24",
+  "cmd": "set policy-options prefix-list PL-ROUTES-7 192.168.70.0/24",
+  "desc": "ACL — Define prefix list PL-ROUTES-7 network block match destination 192.168.70.0/24."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set policy-options policy-statement EXPORT-BGP-POLICY-7 term Matchterm from prefix-list P…",
+  "cmd": "set policy-options policy-statement EXPORT-BGP-POLICY-7 term Matchterm from prefix-list PL-ROUTES-7",
+  "desc": "BGP — Define term filter matching networks matched inside prefix-list PL-ROUTES-7 inside EXPORT-BGP-POLICY-7."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set policy-options policy-statement EXPORT-BGP-POLICY-7 term Matchterm then local-prefere…",
+  "cmd": "set policy-options policy-statement EXPORT-BGP-POLICY-7 term Matchterm then local-preference 150",
+  "desc": "BGP — Adjust inbound BGP Local Preference metric attribute to 150 inside policy term Matchterm."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set policy-options policy-statement EXPORT-BGP-POLICY-7 term Matchterm then metric 50",
+  "cmd": "set policy-options policy-statement EXPORT-BGP-POLICY-7 term Matchterm then metric 50",
+  "desc": "BGP — Adjust route cost metric to 50 for advertisements matching term Matchterm."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set policy-options policy-statement EXPORT-BGP-POLICY-7 term Matchterm then accept",
+  "cmd": "set policy-options policy-statement EXPORT-BGP-POLICY-7 term Matchterm then accept",
+  "desc": "BGP — Accept routing entries matching filter criteria inside term Matchterm."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set protocols bgp group EBGP-Peers neighbor 10.255.7.1 import EXPORT-BGP-POLICY-7",
+  "cmd": "set protocols bgp group EBGP-Peers neighbor 10.255.7.1 import EXPORT-BGP-POLICY-7",
+  "desc": "BGP — Apply policy statement EXPORT-BGP-POLICY-7 as dynamic inbound import route filter on neighbor peer 10.255.7.1."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "ACL",
+  "title": "set policy-options prefix-list PL-ROUTES-8 192.168.80.0/24",
+  "cmd": "set policy-options prefix-list PL-ROUTES-8 192.168.80.0/24",
+  "desc": "ACL — Define prefix list PL-ROUTES-8 network block match destination 192.168.80.0/24."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set policy-options policy-statement EXPORT-BGP-POLICY-8 term Matchterm from prefix-list P…",
+  "cmd": "set policy-options policy-statement EXPORT-BGP-POLICY-8 term Matchterm from prefix-list PL-ROUTES-8",
+  "desc": "BGP — Define term filter matching networks matched inside prefix-list PL-ROUTES-8 inside EXPORT-BGP-POLICY-8."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set policy-options policy-statement EXPORT-BGP-POLICY-8 term Matchterm then local-prefere…",
+  "cmd": "set policy-options policy-statement EXPORT-BGP-POLICY-8 term Matchterm then local-preference 150",
+  "desc": "BGP — Adjust inbound BGP Local Preference metric attribute to 150 inside policy term Matchterm."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set policy-options policy-statement EXPORT-BGP-POLICY-8 term Matchterm then metric 50",
+  "cmd": "set policy-options policy-statement EXPORT-BGP-POLICY-8 term Matchterm then metric 50",
+  "desc": "BGP — Adjust route cost metric to 50 for advertisements matching term Matchterm."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set policy-options policy-statement EXPORT-BGP-POLICY-8 term Matchterm then accept",
+  "cmd": "set policy-options policy-statement EXPORT-BGP-POLICY-8 term Matchterm then accept",
+  "desc": "BGP — Accept routing entries matching filter criteria inside term Matchterm."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set protocols bgp group EBGP-Peers neighbor 10.255.8.1 import EXPORT-BGP-POLICY-8",
+  "cmd": "set protocols bgp group EBGP-Peers neighbor 10.255.8.1 import EXPORT-BGP-POLICY-8",
+  "desc": "BGP — Apply policy statement EXPORT-BGP-POLICY-8 as dynamic inbound import route filter on neighbor peer 10.255.8.1."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "ACL",
+  "title": "set policy-options prefix-list PL-ROUTES-9 192.168.90.0/24",
+  "cmd": "set policy-options prefix-list PL-ROUTES-9 192.168.90.0/24",
+  "desc": "ACL — Define prefix list PL-ROUTES-9 network block match destination 192.168.90.0/24."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set policy-options policy-statement EXPORT-BGP-POLICY-9 term Matchterm from prefix-list P…",
+  "cmd": "set policy-options policy-statement EXPORT-BGP-POLICY-9 term Matchterm from prefix-list PL-ROUTES-9",
+  "desc": "BGP — Define term filter matching networks matched inside prefix-list PL-ROUTES-9 inside EXPORT-BGP-POLICY-9."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set policy-options policy-statement EXPORT-BGP-POLICY-9 term Matchterm then local-prefere…",
+  "cmd": "set policy-options policy-statement EXPORT-BGP-POLICY-9 term Matchterm then local-preference 150",
+  "desc": "BGP — Adjust inbound BGP Local Preference metric attribute to 150 inside policy term Matchterm."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set policy-options policy-statement EXPORT-BGP-POLICY-9 term Matchterm then metric 50",
+  "cmd": "set policy-options policy-statement EXPORT-BGP-POLICY-9 term Matchterm then metric 50",
+  "desc": "BGP — Adjust route cost metric to 50 for advertisements matching term Matchterm."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set policy-options policy-statement EXPORT-BGP-POLICY-9 term Matchterm then accept",
+  "cmd": "set policy-options policy-statement EXPORT-BGP-POLICY-9 term Matchterm then accept",
+  "desc": "BGP — Accept routing entries matching filter criteria inside term Matchterm."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set protocols bgp group EBGP-Peers neighbor 10.255.9.1 import EXPORT-BGP-POLICY-9",
+  "cmd": "set protocols bgp group EBGP-Peers neighbor 10.255.9.1 import EXPORT-BGP-POLICY-9",
+  "desc": "BGP — Apply policy statement EXPORT-BGP-POLICY-9 as dynamic inbound import route filter on neighbor peer 10.255.9.1."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "ACL",
+  "title": "set policy-options prefix-list PL-ROUTES-10 192.168.100.0/24",
+  "cmd": "set policy-options prefix-list PL-ROUTES-10 192.168.100.0/24",
+  "desc": "ACL — Define prefix list PL-ROUTES-10 network block match destination 192.168.100.0/24."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set policy-options policy-statement EXPORT-BGP-POLICY-10 term Matchterm from prefix-list…",
+  "cmd": "set policy-options policy-statement EXPORT-BGP-POLICY-10 term Matchterm from prefix-list PL-ROUTES-10",
+  "desc": "BGP — Define term filter matching networks matched inside prefix-list PL-ROUTES-10 inside EXPORT-BGP-POLICY-10."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set policy-options policy-statement EXPORT-BGP-POLICY-10 term Matchterm then local-prefer…",
+  "cmd": "set policy-options policy-statement EXPORT-BGP-POLICY-10 term Matchterm then local-preference 150",
+  "desc": "BGP — Adjust inbound BGP Local Preference metric attribute to 150 inside policy term Matchterm."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set policy-options policy-statement EXPORT-BGP-POLICY-10 term Matchterm then metric 50",
+  "cmd": "set policy-options policy-statement EXPORT-BGP-POLICY-10 term Matchterm then metric 50",
+  "desc": "BGP — Adjust route cost metric to 50 for advertisements matching term Matchterm."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set policy-options policy-statement EXPORT-BGP-POLICY-10 term Matchterm then accept",
+  "cmd": "set policy-options policy-statement EXPORT-BGP-POLICY-10 term Matchterm then accept",
+  "desc": "BGP — Accept routing entries matching filter criteria inside term Matchterm."
+ },
+ {
+  "os": "junos",
+  "role": "router",
+  "vendor": "Juniper",
+  "cat": "BGP",
+  "title": "set protocols bgp group EBGP-Peers neighbor 10.255.10.1 import EXPORT-BGP-POLICY-10",
+  "cmd": "set protocols bgp group EBGP-Peers neighbor 10.255.10.1 import EXPORT-BGP-POLICY-10",
+  "desc": "BGP — Apply policy statement EXPORT-BGP-POLICY-10 as dynamic inbound import route filter on neighbor peer 10.255.10.1."
+ }
+]

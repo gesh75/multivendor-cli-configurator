@@ -10,7 +10,7 @@
 
 ## TL;DR
 
-- **4 vendors, 6 OS, 30+ categories, 12,017 commands** — Cisco (IOS / IOS-XE / NX-OS / ASA), Juniper (Junos), Arista (EOS), and **FRR (FRRouting)** — the open-source routing stack used by clab, SONiC, Cumulus, and bare-Linux routers. FRR rows are sourced from official docs **union live capture** from the 10-node Docker FRR lab; ~870 are tagged `live` (368 doc+live, 502 live-only / undocumented).
+- **14 vendors, 16 OS, 30+ categories, 29,509 commands** — Cisco (IOS / IOS-XE / NX-OS / ASA), Juniper (Junos), Arista (EOS), **FRR (FRRouting)** + 10 more added in subsequent waves: **VyOS**, **SONiC**, **NVIDIA Cumulus NVUE**, **Palo Alto PAN-OS**, **Nokia SR Linux**, **Fortinet FortiOS**, **Mikrotik RouterOS**, **Extreme EXOS**, **Aruba AOS-CX**, **Huawei VRP**. FRR rows are sourced from official docs **union live capture** from the 10-node Docker FRR lab; ~870 are tagged `live` (368 doc+live, 502 live-only / undocumented).
 - **Reproducible Python pipeline** — every command can be traced back to a published source via a stdlib-only parser in `scripts/`.
 - **Single static file** — `index.html` is ~190 KB of vanilla JS + a `fetch('commands.json')`. No framework. No build step for the UI. Hosted on GitHub Pages.
 - **Zero credentials on disk** — automation snippets use `${conn().host}` interpolations driven by a sessionStorage-only connection state with a redact toggle for safe screenshots.
