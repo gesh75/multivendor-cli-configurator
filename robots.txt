@@ -2,5 +2,4 @@
 User-agent: *
 Allow: /
 
-# Replace YOURDOMAIN with the real public origin before deploying.
-Sitemap: https://YOURDOMAIN/sitemap.xml
+Sitemap: https://gesh75.github.io/multivendor-cli-configurator/sitemap.xml
