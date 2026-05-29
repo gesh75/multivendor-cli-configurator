@@ -1,0 +1,13 @@
+{
+  "name": "Multivendor CLI Reference",
+  "short_name": "CLI Ref",
+  "description": "Searchable, comparable, exportable CLI command reference across 17 network vendors and tools.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0b1020",
+  "theme_color": "#0b1020",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

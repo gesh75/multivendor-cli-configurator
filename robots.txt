@@ -1,0 +1,6 @@
+# Multivendor CLI Reference
+User-agent: *
+Allow: /
+
+# Replace YOURDOMAIN with the real public origin before deploying.
+Sitemap: https://YOURDOMAIN/sitemap.xml

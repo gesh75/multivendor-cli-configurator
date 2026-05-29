@@ -3,8 +3,31 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Multivendor CLI Reference — 14 vendors, 29K+ commands</title>
-<meta name="description" content="29,000+ commands across Cisco · Juniper · Arista · FRR · VyOS · SONiC · NVIDIA NVUE · Palo Alto PAN-OS · Nokia SR Linux · Fortinet FortiOS · Mikrotik RouterOS · Extreme EXOS · Aruba AOS-CX · Huawei VRP. Searchable, comparable, exportable." />
+<title>Multivendor CLI Reference — 17 vendors, 52K+ commands</title>
+<meta name="description" content="52,000+ CLI commands across 17 network vendors & tools — Cisco · Juniper · Arista · FRR · VyOS · SONiC · NVIDIA · Palo Alto PAN-OS · Nokia · Fortinet FortiOS · Mikrotik · Extreme · Aruba · Huawei · plus Microsoft, Linux & Wireshark. Searchable, comparable, exportable." />
+
+<!-- Discoverability. Replace https://YOURDOMAIN/ with the real public origin before deploying. -->
+<link rel="canonical" href="https://YOURDOMAIN/" />
+<meta name="theme-color" content="#0b1020" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="manifest" href="/manifest.webmanifest" />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Multivendor CLI Reference — 17 vendors, 52K+ commands" />
+<meta property="og:description" content="Searchable, comparable, exportable CLI command reference across 17 network vendors and tools." />
+<meta property="og:url" content="https://YOURDOMAIN/" />
+<meta property="og:image" content="https://YOURDOMAIN/og-image.png" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Multivendor CLI Reference" />
+<meta name="twitter:description" content="52K+ CLI commands across 17 vendors — searchable, comparable, exportable." />
+<meta name="twitter:image" content="https://YOURDOMAIN/og-image.png" />
+
+<script type="application/ld+json">
+{ "@context":"https://schema.org","@type":"WebApplication",
+  "name":"Multivendor CLI Reference","applicationCategory":"DeveloperApplication",
+  "operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"} }
+</script>
 <style>
 :root[data-theme="dark"]{
   --bg:#0b1020;--panel:#0f1530;--panel-2:#121a3a;--ink:#cfd6f5;--ink-dim:#8892b8;--ink-muted:#5b6a99;
@@ -133,7 +156,7 @@ main.lcollapsed aside.side{visibility:hidden;pointer-events:none;width:0;border:
 .viewbar .pill b{color:var(--ink)}
 
 .cat-hdr{margin:18px 0 10px;display:flex;align-items:center;gap:10px}
-.cat-hdr h3{margin:0;font-size:13px;letter-spacing:.4px;color:var(--ink)}
+.cat-hdr h3,.cat-hdr h2{margin:0;font-size:13px;letter-spacing:.4px;color:var(--ink);font-weight:600}
 .cat-hdr .ct{font:11px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--ink-dim);background:var(--panel);border:1px solid var(--line);padding:2px 8px;border-radius:999px}
 .cat-hdr .line{flex:1;height:1px;background:var(--line-2)}
 .cmp-cat-hdr .ct.ct-c{color:var(--cisco);border-color:var(--cisco)}
@@ -181,6 +204,20 @@ main.lcollapsed aside.side{visibility:hidden;pointer-events:none;width:0;border:
 .card pre .p{color:var(--param)}
 .card pre .c{color:var(--cmt)}
 .card pre .ph{background:rgba(251,191,36,.18);color:var(--placeholder);padding:0 4px;border-radius:3px;font-weight:500}
+/* v2: inline placeholder editor */
+.ph-editor{margin-top:10px;background:color-mix(in srgb,var(--accent) 6%,var(--panel-2));border:1px solid color-mix(in srgb,var(--accent) 30%,var(--line));border-radius:8px;padding:10px}
+.ph-empty{margin-top:10px;color:var(--ink-muted);font-size:11px;font-style:italic;padding:6px 10px;background:var(--panel-2);border-radius:6px;border:1px dashed var(--line)}
+.ph-editor .ph-hdr{font-size:11px;color:var(--ink);margin-bottom:8px;letter-spacing:.3px}
+.ph-editor .ph-hint{color:var(--ink-dim)}
+.ph-editor .ph-inputs{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:6px 10px;margin-bottom:10px}
+.ph-editor .ph-row{display:flex;flex-direction:column;gap:3px;font-size:11px;color:var(--ink-dim)}
+.ph-editor .ph-name{font:10px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.4px;text-transform:uppercase;color:var(--accent)}
+.ph-editor input{background:var(--panel);border:1px solid var(--line);border-radius:5px;color:var(--ink);padding:5px 8px;font:12px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;outline:0}
+.ph-editor input:focus{border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 20%,transparent)}
+.ph-editor .ph-prev-label{font:10px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.5px;text-transform:uppercase;color:var(--ink-dim);margin:0 0 4px 0}
+.ph-editor .ph-preview{margin:0;padding:8px 10px;background:var(--code-bg);color:var(--code-ink);font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;border-radius:6px;white-space:pre-wrap;word-break:break-word}
+.ph-editor .ph-acts{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.ph-editor .ph-acts .actbtn.primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#000;font-weight:600;border-color:transparent}
 .card .tags{display:flex;gap:5px;flex-wrap:wrap;align-items:center}
 .tag{font:10px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;padding:2px 6px;border-radius:5px;border:1px solid var(--line);color:var(--ink-dim);background:transparent}
 .tag.v.cisco{color:var(--cisco);border-color:var(--cisco)}
@@ -292,6 +329,26 @@ table.cmd thead th:nth-child(2){z-index:4}
 }
 
 .drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);opacity:0;visibility:hidden;transition:opacity .2s,visibility .2s;z-index:40}
+
+/* v2: Playbook compiler modal */
+.tbtn.primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#000;font-weight:700;border-color:transparent}
+.tbtn.primary:hover{filter:brightness(1.1);color:#000}
+.pb-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);opacity:0;visibility:hidden;transition:opacity .2s,visibility .2s;z-index:60}
+.pb-overlay.open{opacity:1;visibility:visible}
+.pb-modal{position:fixed;left:50%;top:50%;transform:translate(-50%,calc(-50% + 40px));width:min(960px,94vw);max-height:88vh;background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:0 30px 70px rgba(0,0,0,.5);z-index:61;opacity:0;visibility:hidden;transition:opacity .2s,transform .2s,visibility .2s;display:flex;flex-direction:column;overflow:hidden}
+.pb-modal.open{opacity:1;visibility:visible;transform:translate(-50%,-50%)}
+.pb-modal .pb-head{display:flex;justify-content:space-between;align-items:flex-start;padding:14px 18px;border-bottom:1px solid var(--line)}
+.pb-modal .pb-head .closex{background:transparent;border:0;color:var(--ink-dim);cursor:pointer;font-size:18px;padding:2px 8px;border-radius:5px}
+.pb-modal .pb-head .closex:hover{color:var(--bad)}
+.pb-tabs{display:flex;gap:0;padding:0 18px;border-bottom:1px solid var(--line)}
+.pb-tabs .pb-tab{background:transparent;border:0;border-bottom:2px solid transparent;color:var(--ink-dim);cursor:pointer;padding:9px 14px;font:12px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.4px}
+.pb-tabs .pb-tab:hover{color:var(--ink)}
+.pb-tabs .pb-tab.on{color:var(--accent);border-bottom-color:var(--accent);font-weight:600}
+.pb-body{flex:1 1 auto;overflow-y:auto;padding:14px 18px;background:var(--code-bg)}
+.pb-body pre{margin:0;font:12px/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--code-ink);white-space:pre-wrap;word-break:break-word}
+.pb-body .pb-actions{display:flex;gap:8px;align-items:center;background:var(--panel);padding:8px 12px;border-radius:8px;margin-bottom:10px;border:1px solid var(--line-2);position:sticky;top:0;z-index:1}
+.pb-body .pb-actions .pb-warn{font-size:11px;color:var(--warn);margin-left:auto}
+.pb-body .pb-meta{font-size:11px;color:var(--ink-muted);margin:0 0 8px 4px}
 .drawer-overlay.open{opacity:1;visibility:visible}
 .drawer{position:fixed;top:0;right:calc(-1 * var(--drawer-w, 440px) - 20px);bottom:0;width:min(var(--drawer-w, 440px), calc(100vw - 48px));min-width:280px;max-width:calc(100vw - 48px);background:var(--panel);border-left:1px solid var(--line);transition:right .22s ease, width 0s;z-index:50;display:flex;flex-direction:column;box-shadow:-10px 0 30px rgba(0,0,0,.4)}
 .drawer.open{right:0}
@@ -430,6 +487,10 @@ table.cmd thead th:nth-child(2){z-index:4}
 
 footer{padding:20px;color:var(--ink-dim);font-size:11px;text-align:center}
 .empty{padding:40px;text-align:center;color:var(--ink-dim);border:1px dashed var(--line);border-radius:12px;margin-top:20px}
+.render-more{margin:24px 0;padding:18px;border:1px dashed var(--line);border-radius:12px;display:flex;flex-wrap:wrap;align-items:center;gap:12px;background:var(--surface-1,#11151b)}
+.render-more-text{color:var(--ink-dim);flex:1 1 320px;font-size:.9rem}
+.render-more .btn{padding:6px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface-2,#161b22);color:var(--ink);cursor:pointer;font-size:.85rem}
+.render-more .btn:hover{border-color:var(--accent,#3b82f6);color:var(--accent,#3b82f6)}
 mark{background:rgba(34,211,238,.25);color:inherit;border-radius:3px;padding:0 2px}
 .helpcard{position:fixed;top:60px;right:14px;width:min(320px, calc(100vw - 28px));max-width:calc(100vw - 28px);background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;font-size:12px;z-index:60;box-shadow:0 10px 30px rgba(0,0,0,.4);display:none}
 .helpcard.open{display:block}
@@ -498,13 +559,36 @@ mark{background:rgba(34,211,238,.25);color:inherit;border-radius:3px;padding:0 2
   .stats span:not(:nth-child(-n+8)){display:none}
 }
 @media (max-width:560px){.drawer{width:100%;right:-100%}.equiv-drawer{width:100%;right:-100%}}
+
+/* ─── Accessibility & performance additions ─────────────────────────────── */
+/* Visually-hidden but screen-reader available (h1, live-region labels). */
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+/* Skip-to-content link — visible only when focused via keyboard. */
+.skip-link{position:absolute;left:8px;top:-44px;z-index:300;background:var(--accent);color:#000;font:600 12px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;padding:8px 14px;border-radius:0 0 8px 8px;transition:top .15s}
+.skip-link:focus{top:0}
+/* Keyboard focus ring on every interactive element (outline:0 above removes it
+   for mouse users; :focus-visible restores it only for keyboard navigation). */
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
+a.skip-link:focus-visible{outline-offset:-2px}
+/* Off-screen result blocks skip layout/paint until scrolled near the viewport.
+   contain-intrinsic-size gives the browser a height estimate so the scrollbar
+   stays stable. Big win for long Cards lists and the Compare tables. */
+.grid{content-visibility:auto;contain-intrinsic-size:0 600px}
+.cmp-table{content-visibility:auto;contain-intrinsic-size:0 800px}
+/* Raise the smallest text tiers (10px and under) toward a readable floor of
+   11.5px without shrinking anything already larger. */
+.tag,.tbtn .badge,.acc-head .ct,.ph-editor .ph-name,.ph-editor .ph-prev-label,
+.cmp-acts .actbtn,.drawer .dh .live,.auto-block .bhdr .copyb,.cmp-cat-hdr .ct{font-size:11.5px}
 </style>
 </head>
 <body>
 
+<a class="skip-link" href="#results">Skip to content</a>
+<h1 class="sr-only">Multivendor CLI Reference — searchable command reference across 17 network vendors and tools</h1>
+
 <header>
   <div class="bar">
-    <div class="brand"><span class="dot"></span>Multivendor CLI <small>14 vendors · 29K+ commands</small></div>
+    <div class="brand"><span class="dot"></span>Multivendor CLI <small>17 vendors · 52K+ commands</small></div>
     <div class="search-wrap">
       <div class="search">
         <span style="color:var(--ink-dim)">⌕</span>
@@ -530,8 +614,8 @@ mark{background:rgba(34,211,238,.25);color:inherit;border-radius:3px;padding:0 2
       </div>
     </div>
   </div>
-  <div id="toast" class="toast"></div>
-  <div class="stats">
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <div class="stats" aria-live="polite">
     <span><b id="stat-total">…</b> commands</span>
     <span>·</span><span><b id="stat-vendors">3</b> vendors</span>
     <span>·</span><span><b id="stat-cats">25</b> categories</span>
@@ -594,8 +678,28 @@ mark{background:rgba(34,211,238,.25);color:inherit;border-radius:3px;padding:0 2
   <div class="dbar">
     <button class="tbtn" id="drawer-copy">Copy all</button>
     <button class="tbtn" id="drawer-download">Download .txt</button>
+    <button class="tbtn primary" id="drawer-compile" title="Compile the queue into a runnable Netmiko script or Ansible playbook">⚡ Compile playbook</button>
     <button class="tbtn" id="drawer-clear">Clear</button>
   </div>
+</aside>
+
+<!-- Playbook compiler modal (v2 feature) -->
+<div class="pb-overlay" id="pb-overlay"></div>
+<aside class="pb-modal" id="pb-modal">
+  <div class="pb-head">
+    <div>
+      <span style="font:12px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-dim)">Compile Playbook</span>
+      <div id="pb-summary" style="margin-top:4px;font-size:12px;color:var(--ink)"></div>
+    </div>
+    <button class="closex" id="pb-close">✕</button>
+  </div>
+  <div class="pb-tabs" id="pb-tabs">
+    <button class="pb-tab on" data-fmt="netmiko">Python (Netmiko)</button>
+    <button class="pb-tab" data-fmt="ansible">Ansible playbook</button>
+    <button class="pb-tab" data-fmt="bash">Bash + sshpass</button>
+    <button class="pb-tab" data-fmt="raw">Raw CLI (per-vendor)</button>
+  </div>
+  <div class="pb-body" id="pb-body"></div>
 </aside>
 
 <aside class="equiv-drawer" id="equiv-drawer">
@@ -3356,7 +3460,12 @@ const state = {
   collapsed:new Set(JSON.parse(localStorage.getItem("cli-acc")||'["acc-os","acc-role"]')),
   showFavOnly:false,
   recent: JSON.parse(localStorage.getItem("cli-recent")||"[]"),
+  cap: 500,    // initial render cap — prevents DOM explosion on broad filters
+  cmpCap: 3,   // Compare view: # of categories rendered per page (each category
+               // is an expensive table). Bounds node creation so switching to
+               // Compare doesn't freeze the main thread.
 };
+const RENDER_PAGE = 500;
 let DATA = [];
 
 const $ = id => document.getElementById(id);
@@ -3519,6 +3628,97 @@ const CMD_KEYWORDS = new Set([
   "allowed","trunk","access","mode","native"
 ]);
 const PLACEHOLDER_RE = /(\[[^\]]+\]|<[^>]+>|\bIPADDRESS\b|\bVLAN_NO\b|\bGROUPNUMBER\b|\bGROUPNAME\b|\bHELLOTIME\b|\bHOLDTIME\b|\bDECREASEVALUE\b|\bSECOND\b|\bSECRET\b|\bDISCRIPTION\b|\bPRIORITY\b|\bVRFNAME\b|\bPORT\b|\bINTERFACE\b)/g;
+
+/* --- v2: Inline placeholder editor ----------------------------------------
+ * Each card now exposes a 🎛 button that swaps the static command preview
+ * for an editable variant: every placeholder becomes a labelled input and
+ * live-updates the visible command as you type. Copy + CLI both pick up the
+ * substituted text. Placeholders that share a name (e.g. two `<vlan-id>`
+ * tokens in one block) update together. Stays local to the card — no global
+ * state, no persistence — so it doesn't bleed into other view modes. */
+function extractPlaceholders(text){
+  if(!text) return [];
+  const seen = new Map();
+  const out = [];
+  [...text.matchAll(PLACEHOLDER_RE)].forEach(m => {
+    const raw = m[0];
+    const name = raw.replace(/^[\[<]|[\]>]$/g, "").trim();
+    if(!name) return;
+    if(seen.has(name)){ seen.get(name).count++; return; }
+    const entry = { raw, name, count: 1 };
+    seen.set(name, entry);
+    out.push(entry);
+  });
+  return out;
+}
+function substitutePlaceholders(text, values){
+  if(!text) return text;
+  return text.replace(PLACEHOLDER_RE, (m) => {
+    const name = m.replace(/^[\[<]|[\]>]$/g, "").trim();
+    const v = values[name];
+    return (v != null && v !== "") ? v : m;
+  });
+}
+function buildPlaceholderEditor(d, container){
+  // container: card body — we append an inline editor panel after the <pre>.
+  const placeholders = extractPlaceholders(d.cmd);
+  if(placeholders.length === 0){
+    container.appendChild(el("div",{class:"ph-empty"},
+      "No editable placeholders in this command — values are already concrete."));
+    return;
+  }
+  const wrap = el("div",{class:"ph-editor"});
+  const hdr = el("div",{class:"ph-hdr"},
+    el("b",{},"🎛 Edit values"),
+    el("span",{class:"ph-hint"},
+      " — type a value; the command below updates live. " + placeholders.length + " variable" + (placeholders.length===1?'':'s') + " detected."));
+  wrap.appendChild(hdr);
+  // Live-preview pre that mirrors the static one
+  const previewLabel = el("div",{class:"ph-prev-label"}, "Preview");
+  const previewPre = el("pre",{class:"ph-preview"});
+  // Inputs grid
+  const inputs = el("div",{class:"ph-inputs"});
+  const values = {};
+  placeholders.forEach(ph => {
+    const row = el("label",{class:"ph-row"});
+    row.appendChild(el("span",{class:"ph-name"}, ph.name + (ph.count > 1 ? " ("+ph.count+"×)" : "")));
+    const inp = el("input",{
+      type:"text", placeholder:ph.raw,
+      onInput:(e) => {
+        values[ph.name] = e.target.value;
+        previewPre.textContent = substitutePlaceholders(d.cmd, values);
+      }
+    });
+    row.appendChild(inp);
+    inputs.appendChild(row);
+  });
+  wrap.appendChild(inputs);
+  wrap.appendChild(previewLabel);
+  previewPre.textContent = d.cmd;
+  wrap.appendChild(previewPre);
+  // Action row — Copy substituted / Add substituted to CLI Builder / Reset
+  const acts = el("div",{class:"ph-acts"});
+  const copyBtn = el("button",{class:"actbtn",onClick:()=>{
+    const out = substitutePlaceholders(d.cmd, values);
+    navigator.clipboard.writeText(out).then(()=>{
+      copyBtn.textContent="✓ Copied"; setTimeout(()=>copyBtn.textContent="📋 Copy filled",1500);
+    });
+  }}, "📋 Copy filled");
+  const addBtn = el("button",{class:"actbtn primary",onClick:()=>{
+    const out = substitutePlaceholders(d.cmd, values);
+    state.queue.push({title: d.title, cmd: out, vendor: d.vendor, os: d.os});
+    persistQueue(); updateCliBadge(); renderDrawer();
+    addBtn.textContent="✓ Added"; setTimeout(()=>addBtn.textContent="+ Filled to CLI",1500);
+  }}, "+ Filled to CLI");
+  const resetBtn = el("button",{class:"actbtn",onClick:()=>{
+    inputs.querySelectorAll("input").forEach(i => i.value = "");
+    for(const k in values) delete values[k];
+    previewPre.textContent = d.cmd;
+  }}, "↺ Reset");
+  acts.appendChild(copyBtn); acts.appendChild(addBtn); acts.appendChild(resetBtn);
+  wrap.appendChild(acts);
+  container.appendChild(wrap);
+}
 
 function renderCmd(text){
   const pre = el("pre");
@@ -3791,6 +3991,18 @@ function buildCard(d){
   menu.appendChild(el("button",{class:"actbtn-menu-item",
     onClick:()=>{ menu.classList.remove("open"); openEquivalents(d); }
   }, "↗ See cross-vendor equivalents"));
+  // v2: inline placeholder editor — toggles a per-card editor under the cmd.
+  const hasPh = extractPlaceholders(d.cmd).length > 0;
+  if(hasPh){
+    menu.appendChild(el("button",{class:"actbtn-menu-item",
+      onClick:()=>{
+        menu.classList.remove("open");
+        const existing = card.querySelector(".ph-editor, .ph-empty");
+        if(existing){ existing.remove(); return; }
+        buildPlaceholderEditor(d, body);
+      }
+    }, "🎛 Edit values inline"));
+  }
   overflowWrap.appendChild(moreBtn);
   overflowWrap.appendChild(menu);
   actions.appendChild(overflowWrap);
@@ -4041,30 +4253,54 @@ function openEquivalents(d){
   const drawer = $("equiv-drawer");
   drawer.style.right = "";
   drawer.classList.add("open");
-  $("equiv-title").textContent = d.title + "  —  same category across vendors";
+  // v2: concept-synonyms boost — detect the canonical concept first, then
+  // surface the cross-vendor matches that share it.
+  const myKey = conceptKey(d);
+  const sem = lookupConcept(d.cmd + " " + d.title);
+  const conceptLabel = sem ? sem.concept : myKey.split(":").slice(1).join(":");
+  const eqTitle = $("equiv-title");
+  eqTitle.replaceChildren(
+    document.createTextNode(d.title + "  "),
+    el("span",{style:"font-size:11px;color:var(--accent);background:color-mix(in srgb,var(--accent) 14%,transparent);padding:2px 7px;border-radius:999px;margin-left:6px"},
+      "concept: " + conceptLabel)
+  );
   const body = $("equiv-body"); body.replaceChildren();
 
   const tokens = d.title.toLowerCase().split(/\W+/).filter(t=>t.length>2);
-  ["Cisco","Juniper","Arista","FRR","VyOS","SONiC","NVIDIA","PAN-OS","Nokia","FortiOS","Mikrotik","Extreme","Aruba","Huawei"].forEach(v=>{
+  const ALL = ["Cisco","Juniper","Arista","FRR","VyOS","SONiC","NVIDIA","PAN-OS","Nokia","FortiOS","Mikrotik","Extreme","Aruba","Huawei"];
+  ALL.forEach(v=>{
+    if(v === d.vendor) return;  // skip the source vendor — already on the page
     const section = el("div",{class:"equiv-section"});
     section.appendChild(el("div",{class:"sh "+VENDOR_KEY(v)}, " "+v));
+    // Concept-aligned candidates score highest; category-only is a fallback.
     const cands = DATA
-      .filter(x=>x.vendor === v && x.cat === d.cat && x !== d)
+      .filter(x=>x.vendor === v && x !== d)
       .map(x=>{
-        const tt = x.title.toLowerCase();
+        const tt = (x.title||"").toLowerCase();
         let score = tokens.reduce((s,t)=>s + (tt.includes(t) ? 1 : 0), 0);
+        if(x.cat === d.cat) score += 1;
+        if(conceptKey(x) === myKey) score += 5;   // semantic match dominates
         if(x.role === d.role) score += 0.5;
         return {x:x, score:score};
       })
+      .filter(o => o.score > 0)
       .sort((a,b)=> b.score - a.score)
-      .slice(0,5);
+      .slice(0,4);
     if(cands.length === 0){
-      section.appendChild(el("div",{class:"equiv-card"}, el("div",{class:"nocmd"}, "— no equivalent in dataset for this category")));
+      section.appendChild(el("div",{class:"equiv-card"}, el("div",{class:"nocmd"}, "— no equivalent in dataset")));
     } else {
       cands.forEach(o=>{
         const x = o.x;
         const card = el("div",{class:"equiv-card"});
-        card.appendChild(el("div",{class:"et"}, x.title));
+        const isSemantic = conceptKey(x) === myKey;
+        const titleRow = el("div",{class:"et"}, x.title);
+        if(isSemantic){
+          titleRow.appendChild(el("span",{
+            style:"margin-left:6px;font-size:9px;background:var(--good);color:#000;padding:1px 5px;border-radius:3px;font-weight:600",
+            title:"Concept-aligned via the cross-vendor synonyms table"
+          }, "≈ concept"));
+        }
+        card.appendChild(titleRow);
         card.appendChild(renderCmd(x.cmd));
         const aw = el("div",{style:"display:flex;gap:5px;margin-top:5px;flex-wrap:wrap"});
         const cp = el("button",{class:"actbtn",onClick:()=>{
@@ -4150,8 +4386,20 @@ function restoreUrl(){
   if(p.get("fav") === "1") state.showFavOnly = true;
 }
 
+// Tracks the last filter signature so we reset the render cap when filters change.
+let _lastFilterSig = null;
 function render(){
   syncUrl();
+  // Build a cheap signature of the current filter state. If it changed, reset
+  // the cap so the user sees a fresh first page rather than the previous one.
+  const sig = [
+    [...state.vendor].sort().join("|"),
+    [...state.os].sort().join("|"),
+    [...state.role].sort().join("|"),
+    [...state.cat].sort().join("|"),
+    state.q, state.view, state.showFavOnly ? "1" : "0"
+  ].join("");
+  if(sig !== _lastFilterSig){ state.cap = 500; state.cmpCap = 3; _lastFilterSig = sig; }
   const filtered = DATA.filter(matches);
   $("stat-shown").textContent = filtered.length;
   $("vb-shown").textContent = filtered.length;
@@ -4167,11 +4415,15 @@ function render(){
 }
 
 function renderCards(filtered, results){
+  // Cap the initial render — building 50K cards stalls the main thread.
+  // The "Show more" footer appends the next page on demand.
+  const cap = Math.min(state.cap, filtered.length);
+  const visible = filtered.slice(0, cap);
   const groups = {};
-  filtered.forEach(d=>{ (groups[d.cat] = groups[d.cat] || []).push(d); });
+  visible.forEach(d=>{ (groups[d.cat] = groups[d.cat] || []).push(d); });
   Object.keys(groups).sort().forEach(k=>{
     const hdr = el("div",{class:"cat-hdr"},
-      el("h3",{},k),
+      el("h2",{},k),
       el("span",{class:"ct"}, groups[k].length),
       el("div",{class:"line"})
     );
@@ -4180,6 +4432,17 @@ function renderCards(filtered, results){
     groups[k].forEach(d=>grid.appendChild(buildCard(d)));
     results.appendChild(grid);
   });
+  if(filtered.length > cap){
+    const more = el("div",{class:"render-more"},
+      el("div",{class:"render-more-text"},
+        `Showing ${cap.toLocaleString()} of ${filtered.length.toLocaleString()} matching commands. Narrow the filters or load more.`),
+      el("button",{class:"btn", onClick:()=>{ state.cap += RENDER_PAGE; render(); }},
+        `Show next ${RENDER_PAGE}`),
+      el("button",{class:"btn", onClick:()=>{ state.cap = filtered.length; render(); }},
+        `Show all (${filtered.length.toLocaleString()})`)
+    );
+    results.appendChild(more);
+  }
 }
 
 function renderTable(filtered, results){
@@ -4213,8 +4476,9 @@ function renderTable(filtered, results){
     const bv = (b[state.table_sort.col]||"").toString();
     return state.table_sort.dir * av.localeCompare(bv);
   });
+  const cap = Math.min(state.cap, sorted.length);
   const tbody = el("tbody");
-  sorted.forEach(d=>{
+  sorted.slice(0, cap).forEach(d=>{
     const row = el("tr");
     row.appendChild(el("td",{}, d.title));
     row.appendChild(el("td",{class:"cmd-cell"}, d.cmd.length > 120 ? d.cmd.slice(0,120)+"…" : d.cmd));
@@ -4239,6 +4503,17 @@ function renderTable(filtered, results){
   tbl.appendChild(tbody);
   wrap.appendChild(tbl);
   results.appendChild(wrap);
+  if(sorted.length > cap){
+    const more = el("div",{class:"render-more"},
+      el("div",{class:"render-more-text"},
+        `Showing ${cap.toLocaleString()} of ${sorted.length.toLocaleString()} rows.`),
+      el("button",{class:"btn", onClick:()=>{ state.cap += RENDER_PAGE; render(); }},
+        `Show next ${RENDER_PAGE}`),
+      el("button",{class:"btn", onClick:()=>{ state.cap = sorted.length; render(); }},
+        `Show all (${sorted.length.toLocaleString()})`)
+    );
+    results.appendChild(more);
+  }
 }
 
 // Switch to Compare view, scoped to the card's category, scrolled to the row
@@ -4311,7 +4586,11 @@ function conceptKey(d){
   t = t.replace(/^[\w@-]+[#>%]\s*/, "");
   t = t.replace(/\([^)]+\)/g, " ");
   t = t.replace(/[^\w\s-]/g, " ");
-  // Topic-hint match first (most stable across vendors)
+  // v2: semantic synonym lookup — checks the richer CONCEPT_SYNONYMS table
+  // first so cross-vendor terms (standby ↔ vrrp-group ↔ virtual-router) line up.
+  const sem = lookupConcept(d.cmd + " " + (d.title||""));
+  if(sem) return d.cat + ":" + sem.concept;
+  // Topic-hint match next (most stable across vendors)
   for(const k in CONCEPT_TOPIC_HINTS){
     if(t.includes(k)) return d.cat + ":" + CONCEPT_TOPIC_HINTS[k];
   }
@@ -4321,12 +4600,226 @@ function conceptKey(d){
   return d.cat + ":" + sig;
 }
 
+/* --- v2: Cross-vendor concept-synonyms table -------------------------------
+ * Each row pairs a canonical concept slug with vendor-flavoured terms that
+ * mean the same thing. The slug becomes the conceptKey, so Compare view
+ * aligns rows across vendors automatically.
+ *
+ * Each entry:
+ *   concept   : canonical slug (used in conceptKey output)
+ *   cat       : tool category bucket
+ *   any       : array of "alternatives" — each alternative is either a single
+ *               substring, or an array of substrings ALL of which must be
+ *               present (case-insensitive). First alternative to match wins.
+ *
+ * Hand-curated, not vector embeddings — at 30K rows the index is small and
+ * a 60-entry table outperforms anything semantic for accuracy + zero deps. */
+const CONCEPT_SYNONYMS = [
+  // BGP family
+  {concept:"bgp-peer",        cat:"BGP", any:[
+    ["neighbor","remote-as"],
+    ["set protocols bgp","neighbor"],
+    ["set protocols bgp","peer"],
+    "peer-group", "bgp group", ["neighbor","activate"],
+  ]},
+  {concept:"bgp-summary",     cat:"BGP", any:[
+    ["show","bgp","summary"], ["display","bgp","peer"], "get router bgp summary",
+  ]},
+  {concept:"bgp-router-id",   cat:"BGP", any:[
+    ["bgp","router-id"], ["set protocols bgp","router-id"],
+  ]},
+  {concept:"bgp-as-path",     cat:"BGP", any:[
+    "as-path access-list", "as-path filter", "aspath",
+  ]},
+  // OSPF
+  {concept:"ospf-area",       cat:"OSPF", any:[
+    ["ospf","area"], "stub area", "nssa", ["set protocols ospf","area"], ["ip ospf","area"],
+  ]},
+  {concept:"ospf-network",    cat:"OSPF", any:[
+    ["ospf","network"], ["network","area"], ["set protocols ospf","interface"],
+  ]},
+  {concept:"ospf-router-id",  cat:"OSPF", any:[
+    ["ospf","router-id"], ["set protocols ospf","router-id"],
+  ]},
+  {concept:"ospf-passive",    cat:"OSPF", any:[
+    "passive-interface", ["ospf","passive"], "passive enable",
+  ]},
+  // FHRP — the canonical "translate" example
+  // (Cisco `standby` ↔ Junos `vrrp-group` ↔ Arista `varp` ↔ FortiOS `vrrp`)
+  {concept:"fhrp-vip",        cat:"HA", any:[
+    ["standby","ip"], ["vrrp-group","virtual-address"], ["vrrp","virtual-ip"],
+    "virtual-ip", ["hsrp","ip"], ["varp","virtual-router"], ["vrrp","virtual-router-id"],
+  ]},
+  {concept:"fhrp-priority",   cat:"HA", any:[
+    ["standby","priority"], ["vrrp-group","priority"], ["vrrp","priority"], ["hsrp","priority"],
+  ]},
+  {concept:"fhrp-preempt",    cat:"HA", any:[
+    ["standby","preempt"], ["vrrp-group","preempt"], ["vrrp","preempt"], "preemption",
+  ]},
+  // VLAN / L2
+  {concept:"vlan-create",     cat:"VLAN", any:[
+    "vlan database", "configure vlan", ["vlans","unit"], ["nv set bridge","vlan"],
+    "/interface vlan add", ["vlan","add"],
+  ]},
+  {concept:"vlan-trunk",      cat:"VLAN", any:[
+    "switchport mode trunk", "switchport trunk allowed", "trunk-mode",
+    "encapsulation dot1q", ["interface","trunk"], ["tagged","vlan"],
+  ]},
+  {concept:"vlan-access",     cat:"VLAN", any:[
+    "switchport mode access", "switchport access vlan",
+    ["untagged","vlan"], ["vlans","port-mode access"],
+  ]},
+  {concept:"vlan-svi",        cat:"VLAN", any:[
+    "interface vlan", "vlanif", ["unit","family inet address"], "nv set interface vlan",
+  ]},
+  // EtherChannel / LAG
+  {concept:"lag-create",      cat:"EtherChannel", any:[
+    "channel-group", "port-channel", "ether-channel", "lacp",
+    "set interfaces ae", "nv set interface bond", "interface lag",
+  ]},
+  // Interface basics
+  {concept:"iface-desc",      cat:"Interfaces", any:[
+    "description", "set comment", "comment=", ["set","comment"],
+  ]},
+  // iface-noshut must come BEFORE iface-shutdown — "no shutdown" / "undo shutdown"
+  // both contain "shutdown" as a substring and would otherwise mis-match.
+  {concept:"iface-noshut",    cat:"Interfaces", any:[
+    "no shutdown", "undo shutdown", "admin-state up", "enabled true",
+  ]},
+  {concept:"iface-shutdown",  cat:"Interfaces", any:[
+    "shutdown", "admin-state down", "admin-status down",
+    ["set system","disable"], ["interface","disable"],
+  ]},
+  {concept:"iface-ipv4",      cat:"Interfaces", any:[
+    ["ip address","."],   // requires "ip address" and a "." (i.e. an IP)
+    "family inet address",
+    ["set network","interface","ip"],
+    "/ip address add",
+    ["nv set interface","ip address"],
+    ["subinterface","ipv4 address"],
+    ["configure vlan","ipaddress"],
+  ]},
+  {concept:"iface-mtu",       cat:"Interfaces", any:[
+    "mtu ", "jumbo", "mru ",
+  ]},
+  {concept:"iface-speed",     cat:"Interfaces", any:[
+    "speed 1000", "speed 10000", "speed auto", ["port","speed"],
+  ]},
+  // Routing — default-route must come BEFORE static-route because
+  // "ip route 0.0.0.0 ..." also satisfies static-route's ["ip route","."] pattern.
+  {concept:"default-route",   cat:"Routing", any:[
+    "ip route 0.0.0.0", "set routing-options static route 0/0", "route-static 0.0.0.0",
+    "default-gateway",
+  ]},
+  {concept:"static-route",    cat:"Routing", any:[
+    ["ip route","."], "set routing-options static route", "ip route-static",
+    "static-route", "/ip route add",
+  ]},
+  // Security / Firewall / NAT
+  {concept:"acl-permit",      cat:"ACL", any:[
+    ["access-list","permit"], ["filter","permit"], "prefix-list",
+    ["/ip firewall filter","accept"],
+  ]},
+  {concept:"acl-deny",        cat:"ACL", any:[
+    ["access-list","deny"], ["filter","deny"], ["/ip firewall filter","drop"],
+  ]},
+  {concept:"firewall-rule",   cat:"Firewall", any:[
+    "rulebase security rules", "security policy", "firewall policy",
+    "/ip firewall filter add", "filter chain", "class-map", ["policy-map","class"],
+  ]},
+  {concept:"nat-source",      cat:"NAT", any:[
+    "ip nat inside", "nat source", "set security nat source",
+    "/ip firewall nat add chain=srcnat", "source-translation",
+  ]},
+  {concept:"nat-destination", cat:"NAT", any:[
+    "ip nat outside", "destination-translation", "set security nat destination",
+    "/ip firewall nat add chain=dstnat", "port-forward",
+  ]},
+  // System / mgmt
+  {concept:"sys-hostname",    cat:"System", any:[
+    "hostname ", "set system host-name", "host-name", "sys-name",
+    "nv set system hostname", "/system identity set name",
+  ]},
+  {concept:"sys-save",        cat:"System", any:[
+    "write memory", "copy running-config startup-config",
+    "commit", "commit now", "save configuration", "write file",
+    "nv config save", "/system backup save",
+  ]},
+  // AAA / logging / SNMP / NTP
+  {concept:"aaa-local",       cat:"AAA", any:[
+    ["username","password"], "local-user", "set system login user",
+  ]},
+  {concept:"aaa-tacacs",      cat:"AAA", any:[
+    "tacacs-server", "tacacs server", "set system tacplus-server", "tacacs-plus",
+  ]},
+  {concept:"aaa-radius",      cat:"AAA", any:[
+    "radius-server", "radius server", "set system radius-server",
+    ["aaa group server","radius"],
+  ]},
+  {concept:"log-host",        cat:"Logging", any:[
+    "logging host", "logging server", ["syslog","host"],
+    "set system syslog host", "set log syslogd",
+  ]},
+  {concept:"snmp-host",       cat:"SNMP", any:[
+    "snmp-server host", "snmp-server community", "snmp host",
+    "set snmp community", "set snmp-server", "nv set service snmp",
+  ]},
+  {concept:"ntp-server",      cat:"NTP", any:[
+    "ntp server", "ntp peer", "sntp-server", "nv set service ntp server",
+    "/system ntp client set",
+  ]},
+];
+
+function lookupConcept(haystack){
+  if(!haystack) return null;
+  const h = haystack.toLowerCase();
+  for(const c of CONCEPT_SYNONYMS){
+    for(const alt of c.any){
+      if(Array.isArray(alt)){
+        // All substrings must be present (AND)
+        let ok = true;
+        for(const s of alt){ if(!h.includes(s.toLowerCase())){ ok = false; break; } }
+        if(ok) return { concept: c.concept, cat: c.cat };
+      } else {
+        if(h.includes(alt.toLowerCase())) return { concept: c.concept, cat: c.cat };
+      }
+    }
+  }
+  return null;
+}
+
+/* --- v2: Translate this command to every other vendor ---------------------- */
+function findVendorTranslation(srcCmd, srcVendor){
+  // For each other vendor, return the row whose conceptKey matches srcCmd's.
+  // If multiple rows match, score by token overlap on title + cmd.
+  const myConcept = conceptKey(srcCmd);
+  const tokens = (srcCmd.title + " " + srcCmd.cmd).toLowerCase().split(/\W+/).filter(t => t.length > 2);
+  const results = {};
+  const ALL_VENDORS = ["Cisco","Juniper","Arista","FRR","VyOS","SONiC","NVIDIA","PAN-OS","Nokia","FortiOS","Mikrotik","Extreme","Aruba","Huawei","Microsoft","Linux","Wireshark"];
+  for(const v of ALL_VENDORS){
+    if(v === srcVendor) continue;
+    let best = null;
+    let bestScore = 0;
+    for(const r of DATA){
+      if(r.vendor !== v) continue;
+      if(conceptKey(r) !== myConcept) continue;
+      // Score by token overlap
+      const rt = (r.title + " " + r.cmd).toLowerCase();
+      let score = 0;
+      for(const t of tokens){ if(rt.includes(t)) score++; }
+      if(score > bestScore){ bestScore = score; best = r; }
+    }
+    if(best) results[v] = { row: best, score: bestScore };
+  }
+  return { concept: myConcept, matches: results };
+}
+
 function renderCompare(filtered, results){
   // Compare view is N-vendor aware. With 11 supported vendors, rendering all
   // columns by default would be cramped — so when the user hasn't filtered,
   // we default to the four with deepest coverage (Cisco · Juniper · Arista
   // · FRR). The user opts into the rest via the vendor chips in the sidebar.
-  const ALL_VENDORS = ["Cisco","Juniper","Arista","FRR","VyOS","SONiC","NVIDIA","PAN-OS","Nokia","FortiOS","Mikrotik","Extreme","Aruba","Huawei"];
+  const ALL_VENDORS = ["Cisco","Juniper","Arista","FRR","VyOS","SONiC","NVIDIA","PAN-OS","Nokia","FortiOS","Mikrotik","Extreme","Aruba","Huawei","Microsoft","Linux","Wireshark"];
   const VEND_SHORT  = {Cisco:"C", Juniper:"J", Arista:"A", FRR:"F", VyOS:"V", SONiC:"S", NVIDIA:"N", "PAN-OS":"P", Nokia:"K", FortiOS:"FT", Mikrotik:"MT", Extreme:"E", Aruba:"AR", Huawei:"HW"};
   const VEND_CT_CLS = {Cisco:"ct-c", Juniper:"ct-j", Arista:"ct-a", FRR:"ct-f", VyOS:"ct-v", SONiC:"ct-s", NVIDIA:"ct-n", "PAN-OS":"ct-p", Nokia:"ct-o", FortiOS:"ct-fo", Mikrotik:"ct-m", Extreme:"ct-e", Aruba:"ct-ar", Huawei:"ct-h"};
   const DEFAULT_VENDORS = ["Cisco","Juniper","Arista","FRR"];
@@ -4350,7 +4843,12 @@ function renderCompare(filtered, results){
   }
   const byCat = {};
   filtered.forEach(d=>{(byCat[d.cat] = byCat[d.cat] || []).push(d);});
-  Object.keys(byCat).sort().forEach(cat=>{
+  // Render the most-populated categories first, capped to state.cmpCap. Each
+  // category is a full comparison table; rendering all 41 at once builds ~50K
+  // nodes and freezes the tab for ~1s. The footer loads more on demand.
+  const catKeys = Object.keys(byCat).sort((a,b)=> byCat[b].length - byCat[a].length || a.localeCompare(b));
+  const catCap = Math.min(state.cmpCap, catKeys.length);
+  catKeys.slice(0, catCap).forEach(cat=>{
     const items = byCat[cat];
     // Group by conceptKey — slot starts as one bucket per active vendor
     const conceptMap = new Map();
@@ -4375,7 +4873,7 @@ function renderCompare(filtered, results){
     const cCounts = {}; cmpVendors.forEach(v => cCounts[v] = 0);
     items.forEach(d => { if(cCounts[d.vendor] != null) cCounts[d.vendor]++; });
     const hdrKids = [
-      el("h3",{}, cat),
+      el("h2",{}, cat),
       el("span",{class:"ct"}, total + " cmds"),
       el("span",{class:"ct", title:"Concepts covered by all selected vendors / by ≥2 vendors"},
         "🔗 " + allCovered + "·" + cmpVendors.length + " / " + partial + "·2+"),
@@ -4403,7 +4901,7 @@ function renderCompare(filtered, results){
       if(ca !== cb) return cb - ca;
       return a[0].localeCompare(b[0]);
     });
-    sorted.slice(0,60).forEach(entry=>{
+    sorted.slice(0,40).forEach(entry=>{
       const slot = entry[1];
       const row = el("div",{class:"cmp-row", style:"--cmp-cols:"+cmpVendors.length, "data-concept":entry[0]});
       row.appendChild(el("div",{class:"cmp-concept"}, slot.label || entry[0].split(":")[1]));
@@ -4436,11 +4934,22 @@ function renderCompare(filtered, results){
       });
       tbl.appendChild(row);
     });
-    if(sorted.length > 60){
-      tbl.appendChild(el("div",{class:"cmp-row"}, el("div",{style:"grid-column:1/-1;text-align:center;padding:10px;color:var(--ink-muted);font-size:11px"}, "showing top 60 of "+sorted.length+" concepts — refine filters to see more")));
+    if(sorted.length > 40){
+      tbl.appendChild(el("div",{class:"cmp-row"}, el("div",{style:"grid-column:1/-1;text-align:center;padding:10px;color:var(--ink-muted);font-size:11px"}, "showing top 40 of "+sorted.length+" concepts — refine filters to see more")));
     }
     results.appendChild(tbl);
   });
+  if(catKeys.length > catCap){
+    const more = el("div",{class:"render-more"},
+      el("div",{class:"render-more-text"},
+        `Showing ${catCap.toLocaleString()} of ${catKeys.length.toLocaleString()} categories. Load more or narrow the filters.`),
+      el("button",{class:"btn", onClick:()=>{ state.cmpCap += 3; render(); }},
+        `Show next 3 categories`),
+      el("button",{class:"btn", onClick:()=>{ state.cmpCap = catKeys.length; render(); }},
+        `Show all (${catKeys.length.toLocaleString()})`)
+    );
+    results.appendChild(more);
+  }
 }
 
 function updateCliBadge(){
@@ -4494,6 +5003,316 @@ function closeDrawer(){
 function closeEquiv(){ $("equiv-drawer").classList.remove("open"); }
 function buildAllText(){
   return state.queue.map((q,i)=>"! "+(i+1)+". ["+q.vendor+"/"+(OSLABEL[q.os]||q.os)+"] "+q.title+"\n"+q.cmd).join("\n\n");
+}
+
+/* --- v2: Playbook compiler --------------------------------------------------
+ * Walks `state.queue`, groups items by vendor, and emits a single runnable
+ * program in the chosen format:
+ *   - netmiko  → one Python script with imports, one connection per vendor,
+ *                a single `send_config_set()` (or `send_command()` for shows)
+ *   - ansible  → one YAML playbook with one `- hosts:` block per vendor,
+ *                using each vendor's official/community collection
+ *   - bash     → sshpass + ssh + heredoc — last-resort, works everywhere
+ *   - raw      → labelled CLI blocks per vendor, ready to paste into a TTY
+ *
+ * All credential reads route through `pySetup()` / `pyArg()` so Secret Mode
+ * (inline / .env / keyring) propagates uniformly into the compiled output.
+ * Each vendor → Netmiko device_type is held in NETMIKO_DEV_TYPE; the OS-level
+ * fallback in OS_DEV_TYPE is consulted when a queue row has no exact match.
+ */
+const NETMIKO_DEV_TYPE = {
+  "Cisco":    "cisco_ios",
+  "Juniper":  "juniper_junos",
+  "Arista":   "arista_eos",
+  "FRR":      "frrouting",
+  "VyOS":     "vyos",
+  "SONiC":    "linux",
+  "NVIDIA":   "linux",
+  "PAN-OS":   "paloalto_panos",
+  "Nokia":    "nokia_srl",
+  "FortiOS":  "fortinet",
+  "Mikrotik": "mikrotik_routeros",
+  "Extreme":  "extreme_exos",
+  "Aruba":    "aruba_aoscx",
+  "Huawei":   "huawei",
+  // PowerShell / Linux / Wireshark are host-side, not network-device — netmiko
+  // doesn't have a native device_type, so we route them through "linux" (which
+  // gives a generic shell session). Microsoft uses winrm via Ansible instead.
+  "Microsoft": "linux",
+  "Linux":     "linux",
+  "Wireshark": "linux",
+};
+const OS_DEV_TYPE = {
+  ios:"cisco_ios", iosxe:"cisco_xe", nxos:"cisco_nxos", asa:"cisco_asa",
+  junos:"juniper_junos", eos:"arista_eos", frr:"frrouting",
+  vyos:"vyos", sonic:"linux", nvue:"linux",
+  panos:"paloalto_panos", srlinux:"nokia_srl", fortios:"fortinet",
+  routeros:"mikrotik_routeros", exos:"extreme_exos",
+  aoscx:"aruba_aoscx", vrp:"huawei",
+  // Host-side (PowerShell on Windows; bash on Linux; tshark CLI) — all map
+  // to a generic shell session for the SSH fallback path. The Ansible side
+  // uses module-specific tasks (see ANSIBLE_MOD below).
+  powershell:"linux", linux:"linux", tshark:"linux", cumulus:"linux",
+};
+// Per-vendor Ansible task module (preferred — falls back to ansible.builtin.shell)
+const ANSIBLE_MOD = {
+  "Cisco":    {show:"cisco.ios.ios_command",       cfg:"cisco.ios.ios_config",       collection:"cisco.ios"},
+  "Juniper":  {show:"junipernetworks.junos.junos_command", cfg:"junipernetworks.junos.junos_config", collection:"junipernetworks.junos"},
+  "Arista":   {show:"arista.eos.eos_command",      cfg:"arista.eos.eos_config",      collection:"arista.eos"},
+  "FRR":      {show:"ansible.builtin.shell",       cfg:"ansible.builtin.shell",      collection:"ansible.builtin",      vtysh:true},
+  "VyOS":     {show:"vyos.vyos.vyos_command",      cfg:"vyos.vyos.vyos_config",      collection:"vyos.vyos"},
+  "SONiC":    {show:"ansible.builtin.shell",       cfg:"ansible.builtin.shell",      collection:"ansible.builtin"},
+  "NVIDIA":   {show:"nvidia.nvue.command",         cfg:"nvidia.nvue.command",        collection:"nvidia.nvue"},
+  "PAN-OS":   {show:"paloaltonetworks.panos.panos_op", cfg:"paloaltonetworks.panos.panos_config_element", collection:"paloaltonetworks.panos"},
+  "Nokia":    {show:"nokia.srlinux.get",           cfg:"nokia.srlinux.config",       collection:"nokia.srlinux"},
+  "FortiOS":  {show:"fortinet.fortios.fortios_monitor", cfg:"fortinet.fortios.fortios_monitor", collection:"fortinet.fortios"},
+  "Mikrotik": {show:"community.routeros.command",  cfg:"community.routeros.command", collection:"community.routeros"},
+  "Extreme":  {show:"community.network.exos_command", cfg:"community.network.exos_config", collection:"community.network"},
+  "Aruba":    {show:"arubanetworks.aoscx.aoscx_command", cfg:"arubanetworks.aoscx.aoscx_config", collection:"arubanetworks.aoscx"},
+  "Huawei":   {show:"community.network.ce_command", cfg:"community.network.ce_config", collection:"community.network"},
+  // Host-side targets — different Ansible modules than network-device ones.
+  "Microsoft": {show:"ansible.windows.win_command",   cfg:"ansible.windows.win_shell",      collection:"ansible.windows"},
+  "Linux":     {show:"ansible.builtin.command",       cfg:"ansible.builtin.shell",          collection:"ansible.builtin"},
+  "Wireshark": {show:"ansible.builtin.shell",         cfg:"ansible.builtin.shell",          collection:"ansible.builtin"},
+};
+
+// Quick heuristic: does a command read state or change it?
+function isShowCmd(cmd){
+  const first = (cmd||"").trim().split("\n")[0].toLowerCase();
+  return /^\s*(show|display|get|ping|traceroute|nv\s+show|monitor)\b/.test(first);
+}
+function vendorKeyFor(q){ return q.vendor || "Unknown"; }
+function devTypeFor(q){
+  return NETMIKO_DEV_TYPE[q.vendor] || OS_DEV_TYPE[q.os] || "terminal_server";
+}
+
+// Group `state.queue` by vendor → ordered list. Stable across renderings.
+function groupQueueByVendor(){
+  const order = [];
+  const buckets = new Map();
+  state.queue.forEach((q,i)=>{
+    const v = vendorKeyFor(q);
+    if(!buckets.has(v)){ buckets.set(v, []); order.push(v); }
+    buckets.get(v).push({ ...q, _idx:i });
+  });
+  return order.map(v => ({vendor:v, items:buckets.get(v)}));
+}
+
+// --- compilers ---
+function compilePlaybookNetmiko(){
+  const groups = groupQueueByVendor();
+  if(groups.length === 0) return "# queue is empty";
+  const lines = [];
+  lines.push("#!/usr/bin/env python3");
+  lines.push('"""');
+  lines.push("Auto-generated by multivendor-cli-configurator.");
+  lines.push("Compiled from CLI Builder queue: "+state.queue.length+" commands across "+groups.length+" vendor"+(groups.length===1?"":"s")+".");
+  lines.push("");
+  lines.push("Run:  python3 playbook.py");
+  lines.push("Pre-req:  pip install netmiko"+(secretMode()==='env' ? ' python-dotenv' : secretMode()==='keyring' ? ' keyring' : ''));
+  lines.push('"""');
+  lines.push("");
+  // Single shared HOST/USER/PASS setup — secret mode aware
+  lines.push(pySetup().trimEnd());
+  lines.push("");
+  lines.push("from netmiko import ConnectHandler");
+  lines.push("");
+  // One TARGETS list per vendor so users can fan-out by changing the host map.
+  // Default: every group points to the same HOST. Override in the dict.
+  lines.push("# Map each vendor in your queue to its target IP. Adjust as needed.");
+  lines.push("TARGETS = {");
+  groups.forEach(g => lines.push(`    ${JSON.stringify(g.vendor)}: HOST,`));
+  lines.push("}");
+  lines.push("");
+  groups.forEach(g => {
+    const dt = NETMIKO_DEV_TYPE[g.vendor] || OS_DEV_TYPE[g.items[0].os] || "terminal_server";
+    const allShows = g.items.every(it => isShowCmd(it.cmd));
+    lines.push(`# --- ${g.vendor} (${g.items.length} command${g.items.length===1?'':'s'}, device_type=${dt}) ---`);
+    lines.push(`def run_${g.vendor.toLowerCase().replace(/[^a-z0-9]/g,'_')}():`);
+    lines.push(`    device = {"device_type":${JSON.stringify(dt)},"host":TARGETS[${JSON.stringify(g.vendor)}],"username":USER,"password":PASS}`);
+    lines.push(`    with ConnectHandler(**device) as net:`);
+    if(allShows){
+      // Show: send_command for each
+      g.items.forEach(it => {
+        const first = it.cmd.trim().split("\n")[0];
+        if(g.vendor === "FRR"){
+          lines.push(`        print("--- " + ${JSON.stringify(it.title)} + " ---")`);
+          lines.push(`        print(net.send_command(${JSON.stringify('vtysh -c "' + first.replace(/"/g,'\\"') + '"')}))`);
+        } else {
+          lines.push(`        print("--- " + ${JSON.stringify(it.title)} + " ---")`);
+          lines.push(`        print(net.send_command(${JSON.stringify(first)}))`);
+        }
+      });
+    } else {
+      // Mixed or config: flatten all command lines and push as a config block.
+      const allLines = g.items.flatMap(it => it.cmd.split("\n").filter(x=>x.trim()));
+      lines.push(`        config = ${JSON.stringify(allLines, null, 12).replace(/\n/g, "\n        ")}`);
+      lines.push(`        out = net.send_config_set(config)`);
+      lines.push(`        try: net.save_config()`);
+      lines.push(`        except Exception: pass  # not all device_types implement save_config`);
+      lines.push(`        print(out)`);
+    }
+    lines.push("");
+  });
+  lines.push("if __name__ == \"__main__\":");
+  groups.forEach(g => {
+    lines.push(`    run_${g.vendor.toLowerCase().replace(/[^a-z0-9]/g,'_')}()`);
+  });
+  return lines.join("\n");
+}
+
+function compilePlaybookAnsible(){
+  const groups = groupQueueByVendor();
+  if(groups.length === 0) return "# queue is empty";
+  const collections = new Set();
+  groups.forEach(g => { const m = ANSIBLE_MOD[g.vendor]; if(m) collections.add(m.collection); });
+  const lines = [];
+  lines.push("# Auto-generated by multivendor-cli-configurator.");
+  lines.push("# Pre-req — install collections:");
+  collections.forEach(c => lines.push(`#   ansible-galaxy collection install ${c}`));
+  lines.push("# Inventory: define host groups named after the lowercase vendor (e.g. `cisco:`, `juniper:`, `arista:`).");
+  lines.push("# Credentials: set NETDEV_USER / NETDEV_PASS in the environment (Secret Mode '.env' default) or use vault.");
+  lines.push("---");
+  groups.forEach(g => {
+    const mod = ANSIBLE_MOD[g.vendor] || ANSIBLE_MOD["Cisco"];
+    const allShows = g.items.every(it => isShowCmd(it.cmd));
+    const allLines = g.items.flatMap(it => it.cmd.split("\n").filter(x=>x.trim()));
+    const moduleName = allShows ? mod.show : mod.cfg;
+    lines.push(`- name: "${g.vendor} — ${g.items.length} command${g.items.length===1?'':'s'} from CLI Builder"`);
+    lines.push(`  hosts: ${g.vendor.toLowerCase()}`);
+    lines.push("  gather_facts: false");
+    lines.push("  vars:");
+    lines.push("    ansible_user: \"{{ lookup('env', 'NETDEV_USER') }}\"");
+    lines.push("    ansible_password: \"{{ lookup('env', 'NETDEV_PASS') }}\"");
+    lines.push("  tasks:");
+    if(mod.vtysh){
+      // FRR via vtysh heredoc
+      lines.push(`    - name: "Push via vtysh"`);
+      lines.push(`      ansible.builtin.shell: |`);
+      lines.push(`        vtysh <<'EOF'`);
+      lines.push(`        configure terminal`);
+      allLines.forEach(l => lines.push(`        ${l}`));
+      lines.push(`        end`);
+      lines.push(`        write memory`);
+      lines.push(`        EOF`);
+    } else if(allShows){
+      lines.push(`    - name: "Run show commands"`);
+      lines.push(`      ${moduleName}:`);
+      lines.push(`        commands:`);
+      allLines.forEach(l => lines.push(`          - ${JSON.stringify(l)}`));
+      lines.push(`      register: result`);
+      lines.push(`    - name: "Show output"`);
+      lines.push(`      ansible.builtin.debug:`);
+      lines.push(`        var: result.stdout_lines`);
+    } else {
+      lines.push(`    - name: "Push configuration"`);
+      lines.push(`      ${moduleName}:`);
+      lines.push(`        lines:`);
+      allLines.forEach(l => lines.push(`          - ${JSON.stringify(l)}`));
+      if(/_config$/.test(moduleName)) lines.push(`        save_when: modified`);
+    }
+    lines.push("");
+  });
+  return lines.join("\n");
+}
+
+function compilePlaybookBash(){
+  // Last-resort, works against anything with SSH. Uses sshpass + a here-doc
+  // per vendor — no Python or Ansible required. Read creds from .env.
+  const groups = groupQueueByVendor();
+  if(groups.length === 0) return "# queue is empty";
+  const lines = [];
+  lines.push("#!/usr/bin/env bash");
+  lines.push("# Auto-generated by multivendor-cli-configurator.");
+  lines.push("# Reads creds from .env in CWD (NETDEV_HOST / NETDEV_USER / NETDEV_PASS).");
+  lines.push("# Requires: sshpass.    brew install hudochenkov/sshpass/sshpass    /    apt install sshpass");
+  lines.push("set -euo pipefail");
+  lines.push("source .env  # NETDEV_HOST / NETDEV_USER / NETDEV_PASS");
+  lines.push("");
+  groups.forEach(g => {
+    const lines2 = g.items.flatMap(it => it.cmd.split("\n").filter(x=>x.trim()));
+    lines.push(`# --- ${g.vendor} (${g.items.length} command${g.items.length===1?'':'s'}) ---`);
+    lines.push(`sshpass -p "$NETDEV_PASS" ssh -o StrictHostKeyChecking=no "$NETDEV_USER@$NETDEV_HOST" <<'CLI_EOF'`);
+    lines2.forEach(l => lines.push(l));
+    lines.push("CLI_EOF");
+    lines.push("");
+  });
+  return lines.join("\n");
+}
+
+function compilePlaybookRaw(){
+  // Per-vendor CLI blocks, ready to paste into a TTY. No imports, no tooling.
+  const groups = groupQueueByVendor();
+  if(groups.length === 0) return "# queue is empty";
+  const out = [];
+  groups.forEach(g => {
+    out.push("! ============================================================");
+    out.push("! "+g.vendor+" — "+g.items.length+" command"+(g.items.length===1?'':'s'));
+    out.push("! ============================================================");
+    g.items.forEach((it,i) => {
+      out.push("! "+(i+1)+". "+it.title);
+      out.push(it.cmd);
+      out.push("");
+    });
+  });
+  return out.join("\n");
+}
+
+const PB_COMPILERS = {
+  netmiko: { fn: compilePlaybookNetmiko, ext:"py",  mime:"text/x-python",        lang:"python" },
+  ansible: { fn: compilePlaybookAnsible, ext:"yml", mime:"text/x-yaml",          lang:"yaml" },
+  bash:    { fn: compilePlaybookBash,    ext:"sh",  mime:"text/x-shellscript",   lang:"bash" },
+  raw:     { fn: compilePlaybookRaw,     ext:"txt", mime:"text/plain",           lang:"text" },
+};
+let _pbActiveFmt = "netmiko";
+
+function renderCompiledPlaybook(fmt){
+  _pbActiveFmt = fmt;
+  document.querySelectorAll("#pb-tabs .pb-tab").forEach(b =>
+    b.classList.toggle("on", b.dataset.fmt === fmt));
+  const comp = PB_COMPILERS[fmt];
+  const body = $("pb-body"); body.replaceChildren();
+  const groups = groupQueueByVendor();
+  // Summary
+  $("pb-summary").textContent = `${state.queue.length} command${state.queue.length===1?'':'s'} across ${groups.length} vendor${groups.length===1?'':'s'}: ${groups.map(g => g.vendor+'('+g.items.length+')').join(' · ')}`;
+  // Actions row
+  const actions = el("div",{class:"pb-actions"});
+  const compiled = comp.fn();
+  const copyBtn = el("button",{class:"tbtn",onClick:()=>{
+    navigator.clipboard.writeText(compiled).then(()=>{ copyBtn.textContent="✓ Copied"; setTimeout(()=>copyBtn.textContent="Copy",1500); });
+  }}, "Copy");
+  const dlBtn = el("button",{class:"tbtn",onClick:()=>{
+    const blob = new Blob([compiled], {type: comp.mime});
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = `playbook.${comp.ext}`;
+    a.click();
+    URL.revokeObjectURL(a.href);
+  }}, "Download ."+comp.ext);
+  actions.appendChild(copyBtn);
+  actions.appendChild(dlBtn);
+  if(secretMode() === "inline"){
+    actions.appendChild(el("span",{class:"pb-warn"},
+      "⚠ Secret mode is 'Inline' — the generated script will hard-code your password. Switch to .env or keyring (params editor) before sharing."));
+  }
+  body.appendChild(actions);
+  body.appendChild(el("div",{class:"pb-meta"},
+    `Secret mode: ${secretMode()}  ·  Compiled at ${new Date().toLocaleString()}`));
+  body.appendChild(el("pre", {}, compiled));
+}
+
+function openPlaybook(){
+  if(state.queue.length === 0){
+    alert("Your CLI Builder queue is empty. Add commands with the + CLI button on any card first.");
+    return;
+  }
+  $("pb-overlay").classList.add("open");
+  $("pb-modal").classList.add("open");
+  renderCompiledPlaybook(_pbActiveFmt);
+}
+function closePlaybook(){
+  $("pb-modal").classList.remove("open");
+  $("pb-overlay").classList.remove("open");
 }
 
 function refreshTopStats(){
@@ -4653,6 +5472,13 @@ $("drawer-clear").addEventListener("click",()=>{
   if(state.queue.length && confirm("Clear all "+state.queue.length+" queued commands?")){
     state.queue = []; persistQueue(); updateCliBadge(); renderDrawer();
   }
+});
+$("drawer-compile").addEventListener("click", openPlaybook);
+$("pb-close").addEventListener("click", closePlaybook);
+$("pb-overlay").addEventListener("click", closePlaybook);
+$("pb-tabs").addEventListener("click", (e)=>{
+  const t = e.target.closest(".pb-tab");
+  if(t && t.dataset.fmt) renderCompiledPlaybook(t.dataset.fmt);
 });
 $("equiv-close").addEventListener("click",closeEquiv);
 $("auto-close").addEventListener("click",closeAutomation);
@@ -4818,28 +5644,148 @@ if(localStorage.getItem("cli-side-collapsed")==="1") document.querySelector("mai
   });
 });
 
-fetch("commands.json",{cache:"no-cache"})
-  .then(r=>{ if(!r.ok) throw new Error("HTTP "+r.status); return r.json(); })
-  .then(arr=>{
-    DATA = arr;
-    // Workspace snapshot (?ws=...) takes precedence over plain URL state
-    if(!tryDecodeWorkspace()) restoreUrl();
-    ["vb-cards","vb-table","vb-compare"].forEach(id=>{
-      $(id).classList.toggle("on", id === "vb-"+state.view);
+/* --- v2: IndexedDB cache --------------------------------------------------
+ * Strategy: cache-then-revalidate.
+ *
+ *   1. On boot, try IndexedDB. If we have a previous payload, render IMMEDIATELY
+ *      (so the page is interactive in <100ms even on a slow link).
+ *   2. In parallel, HEAD `commands.json` and compare ETag / Content-Length.
+ *      Only if they differ do we re-download the 9.5 MB blob and update the
+ *      IndexedDB cache + re-render.
+ *
+ * Net effect: first visit is identical to today; every subsequent visit is
+ * instantaneous AND the page works fully offline. The user sees a small
+ * "📦 cache hit" / "📡 fetching fresh" badge in the header so the behaviour
+ * is observable.
+ *
+ * The fetch shape stays compatible with the old code path — same call site,
+ * same `arr` value passed to the renderer. */
+const IDB_DB_NAME = "mvc-cli-cache";
+const IDB_STORE   = "payload";
+const IDB_VERSION = 1;
+
+function _openIdb(){
+  return new Promise((resolve, reject) => {
+    if(!self.indexedDB){ reject(new Error("IndexedDB unavailable")); return; }
+    const req = indexedDB.open(IDB_DB_NAME, IDB_VERSION);
+    req.onupgradeneeded = () => req.result.createObjectStore(IDB_STORE);
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+}
+async function idbGet(key){
+  try {
+    const db = await _openIdb();
+    return await new Promise((resolve, reject) => {
+      const tx = db.transaction(IDB_STORE, "readonly");
+      const r = tx.objectStore(IDB_STORE).get(key);
+      r.onsuccess = () => resolve(r.result);
+      r.onerror = () => reject(r.error);
     });
-    refreshTopStats();
-    renderChips();
-    renderRecentPanel();
-    renderActiveBar();
-    updateCliBadge();
-    render();
-  })
-  .catch(err=>{
+  } catch(e){ return undefined; }
+}
+async function idbPut(key, value){
+  try {
+    const db = await _openIdb();
+    await new Promise((resolve, reject) => {
+      const tx = db.transaction(IDB_STORE, "readwrite");
+      tx.objectStore(IDB_STORE).put(value, key);
+      tx.oncomplete = resolve;
+      tx.onerror = () => reject(tx.error);
+    });
+  } catch(e){ /* swallow — cache is best-effort */ }
+}
+
+function setCacheStatusBadge(label, color){
+  let badge = document.getElementById("cache-badge");
+  if(!badge){
+    const stats = document.querySelector(".bar");
+    if(!stats) return;
+    badge = document.createElement("span");
+    badge.id = "cache-badge";
+    badge.style.cssText = "font:10px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:var(--chip);border:1px solid var(--line);padding:3px 8px;border-radius:999px;color:var(--ink-dim);margin-left:4px;cursor:help";
+    stats.appendChild(badge);
+  }
+  badge.textContent = label;
+  badge.title = "Data source: " + label + ". Click to clear local cache.";
+  badge.style.color = color || "var(--ink-dim)";
+  badge.style.borderColor = color || "var(--line)";
+  badge.onclick = async () => {
+    if(!confirm("Clear local IndexedDB cache? Next page load will re-download commands.json from the server.")) return;
+    try {
+      const db = await _openIdb();
+      const tx = db.transaction(IDB_STORE, "readwrite");
+      tx.objectStore(IDB_STORE).clear();
+      tx.oncomplete = () => { setCacheStatusBadge("📦 cache cleared", "var(--warn)"); };
+    } catch(e){}
+  };
+}
+
+function bootRender(arr){
+  DATA = arr;
+  if(!tryDecodeWorkspace()) restoreUrl();
+  ["vb-cards","vb-table","vb-compare"].forEach(id=>{
+    $(id).classList.toggle("on", id === "vb-"+state.view);
+  });
+  refreshTopStats();
+  renderChips();
+  renderRecentPanel();
+  renderActiveBar();
+  updateCliBadge();
+  render();
+}
+
+async function loadCommandsWithCache(){
+  // 1. Try cache first
+  const cached = await idbGet("commands");
+  let renderedFromCache = false;
+  if(cached && Array.isArray(cached.data) && cached.data.length > 0){
+    setCacheStatusBadge("📦 cache · " + cached.data.length.toLocaleString() + " cmds", "var(--good)");
+    bootRender(cached.data);
+    renderedFromCache = true;
+  }
+  // 2. Revalidate in parallel — HEAD first to check size/etag
+  try {
+    const head = await fetch("commands.json", { method: "HEAD", cache: "no-store" });
+    if(!head.ok) throw new Error("HTTP " + head.status);
+    const etag = head.headers.get("ETag") || "";
+    const len  = head.headers.get("Content-Length") || "";
+    if(cached && cached.etag === etag && cached.length === len){
+      // Fresh — nothing to do
+      setCacheStatusBadge("📦 cache · up-to-date", "var(--good)");
+      return;
+    }
+    if(!renderedFromCache){
+      setCacheStatusBadge("📡 fetching…", "var(--accent)");
+    } else {
+      setCacheStatusBadge("📡 refreshing in background…", "var(--accent)");
+    }
+    const r = await fetch("commands.json", { cache: "no-store" });
+    if(!r.ok) throw new Error("HTTP " + r.status);
+    const arr = await r.json();
+    await idbPut("commands", { data: arr, etag, length: len, ts: Date.now() });
+    setCacheStatusBadge("📦 fresh · " + arr.length.toLocaleString() + " cmds", "var(--good)");
+    if(!renderedFromCache) bootRender(arr);
+    else {
+      // Cache was stale — swap DATA and re-render. Cheap (< 50ms on 30K rows).
+      DATA = arr;
+      refreshTopStats(); renderChips(); render();
+    }
+  } catch(err){
+    if(renderedFromCache){
+      // Offline / network error — but we already rendered from cache. All good.
+      setCacheStatusBadge("📦 offline · using cache", "var(--warn)");
+      return;
+    }
+    // Hard failure — no cache and no network
     $("results").appendChild(el("div",{class:"empty",style:"border-color:#ef4444;color:#ef4444"},
       "Failed to load commands.json — "+(err && err.message ? err.message : err),
       el("br"), el("br"),
       "If you opened this file with file://, your browser blocks the fetch. Serve it: python3 -m http.server"));
-  });
+  }
+}
+
+loadCommandsWithCache();
 </script>
 </body>
 </html>

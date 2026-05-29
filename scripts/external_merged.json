@@ -264,15 +264,6 @@
     "os": "ios",
     "role": "router",
     "vendor": "Cisco",
-    "cat": "System",
-    "title": "<< select and copy up to the line above this \"marker\" with your cursor",
-    "cmd": "<< select and copy up to the line above this \"marker\" with your cursor",
-    "desc": ""
-  },
-  {
-    "os": "ios",
-    "role": "router",
-    "vendor": "Cisco",
     "cat": "VLAN",
     "title": "erase startup-config",
     "cmd": "erase startup-config\ndelete vlan.dat\nreload",
@@ -2656,15 +2647,6 @@
   },
   {
     "os": "ios",
-    "role": "router",
-    "vendor": "Cisco",
-    "cat": "NTP",
-    "title": "clock protocol ptp            <- To use PTP to update the system ca...",
-    "cmd": "clock protocol ptp            <- To use PTP to update the system calendar\nno ptp grandmaster-capable    <- To get synched with the GM\nptp source x.x.x.x    <- ptp source IP. Switch IP or GrandMaster's IP.\n                         The server must be able to connect to this IP",
-    "desc": "Cisco PTP > Cisco  PTP Configuration"
-  },
-  {
-    "os": "ios",
     "role": "switch",
     "vendor": "Cisco",
     "cat": "VLAN",
@@ -4800,15 +4782,6 @@
     "os": "junos",
     "role": "router",
     "vendor": "Juniper",
-    "cat": "AAA",
-    "title": "configure the system to send logs to remote server running standard ",
-    "cmd": "configure the system to send logs to remote server running standard \n    system logging utility\n    [edit system syslog] \n    user@JunOS# set host <ip-address> authorization info \ncorrect facility that logs access attempts on the system",
-    "desc": "JunOS commands"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
     "cat": "Troubleshooting",
     "title": "user@JunOS# run show log <file name>",
     "cmd": "user@JunOS# run show log <file name>",
@@ -4866,15 +4839,6 @@
     "cat": "SNMP",
     "title": "user@JunOS# set snmp community <name> clients <ip address>",
     "cmd": "user@JunOS# set snmp community <name> clients <ip address>",
-    "desc": "JunOS commands"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "SNMP",
-    "title": "configure snmp trap group to send traps to the NMS server, whenever...",
-    "cmd": "configure snmp trap group to send traps to the NMS server, whenever the interface\n    transitions to a down state\n    user@JunOS# set snmp trap-group <name> targets <ip address>\n    user@JunOS# set snmp trap-group <name> categories link",
     "desc": "JunOS commands"
   },
   {
@@ -5046,15 +5010,6 @@
     "cat": "Static",
     "title": "user@JunOS# set rib inet6.0 static route fda9::2 next-hop fda1::2",
     "cmd": "user@JunOS# set rib inet6.0 static route fda9::2 next-hop fda1::2",
-    "desc": "JunOS commands"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "Static",
-    "title": "can use link local addres but the route type have to be fully speci...",
-    "cmd": "can use link local addres but the route type have to be fully specified \n    user@JunOS# set rib inet6.0 static route ::/0 qualified-next-hop fe80::1 interface ge-0/0/0",
     "desc": "JunOS commands"
   },
   {
@@ -20326,15 +20281,6 @@
     "role": "router",
     "vendor": "Juniper",
     "cat": "System",
-    "title": "up to 4 x 10Gbps ports, 48 x 1Gbps ports, and 1 x 1Gbps management port, when",
-    "cmd": "up to 4 x 10Gbps ports, 48 x 1Gbps ports, and 1 x 1Gbps management port, when",
-    "desc": "on the number of ports in the device and the maximum speed of each port."
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "System",
     "title": "show system processes summary",
     "cmd": "show system processes summary",
     "desc": "and the output that is generated:"
@@ -20478,24 +20424,6 @@
     "os": "junos",
     "role": "router",
     "vendor": "Juniper",
-    "cat": "Troubleshooting",
-    "title": "set commands and think that they involve more typing than your vendor of",
-    "cmd": "set commands and think that they involve more typing than your vendor of",
-    "desc": "User Interface"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "System",
-    "title": "set format. By contrast, the hierarchy spaces things out, and makes it logical t",
-    "cmd": "set format. By contrast, the hierarchy spaces things out, and makes it logical to",
-    "desc": "features beyond mere IP addresses, I promise you that you’ll come back to the hierarchical format more and more."
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
     "cat": "System",
     "title": "set system host-name Router_Chris",
     "cmd": "set system host-name Router_Chris",
@@ -20518,15 +20446,6 @@
     "title": "load complete",
     "cmd": "load complete",
     "desc": "and see what happens:"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "Troubleshooting",
-    "title": "commit something that someone else is halfway through typing. In that case, type",
-    "cmd": "commit something that someone else is halfway through typing. In that case, type",
-    "desc": "When you do this, your colleagues won’t even be able to enter configuration mode"
   },
   {
     "os": "junos",
@@ -20767,15 +20686,6 @@
     "role": "router",
     "vendor": "Juniper",
     "cat": "System",
-    "title": "Delete the all characters from the cursor to the end of the command line.",
-    "cmd": "Delete the all characters from the cursor to the end of the command line.",
-    "desc": "Ctrl+u or Ctrl+x"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "System",
     "title": "Delete the all characters from the command line.",
     "cmd": "Delete the all characters from the command line.",
     "desc": "Ctrl+w, Esc+Backspace, or"
@@ -20824,15 +20734,6 @@
     "title": "show interfaces terse | match ge|inet",
     "cmd": "show interfaces terse | match ge|inet",
     "desc": "that we wanted to view any lines that contain either the text ge, or the text inet."
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "System",
-    "title": "up three entire pages! Type it for yourself in your lab (and if you don’t have a",
-    "cmd": "up three entire pages! Type it for yourself in your lab (and if you don’t have a lab",
-    "desc": "and extensive options."
   },
   {
     "os": "junos",
@@ -20901,15 +20802,6 @@
     "os": "junos",
     "role": "router",
     "vendor": "Juniper",
-    "cat": "System",
-    "title": "save: You can save any output directly to a named file of your choice! We’ll see",
-    "cmd": "save: You can save any output directly to a named file of your choice! We’ll see",
-    "desc": "the router try to do a reverse DNS lookup to resolve them to hostnames."
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
     "cat": "OSPF",
     "title": "help topic ospf export",
     "cmd": "help topic ospf export",
@@ -20965,15 +20857,6 @@
     "role": "router",
     "vendor": "Juniper",
     "cat": "OSPF",
-    "title": "set interfaces hierarchy. This is great. It means that all the OSPF settings are",
-    "cmd": "set interfaces hierarchy. This is great. It means that all the OSPF settings are in one",
-    "desc": "interface, you always do it under the set protocols ospf hierarchy, not under the"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "OSPF",
     "title": "set protocols ospf area 0.0.0.0 interface ge-0/0/0.0",
     "cmd": "set protocols ospf area 0.0.0.0 interface ge-0/0/0.0",
     "desc": "format. Now, add this to the end of the command:"
@@ -21022,15 +20905,6 @@
     "title": "run ping 10.10.13.3",
     "cmd": "run ping 10.10.13.3",
     "desc": "Modifying Configurations: An Introduction to the Set Command"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "System",
-    "title": "set keyword when we configure an interface and give it an IP address:",
-    "cmd": "set keyword when we configure an interface and give it an IP address:",
-    "desc": "Now that we’re finally in configuration mode, let’s learn about how we actually"
   },
   {
     "os": "junos",
@@ -21451,15 +21325,6 @@
     "role": "router",
     "vendor": "Juniper",
     "cat": "System",
-    "title": "top-level stanza. For example, imagine that I wanted to make sure people knew",
-    "cmd": "top-level stanza. For example, imagine that I wanted to make sure people knew",
-    "desc": "form of the annotate command."
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "System",
     "title": "annotate protocols Only Chris Parker can configure this section!",
     "cmd": "annotate protocols Only Chris Parker can configure this section!",
     "desc": "that only I was allowed to make protocol changes on this box."
@@ -21487,15 +21352,6 @@
     "role": "router",
     "vendor": "Juniper",
     "cat": "System",
-    "title": "commit and-quit instead. This saves your config, then takes you back to operatio",
-    "cmd": "commit and-quit instead. This saves your config, then takes you back to operational",
-    "desc": "CLI Help"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "System",
     "title": "commit and-quit",
     "cmd": "commit and-quit",
     "desc": "Managing and Saving Configuration Files: Commit, Commit and Quit, Commit Confirmed"
@@ -21508,15 +21364,6 @@
     "title": "commit confirmed 3",
     "cmd": "commit confirmed 3",
     "desc": "CLI Help"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "System",
-    "title": "commit confirmed will be automatically rolled back in 3 minutes unless confirmed",
-    "cmd": "commit confirmed will be automatically rolled back in 3 minutes unless confirmed",
-    "desc": "Broadcast Message from root@Router1"
   },
   {
     "os": "junos",
@@ -21544,33 +21391,6 @@
     "title": "show system commit",
     "cmd": "show system commit",
     "desc": "Let’s look at our commit history again and see the results of this comment."
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "System",
-    "title": "commit synchronize the one time, to get this command onto both REs. After that,",
-    "cmd": "commit synchronize the one time, to get this command onto both REs. After that,",
-    "desc": "The four-million-IQ way of saving your change on both REs is to add the command set system commit synchronize as one of …"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "System",
-    "title": "save every configuration to an external FTP or SCP server, so you can keep a ful",
-    "cmd": "save every configuration to an external FTP or SCP server, so you can keep a full",
-    "desc": "Juniper devices! When more than 50 versions exist, Junos simply discards the oldest one."
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "System",
-    "title": "commit. There really isn’t a reason to not do this every time you commit a chang",
-    "cmd": "commit. There really isn’t a reason to not do this every time you commit a change",
-    "desc": "This is really handy for quickly identifying what changes were made in a particular"
   },
   {
     "os": "junos",
@@ -21658,15 +21478,6 @@
     "role": "router",
     "vendor": "Juniper",
     "cat": "System",
-    "title": "replace: This method isn’t quite as intuitive as you might think. The override",
-    "cmd": "replace: This method isn’t quite as intuitive as you might think. The override",
-    "desc": "your new configuration."
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "System",
     "title": "set system services web-management https interface ge-/0/0/0",
     "cmd": "set system services web-management https interface ge-/0/0/0",
     "desc": "an IP to log onto, and so on."
@@ -21688,15 +21499,6 @@
     "title": "commit check",
     "cmd": "commit check",
     "desc": "Because the load factory default command requires a commit you will need to"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "System",
-    "title": "Commit the configuration, which activates the configuration on the device and te",
-    "cmd": "Commit the configuration, which activates the configuration on the device and test",
-    "desc": "Junos Configuration Basics"
   },
   {
     "os": "junos",
@@ -21928,15 +21730,6 @@
     "role": "router",
     "vendor": "Juniper",
     "cat": "System",
-    "title": "commit in your configuration. If you try to configure both, only the option that",
-    "cmd": "commit in your configuration. If you try to configure both, only the option that was",
-    "desc": "Basic Components"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "System",
     "title": "show configuration | display set",
     "cmd": "show configuration | display set",
     "desc": "Junos Configuration Basics"
@@ -22138,15 +21931,6 @@
     "title": "set vlans default vlan-id 1",
     "cmd": "set vlans default vlan-id 1",
     "desc": "Junos Configuration Basics"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "System",
-    "title": "commit will fail. In this case our config is missing a crucial part: DNS. Leavin",
-    "cmd": "commit will fail. In this case our config is missing a crucial part: DNS. Leaving the",
-    "desc": "you can have a valid minimalistic config containing only a single line: the root"
   },
   {
     "os": "junos",
@@ -22354,15 +22138,6 @@
     "title": "run monitor traffic interface ge-0/0/2 matching proto 89",
     "cmd": "run monitor traffic interface ge-0/0/2 matching proto 89",
     "desc": "Now what if we want to monitor an interface other than the management interface (e."
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "Troubleshooting",
-    "title": "rollback 1/commit a couple of times, and including the extensive option when we",
-    "cmd": "rollback 1/commit a couple of times, and including the extensive option when we",
-    "desc": "Let’s go back in time."
   },
   {
     "os": "junos",
@@ -24591,28 +24366,10 @@
     "os": "junos",
     "role": "router",
     "vendor": "Juniper",
-    "cat": "ACL",
-    "title": "save your configs to a text editor, then spin up another lab and just put the co",
-    "cmd": "save your configs to a text editor, then spin up another lab and just put the configs",
-    "desc": "you’re deep into studying."
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
     "cat": "System",
     "title": "up of cascading branches of related functions commonly used together.",
     "cmd": "up of cascading branches of related functions commonly used together.",
     "desc": "chies, as illustrated in Figure 1."
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "System",
-    "title": "configure, troubleshoot, and manage your device. Download the",
-    "cmd": "configure, troubleshoot, and manage your device. Download the",
-    "desc": "the command-line interface."
   },
   {
     "os": "junos",
@@ -25465,15 +25222,6 @@
     "role": "router",
     "vendor": "Juniper",
     "cat": "System",
-    "title": "top of the configuration mode posts the comment at the [edit system]",
-    "cmd": "top of the configuration mode posts the comment at the [edit system]",
-    "desc": "your note when you want to include comments."
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "System",
     "title": "annotate command with an empty string:",
     "cmd": "annotate command with an empty string:",
     "desc": "single-line, comment associated with it."
@@ -25684,15 +25432,6 @@
     "title": "exit the session:",
     "cmd": "exit the session:",
     "desc": "device discards all non-committed changes to the configuration once you"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "System",
-    "title": "set up a new router, a switch, or a security platform. It’s Day One and",
-    "cmd": "set up a new router, a switch, or a security platform. It’s Day One and",
-    "desc": "acquired sufficient basic navigation skills and configuration basics to"
   },
   {
     "os": "junos",
@@ -25950,15 +25689,6 @@
     "os": "junos",
     "role": "router",
     "vendor": "Juniper",
-    "cat": "System",
-    "title": "up of two parts: the interface type and the interface numbering.",
-    "cmd": "up of two parts: the interface type and the interface numbering.",
-    "desc": "a standard format in its interface naming."
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
     "cat": "Interfaces",
     "title": "set interfaces ge-0/0/1 unit 0 family inet address 192.168.100.1/30",
     "cmd": "set interfaces ge-0/0/1 unit 0 family inet address 192.168.100.1/30",
@@ -26014,24 +25744,6 @@
     "role": "router",
     "vendor": "Juniper",
     "cat": "System",
-    "title": "Set up your local users with a name and password in the following",
-    "cmd": "Set up your local users with a name and password in the following",
-    "desc": "Local User and Password"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "System",
-    "title": "Set up as many local users as you need with the following steps:",
-    "cmd": "Set up as many local users as you need with the following steps:",
-    "desc": "How to set up local user accounts:"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "System",
     "title": "edit system login",
     "cmd": "edit system login",
     "desc": "1. To begin setup, navigate to the [edit system login] section of the"
@@ -26062,15 +25774,6 @@
     "title": "set uid 1250",
     "cmd": "set uid 1250",
     "desc": "number in the range of 100 to 64000."
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "System",
-    "title": "set command to create a password as plain text, and the Junos OS",
-    "cmd": "set command to create a password as plain text, and the Junos OS",
-    "desc": "5. Create a password for the user. As discussed in Chapter 6, you use the"
   },
   {
     "os": "junos",
@@ -26521,15 +26224,6 @@
     "title": "load merge system-login",
     "cmd": "load merge system-login",
     "desc": "saved previously in the local directory of the device:"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "System",
-    "title": "save them, to the [edit system login] hierarchy location of your con-",
-    "cmd": "save them, to the [edit system login] hierarchy location of your con-",
-    "desc": "the configuration mode."
   },
   {
     "os": "junos",
@@ -48046,15 +47740,6 @@
     "role": "switch",
     "vendor": "Arista",
     "cat": "NAT",
-    "title": "for all packets with IP destination addresses in the 168.10.1.1/32 subnet.",
-    "cmd": "for all packets with IP destination addresses in the 168.10.1.1/32 subnet.",
-    "desc": "switch(config)# ip access-list ACL1 switch(config-acl-ACL1)# permit ip any 168."
-  },
-  {
-    "os": "eos",
-    "role": "switch",
-    "vendor": "Arista",
-    "cat": "NAT",
     "title": "ip nat synchronization",
     "cmd": "ip nat synchronization [description description] [expiry-interval seconds]",
     "desc": "The ip nat synchronization command places the switch into the NAT Synchronization Configuration Mode and configures NAT Synchronization to provide redundancy and resiliency for dynamic NAT across a pair of switches."
@@ -55038,15 +54723,6 @@
     "os": "eos",
     "role": "switch",
     "vendor": "Arista",
-    "cat": "Interfaces",
-    "title": "as the source IP address when relaying IPv4 DHCP messages to the server at 1.1.1",
-    "cmd": "as the source IP address when relaying IPv4 DHCP messages to the server at 1.1.1.1.",
-    "desc": "switch(config)# interface ethernet 1/2 switch(config-if-Et1/2)# ip helper-address 1."
-  },
-  {
-    "os": "eos",
-    "role": "switch",
-    "vendor": "Arista",
     "cat": "Routing",
     "title": "ip icmp redirect",
     "cmd": "ip icmp redirect\nno ip icmp redirect\ndefault ip icmp redirect",
@@ -55795,7 +55471,7 @@
     "role": "switch",
     "vendor": "Arista",
     "cat": "System",
-    "title": "times the RA interval configured on the interface. A lifetime of zero seconds me",
+    "title": "ipv6 nd ra dns-servers lifetime period",
     "cmd": "ipv6 nd ra dns-servers lifetime period\nno ipv6 nd ra dns-servers lifetime\ndefault ipv6 nd ra dns-servers lifetime",
     "desc": "not be used for name resolution."
   },
@@ -57499,15 +57175,6 @@
     "title": "Static Topology Service",
     "cmd": "Static Topology Service",
     "desc": "Static Topology addresses cases where the deployment infrastructure in an OpenStack setup that manages Virtual Machines and Bare Metal servers does not enable LLDP on interfaces connecting hosts to switches."
-  },
-  {
-    "os": "eos",
-    "role": "switch",
-    "vendor": "Arista",
-    "cat": "Interfaces",
-    "title": "and using IP address 10.24.24.1 as the source address for its outbound packets.",
-    "cmd": "and using IP address 10.24.24.1 as the source address for its outbound packets.",
-    "desc": "switch(config)# interface loopback 5 switch(config-if-Lo5)# ip address 10."
   },
   {
     "os": "eos",
@@ -59734,15 +59401,6 @@
   },
   {
     "os": "eos",
-    "role": "switch",
-    "vendor": "Arista",
-    "cat": "Routing",
-    "title": "can be advertised from controller to select egress peer between E3 and E4. This ",
-    "cmd": "can be advertised from controller to select egress peer between E3 and E4. This approach provides",
-    "desc": "Egress peer selection on an ingress router R1/R2."
-  },
-  {
-    "os": "eos",
     "role": "router",
     "vendor": "Arista",
     "cat": "BGP",
@@ -59767,15 +59425,6 @@
     "title": "BGP Nexthop Resolution RIBs: EVPN and IPV4/6 Labeled-Unicast Support",
     "cmd": "BGP Nexthop Resolution RIBs: EVPN and IPV4/6 Labeled-Unicast Support",
     "desc": "Adds the BGP Nexthop Resolution RIBs feature for EVPN and labeled-unicast address families."
-  },
-  {
-    "os": "eos",
-    "role": "router",
-    "vendor": "Arista",
-    "cat": "BGP",
-    "title": "BGP Logical OR of Multiple Community Lists in the Same Match Command",
-    "cmd": "BGP Logical OR of Multiple Community Lists in the Same Match Command",
-    "desc": "In the multi-agent routing protocol model, the BGP agent now supports matching community lists with a logical OR via the route map match community or-results command (same applies for extended and large communities with match extcommunity and match large-community)."
   },
   {
     "os": "eos",
@@ -61144,15 +60793,6 @@
     "title": "neighbor local-as",
     "cmd": "neighbor neighbor_ID [local-as as_id] ]no-prepend | replace-as]\nno neighbor neighbor_ID local-as\ndefault neighbor neighbor_ID local-as",
     "desc": "The neighbor local-as command changes the local AS value sent to the specified peer in OPEN messages, allowing the switch to appear as a member of a different AS to the selected peer."
-  },
-  {
-    "os": "eos",
-    "role": "switch",
-    "vendor": "Arista",
-    "cat": "System",
-    "title": "with ASN 64500, and configure the peer to expect that ASN in messages received f",
-    "cmd": "with ASN 64500, and configure the peer to expect that ASN in messages received from the switch.",
-    "desc": "• Switch Configuration switch(config)# router bgp 64497 switch(config-router-bgp)# neighbor 10."
   },
   {
     "os": "eos",
@@ -62944,15 +62584,6 @@
     "title": "route",
     "cmd": "route group_address [source_address] iif interface [oif interface] [cpu] [iifFrr interface] [priority priority_num]\nno route group_address\ndefault route group_address",
     "desc": "The route command configures a static multicast route for the specified source, destination group, and incoming interface on the router."
-  },
-  {
-    "os": "eos",
-    "role": "switch",
-    "vendor": "Arista",
-    "cat": "Multicast",
-    "title": "and source address of 1.1.1.1. It uses Vlan100 as its incoming interface, VLANs ",
-    "cmd": "and source address of 1.1.1.1. It uses Vlan100 as its incoming interface, VLANs 200 and 300 as its",
-    "desc": "outgoing interfaces, and interface Ethernet2 as its multicast-only fast reroute interface."
   },
   {
     "os": "eos",
@@ -68826,15 +68457,6 @@
     "os": "eos",
     "role": "switch",
     "vendor": "Arista",
-    "cat": "AAA",
-    "title": "with the username account1. The default RPC port (8021) is implicitly specified.",
-    "cmd": "with the username account1. The default RPC port (8021) is implicitly specified.",
-    "desc": "switch(config)# monitor hadoop switch(config-monitor-hadoop)# cluster CL2 switch(config-monitor-hadoop-CL2)# jobtracker host 10."
-  },
-  {
-    "os": "eos",
-    "role": "switch",
-    "vendor": "Arista",
     "cat": "Troubleshooting",
     "title": "monitor hadoop",
     "cmd": "monitor hadoop\nno monitor hadoop\ndefault monitor hadoop",
@@ -71040,15 +70662,6 @@
     "os": "junos",
     "role": "router",
     "vendor": "Juniper",
-    "cat": "System",
-    "title": "> When you do this, your colleagues won’t even be able to enter configuration mo",
-    "cmd": "> When you do this, your colleagues won’t even be able to enter configuration mode",
-    "desc": "Juniper Junos — Navigating Around Operational Mode: Command Shortc"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
     "cat": "VPN",
     "title": "> Let’s see what this looks like in full:",
     "cmd": "> Let’s see what this looks like in full:",
@@ -71077,33 +70690,6 @@
     "role": "router",
     "vendor": "Juniper",
     "cat": "Troubleshooting",
-    "title": "> Imagine that you made a typing mistake.",
-    "cmd": "> Imagine that you made a typing mistake.",
-    "desc": "Juniper Junos — Navigating Around Operational Mode: Command Shortc"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "System",
-    "title": "> Look at that. Our second command didn’t over-write the first command at all. I",
-    "cmd": "> Look at that. Our second command didn’t over-write the first command at all. Instead, it’s added both IPs to the interface!",
-    "desc": "Juniper Junos — Navigating Around Operational Mode: Command Shortc"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "System",
-    "title": "> The (no) in brackets indicates that if you were to just hit return, no would b",
-    "cmd": "> The (no) in brackets indicates that if you were to just hit return, no would be the",
-    "desc": "Juniper Junos — Navigating Around Operational Mode: Command Shortc"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "Troubleshooting",
     "title": "> The disable command kept it there and just showed it as admin-down.",
     "cmd": "> The disable command kept it there and just showed it as admin-down.",
     "desc": "Juniper Junos — Navigating Around Operational Mode: Command Shortc"
@@ -71122,90 +70708,9 @@
     "role": "router",
     "vendor": "Juniper",
     "cat": "System",
-    "title": "> were made when my colleagues were looking at this list of configurations.",
-    "cmd": "> were made when my colleagues were looking at this list of configurations.",
-    "desc": "Juniper Junos — Navigating Around Operational Mode: Command Shortc"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "System",
-    "title": "> override command. I’m going to ask Junos to completely scrap the current candi",
-    "cmd": "> override command. I’m going to ask Junos to completely scrap the current candidate config, and replace it with my new fi…",
-    "desc": "Juniper Junos — Navigating Around Operational Mode: Command Shortc"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "System",
-    "title": "> Now that we’ve added the configuration to change our hostname, let’s make an",
-    "cmd": "> Now that we’ve added the configuration to change our hostname, let’s make an",
-    "desc": "Juniper Junos — Configuring Your Device: Active Configs Versus Can"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "Interfaces",
-    "title": "> Let’s imagine that I wanted to configure a brand new interface, ge-0/0/2, and",
-    "cmd": "> Let’s imagine that I wanted to configure a brand new interface, ge-0/0/2, and give",
-    "desc": "Juniper Junos — Configuration Mode CLI Navigation"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "BGP",
-    "title": "> you were about to configure some BGP, but you couldn’t remember how to set a",
-    "cmd": "> you were about to configure some BGP, but you couldn’t remember how to set a",
-    "desc": "Juniper Junos — Configuration Mode CLI Navigation"
-  },
-  {
-    "os": "junos",
-    "role": "firewall",
-    "vendor": "Juniper",
-    "cat": "NAT",
-    "title": "> Be careful though. You might think the delete command is simple and self-expla",
-    "cmd": "> Be careful though. You might think the delete command is simple and self-explanatory but there’s a bit more to this comm…",
-    "desc": "Juniper Junos — Modifying Configurations: Delete"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "System",
     "title": "> can use rename to quickly change it back:",
     "cmd": "> can use rename to quickly change it back:",
     "desc": "Juniper Junos — Modifying Configurations: Rename, Replace Pattern,"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "Interfaces",
-    "title": "> as necessary, for example disabling one interface while the other remains live",
-    "cmd": "> as necessary, for example disabling one interface while the other remains live to get",
-    "desc": "Juniper Junos — Modifying Configurations: Rename, Replace Pattern,"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "System",
-    "title": "> For now, let’s imagine we add an extra term to this filter, denying Telnet tra",
-    "cmd": "> For now, let’s imagine we add an extra term to this filter, denying Telnet traffic:",
-    "desc": "Juniper Junos — Modifying Configurations: Insert"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "Interfaces",
-    "title": "> The best you can hope for is that someone has left a description on an interfa",
-    "cmd": "> The best you can hope for is that someone has left a description on an interface to",
-    "desc": "Juniper Junos — Commenting and Protecting Your Configuration"
   },
   {
     "os": "junos",
@@ -71221,45 +70726,9 @@
     "role": "router",
     "vendor": "Juniper",
     "cat": "System",
-    "title": "> that only I was allowed to make protocol changes on this box.",
-    "cmd": "> that only I was allowed to make protocol changes on this box.",
-    "desc": "Juniper Junos — Commenting and Protecting Your Configuration"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "System",
-    "title": "> And that’s why the wizards behind Junos did exactly that, and added this",
-    "cmd": "> And that’s why the wizards behind Junos did exactly that, and added this",
-    "desc": "Juniper Junos — Commenting and Protecting Your Configuration"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "BGP",
-    "title": "> Let’s imagine that I wanted to roll back to configuration number 5 on my lab r",
-    "cmd": "> Let’s imagine that I wanted to roll back to configuration number 5 on my lab router.",
-    "desc": "Juniper Junos — Chris Parker, adding BGP to the box"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "System",
     "title": "> candidate configuration to a file:",
     "cmd": "> candidate configuration to a file:",
     "desc": "Juniper Junos — Loading Configurations"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "Interfaces",
-    "title": "> also an interface. In our case, we assume he knows Junos and really means inte",
-    "cmd": "> also an interface. In our case, we assume he knows Junos and really means interface 12. 10Gigabit interfaces are xe-Inte…",
-    "desc": "Juniper Junos — Login Classes"
   },
   {
     "os": "junos",
@@ -71284,27 +70753,9 @@
     "role": "router",
     "vendor": "Juniper",
     "cat": "System",
-    "title": "> wrong time but all of them use the exact same wrong time, you can still troubl",
-    "cmd": "> wrong time but all of them use the exact same wrong time, you can still troubleshoot the issue very precisely because they all agreed at the same time.",
-    "desc": "Juniper Junos — Login Classes"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "System",
     "title": "> Let’s have a look at how to configure it:",
     "cmd": "> Let’s have a look at how to configure it:",
     "desc": "Juniper Junos — Login Classes"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "BGP",
-    "title": "> For example, you can create a policy named bgp-to-ospf and then apply it to os",
-    "cmd": "> For example, you can create a policy named bgp-to-ospf and then apply it to ospf:",
-    "desc": "Juniper Junos — Policy’s Building Blocks"
   },
   {
     "os": "junos",
@@ -71347,26 +70798,8 @@
     "role": "router",
     "vendor": "Juniper",
     "cat": "System",
-    "title": "> If, for example, we create the following policy and add terms 5, 2, and 6, in",
-    "cmd": "> If, for example, we create the following policy and add terms 5, 2, and 6, in that",
-    "desc": "Juniper Junos — Policy’s Building Blocks"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "System",
     "title": "> If we configure term 1 now:",
     "cmd": "> If we configure term 1 now:",
-    "desc": "Juniper Junos — Policy’s Building Blocks"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "System",
-    "title": "> You can reorder terms with one of the CLI tricks learned in Chapter 2:",
-    "cmd": "> You can reorder terms with one of the CLI tricks learned in Chapter 2:",
     "desc": "Juniper Junos — Policy’s Building Blocks"
   },
   {
@@ -71383,81 +70816,9 @@
     "role": "router",
     "vendor": "Juniper",
     "cat": "System",
-    "title": "> You can use the same prefix list created in the previous example.",
-    "cmd": "> You can use the same prefix list created in the previous example.",
-    "desc": "Juniper Junos — Policy’s Building Blocks"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "System",
     "title": "> Let’s modify the policy the following way:",
     "cmd": "> Let’s modify the policy the following way:",
     "desc": "Juniper Junos — Policy’s Building Blocks"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "System",
-    "title": "> Notice the use of orlonger because we want it to match the prefix, and any sub",
-    "cmd": "> Notice the use of orlonger because we want it to match the prefix, and any subnet",
-    "desc": "Juniper Junos — Policy’s Building Blocks"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "VPN",
-    "title": "> Sometimes you need to add an additional policy later on, and like terms, any n",
-    "cmd": "> Sometimes you need to add an additional policy later on, and like terms, any new",
-    "desc": "Juniper Junos — Policy’s Building Blocks"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "System",
-    "title": "> We can use the same trick we used before to reorder terms, to reorder policies",
-    "cmd": "> We can use the same trick we used before to reorder terms, to reorder policies:",
-    "desc": "Juniper Junos — Policy’s Building Blocks"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "VPN",
-    "title": "> You can also enter the multiple policies using square brackets, like this:",
-    "cmd": "> You can also enter the multiple policies using square brackets, like this:",
-    "desc": "Juniper Junos — Policy’s Building Blocks"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "Routing",
-    "title": "> A route needs to math protocol static AND one of the two route-filters to matc",
-    "cmd": "> A route needs to math protocol static AND one of the two route-filters to match",
-    "desc": "Juniper Junos — Policy’s Building Blocks"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "Static",
-    "title": "> static routes already in the routing table, which means EXPORT, and we are sen",
-    "cmd": "> static routes already in the routing table, which means EXPORT, and we are sending them to our OSPF neighbor, that means…",
-    "desc": "Juniper Junos — Policy’s Building Blocks"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "System",
-    "title": "> You first check how to apply the prefix list that you created:",
-    "cmd": "> You first check how to apply the prefix list that you created:",
-    "desc": "Juniper Junos — Prefix List"
   },
   {
     "os": "junos",
@@ -71473,35 +70834,8 @@
     "role": "router",
     "vendor": "Juniper",
     "cat": "Static",
-    "title": "> The difference here is the way you reference or call the prefix-list from the",
-    "cmd": "> The difference here is the way you reference or call the prefix-list from the routing-policy.",
-    "desc": "interface <interface-name>"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "Static",
     "title": "> you go straight to the policy:",
     "cmd": "> you go straight to the policy:",
-    "desc": "Juniper Junos — Route Filters"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "Static",
-    "title": "> NOTE The output looks slightly different because the router is running a diffe",
-    "cmd": "> NOTE The output looks slightly different because the router is running a different Junos version.",
-    "desc": "Juniper Junos — Route Filters"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "Routing",
-    "title": "> And create the route-filter-list where the magic is going to happen:",
-    "cmd": "> And create the route-filter-list where the magic is going to happen:",
     "desc": "Juniper Junos — Route Filters"
   },
   {
@@ -71512,42 +70846,6 @@
     "title": "> We create a new policy that looks like this:",
     "cmd": "> We create a new policy that looks like this:",
     "desc": "Juniper Junos — A Destination        P Prf   Metric 1   Metric 2  "
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "System",
-    "title": "> when a match is not found, unless the last policy applied to the protocol has",
-    "cmd": "> when a match is not found, unless the last policy applied to the protocol has a term",
-    "desc": "Juniper Junos — Policy Chains"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "System",
-    "title": "> You can apply more than one policy by simply entering the import or export com",
-    "cmd": "> You can apply more than one policy by simply entering the import or export command more than once as shown in this examp…",
-    "desc": "Juniper Junos — Policy Chains"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "VPN",
-    "title": "> NOTE This option looks more like what you see when you check the configuration",
-    "cmd": "> NOTE This option looks more like what you see when you check the configuration using the curly bracket format:",
-    "desc": "Juniper Junos — Policy Chains"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "Interfaces",
-    "title": "> the address of the physical interface of a directly connected neighbor.",
-    "cmd": "> the address of the physical interface of a directly connected neighbor.",
-    "desc": "Juniper Junos — Test Scenario for Route Redistribution"
   },
   {
     "os": "junos",
@@ -71565,15 +70863,6 @@
     "cat": "System",
     "title": "---",
     "cmd": "---\n\n<a name='ch7'></a>\n## Chapter 7: Troubleshooting Policies\n\n*71 commands extracted*\n\n**Operational Mode (`>`)**",
-    "desc": "Juniper Junos — By Yasmin Lara"
-  },
-  {
-    "os": "junos",
-    "role": "router",
-    "vendor": "Juniper",
-    "cat": "Static",
-    "title": "> Some unexpected routes are present on the receiving side (R1):",
-    "cmd": "> Some unexpected routes are present on the receiving side (R1):",
     "desc": "Juniper Junos — By Yasmin Lara"
   },
   {
@@ -71716,7 +71005,7 @@
     "role": "switch",
     "vendor": "Cisco",
     "cat": "OSPF",
-    "title": "Example 4-4: Configuration of a Separate Loopback for Routing and NVE",
+    "title": "interface loopback0",
     "cmd": "interface loopback0\nip address 10.20 0.200.1/32\nip router ospf UNDERLAY ar ea 0.0.0.0\nip pim sparse-mode\ninterface loopback1\nip address 10.10 .10.1/32\nip router ospf UNDERLAY  area 0.0.0.0\nip pim sparse-mode",
     "desc": "protocols is available on most of the Cisco Nexus data center switches."
   },
@@ -71995,7 +71284,7 @@
     "role": "switch",
     "vendor": "Cisco",
     "cat": "BGP",
-    "title": "Example 8-2: VRF Lite with BGP Using Subinterfaces on the Border Node",
+    "title": "interface Ethernet1/10",
     "cmd": "interface Ethernet1/10\nno switchport\ninterface Ethern et1/10.1002\nmtu 9216\nvrf member VRF-B\nip address 10.2. 2.1/30\nno shutdown\nrouter bgp 65501\nvrf VRF-B\nneighbor 10.2.2.2 remote-as 65599\nupdate-source Ethernet1/10.100 2\naddress-family ipv4 unicast",
     "desc": "When iBGP IP prefixes are advertised into the external network via an appropriate routing protocol, additional considerations apply with regard to summarizing the entire internal IP prefix space."
   },
@@ -72049,15 +71338,6 @@
     "role": "switch",
     "vendor": "Cisco",
     "cat": "BGP",
-    "title": "Example 11-5: Details of a Particular BGP EVPN Route type 2 Advertisement at a Leaf",
-    "cmd": "BGP routing table information for VRF d efault, address family L2VPN EVPN\nBGP routing table entry for [2]:[0]:[0]:[48]:[0011.010 0.0001]:[0]:[0.0.0.0]/216, version 1540\nBGP routing table entry for [2]:[0]:[0]:[ 48]:[0011.0100.0001]:[32]:[192.168.100.200]/272, version",
-    "desc": "NX-OS VXLAN BGP EVPN — BGP"
-  },
-  {
-    "os": "nxos",
-    "role": "switch",
-    "vendor": "Cisco",
-    "cat": "BGP",
     "title": "Example 11-7: MAC Entries Received Over BGP EVPN at a Remote Leaf",
     "cmd": "L12# show l2route evpn mac all\nTopology      Mac Address   Pr od   Next Hop (s)\n-----------   -------------- ------ ------------ ---\n100       0011.0100.0001 BGP   10.200.200.11",
     "desc": "NX-OS VXLAN BGP EVPN — BGP"
@@ -72103,36 +71383,9 @@
     "role": "switch",
     "vendor": "Cisco",
     "cat": "BGP",
-    "title": "Example 11-13: Details of a Particular BGP EVPN Route type 2 Advertisement with Both IP",
-    "cmd": "BGP routing table information for VRF de fault, address family L2VPN EVPN\nBGP routing table entry for [2]:[0]:[0]:[48]:[0011.010 0.0001]:[32]:[192.168.100.200]/272, version",
-    "desc": "IP address are locally learned in BGP and advertised to the remote leaf."
-  },
-  {
-    "os": "nxos",
-    "role": "switch",
-    "vendor": "Cisco",
-    "cat": "BGP",
     "title": "Example 11-15: IP/MAC Entries Received Over BGP EVPN at a Remote Leaf",
     "cmd": "L12# show l2route evpn mac-ip all",
     "desc": "NX-OS VXLAN BGP EVPN — BGP"
-  },
-  {
-    "os": "nxos",
-    "role": "switch",
-    "vendor": "Cisco",
-    "cat": "Routing",
-    "title": "Example 11-16: Output of IP Routing Table for Received IPv4 /32 Route Installed in RIB",
-    "cmd": "IP Route Table for VRF \"Org1:Part1\"",
-    "desc": "NX-OS VXLAN BGP EVPN — Routing"
-  },
-  {
-    "os": "nxos",
-    "role": "switch",
-    "vendor": "Cisco",
-    "cat": "VLAN",
-    "title": "Example 11-17: VTEP Peer Information with a Recursive Next Hop on a Remote Leaf",
-    "cmd": "VNI     Peer-IP               Peer-MAC           Tunnel-ID Encap     (A/S)",
-    "desc": "NX-OS VXLAN BGP EVPN — VLAN"
   },
   {
     "os": "nxos",
@@ -72211,15 +71464,6 @@
     "role": "firewall",
     "vendor": "Cisco",
     "cat": "System",
-    "title": "ASA Virtual, after which point you can return the license if desired. See (Optional) Return the ASA Virtual",
-    "cmd": "ASA Virtual, after which point you can return the license if desired. See (Optional) Return the ASA Virtual",
-    "desc": "Step 1 (ASAv5 only, nonflexible licensing) Run this command to allow the use of the ASAv5 permanent license when DRAM is 2 GB (the minimum that is required in 9."
-  },
-  {
-    "os": "asa",
-    "role": "firewall",
-    "vendor": "Cisco",
-    "cat": "System",
     "title": "show license features",
     "cmd": "show license features",
     "desc": "Step 1 From the ASA Virtual CLI, generate a return code: license smart reservation return Example: ciscoasa(config)# license smart reservation return WARNING: ASAv platform license state is Limited functionality."
@@ -72238,36 +71482,9 @@
     "role": "firewall",
     "vendor": "Cisco",
     "cat": "System",
-    "title": "Interfaces that are already a member of a port-channel cannot be modified individually. If you use the enter",
-    "cmd": "Interfaces that are already a member of a port-channel cannot be modified individually. If you use the enter\ninterface or scope interface command on an interface that is a member of a port channel, you will receive",
-    "desc": "Step 1 Enter interface mode."
-  },
-  {
-    "os": "asa",
-    "role": "firewall",
-    "vendor": "Cisco",
-    "cat": "System",
-    "title": "port-channel as the cluster control link instead of the default.",
-    "cmd": "port-channel as the cluster control link instead of the default.",
-    "desc": "Step 1 Enter interface mode: scope eth-uplink scope fabric a Step 2 Create the port-channel: create port-channel id enable Step 3 Assign member interfaces: create member-port interface_id You can add up to 16 member interfaces of the same media type and capacity."
-  },
-  {
-    "os": "asa",
-    "role": "firewall",
-    "vendor": "Cisco",
-    "cat": "System",
     "title": "show app",
     "cmd": "show app",
     "desc": "Step 1 Enter security services mode."
-  },
-  {
-    "os": "asa",
-    "role": "firewall",
-    "vendor": "Cisco",
-    "cat": "System",
-    "title": "failover and state links; the state link requires the most bandwidth. You cannot use the management-type",
-    "cmd": "failover and state links; the state link requires the most bandwidth. You cannot use the management-type\ninterface for the failover or state link. We recommend that you use a switch between the chassis, with no other",
-    "desc": "Step 1 Allocate the same interfaces to each logical device."
   },
   {
     "os": "asa",
@@ -72286,15 +71503,6 @@
     "title": "firewall transparent",
     "cmd": "firewall transparent",
     "desc": "Set the firewall mode to transparent:"
-  },
-  {
-    "os": "asa",
-    "role": "firewall",
-    "vendor": "Cisco",
-    "cat": "System",
-    "title": "Enable or Disable Multiple Context Mode",
-    "cmd": "Enable or Disable Multiple Context Mode",
-    "desc": "Step 1 Enable or Disable Multiple Context Mode, on page 247."
   },
   {
     "os": "asa",
@@ -72517,15 +71725,6 @@
     "role": "firewall",
     "vendor": "Cisco",
     "cat": "HA",
-    "title": "mode on the control unit; the mode is automatically changed on all data units to match. See Enable",
-    "cmd": "mode on the control unit; the mode is automatically changed on all data units to match. See Enable",
-    "desc": "Step 1 Click OK."
-  },
-  {
-    "os": "asa",
-    "role": "firewall",
-    "vendor": "Cisco",
-    "cat": "HA",
     "title": "interface id",
     "cmd": "interface id",
     "desc": "Step 1 Specify the interface ID."
@@ -72583,15 +71782,6 @@
     "title": "Enable Target Failover for ASA virtual in AWS",
     "cmd": "Enable Target Failover for ASA virtual in AWS",
     "desc": "Step 1 Deploy the ASAVirtual instance by using the cluster day 0 configuration with the required number of interfaces - three interfaces if you are using Gateway Load Balancer (GWLB), or four interfaces if you are using non-native load balancer."
-  },
-  {
-    "os": "asa",
-    "role": "firewall",
-    "vendor": "Cisco",
-    "cat": "HA",
-    "title": "Interface facing customer service. These interfaces are defined on a single Network Interface Card (NIC) of",
-    "cmd": "Interface facing customer service. These interfaces are defined on a single Network Interface Card (NIC) of",
-    "desc": "Step 1 On the AWS console, go to Services > EC2 Step 2 Click Target Groups to view the target groups page."
   },
   {
     "os": "asa",
@@ -72805,15 +71995,6 @@
     "role": "firewall",
     "vendor": "Cisco",
     "cat": "System",
-    "title": "passwords into plain text passwords. You may use the no form of this command when downgrading to a",
-    "cmd": "passwords into plain text passwords. You may use the no form of this command when downgrading to a",
-    "desc": "Step 1 Set the passphrase used for generating the encryption key."
-  },
-  {
-    "os": "asa",
-    "role": "firewall",
-    "vendor": "Cisco",
-    "cat": "System",
     "title": "write erase",
     "cmd": "write erase",
     "desc": "Step 1 Remove the master key and the configuration that includes the encrypted passwords."
@@ -72844,15 +72025,6 @@
     "title": "Enable ASP Load Balancing",
     "cmd": "Enable ASP Load Balancing\nEnable ASP Load Balancing",
     "desc": "Enable the transactional commit model for the rule engine: asp rule-engine transactional-commit option Where the options are: • access-group—Access rules applied globally or to interfaces."
-  },
-  {
-    "os": "asa",
-    "role": "firewall",
-    "vendor": "Cisco",
-    "cat": "System",
-    "title": "DNS server resolves the request, the resulting IP address is stored in the local cache with its corresponding",
-    "cmd": "DNS server resolves the request, the resulting IP address is stored in the local cache with its corresponding",
-    "desc": "Step 1 Enable the automatic switching on and off of ASP load balancing: asp load-balance per-packet auto Step 2 Manually enable ASP load balancing: asp load-balance per-packet ASP load balancing is enabled until you manually disable it, even if you also have the auto command enab…"
   },
   {
     "os": "asa",
@@ -72940,15 +72112,6 @@
     "role": "firewall",
     "vendor": "Cisco",
     "cat": "System",
-    "title": "interfaces, the ARP table is used to deliver packets to directly-connected hosts. Although senders identify a",
-    "cmd": "interfaces, the ARP table is used to deliver packets to directly-connected hosts. Although senders identify a",
-    "desc": "Step 1 Add static ARP entries according to Add a Static ARP Entry and Customize Other ARP Parameters, on page 985."
-  },
-  {
-    "os": "asa",
-    "role": "firewall",
-    "vendor": "Cisco",
-    "cat": "System",
     "title": "arp interface_name ip_address mac_address [alias]",
     "cmd": "arp interface_name ip_address mac_address [alias]",
     "desc": "Step 1 Add a static ARP entry:"
@@ -73015,24 +72178,6 @@
     "title": "access-list name standard {permit | deny} {any4 | host ip_address | ip_address mask}",
     "cmd": "access-list name standard {permit | deny} {any4 | host ip_address | ip_address mask}\naccess-list name extended {permit | deny} protocol source_and_destination_arguments",
     "desc": "Step 1 Define a standard or extended access-list:"
-  },
-  {
-    "os": "asa",
-    "role": "firewall",
-    "vendor": "Cisco",
-    "cat": "Routing",
-    "title": "object group to contain these. You must create an object group, you cannot use objects directly in an access",
-    "cmd": "object group to contain these. You must create an object group, you cannot use objects directly in an access",
-    "desc": "Step 1 Configure network-service objects and groups to define the desired traffic."
-  },
-  {
-    "os": "asa",
-    "role": "firewall",
-    "vendor": "Cisco",
-    "cat": "Routing",
-    "title": "Route map entries are read in order. You can identify the order using the sequence_number argument, or the",
-    "cmd": "Route map entries are read in order. You can identify the order using the sequence_number argument, or the\nASA uses the order in which you add route map entries.",
-    "desc": "Create the route map entry: route-map name {permit | deny} [sequence_number] Example: ciscoasa(config)# route-map name {permit} [12]"
   },
   {
     "os": "asa",
@@ -73318,15 +72463,6 @@
     "role": "firewall",
     "vendor": "Cisco",
     "cat": "System",
-    "title": "Configure an Action and Destinations for Output from an Action",
-    "cmd": "Configure an Action and Destinations for Output from an Action",
-    "desc": "Step 1 Configure an action on an event manager applet."
-  },
-  {
-    "os": "asa",
-    "role": "firewall",
-    "vendor": "Cisco",
-    "cat": "System",
     "title": "Track Memory Allocation and Memory Usage",
     "cmd": "Track Memory Allocation and Memory Usage",
     "desc": "Run an event manager applet."
@@ -73381,15 +72517,6 @@
     "role": "firewall",
     "vendor": "Cisco",
     "cat": "Troubleshooting",
-    "title": "ASA Virtual. See the coredump command in the command reference.",
-    "cmd": "ASA Virtual. See the coredump command in the command reference.",
-    "desc": "Step 1 View the capture at the CLI: [cluster exec] show capture [capture_name] [access-list access_list_name] [count number] [decode] [detail] [dump] [packet-number number] Example: ciscoasa# show capture capin 8 packets captured 1: 03:24:35."
-  },
-  {
-    "os": "asa",
-    "role": "firewall",
-    "vendor": "Cisco",
-    "cat": "Troubleshooting",
     "title": "ASA Virtual and Amazon CloudWatch Graphs",
     "cmd": "ASA Virtual and Amazon CloudWatch Graphs",
     "desc": "Step 1 Open the CloudWatch console and choose Metrics in the navigation pane."
@@ -73411,15 +72538,6 @@
     "title": "ASA Virtual and OCI Graphs",
     "cmd": "ASA Virtual and OCI Graphs",
     "desc": "Step 1 Open the navigation menu and click Instances under Compute."
-  },
-  {
-    "os": "asa",
-    "role": "firewall",
-    "vendor": "Cisco",
-    "cat": "Troubleshooting",
-    "title": "ICMP rules are optional and apply to ICMP packets sent directly to an interface. If you do not apply ICMP",
-    "cmd": "ICMP rules are optional and apply to ICMP packets sent directly to an interface. If you do not apply ICMP",
-    "desc": "Step 1 Ensure ICMP rules allow Echo Request/Echo Response."
   },
   {
     "os": "asa",
@@ -73857,15 +72975,6 @@
     "os": "asa",
     "role": "firewall",
     "vendor": "Cisco",
-    "cat": "System",
-    "title": "IP address for a block page or the IP address of the intelligent proxy. The service returns the real IP address",
-    "cmd": "IP address for a block page or the IP address of the intelligent proxy. The service returns the real IP address",
-    "desc": "Step 1 Implement access control for the network."
-  },
-  {
-    "os": "asa",
-    "role": "firewall",
-    "vendor": "Cisco",
     "cat": "ACL",
     "title": "Configure a Network Object Group",
     "cmd": "Configure a Network Object Group\nConfigure a Network Object Group",
@@ -73906,15 +73015,6 @@
     "title": "icmp {permit | deny} {host ip_address | ip_address mask | any} [icmp_type] interface_name",
     "cmd": "icmp {permit | deny} {host ip_address | ip_address mask | any} [icmp_type] interface_name",
     "desc": "Step 1 Create rules for ICMP traffic."
-  },
-  {
-    "os": "asa",
-    "role": "firewall",
-    "vendor": "Cisco",
-    "cat": "System",
-    "title": "AAA server on the ASA, you must specify a server group. The security group must be configured to use the",
-    "cmd": "AAA server on the ASA, you must specify a server group. The security group must be configured to use the",
-    "desc": "Step 1 Log into the ISE."
   },
   {
     "os": "asa",
@@ -73978,15 +73078,6 @@
     "title": "Configure Application Visibility and Control",
     "cmd": "Configure Application Visibility and Control",
     "desc": "Step 1 Configure the Carrier license and ensure that your Smart License account is enabled for export-controlled features."
-  },
-  {
-    "os": "asa",
-    "role": "firewall",
-    "vendor": "Cisco",
-    "cat": "Firewall",
-    "title": "objects created from the VDB download. Use them as you would any other AVC network-service object",
-    "cmd": "objects created from the VDB download. Use them as you would any other AVC network-service object",
-    "desc": "Step 1 Enable Application Visibility and Control."
   },
   {
     "os": "asa",
@@ -74110,15 +73201,6 @@
     "role": "firewall",
     "vendor": "Cisco",
     "cat": "NAT",
-    "title": "object for the source mapped addresses, and instead specify the interface keyword in the nat command.",
-    "cmd": "object for the source mapped addresses, and instead specify the interface keyword in the nat command.",
-    "desc": "Step 1 Create host or range network objects (object network command), or network object groups (object-group network command), for the source real addresses, the source mapped addresses, the destination real addresses, and the destination mapped addresses."
-  },
-  {
-    "os": "asa",
-    "role": "firewall",
-    "vendor": "Cisco",
-    "cat": "NAT",
     "title": "Configure Identity Network Object NAT",
     "cmd": "Configure Identity Network Object NAT",
     "desc": "Step 1 (Optional."
@@ -74131,15 +73213,6 @@
     "title": "Configure Identity Twice NAT",
     "cmd": "Configure Identity Twice NAT",
     "desc": "Step 1 Create host or range network objects (object network command), or network object groups (object-group network command), for the source real addresses (you will typically use the same object for the source mapped addresses), the destination real addresses, and the destinati…"
-  },
-  {
-    "os": "asa",
-    "role": "firewall",
-    "vendor": "Cisco",
-    "cat": "NAT",
-    "title": "NAT for Inside Hosts (Dynamic NAT) and NAT for an Outside Web Server",
-    "cmd": "NAT for Inside Hosts (Dynamic NAT) and NAT for an Outside Web Server",
-    "desc": "Step 1 Create a network object for the internal web server."
   },
   {
     "os": "asa",
@@ -74185,15 +73258,6 @@
     "title": "NAT66 Example, Simple IPv6 Interface PAT",
     "cmd": "NAT66 Example, Simple IPv6 Interface PAT",
     "desc": "Create the network object for the inside IPv6 network and add the static NAT rule."
-  },
-  {
-    "os": "asa",
-    "role": "firewall",
-    "vendor": "Cisco",
-    "cat": "NAT",
-    "title": "interface gets a NAT66 PAT translation to one of the IPv6 global addresses configured for the outside interface.",
-    "cmd": "interface gets a NAT66 PAT translation to one of the IPv6 global addresses configured for the outside interface.",
-    "desc": "Create the network object for the inside IPv6 network and add the dynamic PAT rule."
   },
   {
     "os": "asa",
@@ -74424,24 +73488,6 @@
     "os": "asa",
     "role": "firewall",
     "vendor": "Cisco",
-    "cat": "Firewall",
-    "title": "clear configure timeout command to reset all timeouts to their default values. If you want to simply reset",
-    "cmd": "clear configure timeout command to reset all timeouts to their default values. If you want to simply reset",
-    "desc": "Use the timeout command to set global timeouts."
-  },
-  {
-    "os": "asa",
-    "role": "firewall",
-    "vendor": "Cisco",
-    "cat": "Firewall",
-    "title": "TCP map check-retransmission command) have a queue limit of 3 packets. If the ASA receives",
-    "cmd": "TCP map check-retransmission command) have a queue limit of 3 packets. If the ASA receives",
-    "desc": "Step 1 Create a TCPmap to specify the TCP normalization criteria that you want to look for: tcp-map tcp-map-name Step 2 Configure the TCP map criteria by entering one or more of the following commands."
-  },
-  {
-    "os": "asa",
-    "role": "firewall",
-    "vendor": "Cisco",
     "cat": "System",
     "title": "bandwidth",
     "cmd": "bandwidth",
@@ -74578,15 +73624,6 @@
     "role": "firewall",
     "vendor": "Cisco",
     "cat": "VPN",
-    "title": "configure is the URL. (See Step 2 or 3.) Users who are not active get a notification message the next time",
-    "cmd": "configure is the URL. (See Step 2 or 3.) Users who are not active get a notification message the next time",
-    "desc": "Step 1 In global configuration mode, enable client update by entering this command: hostname(config)# client-update enable hostname(config)# Step 2 In global configuration mode, specify the parameters for the client update that you want to apply to all clients of a particular typ…"
-  },
-  {
-    "os": "asa",
-    "role": "firewall",
-    "vendor": "Cisco",
-    "cat": "VPN",
     "title": "Configure VPN Session Limits",
     "cmd": "Configure VPN Session Limits",
     "desc": "Step 1 In global configuration mode, enter tunnel general."
@@ -74650,33 +73687,6 @@
     "role": "firewall",
     "vendor": "Cisco",
     "cat": "Firewall",
-    "title": "Configure the Connection Profile for RADIUS/SDI Message Support for the",
-    "cmd": "Configure the Connection Profile for RADIUS/SDI Message Support for the",
-    "desc": "Step 1 Choose Start > Programs > Administrative Tools > Domain Security Policy."
-  },
-  {
-    "os": "asa",
-    "role": "firewall",
-    "vendor": "Cisco",
-    "cat": "Firewall",
-    "title": "context mode, which enters tunnel-group general-attributes configuration mode. The prompt changes to",
-    "cmd": "context mode, which enters tunnel-group general-attributes configuration mode. The prompt changes to",
-    "desc": "Step 1 To configure the general attributes, enter the tunnel-group general-attributes task in either single or multiple"
-  },
-  {
-    "os": "asa",
-    "role": "firewall",
-    "vendor": "Cisco",
-    "cat": "Firewall",
-    "title": "AAA server group name. Local specifies the use of the internal server database, and when used with the",
-    "cmd": "AAA server group name. Local specifies the use of the internal server database, and when used with the",
-    "desc": "Step 1 Specify the secondary authentication server group."
-  },
-  {
-    "os": "asa",
-    "role": "firewall",
-    "vendor": "Cisco",
-    "cat": "Firewall",
     "title": "Configure Remote-Access Connection Profile IPsec IKEv1 Attributes",
     "cmd": "Configure Remote-Access Connection Profile IPsec IKEv1 Attributes",
     "desc": "Step 1 To specify the IPsec attributes of an remote-access tunnel-group, enter tunnel-group ipsec-attributes mode by entering the following command in either single or multiple context mode."
@@ -74707,15 +73717,6 @@
     "title": "Configure LAN-to-LAN IPsec IKEv1 Attributes",
     "cmd": "Configure LAN-to-LAN IPsec IKEv1 Attributes",
     "desc": "Step 1 To configure the tunnel-group IPsec IKEv1 attributes, enter tunnel-group ipsec-attributes configuration mode by entering the tunnel-group command with the IPsec-attributes keyword in either single or multiple context mode."
-  },
-  {
-    "os": "asa",
-    "role": "firewall",
-    "vendor": "Cisco",
-    "cat": "Firewall",
-    "title": "tunnel-group name type type, where name is the name you assign to the tunnel group, and type is the type",
-    "cmd": "tunnel-group name type type, where name is the name you assign to the tunnel group, and type is the type",
-    "desc": "Step 1 To set the connection type to IPsec remote access, enter the tunnel-group command."
   },
   {
     "os": "asa",
@@ -74785,15 +73786,6 @@
     "role": "firewall",
     "vendor": "Cisco",
     "cat": "VPN",
-    "title": "Show the configured address assignment method. The configured address method could be aaa, dhcp,",
-    "cmd": "Show the configured address assignment method. The configured address method could be aaa, dhcp,",
-    "desc": "Use one of these methods to view the address assignment method configured on the ASA: • View IPv4 Address Assignments"
-  },
-  {
-    "os": "asa",
-    "role": "firewall",
-    "vendor": "Cisco",
-    "cat": "VPN",
     "title": "ip local poolpoolname first_address-last_addressmaskmask",
     "cmd": "ip local poolpoolname first_address-last_addressmaskmask",
     "desc": "Step 1 Configure IP address pools as the address assignment method."
@@ -74806,15 +73798,6 @@
     "title": "ipv6 local pool pool_name starting_address prefix_length number_of_addresses",
     "cmd": "ipv6 local pool pool_name starting_address prefix_length number_of_addresses",
     "desc": "Step 1 Configures IP address pools as the address assignment method, enter the ipv6-vpn-addr-assign command with the local argument."
-  },
-  {
-    "os": "asa",
-    "role": "firewall",
-    "vendor": "Cisco",
-    "cat": "VPN",
-    "title": "tunnel-group command with the type keyword. The following example configures a remote access tunnel",
-    "cmd": "tunnel-group command with the type keyword. The following example configures a remote access tunnel",
-    "desc": "Step 1 To configure AAA as the address assignment method, enter the vpn-addr-assign command with the aaa argument: hostname(config)# vpn-addr-assign aaa hostname(config)# Step 2 To establish the tunnel group called firstgroup as a remote access or LAN-to-LAN tunnel group, enter t…"
   },
   {
     "os": "asa",
@@ -74902,15 +73885,6 @@
     "role": "firewall",
     "vendor": "Cisco",
     "cat": "VPN",
-    "title": "Configure the VPN Profile for Secure Client with Post-Quantum Pre-Shared Key Attributes",
-    "cmd": "Configure the VPN Profile for Secure Client with Post-Quantum Pre-Shared Key Attributes",
-    "desc": "Step 1 In your Windows client machine, choose Control Panel > User Accounts > Credential Manager."
-  },
-  {
-    "os": "asa",
-    "role": "firewall",
-    "vendor": "Cisco",
-    "cat": "VPN",
     "title": "tunnel-group name ipsec-attributes",
     "cmd": "tunnel-group name ipsec-attributes",
     "desc": "Step 1 Configure the IPsec attributes of the tunnel group."
@@ -74947,27 +73921,9 @@
     "role": "firewall",
     "vendor": "Cisco",
     "cat": "VPN",
-    "title": "Configure ISAKMP Policy and Enable ISAKMP on the Outside Interface",
-    "cmd": "Configure ISAKMP Policy and Enable ISAKMP on the Outside Interface\nConfigure ISAKMP Policy and Enable ISAKMP on the Outside\nInterface\nISAKMP is the negotiation protocol that lets two hosts agree on how to build an IPsec security association",
-    "desc": "Step 1 To enter Interface configuration mode, in global configuration mode enter the interface command with the default name of the interface to configure."
-  },
-  {
-    "os": "asa",
-    "role": "firewall",
-    "vendor": "Cisco",
-    "cat": "VPN",
     "title": "Configure ISAKMP Policies for IKEv2 Connections",
     "cmd": "Configure ISAKMP Policies for IKEv2 Connections\nConfigure ISAKMP Policies for IKEv2 Connections",
     "desc": "Step 1 Enter IPsec IKEv1 policy configuration mode."
-  },
-  {
-    "os": "asa",
-    "role": "firewall",
-    "vendor": "Cisco",
-    "cat": "VPN",
-    "title": "IKEv2 uses Diffie-Hellman (DH) groups to establish a shared secret between an initiator and a responder.",
-    "cmd": "IKEv2 uses Diffie-Hellman (DH) groups to establish a shared secret between an initiator and a responder.\nIKEv2 supports additional key exchanges to secure the IPsec communication from quantum computer attacks.",
-    "desc": "Step 1 Enter IPsec IKEv2 policy configuration mode."
   },
   {
     "os": "asa",
@@ -75010,45 +73966,9 @@
     "role": "firewall",
     "vendor": "Cisco",
     "cat": "VPN",
-    "title": "ikev1pre-shared-key command to create the preshared key. You need to use the same preshared key on both",
-    "cmd": "ikev1pre-shared-key command to create the preshared key. You need to use the same preshared key on both",
-    "desc": "Step 1 To set the connection type to IPsec LAN-to-LAN, enter the tunnel-group command."
-  },
-  {
-    "os": "asa",
-    "role": "firewall",
-    "vendor": "Cisco",
-    "cat": "VPN",
-    "title": "IPsec on all interfaces. Applying the crypto map set to an interface instructs the ASA to evaluate all interface",
-    "cmd": "IPsec on all interfaces. Applying the crypto map set to an interface instructs the ASA to evaluate all interface",
-    "desc": "Step 1 To assign an ACL to a crypto map entry, enter the crypto map match address command."
-  },
-  {
-    "os": "asa",
-    "role": "firewall",
-    "vendor": "Cisco",
-    "cat": "VPN",
-    "title": "interface remains reachable throughmultiple physical interfaces. In a cluster, if the node with the loopback",
-    "cmd": "interface remains reachable throughmultiple physical interfaces. In a cluster, if the node with the loopback\ninterface fails, the interface and the sessions shift to the alternate node.",
-    "desc": "Step 1 Enter the crypto map interface command."
-  },
-  {
-    "os": "asa",
-    "role": "firewall",
-    "vendor": "Cisco",
-    "cat": "VPN",
     "title": "Configure Dynamic Site-to-Site VPN Using a Loopback Interface",
     "cmd": "Configure Dynamic Site-to-Site VPN Using a Loopback Interface",
     "desc": "Step 1 Configure the outside interface using the interface command: a) Configure the name of the loopback interface using the nameif command."
-  },
-  {
-    "os": "asa",
-    "role": "firewall",
-    "vendor": "Cisco",
-    "cat": "VPN",
-    "title": "webvpn anyconnect considers the SSL VPN client as not enabled rather than listing the installed Secure",
-    "cmd": "webvpn anyconnect considers the SSL VPN client as not enabled rather than listing the installed Secure",
-    "desc": "Step 1 Identify a file on flash as the Secure Client package file."
   },
   {
     "os": "asa",
@@ -75136,15 +74056,6 @@
     "role": "firewall",
     "vendor": "Cisco",
     "cat": "VPN",
-    "title": "application has its own certificate. You can use the above command associated with a given application to",
-    "cmd": "application has its own certificate. You can use the above command associated with a given application to",
-    "desc": "Step 1 In tunnel-group webvpn sub-mode, use the saml identity-provider command to assign an IdP."
-  },
-  {
-    "os": "asa",
-    "role": "firewall",
-    "vendor": "Cisco",
-    "cat": "VPN",
     "title": "Configure Certificate and SAML Authentication",
     "cmd": "Configure Certificate and SAML Authentication",
     "desc": "Step 1 In webvpn sub-mode, use the anyconnect external-browser-pkg command to enable AnyConnect SAML authentication through the operating system's default browser."
@@ -75163,27 +74074,9 @@
     "role": "firewall",
     "vendor": "Cisco",
     "cat": "System",
-    "title": "Enable or Disable HostScan",
-    "cmd": "Enable or Disable HostScan",
-    "desc": "Step 1 Enter webvpn configuration mode."
-  },
-  {
-    "os": "asa",
-    "role": "firewall",
-    "vendor": "Cisco",
-    "cat": "System",
     "title": "show webvpn hostscan",
     "cmd": "show webvpn hostscan",
     "desc": "Show the version of HostScan/Secure Firewall Posture enabled on the ASA."
-  },
-  {
-    "os": "asa",
-    "role": "firewall",
-    "vendor": "Cisco",
-    "cat": "Interfaces",
-    "title": "configure the pre-shared key under the tunnel group used for the VTI.",
-    "cmd": "configure the pre-shared key under the tunnel group used for the VTI.",
-    "desc": "Step 1 Add an IPsec Proposal (Transform Sets)."
   },
   {
     "os": "asa",
