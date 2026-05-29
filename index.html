@@ -571,14 +571,26 @@ mark{background:rgba(34,211,238,.25);color:inherit;border-radius:3px;padding:0 2
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
 a.skip-link:focus-visible{outline-offset:-2px}
 /* Off-screen result blocks skip layout/paint until scrolled near the viewport.
-   contain-intrinsic-size gives the browser a height estimate so the scrollbar
-   stays stable. Big win for long Cards lists and the Compare tables. */
-.grid{content-visibility:auto;contain-intrinsic-size:0 600px}
-.cmp-table{content-visibility:auto;contain-intrinsic-size:0 800px}
-/* Raise the smallest text tiers (10px and under) toward a readable floor of
-   11.5px without shrinking anything already larger. */
+   The `auto` keyword in contain-intrinsic-size makes the browser remember each
+   block's last *rendered* size, so once a block has been painted it no longer
+   collapses back to the estimate — this removes the blank-gap flicker on fast
+   scroll while keeping the off-screen layout/paint savings. */
+.grid{content-visibility:auto;contain-intrinsic-size:auto 600px}
+.cmp-table{content-visibility:auto;contain-intrinsic-size:auto 800px}
+/* Raise the smallest *text* tiers (9–10px) toward a readable floor of 11.5px
+   without shrinking anything larger. Decorative glyphs (● status dots, ↕ sort
+   arrows) are intentionally left small — they are not text to read. */
 .tag,.tbtn .badge,.acc-head .ct,.ph-editor .ph-name,.ph-editor .ph-prev-label,
-.cmp-acts .actbtn,.drawer .dh .live,.auto-block .bhdr .copyb,.cmp-cat-hdr .ct{font-size:11.5px}
+.cmp-acts .actbtn,.drawer .dh .live,.auto-block .bhdr .copyb,.cmp-cat-hdr .ct,
+.cat-group h6,.chip .v,.auto-params .pp-row label,.auto-params .pp-actions .pp-reset,
+.auto-params .pp-secret .sm-pill,.search-suggest .ss-hint,.search-suggest .ss-item .ss-key,
+.search-suggest .ss-item .ss-ct,.empty-panel code{font-size:11.5px}
+.tag.live::before,.tag.v::before,table.cmd th .sort{font-size:9px}
+/* Compare view "building…" placeholder (shown while the table builds off-thread). */
+.cmp-loading{display:flex;align-items:center;gap:10px;justify-content:center;padding:40px 16px;color:var(--ink-dim);font:12px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.cmp-spinner{width:16px;height:16px;border:2px solid var(--line);border-top-color:var(--accent);border-radius:50%;animation:cmp-spin .7s linear infinite}
+@keyframes cmp-spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.cmp-spinner{animation:none;border-top-color:var(--line)}}
 </style>
 </head>
 <body>
@@ -4531,19 +4543,24 @@ function openInCompare(d){
   const qEl = document.getElementById("q");
   if(qEl) qEl.value = "";
   renderChips(); renderActiveBar();
+  // Record the concept to scroll to; the deferred Compare build highlights it
+  // once its rows exist (see renderCompare → highlightPendingConcept).
+  _pendingCmpScroll = conceptKey(d);
   setView("compare");
   pushRecent(d);
-  // Scroll to the row matching this concept (set in renderCompare via data-key)
-  setTimeout(()=>{
-    const key = conceptKey(d);
-    const row = document.querySelector('.cmp-row[data-concept="'+CSS.escape(key)+'"]');
-    if(row){
-      row.scrollIntoView({behavior:"smooth", block:"center"});
-      row.style.transition = "box-shadow .3s";
-      row.style.boxShadow = "0 0 0 2px var(--accent)";
-      setTimeout(()=>{ row.style.boxShadow = ""; }, 1600);
-    }
-  }, 50);
+}
+
+// Scroll to + briefly highlight the row for a pending concept, if any.
+function highlightPendingConcept(){
+  if(!_pendingCmpScroll) return;
+  const key = _pendingCmpScroll; _pendingCmpScroll = null;
+  const row = document.querySelector('.cmp-row[data-concept="'+CSS.escape(key)+'"]');
+  if(row){
+    row.scrollIntoView({behavior:"smooth", block:"center"});
+    row.style.transition = "box-shadow .3s";
+    row.style.boxShadow = "0 0 0 2px var(--accent)";
+    setTimeout(()=>{ row.style.boxShadow = ""; }, 1600);
+  }
 }
 
 // Concept-key: normalize a command title/cmd into a comparable slug.
@@ -4814,7 +4831,25 @@ function findVendorTranslation(srcCmd, srcVendor){
   return { concept: myConcept, matches: results };
 }
 
+// Compare's table build is the heaviest in the app. Rather than block the
+// click handler for a few hundred ms, we paint a spinner first, then build on
+// a later frame. A generation token cancels a build if a newer render() ran.
+let _cmpRenderGen = 0;
+let _pendingCmpScroll = null;
 function renderCompare(filtered, results){
+  const gen = ++_cmpRenderGen;
+  results.appendChild(el("div",{class:"cmp-loading"},
+    el("span",{class:"cmp-spinner"}), "Building comparison…"));
+  // Double rAF: first frame paints the spinner, second frame runs the build.
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    if(gen !== _cmpRenderGen || state.view !== "compare") return; // superseded
+    results.replaceChildren();
+    buildCompare(filtered, results);
+    highlightPendingConcept();
+  }));
+}
+
+function buildCompare(filtered, results){
   // Compare view is N-vendor aware. With 11 supported vendors, rendering all
   // columns by default would be cramped — so when the user hasn't filtered,
   // we default to the four with deepest coverage (Cisco · Juniper · Arista
