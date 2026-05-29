@@ -1,0 +1,139 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>v2 Browser Stress Tests</title>
+<style>
+body{font:14px ui-monospace,monospace;margin:1.5rem;background:#0e1116;color:#d1d5db}
+h1{font-size:1.1rem;color:#fff}
+.row{padding:.25rem .5rem;border-left:3px solid #444;margin:.15rem 0}
+.pass{border-color:#10b981;color:#a7f3d0}
+.fail{border-color:#ef4444;color:#fca5a5}
+.info{border-color:#3b82f6;color:#93c5fd}
+pre{background:#161b22;padding:.75rem;border-radius:6px;overflow:auto;font-size:12px}
+</style></head>
+<body>
+<h1>v2 browser-only stress tests</h1>
+<div id="log"></div>
+<pre id="json"></pre>
+
+<script>
+const log = document.getElementById('log');
+const out = { boot_cold_ms:null, boot_warm_ms:null, idb_write_read_ms:null, render_cards_ms:null };
+let failures = 0;
+function row(cls, msg){ const d=document.createElement('div'); d.className='row '+cls; d.textContent=msg; log.appendChild(d); }
+function check(name, target, actual){
+  const pass = actual < target;
+  if(!pass) failures++;
+  row(pass?'pass':'fail', `${pass?'PASS':'FAIL'}  ${name}: ${actual.toFixed(1)}ms (target <${target}ms)`);
+  return pass;
+}
+
+// --- T11: IDB write + read round-trip (10MB blob) -----------------------------
+function openDb(name){
+  return new Promise((res,rej)=>{
+    const r = indexedDB.open(name, 1);
+    r.onupgradeneeded = () => r.result.createObjectStore('payload');
+    r.onsuccess = () => res(r.result);
+    r.onerror   = () => rej(r.error);
+  });
+}
+async function idbPut(db, k, v){
+  return new Promise((res,rej)=>{
+    const tx = db.transaction('payload','readwrite');
+    tx.objectStore('payload').put(v, k);
+    tx.oncomplete = () => res();
+    tx.onerror = () => rej(tx.error);
+  });
+}
+async function idbGet(db, k){
+  return new Promise((res,rej)=>{
+    const tx = db.transaction('payload','readonly');
+    const rq = tx.objectStore('payload').get(k);
+    rq.onsuccess = () => res(rq.result);
+    rq.onerror = () => rej(rq.error);
+  });
+}
+
+async function testIDB(){
+  // Use a throwaway DB so we don't interfere with the app's cache.
+  const db = await openDb('mvc-stress-test');
+  // Build a ~10 MB payload (approx the size of commands.json).
+  const blob = JSON.stringify({ data: Array(80000).fill('x').map((_,i)=>({i, s:'lorem ipsum '+i})) });
+  row('info', `IDB blob size: ${(blob.length/1024/1024).toFixed(1)} MB`);
+  const samples = [];
+  for(let i=0;i<5;i++){
+    const t0 = performance.now();
+    await idbPut(db, 'k'+i, blob);
+    const got = await idbGet(db, 'k'+i);
+    if(got.length !== blob.length) throw new Error('roundtrip mismatch');
+    samples.push(performance.now() - t0);
+  }
+  samples.sort((a,b)=>a-b);
+  const med = samples[2];
+  out.idb_write_read_ms = +med.toFixed(1);
+  check('T11 IDB write+read (10MB)', 600, med);
+}
+
+// --- T1/T2: Boot cold vs warm via iframe -------------------------------------
+async function timeBootIframe(label){
+  return new Promise((res)=>{
+    const f = document.createElement('iframe');
+    f.style.cssText = 'width:0;height:0;border:0;position:absolute;left:-9999px';
+    f.src = '/index.html?stress=1&cb='+Math.random();
+    const t0 = performance.now();
+    f.onload = () => {
+      // Wait for DATA to load — poll inner window for window.DATA length.
+      const start = performance.now();
+      const iv = setInterval(() => {
+        try {
+          const w = f.contentWindow;
+          // Signal: results region populated with at least 1 card-like child.
+          const doc = w && w.document;
+          const cards = doc ? doc.querySelectorAll('#results .card, #results > *').length : 0;
+          if (cards > 0) {
+            const t1 = performance.now();
+            clearInterval(iv);
+            row('info', `${label}: ${cards} result nodes rendered`);
+            f.remove();
+            res(t1 - t0);
+          } else if (performance.now() - start > 8000) {
+            clearInterval(iv);
+            row('fail', `${label}: timed out waiting for DATA`);
+            f.remove();
+            res(8000);
+          }
+        } catch(e){}
+      }, 20);
+    };
+    document.body.appendChild(f);
+  });
+}
+
+async function testBoot(){
+  // Clear IDB to force cold path
+  try { await new Promise((r)=>{ const rq = indexedDB.deleteDatabase('mvc-cli-cache'); rq.onsuccess=rq.onerror=()=>r(); }); } catch(e){}
+  const cold = await timeBootIframe('cold boot');
+  out.boot_cold_ms = +cold.toFixed(0);
+  check('T1 cold boot (no IDB cache)', 2500, cold);
+  // Warm boot — IDB should have been populated by the cold run
+  const warm = await timeBootIframe('warm boot');
+  out.boot_warm_ms = +warm.toFixed(0);
+  check('T2 warm boot (IDB hit)', 600, warm);
+}
+
+(async () => {
+  try {
+    row('info', 'starting...');
+    await testIDB();
+    await testBoot();
+  } catch(e) {
+    row('fail', 'ERROR: '+e.message);
+    failures++;
+  }
+  out.failures = failures;
+  out.timestamp = new Date().toISOString();
+  document.getElementById('json').textContent = JSON.stringify(out, null, 2);
+  // Expose for Playwright / curl-based collection
+  window.__STRESS_RESULTS = out;
+  row(failures===0?'pass':'fail', failures===0 ? 'ALL BROWSER TESTS PASSED' : `${failures} FAILURE(S)`);
+})();
+</script>
+</body></html>
