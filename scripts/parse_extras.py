@@ -18,16 +18,28 @@ All produce the tool's row schema: {os, role, vendor, cat, title, cmd, desc}.
 No third-party deps. Python 3 stdlib only.
 """
 from __future__ import annotations
+import argparse
 import json
+import os
 import pathlib
 import re
 import sys
 from collections import Counter
 
 HERE = pathlib.Path(__file__).resolve().parent
-DOCS = pathlib.Path(
-    "/Users/georgigaydarov/02_Projects/Network_Automation/VSS_Code_Georgi/06_Documentation"
+REPO = HERE.parent
+
+# Base dir holding the upstream vendor reference JSONs. Override with the
+# CLI_WORK_DOCS env var or the --source flag to run off another machine.
+DEFAULT_DOCS = pathlib.Path(
+    os.environ.get(
+        "CLI_WORK_DOCS",
+        "/Users/georgigaydarov/02_Projects/Network_Automation/VSS_Code_Georgi/"
+        "06_Documentation",
+    )
 )
+# Parsed outputs are written alongside the other parser outputs in scripts/.
+DEFAULT_OUTPUT_DIR = HERE
 
 # --- Category normalisation -------------------------------------------------
 # Source categories vary per vendor. We map each to the tool's existing
@@ -300,8 +312,13 @@ VENDORS = {
 }
 
 
-def parse_one(key: str, cfg: dict) -> int:
-    src_path = DOCS / cfg["file"]
+def parse_one(
+    key: str,
+    cfg: dict,
+    docs_dir: pathlib.Path,
+    output_dir: pathlib.Path,
+) -> int:
+    src_path = docs_dir / cfg["file"]
     if not src_path.exists():
         print(f"  ! {key}: source missing → {src_path}", file=sys.stderr)
         return 0
@@ -352,24 +369,52 @@ def parse_one(key: str, cfg: dict) -> int:
         })
         cats[cat] += 1
 
-    out_path = HERE / cfg["out"]
+    out_path = output_dir / cfg["out"]
+    out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(rows, indent=1, ensure_ascii=False))
     top = ", ".join(f"{c}({n})" for c, n in cats.most_common(5))
     print(f"  ✓ {key:14s} {len(rows):5d} rows → {cfg['out']:18s} top: {top}")
     return len(rows)
 
 
-def main() -> int:
-    if not DOCS.exists():
-        print(f"error: docs dir not found: {DOCS}", file=sys.stderr)
+def main(
+    docs_dir: pathlib.Path = DEFAULT_DOCS,
+    output_dir: pathlib.Path = DEFAULT_OUTPUT_DIR,
+) -> int:
+    if not docs_dir.exists():
+        print(f"error: docs dir not found: {docs_dir}", file=sys.stderr)
         return 1
     total = 0
     print(f"parse_extras: processing {len(VENDORS)} vendor sources")
     for key, cfg in VENDORS.items():
-        total += parse_one(key, cfg)
+        total += parse_one(key, cfg, docs_dir, output_dir)
     print(f"\ntotal new rows emitted: {total}")
     return 0
 
 
+def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description=(
+            "Parse the wave-2 vendor reference JSONs into the tool's row "
+            "schema. Paths default to an overridable docs base (CLI_WORK_DOCS "
+            "env var) and repo-relative output so the pipeline is reproducible."
+        )
+    )
+    parser.add_argument(
+        "--source",
+        type=pathlib.Path,
+        default=DEFAULT_DOCS,
+        help="Directory holding the vendor reference JSONs (default: %(default)s).",
+    )
+    parser.add_argument(
+        "--output",
+        type=pathlib.Path,
+        default=DEFAULT_OUTPUT_DIR,
+        help="Directory to write the parsed *.json outputs (default: %(default)s).",
+    )
+    return parser.parse_args(argv)
+
+
 if __name__ == "__main__":
-    sys.exit(main())
+    args = parse_args()
+    sys.exit(main(args.source, args.output))

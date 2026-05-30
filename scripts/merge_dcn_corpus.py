@@ -5,12 +5,16 @@ cheatsheet's commands.json (29,509 rows), deduplicating by (vendor, normalized c
 The source `cli-export.json` is already in cheatsheet schema, so we only need
 vendor-name normalization + dedupe.
 
-Source : ~/02_Projects/Network_Automation/VSS_Code_Georgi/04_Scripts_Tools/DCN_Network_Tool/cli_corpus/cli-export.json
-Target : /tmp/cli-work/commands.json (cheatsheet)
+Paths are configurable (so the pipeline is reproducible on any machine):
+  Source   --source     (env CLI_WORK_DCN_CORPUS) → the DCN cli-export.json corpus.
+  Cheatsheet --output   (env CLI_WORK_CHEATSHEET) → defaults to the repo-relative
+                          commands.json next to this repo's root.
+Run with --help to see the resolved defaults on your machine.
 
 Existing cheatsheet rows win on conflict (preserves FRR `live`/`in_docs` flags).
 """
 from __future__ import annotations
+import argparse
 import json
 import os
 import re
@@ -18,11 +22,24 @@ import sys
 from collections import Counter
 from pathlib import Path
 
-CHEATSHEET = Path("/tmp/cli-work/commands.json")
-SOURCE = Path(os.path.expanduser(
-    "~/02_Projects/Network_Automation/VSS_Code_Georgi/"
-    "04_Scripts_Tools/DCN_Network_Tool/cli_corpus/cli-export.json"
-))
+# Paths are parameterized so the pipeline is reproducible on any machine.
+# The cheatsheet defaults to the repo-relative commands.json (derived from
+# __file__); the upstream corpus defaults to an overridable external path.
+HERE = Path(__file__).resolve().parent
+REPO = HERE.parent
+
+DEFAULT_CHEATSHEET = Path(
+    os.environ.get("CLI_WORK_CHEATSHEET", str(REPO / "commands.json"))
+)
+DEFAULT_SOURCE = Path(
+    os.environ.get(
+        "CLI_WORK_DCN_CORPUS",
+        os.path.expanduser(
+            "~/02_Projects/Network_Automation/VSS_Code_Georgi/"
+            "04_Scripts_Tools/DCN_Network_Tool/cli_corpus/cli-export.json"
+        ),
+    )
+)
 
 # Normalize divergent vendor labels to the cheatsheet's canonical names.
 VENDOR_NORMALIZE = {
@@ -50,16 +67,16 @@ def load_json(p: Path):
     with open(p) as f:
         return json.load(f)
 
-def main():
-    if not SOURCE.exists():
-        print(f"FATAL: source not found: {SOURCE}", file=sys.stderr)
+def main(source: Path = DEFAULT_SOURCE, cheatsheet: Path = DEFAULT_CHEATSHEET):
+    if not source.exists():
+        print(f"FATAL: source not found: {source}", file=sys.stderr)
         sys.exit(1)
-    if not CHEATSHEET.exists():
-        print(f"FATAL: cheatsheet not found: {CHEATSHEET}", file=sys.stderr)
+    if not cheatsheet.exists():
+        print(f"FATAL: cheatsheet not found: {cheatsheet}", file=sys.stderr)
         sys.exit(1)
 
-    cs  = load_json(CHEATSHEET)
-    src = load_json(SOURCE)
+    cs  = load_json(cheatsheet)
+    src = load_json(source)
     print(f"cheatsheet:  {len(cs):>6} rows")
     print(f"source:      {len(src):>6} rows")
 
@@ -110,14 +127,42 @@ def main():
         print(f"  {v:14s}  +{n:5d}  (of {total_src} source rows)")
 
     # Backup then write
-    backup = CHEATSHEET.with_suffix(".json.bak")
+    backup = cheatsheet.with_suffix(".json.bak")
     if not backup.exists():
-        backup.write_text(CHEATSHEET.read_text())
+        backup.write_text(cheatsheet.read_text())
         print(f"\nbackup: {backup}")
-    with open(CHEATSHEET, "w") as f:
+    with open(cheatsheet, "w") as f:
         json.dump(cs, f, separators=(",", ":"))
-    sz = CHEATSHEET.stat().st_size
-    print(f"wrote {CHEATSHEET} ({sz/1024/1024:.2f} MB)")
+    sz = cheatsheet.stat().st_size
+    print(f"wrote {cheatsheet} ({sz/1024/1024:.2f} MB)")
+
+
+def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description=(
+            "Merge the DCN Network Tool corpus into the cheatsheet commands.json, "
+            "deduplicating by (vendor, normalized cmd). Paths default to the "
+            "repo-relative commands.json and an overridable corpus source "
+            "(CLI_WORK_DCN_CORPUS env var) so the pipeline is reproducible."
+        )
+    )
+    parser.add_argument(
+        "--source",
+        type=Path,
+        default=DEFAULT_SOURCE,
+        help="Path to the DCN cli-export.json corpus (default: %(default)s).",
+    )
+    parser.add_argument(
+        "--output",
+        "--cheatsheet",
+        dest="cheatsheet",
+        type=Path,
+        default=DEFAULT_CHEATSHEET,
+        help="Path to the cheatsheet commands.json to merge into (default: %(default)s).",
+    )
+    return parser.parse_args(argv)
+
 
 if __name__ == "__main__":
-    main()
+    args = parse_args()
+    main(args.source, args.cheatsheet)

@@ -31,26 +31,36 @@ Then `parse.py` merges it into ../commands.json on next run.
 No third-party deps; Python 3 stdlib only.
 """
 from __future__ import annotations
+import argparse
 import json
+import os
 import pathlib
 import re
 import sys
 from collections import Counter
 
 # --- Paths -------------------------------------------------------------------
+# Paths are parameterized so the pipeline is reproducible on any machine.
+# Defaults derive from __file__ (output) and an overridable docs base (input),
+# preserving the original behaviour when run from the repo on the author's box.
 
 HERE = pathlib.Path(__file__).resolve().parent
 REPO = HERE.parent
-DEFAULT_INPUT = pathlib.Path(
-    "/Users/georgigaydarov/02_Projects/Network_Automation/VSS_Code_Georgi/"
-    "06_Documentation/FRR_Master_CLI_Command_Reference.json"
+
+# Base dir holding the upstream FRR reference JSONs. Override with the
+# CLI_WORK_DOCS env var or the --input flag to run off another machine.
+DOCS_BASE = pathlib.Path(
+    os.environ.get(
+        "CLI_WORK_DOCS",
+        "/Users/georgigaydarov/02_Projects/Network_Automation/VSS_Code_Georgi/"
+        "06_Documentation",
+    )
 )
+DEFAULT_INPUT = DOCS_BASE / "FRR_Master_CLI_Command_Reference.json"
 # Older / smaller file kept as a documented fallback if the master one is missing.
-LEGACY_INPUT = pathlib.Path(
-    "/Users/georgigaydarov/02_Projects/Network_Automation/VSS_Code_Georgi/"
-    "06_Documentation/FRR_CLI_Command_Reference.json"
-)
-OUTPUT = HERE / "frr.json"
+LEGACY_INPUT = DOCS_BASE / "FRR_CLI_Command_Reference.json"
+# Output lives alongside the other parser outputs in scripts/ (repo-relative).
+DEFAULT_OUTPUT = HERE / "frr.json"
 
 # --- Daemon → category map ---------------------------------------------------
 # Categories deliberately align with existing categories used by other parsers
@@ -195,7 +205,10 @@ def cat_for(daemon: str) -> str:
 
 # --- Main --------------------------------------------------------------------
 
-def main(input_path: pathlib.Path = DEFAULT_INPUT) -> int:
+def main(
+    input_path: pathlib.Path = DEFAULT_INPUT,
+    output_path: pathlib.Path = DEFAULT_OUTPUT,
+) -> int:
     # Pick master file if available, otherwise fall back to the older single-source one.
     if not input_path.exists():
         if LEGACY_INPUT.exists():
@@ -282,8 +295,9 @@ def main(input_path: pathlib.Path = DEFAULT_INPUT) -> int:
         cat_counter[cat] += 1
         prov_counter[(is_running, in_docs)] += 1
 
-    OUTPUT.write_text(json.dumps(rows, indent=1, ensure_ascii=False))
-    print(f"wrote {len(rows)} FRR rows → {OUTPUT}")
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(json.dumps(rows, indent=1, ensure_ascii=False))
+    print(f"wrote {len(rows)} FRR rows → {output_path}")
     print(f"\nProvenance (running, in_docs) → count:")
     for k, n in prov_counter.most_common():
         running, docd = k
@@ -307,6 +321,33 @@ def main(input_path: pathlib.Path = DEFAULT_INPUT) -> int:
     return 0
 
 
+def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description=(
+            "Parse the FRR Master CLI Command Reference into the tool's row "
+            "schema. Paths default to repo-relative output and an overridable "
+            "docs base (CLI_WORK_DOCS env var) so the pipeline is reproducible."
+        )
+    )
+    parser.add_argument(
+        "--input",
+        type=pathlib.Path,
+        default=DEFAULT_INPUT,
+        help=(
+            "Path to the FRR reference JSON (default: %(default)s). "
+            "Falls back to FRR_CLI_Command_Reference.json in the same dir if "
+            "this file is missing."
+        ),
+    )
+    parser.add_argument(
+        "--output",
+        type=pathlib.Path,
+        default=DEFAULT_OUTPUT,
+        help="Path to write the parsed frr.json (default: %(default)s).",
+    )
+    return parser.parse_args(argv)
+
+
 if __name__ == "__main__":
-    src_arg = pathlib.Path(sys.argv[1]) if len(sys.argv) > 1 else DEFAULT_INPUT
-    sys.exit(main(src_arg))
+    args = parse_args()
+    sys.exit(main(args.input, args.output))
