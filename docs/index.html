@@ -1,0 +1,826 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Multivendor Network CLI Tools — 52,031 commands · 17 vendors · one page</title>
+<meta name="description" content="A zero-dependency single-file HTML reference for network engineers: 52,031 CLI commands across 17 vendors and tools, searchable, comparable, deep-linkable, with vendor-correct automation snippet generation. Served statically by GitHub Pages.">
+<meta name="color-scheme" content="dark">
+<style>
+  :root{
+    --bg-0:#0b0f0a; --bg-1:#0c120d; --bg-2:#0f1814;
+    --green:#34d399; --green-bright:#39ff14; --amber:#fbbf24; --teal:#5eead4;
+    --ink:#e6f0e6; --muted:#9fb1a4; --muted-dim:#7c8d80;
+    --card:rgba(255,255,255,.04); --card-line:rgba(94,234,212,.16);
+    --glow-green:rgba(52,211,153,.35); --glow-amber:rgba(251,191,36,.30);
+    --mono:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --sans:ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --maxw:1120px; --radius:16px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; font-family:var(--sans); color:var(--ink); line-height:1.6;
+    background:
+      radial-gradient(1100px 540px at 78% -8%, rgba(52,211,153,.10), transparent 60%),
+      radial-gradient(900px 480px at 10% 8%, rgba(251,191,36,.06), transparent 60%),
+      linear-gradient(160deg, var(--bg-0) 0%, var(--bg-1) 55%, var(--bg-2) 100%);
+    background-attachment:fixed; min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+  }
+  body::before{
+    content:""; position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.5;
+    background-image:linear-gradient(rgba(52,211,153,.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(52,211,153,.045) 1px, transparent 1px);
+    background-size:34px 34px;
+    -webkit-mask-image:radial-gradient(closest-side at 50% 30%, #000 40%, transparent 92%);
+            mask-image:radial-gradient(closest-side at 50% 30%, #000 40%, transparent 92%);
+  }
+  a{color:var(--teal); text-decoration:none}
+  a:hover{color:var(--green)}
+  :focus-visible{outline:2.5px solid var(--green); outline-offset:3px; border-radius:6px}
+
+  .skip{position:absolute; left:-999px; top:0; z-index:200; background:var(--green);
+    color:#04140d; padding:.6rem 1rem; border-radius:0 0 10px 0; font-weight:700}
+  .skip:focus{left:0}
+
+  /* scroll progress */
+  #progress{position:fixed; top:0; left:0; height:3px; width:0%; z-index:120;
+    background:linear-gradient(90deg, var(--amber), var(--green), var(--teal));
+    box-shadow:0 0 12px var(--glow-green)}
+
+  /* nav */
+  header.nav{position:sticky; top:0; z-index:100;
+    backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+    background:rgba(8,14,10,.72); border-bottom:1px solid rgba(52,211,153,.14)}
+  .nav-inner{max-width:var(--maxw); margin:0 auto; padding:.7rem 1.1rem;
+    display:flex; align-items:center; gap:1rem; justify-content:space-between}
+  .brand{display:flex; align-items:center; gap:.6rem; font-weight:800; letter-spacing:.2px}
+  .brand .dot{width:11px; height:11px; border-radius:50%; background:var(--green);
+    box-shadow:0 0 10px var(--green), 0 0 20px var(--glow-green); animation:pulse 2.6s ease-in-out infinite}
+  .brand b{font-family:var(--mono); font-size:.96rem;
+    background:linear-gradient(90deg,var(--green),var(--amber),var(--teal));
+    -webkit-background-clip:text; background-clip:text; color:transparent}
+  nav.links{display:flex; gap:.2rem; flex-wrap:wrap}
+  nav.links a{position:relative; color:var(--muted); font-size:.86rem; font-weight:600;
+    padding:.45rem .6rem; border-radius:8px; white-space:nowrap}
+  nav.links a::after{content:""; position:absolute; left:.6rem; right:.6rem; bottom:.28rem; height:2px;
+    background:linear-gradient(90deg,var(--green),var(--teal)); transform:scaleX(0); transform-origin:left;
+    transition:transform .28s ease}
+  nav.links a:hover{color:var(--ink)}
+  nav.links a:hover::after,nav.links a.active::after{transform:scaleX(1)}
+  nav.links a.active{color:var(--green)}
+  .nav-cta{display:inline-flex; align-items:center; gap:.4rem; font-size:.84rem; font-weight:700;
+    padding:.5rem .85rem; border-radius:10px; color:#04140d;
+    background:linear-gradient(135deg,var(--green),var(--teal)); white-space:nowrap}
+  .nav-cta:hover{color:#04140d; filter:brightness(1.08)}
+  #menu-btn{display:none; background:transparent; border:1px solid var(--card-line); color:var(--ink);
+    font-size:1.2rem; border-radius:9px; padding:.3rem .55rem; cursor:pointer}
+
+  main{position:relative; z-index:1; max-width:var(--maxw); margin:0 auto; padding:0 1.1rem}
+  section{padding:4.4rem 0 2rem; scroll-margin-top:74px}
+  .eyebrow{font-family:var(--mono); font-size:.78rem; letter-spacing:.22em; text-transform:uppercase;
+    color:var(--amber); margin:0 0 .5rem}
+  h2.title{font-size:clamp(1.7rem,3.6vw,2.4rem); margin:.1rem 0 .6rem; font-weight:800; letter-spacing:-.5px;
+    background:linear-gradient(100deg,var(--ink),var(--green) 55%,var(--teal));
+    -webkit-background-clip:text; background-clip:text; color:transparent}
+  .lede{color:var(--muted); max-width:64ch; font-size:1.04rem}
+
+  /* hero */
+  #hero{padding-top:2.6rem; text-align:center}
+  .hero-art{position:relative; max-width:980px; margin:0 auto 1.4rem; border-radius:18px; overflow:hidden;
+    border:1px solid rgba(52,211,153,.20); box-shadow:0 30px 90px -40px rgba(0,0,0,.9), 0 0 60px -30px var(--glow-green)}
+  .hero-art svg{display:block; width:100%; height:auto}
+  .hero-art::after{content:""; position:absolute; inset:0; pointer-events:none;
+    box-shadow:inset 0 0 120px -40px rgba(57,255,20,.25)}
+  h1.hero-title{font-size:clamp(2.1rem,6vw,3.7rem); line-height:1.04; margin:.3rem 0 .5rem; font-weight:900; letter-spacing:-1px;
+    background:linear-gradient(96deg,var(--green-bright),var(--amber) 48%,var(--teal));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    filter:drop-shadow(0 4px 24px rgba(52,211,153,.25))}
+  .tagline{color:var(--muted); font-size:clamp(1rem,2.1vw,1.22rem); max-width:62ch; margin:.2rem auto 1.4rem}
+  .tagline b{color:var(--green); font-weight:700}
+  .chips{display:flex; gap:.7rem; flex-wrap:wrap; justify-content:center; margin:1.5rem auto .4rem; max-width:920px}
+  .chip{flex:1 1 130px; min-width:118px; max-width:200px; padding:1rem .6rem; border-radius:14px;
+    background:var(--card); border:1px solid var(--card-line); backdrop-filter:blur(10px);
+    box-shadow:0 10px 30px -20px rgba(0,0,0,.8); transition:transform .3s ease, box-shadow .3s ease}
+  .chip:hover{transform:translateY(-4px); box-shadow:0 18px 40px -22px var(--glow-green)}
+  .chip .num{font-family:var(--mono); font-weight:800; font-size:clamp(1.3rem,3.4vw,1.85rem);
+    color:var(--green); text-shadow:0 0 18px var(--glow-green)}
+  .chip .lbl{font-size:.72rem; color:var(--muted-dim); text-transform:uppercase; letter-spacing:.08em; margin-top:.25rem}
+  .cta-row{display:flex; gap:.8rem; flex-wrap:wrap; justify-content:center; margin-top:1.8rem}
+  .btn{display:inline-flex; align-items:center; gap:.5rem; font-weight:700; font-size:.95rem;
+    padding:.8rem 1.3rem; border-radius:12px; transition:transform .2s ease, filter .2s ease, box-shadow .2s ease}
+  .btn-primary{color:#04140d; background:linear-gradient(135deg,var(--green),var(--teal));
+    box-shadow:0 12px 32px -14px var(--glow-green)}
+  .btn-primary:hover{transform:translateY(-2px); filter:brightness(1.08); color:#04140d}
+  .btn-ghost{color:var(--ink); border:1px solid var(--card-line); background:var(--card)}
+  .btn-ghost:hover{transform:translateY(-2px); border-color:var(--green); color:var(--green)}
+
+  /* cards / glass */
+  .grid{display:grid; gap:1.1rem; grid-template-columns:repeat(auto-fit,minmax(270px,1fr))}
+  .card{background:var(--card); border:1px solid var(--card-line); border-radius:var(--radius);
+    padding:1.3rem 1.25rem; backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+    box-shadow:0 14px 40px -28px rgba(0,0,0,.9); position:relative; overflow:hidden;
+    transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease}
+  .card::before{content:""; position:absolute; inset:0 0 auto 0; height:2px;
+    background:linear-gradient(90deg,transparent,var(--green),var(--teal),transparent); opacity:.5}
+  .card:hover{transform:translateY(-5px); border-color:rgba(52,211,153,.4);
+    box-shadow:0 26px 56px -28px rgba(0,0,0,.95), 0 0 38px -22px var(--glow-green)}
+  .card .ic{font-size:1.6rem; display:block; margin-bottom:.55rem}
+  .card h3{margin:.1rem 0 .45rem; font-size:1.06rem; color:var(--ink)}
+  .card p{margin:0; color:var(--muted); font-size:.92rem}
+
+  /* reveal */
+  .reveal{opacity:0; transform:translateY(22px); transition:opacity .6s ease, transform .6s ease}
+  .reveal.in{opacity:1; transform:none}
+
+  /* overview band */
+  .panel{background:var(--card); border:1px solid var(--card-line); border-radius:var(--radius);
+    padding:1.6rem 1.5rem; backdrop-filter:blur(12px)}
+  .overview-grid{display:grid; gap:1.1rem; grid-template-columns:1.4fr .9fr; align-items:start}
+  .mini-stats{display:grid; gap:.7rem}
+  .mini{display:flex; justify-content:space-between; align-items:baseline; gap:.8rem;
+    padding:.7rem .9rem; border-radius:11px; background:rgba(52,211,153,.05); border:1px solid rgba(52,211,153,.12)}
+  .mini .v{font-family:var(--mono); color:var(--amber); font-weight:800}
+  .mini .k{color:var(--muted); font-size:.86rem}
+
+  /* mermaid */
+  .diagram{background:rgba(8,14,10,.55); border:1px solid var(--card-line); border-radius:var(--radius);
+    padding:1rem; margin-top:1.1rem; overflow-x:auto}
+  .diagram .cap{font-size:.84rem; color:var(--muted-dim); margin:.2rem .2rem .8rem; font-style:italic}
+  .diagram h3{margin:.2rem .2rem .2rem; font-size:1rem; color:var(--teal); font-family:var(--mono)}
+  pre.mermaid{margin:0; text-align:center; min-height:40px}
+  .diagram-stack{display:grid; gap:1.4rem}
+
+  /* tech chips */
+  .stack{display:flex; flex-wrap:wrap; gap:.6rem}
+  .tag{font-family:var(--mono); font-size:.85rem; padding:.5rem .85rem; border-radius:999px;
+    background:rgba(52,211,153,.06); border:1px solid rgba(52,211,153,.2); color:var(--teal);
+    transition:transform .2s ease, background .2s ease, color .2s ease}
+  .tag:hover{transform:translateY(-3px); background:rgba(251,191,36,.1); color:var(--amber); border-color:rgba(251,191,36,.4)}
+  .tag::before{content:"▸ "; color:var(--green)}
+
+  /* components table */
+  .tbl-wrap{overflow-x:auto; border:1px solid var(--card-line); border-radius:var(--radius); background:var(--card)}
+  table{border-collapse:collapse; width:100%; min-width:560px}
+  thead th{text-align:left; font-size:.74rem; letter-spacing:.1em; text-transform:uppercase; color:var(--amber);
+    padding:.85rem 1rem; border-bottom:1px solid rgba(251,191,36,.2)}
+  tbody td{padding:.85rem 1rem; border-bottom:1px solid rgba(255,255,255,.05); vertical-align:top; font-size:.9rem; color:var(--muted)}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr:hover td{background:rgba(52,211,153,.04)}
+  td .mod{font-family:var(--mono); color:var(--green); font-weight:600; font-size:.85rem}
+  td .te{display:inline-block; margin-top:.35rem; font-family:var(--mono); font-size:.72rem; color:var(--muted-dim)}
+
+  /* quickstart code */
+  .code{position:relative; background:#070b08; border:1px solid rgba(52,211,153,.22); border-radius:13px;
+    margin:1rem 0 0; overflow:hidden}
+  .code .bar{display:flex; align-items:center; justify-content:space-between; padding:.5rem .8rem;
+    background:rgba(52,211,153,.05); border-bottom:1px solid rgba(52,211,153,.14)}
+  .code .bar .ttl{font-family:var(--mono); font-size:.78rem; color:var(--muted)}
+  .code .bar .dots{display:flex; gap:.35rem}
+  .code .bar .dots i{width:10px; height:10px; border-radius:50%; display:inline-block}
+  .copy{font-family:var(--mono); font-size:.74rem; color:var(--teal); background:transparent;
+    border:1px solid rgba(94,234,212,.3); border-radius:7px; padding:.28rem .6rem; cursor:pointer; transition:all .2s ease}
+  .copy:hover{background:rgba(94,234,212,.12); color:var(--green)}
+  .copy.ok{color:var(--green); border-color:var(--green)}
+  pre.sh{margin:0; padding:1rem 1.1rem; overflow-x:auto; font-family:var(--mono); font-size:.84rem; line-height:1.65; color:#cfe6d4}
+  pre.sh .c{color:var(--muted-dim)}
+  pre.sh .g{color:var(--green)}
+  pre.sh .a{color:var(--amber)}
+
+  /* footer */
+  footer{position:relative; z-index:1; max-width:var(--maxw); margin:2rem auto 0; padding:2.4rem 1.1rem 3rem;
+    border-top:1px solid rgba(52,211,153,.14); color:var(--muted)}
+  .foot-grid{display:flex; flex-wrap:wrap; gap:1.4rem; justify-content:space-between; align-items:flex-start}
+  .foot-links{display:flex; flex-wrap:wrap; gap:1.2rem}
+  .foot-links a{font-size:.9rem}
+  .foot-note{font-size:.8rem; color:var(--muted-dim); margin-top:1.2rem}
+
+  /* back to top */
+  #top{position:fixed; right:1.1rem; bottom:1.1rem; z-index:90; width:46px; height:46px; border-radius:50%;
+    border:1px solid var(--card-line); background:rgba(8,14,10,.8); color:var(--green); font-size:1.2rem;
+    cursor:pointer; opacity:0; transform:translateY(14px); transition:opacity .3s ease, transform .3s ease;
+    backdrop-filter:blur(10px); box-shadow:0 8px 24px -12px var(--glow-green)}
+  #top.show{opacity:1; transform:none}
+  #top:hover{color:var(--amber); border-color:var(--amber)}
+
+  @keyframes pulse{0%,100%{opacity:.55; transform:scale(.92)} 50%{opacity:1; transform:scale(1.12)}}
+
+  @media (max-width:880px){
+    .overview-grid{grid-template-columns:1fr}
+    nav.links{display:none; position:absolute; top:100%; left:0; right:0; flex-direction:column;
+      background:rgba(8,14,10,.97); border-bottom:1px solid rgba(52,211,153,.14); padding:.6rem 1rem; gap:.1rem}
+    nav.links.open{display:flex}
+    nav.links a{padding:.7rem .5rem}
+    #menu-btn{display:inline-block}
+    .nav-cta{display:none}
+  }
+  @media (max-width:480px){
+    .chip{flex:1 1 44%}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none!important; transition:none!important; scroll-behavior:auto!important}
+    .reveal{opacity:1; transform:none}
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div id="progress" aria-hidden="true"></div>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="brand"><span class="dot" aria-hidden="true"></span><b>multivendor-cli</b></div>
+    <button id="menu-btn" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+    <nav class="links" id="navlinks" aria-label="Section navigation">
+      <a href="#overview">Overview</a>
+      <a href="#features">Features</a>
+      <a href="#architecture">Architecture</a>
+      <a href="#dataflow">Data flow</a>
+      <a href="#stack">Tech stack</a>
+      <a href="#components">Components</a>
+      <a href="#quickstart">Quickstart</a>
+    </nav>
+    <a class="nav-cta" href="https://github.com/gesh75/multivendor-cli-configurator" target="_blank" rel="noopener">GitHub ↗</a>
+  </div>
+</header>
+
+<main id="main">
+  <!-- ================= HERO ================= -->
+  <section id="hero" aria-label="Introduction">
+    <div class="hero-art reveal">
+      <!-- inlined docs/assets/hero.svg -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 360" role="img" aria-labelledby="heroTitle heroDesc" fill="none" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">
+        <title id="heroTitle">multivendor-cli-configurator — architecture</title>
+        <desc id="heroDesc">Animated terminal banner: a phosphor-green prompt types a network command while 17 vendor chips light up in sequence, connector lines pulse from the command to each matched vendor, a stream of grayed commands scrolls behind, and a counter ticks toward 52,031 commands.</desc>
+        <defs>
+          <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#0b0f0a"/>
+            <stop offset="0.55" stop-color="#0c120d"/>
+            <stop offset="1" stop-color="#0f1814"/>
+          </linearGradient>
+          <radialGradient id="crt" cx="0.5" cy="0.32" r="0.85">
+            <stop offset="0" stop-color="#39ff14" stop-opacity="0.10"/>
+            <stop offset="0.6" stop-color="#39ff14" stop-opacity="0.02"/>
+            <stop offset="1" stop-color="#000000" stop-opacity="0.35"/>
+          </radialGradient>
+          <linearGradient id="titleGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#39ff14"/>
+            <stop offset="0.5" stop-color="#ffd152"/>
+            <stop offset="1" stop-color="#5eead4"/>
+          </linearGradient>
+          <linearGradient id="panelGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#11201a"/>
+            <stop offset="1" stop-color="#0c130e"/>
+          </linearGradient>
+          <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
+            <path d="M30 0H0V30" fill="none" stroke="#39ff14" stroke-opacity="0.05" stroke-width="1"/>
+          </pattern>
+          <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+            <feGaussianBlur stdDeviation="3.4" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="softGlow" x="-80%" y="-80%" width="260%" height="260%">
+            <feGaussianBlur stdDeviation="7" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <style>
+            @keyframes blink { 0%,49%{opacity:1} 50%,100%{opacity:0} }
+            @keyframes pulse { 0%,100%{opacity:.45} 50%{opacity:1} }
+            @keyframes flicker { 0%,100%{opacity:.92} 47%{opacity:1} 62%{opacity:.85} }
+            @keyframes drawline { to { stroke-dashoffset: 0 } }
+            @keyframes scroll { from { transform: translateY(0) } to { transform: translateY(-150px) } }
+            @keyframes chipOn {
+              0%, 12% { fill: #0f1814; stroke: #2a3a30; }
+              20%, 78% { fill: #14271c; stroke: #39ff14; }
+              88%, 100% { fill: #0f1814; stroke: #2a3a30; }
+            }
+            @keyframes chipText {
+              0%, 12% { fill: #8b9a8e; }
+              20%, 78% { fill: #39ff14; }
+              88%, 100% { fill: #8b9a8e; }
+            }
+            @keyframes linkPulse {
+              0%, 10% { opacity: 0; }
+              22%, 70% { opacity: 0.9; }
+              86%, 100% { opacity: 0; }
+            }
+            .node { transform-box: fill-box; transform-origin: center; }
+            .cursor { animation: blink 1.05s step-end infinite; }
+            .crt { animation: flicker 5.5s ease-in-out infinite; }
+            .pulse { animation: pulse 2.8s ease-in-out infinite; }
+            .p2 { animation-delay: .5s } .p3 { animation-delay: 1s } .p4 { animation-delay: 1.5s }
+            .underline { stroke-dasharray: 540; stroke-dashoffset: 540; animation: drawline 1.7s ease-out .35s forwards; }
+            .stream { animation: scroll 9s linear infinite; }
+            .chipBox { animation: chipOn 9.5s ease-in-out infinite; }
+            .chipLbl { animation: chipText 9.5s ease-in-out infinite; }
+            .link    { animation: linkPulse 9.5s ease-in-out infinite; }
+            .d0{animation-delay:0s} .d1{animation-delay:.5s} .d2{animation-delay:1s} .d3{animation-delay:1.5s}
+            .d4{animation-delay:2s} .d5{animation-delay:2.5s} .d6{animation-delay:3s} .d7{animation-delay:3.5s}
+            .d8{animation-delay:4s} .d9{animation-delay:4.5s} .d10{animation-delay:5s} .d11{animation-delay:5.5s}
+            .d12{animation-delay:6s} .d13{animation-delay:6.5s} .d14{animation-delay:7s} .d15{animation-delay:7.5s}
+            .d16{animation-delay:8s}
+            @media (prefers-reduced-motion: reduce) {
+              * { animation: none !important; }
+              .underline { stroke-dashoffset: 0; }
+              .cursor { opacity: 1; }
+              .chipBox { fill: #14271c; stroke: #39ff14; }
+              .chipLbl { fill: #39ff14; }
+              .link { opacity: 0.55; }
+            }
+          </style>
+        </defs>
+        <rect width="1200" height="360" fill="url(#bg)"/>
+        <rect width="1200" height="360" fill="url(#grid)"/>
+        <rect width="1200" height="360" fill="url(#crt)" class="crt"/>
+        <g clip-path="url(#streamClip)" opacity="0.16">
+          <clipPath id="streamClip"><rect x="812" y="44" width="350" height="150" rx="8"/></clipPath>
+          <g class="stream" font-size="11" fill="#8b9a8e">
+            <text x="824" y="58">router bgp 65001</text>
+            <text x="824" y="76">set protocols ospf area 0</text>
+            <text x="824" y="94">ip route 10.0.0.0/24</text>
+            <text x="824" y="112">nv set interface swp1</text>
+            <text x="824" y="130">config system interface</text>
+            <text x="824" y="148">vlan 100 name CORE</text>
+            <text x="824" y="166">show ip bgp summary</text>
+            <text x="824" y="184">enter candidate</text>
+            <text x="824" y="202">router bgp 65001</text>
+            <text x="824" y="220">set protocols ospf area 0</text>
+            <text x="824" y="238">ip route 10.0.0.0/24</text>
+            <text x="824" y="256">nv set interface swp1</text>
+            <text x="824" y="274">config system interface</text>
+            <text x="824" y="292">vlan 100 name CORE</text>
+          </g>
+        </g>
+        <g class="node">
+          <rect x="44" y="44" width="540" height="150" rx="12" fill="url(#panelGrad)" stroke="#1d3326" stroke-width="1.5"/>
+          <circle cx="66" cy="64" r="5" fill="#ff5f56"/>
+          <circle cx="84" cy="64" r="5" fill="#ffb000"/>
+          <circle cx="102" cy="64" r="5" fill="#00d97e"/>
+          <text x="120" y="68" font-size="11" fill="#8b9a8e">multivendor-cli — terminal</text>
+          <text x="66" y="108" font-size="16" fill="#39ff14" filter="url(#glow)">
+            <tspan fill="#ffb000" font-weight="700">&#8227; </tspan><tspan fill="#5eead4">cli</tspan><tspan fill="#8b9a8e"> ~ </tspan><tspan fill="#ffd152">$</tspan>
+          </text>
+          <text x="118" y="108" font-size="16" fill="#e6f0e6" filter="url(#glow)">
+            <tspan fill="#39ff14">router</tspan> bgp <tspan fill="#ffd152">65001</tspan><tspan x="118" dy="0"> </tspan>
+          </text>
+          <rect class="cursor" x="298" y="96" width="9" height="16" fill="#39ff14"/>
+          <text x="66" y="138" font-size="11" fill="#8b9a8e"># one intent &#8594; 17 vendor syntaxes, concept-aligned</text>
+          <text x="66" y="170" font-size="12" fill="#8b9a8e">corpus</text>
+          <text x="116" y="170" font-size="13" font-weight="700" fill="#39ff14" filter="url(#glow)">52,031 commands</text>
+          <text x="290" y="170" font-size="11" fill="#5eead4">cache-then-revalidate</text>
+        </g>
+        <g stroke-width="1.6" fill="none">
+          <path class="link d0"  d="M584 118 C 660 130, 740 240, 786 252" stroke="#39ff14"/>
+          <path class="link d2"  d="M584 122 C 680 150, 800 244, 866 252" stroke="#00d97e"/>
+          <path class="link d4"  d="M584 126 C 720 170, 880 246, 946 252" stroke="#5eead4"/>
+          <path class="link d6"  d="M584 130 C 780 190, 960 248,1026 252" stroke="#39ff14"/>
+          <path class="link d8"  d="M584 134 C 840 200,1040 250,1106 252" stroke="#ffd152"/>
+        </g>
+        <text x="615" y="118" font-size="40" font-weight="800" fill="url(#titleGrad)" filter="url(#softGlow)"
+              font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif">multivendor-cli-configurator</text>
+        <path class="underline" d="M616 134 H1118" stroke="#39ff14" stroke-width="2.5" stroke-linecap="round"/>
+        <text x="616" y="162" font-size="16" fill="#8b9a8e"
+              font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif">52,000+ CLI commands &#183; 17 vendors &#183; one zero-dependency HTML file</text>
+        <g font-size="11" font-weight="600" text-anchor="middle">
+          <g class="node"><rect class="chipBox d0"  x="44"  y="234" width="84" height="26" rx="13" fill="#0f1814" stroke="#2a3a30" stroke-width="1.4"/><text class="chipLbl d0"  x="86"  y="251" fill="#8b9a8e">Cisco</text></g>
+          <g class="node"><rect class="chipBox d1"  x="136" y="234" width="84" height="26" rx="13" fill="#0f1814" stroke="#2a3a30" stroke-width="1.4"/><text class="chipLbl d1"  x="178" y="251" fill="#8b9a8e">Juniper</text></g>
+          <g class="node"><rect class="chipBox d2"  x="228" y="234" width="84" height="26" rx="13" fill="#0f1814" stroke="#2a3a30" stroke-width="1.4"/><text class="chipLbl d2"  x="270" y="251" fill="#8b9a8e">Arista</text></g>
+          <g class="node"><rect class="chipBox d3"  x="320" y="234" width="84" height="26" rx="13" fill="#0f1814" stroke="#2a3a30" stroke-width="1.4"/><text class="chipLbl d3"  x="362" y="251" fill="#8b9a8e">FRR</text></g>
+          <g class="node"><rect class="chipBox d4"  x="412" y="234" width="84" height="26" rx="13" fill="#0f1814" stroke="#2a3a30" stroke-width="1.4"/><text class="chipLbl d4"  x="454" y="251" fill="#8b9a8e">VyOS</text></g>
+          <g class="node"><rect class="chipBox d5"  x="504" y="234" width="84" height="26" rx="13" fill="#0f1814" stroke="#2a3a30" stroke-width="1.4"/><text class="chipLbl d5"  x="546" y="251" fill="#8b9a8e">Huawei</text></g>
+          <g class="node"><rect class="chipBox d6"  x="596" y="234" width="84" height="26" rx="13" fill="#0f1814" stroke="#2a3a30" stroke-width="1.4"/><text class="chipLbl d6"  x="638" y="251" fill="#8b9a8e">Aruba</text></g>
+          <g class="node"><rect class="chipBox d7"  x="688" y="234" width="84" height="26" rx="13" fill="#0f1814" stroke="#2a3a30" stroke-width="1.4"/><text class="chipLbl d7"  x="730" y="251" fill="#8b9a8e">Extreme</text></g>
+          <g class="node"><rect class="chipBox d8"  x="780" y="234" width="84" height="26" rx="13" fill="#0f1814" stroke="#2a3a30" stroke-width="1.4"/><text class="chipLbl d8"  x="822" y="251" fill="#8b9a8e">FortiOS</text></g>
+        </g>
+        <g font-size="11" font-weight="600" text-anchor="middle">
+          <g class="node"><rect class="chipBox d9"  x="44"  y="272" width="84" height="26" rx="13" fill="#0f1814" stroke="#2a3a30" stroke-width="1.4"/><text class="chipLbl d9"  x="86"  y="289" fill="#8b9a8e">PAN-OS</text></g>
+          <g class="node"><rect class="chipBox d10" x="136" y="272" width="84" height="26" rx="13" fill="#0f1814" stroke="#2a3a30" stroke-width="1.4"/><text class="chipLbl d10" x="178" y="289" fill="#8b9a8e">Mikrotik</text></g>
+          <g class="node"><rect class="chipBox d11" x="228" y="272" width="84" height="26" rx="13" fill="#0f1814" stroke="#2a3a30" stroke-width="1.4"/><text class="chipLbl d11" x="270" y="289" fill="#8b9a8e">NVIDIA</text></g>
+          <g class="node"><rect class="chipBox d12" x="320" y="272" width="84" height="26" rx="13" fill="#0f1814" stroke="#2a3a30" stroke-width="1.4"/><text class="chipLbl d12" x="362" y="289" fill="#8b9a8e">Nokia</text></g>
+          <g class="node"><rect class="chipBox d13" x="412" y="272" width="84" height="26" rx="13" fill="#0f1814" stroke="#2a3a30" stroke-width="1.4"/><text class="chipLbl d13" x="454" y="289" fill="#8b9a8e">SONiC</text></g>
+          <g class="node"><rect class="chipBox d14" x="504" y="272" width="84" height="26" rx="13" fill="#0f1814" stroke="#2a3a30" stroke-width="1.4"/><text class="chipLbl d14" x="546" y="289" fill="#8b9a8e">Microsoft</text></g>
+          <g class="node"><rect class="chipBox d15" x="596" y="272" width="84" height="26" rx="13" fill="#0f1814" stroke="#2a3a30" stroke-width="1.4"/><text class="chipLbl d15" x="638" y="289" fill="#8b9a8e">Linux</text></g>
+          <g class="node"><rect class="chipBox d16" x="688" y="272" width="84" height="26" rx="13" fill="#0f1814" stroke="#2a3a30" stroke-width="1.4"/><text class="chipLbl d16" x="730" y="289" fill="#8b9a8e">Wireshark</text></g>
+          <g class="node"><rect x="780" y="272" width="84" height="26" rx="13" fill="#0c130e" stroke="#ffb000" stroke-width="1.4" opacity="0.9"/><text x="822" y="289" fill="#ffd152">+ Python ETL</text></g>
+        </g>
+        <g font-size="11" text-anchor="middle">
+          <path id="pipe" d="M120 330 H1080" stroke="#1d3326" stroke-width="2"/>
+          <text x="120" y="334" fill="#8b9a8e" text-anchor="start">sources</text>
+          <text x="420" y="334" fill="#8b9a8e">parse + merge</text>
+          <text x="700" y="334" fill="#5eead4">commands.json</text>
+          <text x="1080" y="334" fill="#39ff14" text-anchor="end">index.html</text>
+          <circle r="3.5" fill="#39ff14" filter="url(#glow)">
+            <animateMotion dur="3.2s" repeatCount="indefinite" rotate="auto"><mpath href="#pipe"/></animateMotion>
+          </circle>
+          <circle r="3.5" fill="#ffd152" filter="url(#glow)">
+            <animateMotion dur="3.2s" begin="1.05s" repeatCount="indefinite" rotate="auto"><mpath href="#pipe"/></animateMotion>
+          </circle>
+          <circle r="3.5" fill="#5eead4" filter="url(#glow)">
+            <animateMotion dur="3.2s" begin="2.1s" repeatCount="indefinite" rotate="auto"><mpath href="#pipe"/></animateMotion>
+          </circle>
+        </g>
+        <g filter="url(#softGlow)">
+          <circle class="node pulse"    cx="700" cy="330" r="4.5" fill="#5eead4"/>
+          <circle class="node pulse p2" cx="1080" cy="330" r="4.5" fill="#39ff14"/>
+          <circle class="node pulse p3" cx="120" cy="330" r="4.5" fill="#ffb000"/>
+        </g>
+      </svg>
+    </div>
+
+    <h1 class="hero-title">Multivendor Network CLI Tools</h1>
+    <p class="tagline"><b>52,000+ CLI commands</b> across 17 vendors and tools in one searchable, comparable, deep-linkable single-file page.</p>
+
+    <div class="chips" role="list" aria-label="Key statistics">
+      <div class="chip" role="listitem"><div class="num" data-count="52031">0</div><div class="lbl">CLI commands</div></div>
+      <div class="chip" role="listitem"><div class="num" data-count="17">0</div><div class="lbl">vendors &amp; tools</div></div>
+      <div class="chip" role="listitem"><div class="num" data-count="3">0</div><div class="lbl">view modes</div></div>
+      <div class="chip" role="listitem"><div class="num" data-count="870">0</div><div class="lbl">FRR rows verified live</div></div>
+      <div class="chip" role="listitem"><div class="num" data-count="0" data-suffix="" data-text="zero">0</div><div class="lbl">JS dependencies</div></div>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://github.com/gesh75/multivendor-cli-configurator" target="_blank" rel="noopener">↗ View on GitHub</a>
+      <a class="btn btn-ghost" href="#quickstart">↓ Quickstart</a>
+    </div>
+  </section>
+
+  <!-- ================= OVERVIEW ================= -->
+  <section id="overview" aria-labelledby="overview-h">
+    <p class="eyebrow">Overview</p>
+    <h2 class="title" id="overview-h">One page, every vendor's syntax</h2>
+    <div class="overview-grid">
+      <div class="panel reveal">
+        <p class="lede">Multivendor Network CLI Tools is a zero-dependency, single-file HTML reference for network engineers that puts <strong style="color:var(--green)">52,031 CLI commands</strong> across 17 vendors and tools into one searchable, filterable, deep-linkable browser page.</p>
+        <p class="lede" style="margin-top:1rem">It solves the everyday pain of juggling per-vendor syntax — letting engineers search, compare commands concept-aligned side by side, and generate vendor-correct automation snippets (NETCONF, ncclient, Netmiko, Ansible, Bash) pre-filled from their own command values.</p>
+        <p class="lede" style="margin-top:1rem">An offline, stdlib-only Python pipeline turns published vendor docs — and a live 10-node Docker FRR lab — into one deduped <code style="font-family:var(--mono);color:var(--teal)">commands.json</code> that GitHub Pages serves statically. No backend, no build, no JS dependencies.</p>
+      </div>
+      <div class="mini-stats reveal" aria-label="Corpus breakdown">
+        <div class="mini"><span class="k">index.html (vanilla JS lines)</span><span class="v">5,827</span></div>
+        <div class="mini"><span class="k">CONCEPT_SYNONYMS entries</span><span class="v">37</span></div>
+        <div class="mini"><span class="k">YANG automation patterns</span><span class="v">15</span></div>
+        <div class="mini"><span class="k">FRR lab nodes (Docker)</span><span class="v">10</span></div>
+        <div class="mini"><span class="k">commands.json size</span><span class="v">~17 MB</span></div>
+        <div class="mini"><span class="k">Roles: router / switch / firewall</span><span class="v">25,270 / 22,625 / 4,136</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FEATURES ================= -->
+  <section id="features" aria-labelledby="features-h">
+    <p class="eyebrow">Capabilities</p>
+    <h2 class="title" id="features-h">Key features</h2>
+    <p class="lede">Search, compare, and automate across 17 CLIs — all from one static file.</p>
+    <div class="grid" style="margin-top:1.4rem">
+      <article class="card reveal"><span class="ic" aria-hidden="true">📚</span><h3>52,031 commands, 17 vendors, one page</h3><p>Arista EOS, Cisco IOS/IOS-XE/ASA/NX-OS, Juniper Junos, FRR, VyOS, Huawei VRP, Aruba AOS-CX, Extreme EXOS, FortiOS, PAN-OS, Mikrotik RouterOS, NVIDIA Cumulus NVUE, Nokia SR Linux, SONiC, plus Microsoft PowerShell, Linux iproute2, and Wireshark tshark — all searchable in a single static HTML file.</p></article>
+      <article class="card reveal"><span class="ic" aria-hidden="true">🪟</span><h3>Three view modes</h3><p>Cards (auto-fit grid grouped by category), Table (sortable, exportable to CSV/Markdown/JSON/TXT), and Compare — a concept-aligned, N-vendor-aware matrix that lines up Cisco's neighbor row with Junos's peer row, paginated and virtualized for the full corpus.</p></article>
+      <article class="card reveal"><span class="ic" aria-hidden="true">🔧</span><h3>Automate drawer (YANG + SSH)</h3><p>Regex-extracts your IP/VLAN/ASN/interface from a command and renders vendor-correct NETCONF XML, ncclient Python, Netmiko, NAPALM, and Ansible tasks pre-filled with your values across 15 model-driven patterns, with a universal SSH fallback for every command.</p></article>
+      <article class="card reveal"><span class="ic" aria-hidden="true">🔐</span><h3>Secret mode for snippets</h3><p>Toggle how snippets read credentials — Inline (demo only), .env via python-dotenv (default, safer pasteboard), or OS keyring — and every snippet re-renders in place with a matching .env.example / keyring set one-liner.</p></article>
+      <article class="card reveal"><span class="ic" aria-hidden="true">🔀</span><h3>Concept-aligned translation</h3><p>A 37-entry CONCEPT_SYNONYMS table normalizes semantic intent (bgp:peer, ospf:auth, …) so equivalent commands align across vendors; conceptKey() drives Compare-view row alignment and openEquivalents() adds a "See equivalents" drawer.</p></article>
+      <article class="card reveal"><span class="ic" aria-hidden="true">🔗</span><h3>Shareable, deep-linkable workspace</h3><p>Filters, view, search, favorites, and the cross-vendor CLI Builder queue serialize into a base64 <code style="font-family:var(--mono);color:var(--teal)">?ws=</code> URL (plus readable <code style="font-family:var(--mono);color:var(--teal)">?cat=BGP&amp;view=compare&amp;v=Juniper</code> params) so a shared link recreates exactly what you saw.</p></article>
+      <article class="card reveal"><span class="ic" aria-hidden="true">⚡</span><h3>Instant cache-then-revalidate boot</h3><p>loadCommandsWithCache() renders immediately from IndexedDB, then HEAD-revalidates commands.json against a stored ETag + Content-Length and only re-fetches when the artifact changed — a header badge shows fresh / cached / revalidating.</p></article>
+      <article class="card reveal"><span class="ic" aria-hidden="true">🐍</span><h3>Reproducible stdlib-only pipeline</h3><p>Every command traces back to a published source via pure Python 3 standard-library parsers under scripts/; parse.py merges and dedupes by normalized cmd, and clean_titles.py / audit_data_quality.py keep the corpus clean. No runtime dependencies.</p></article>
+    </div>
+  </section>
+
+  <!-- ================= ARCHITECTURE ================= -->
+  <section id="architecture" aria-labelledby="arch-h">
+    <p class="eyebrow">Architecture</p>
+    <h2 class="title" id="arch-h">A static page plus one JSON file</h2>
+    <p class="lede">The whole system is one static page plus one JSON file: engineers use the browser app, an offline Python pipeline turns vendor docs and a live FRR lab into <code style="font-family:var(--mono);color:var(--teal)">commands.json</code>, and GitHub Pages serves the artifacts. <code style="font-family:var(--mono);color:var(--teal)">index.html</code> is a monolith by file count but cleanly layered into a boot/cache loader, a state + render dispatcher, the filter engine, a concept-align Compare engine, and automation generators.</p>
+    <div class="diagram-stack">
+      <div class="diagram reveal">
+        <h3>System context</h3>
+        <pre class="mermaid">flowchart TB
+    eng["Network Engineers - browse, search, compare"]:::actor
+    docs["Vendor Docs - Cisco, Junos, EOS, FRR, DCN"]:::source
+    lab["10-node Docker FRR Lab - live capture"]:::source
+    subgraph SYS["multivendor-cli-configurator"]
+      app["index.html - single-file web app"]:::core
+      data["commands.json - 52,031 records"]:::store
+      pipe["scripts Python ETL - parse, merge, clean"]:::build
+    end
+    pages["GitHub Pages - static host, auto-deploy"]:::ext
+    devices["Target Devices - Netmiko, Ansible, NETCONF"]:::target
+    eng -->|"open page"| app
+    app -->|"fetch once"| data
+    docs --> pipe
+    lab --> pipe
+    pipe -->|"generates"| data
+    pipe -->|"push to main"| pages
+    pages -->|"serves"| app
+    app -.->|"copy snippets - user-run"| devices
+    classDef actor  fill:#0e7490,stroke:#5eead4,color:#f0fdfa
+    classDef source fill:#475569,stroke:#94a3b8,color:#f8fafc
+    classDef core   fill:#15803d,stroke:#34d399,color:#ecfdf5
+    classDef store  fill:#0d9488,stroke:#5eead4,color:#f0fdfa
+    classDef build  fill:#a16207,stroke:#fbbf24,color:#fffbeb
+    classDef ext    fill:#334155,stroke:#94a3b8,color:#f8fafc
+    classDef target fill:#b45309,stroke:#fbbf24,color:#fffbeb</pre>
+        <p class="cap">Engineers use the browser app; an offline Python pipeline turns vendor docs and a live FRR lab into commands.json; GitHub Pages serves the artifacts.</p>
+      </div>
+      <div class="diagram reveal">
+        <h3>Container &amp; component map</h3>
+        <pre class="mermaid">flowchart TB
+    subgraph BROWSER["index.html - single-file client app"]
+      direction TB
+      boot["Data Loader + Cache - loadCommandsWithCache, bootRender, HEAD revalidate"]:::svc
+      state["Global state + render - DATA, vendor/os/role/cat Sets, replaceChildren"]:::core
+      filter["Filter + Deep-Link - matches, parseQuery, encodeWorkspace"]:::svc
+      compare["Compare + Concept Align - conceptKey, lookupConcept, CONCEPT_SYNONYMS 37"]:::accent
+      auto["Automation Generators - Netmiko, Ansible, NETCONF, Bash"]:::amber
+    end
+    json[("commands.json - 52,031 rows")]:::store
+    persist[["IndexedDB + localStorage - ?ws= base64 deep-link"]]:::ext
+    json --> boot --> state
+    state --> filter --> state
+    state --> compare
+    state --> auto
+    boot <--> persist
+    filter <--> persist
+    classDef core   fill:#15803d,stroke:#34d399,color:#ecfdf5
+    classDef svc    fill:#0e7490,stroke:#5eead4,color:#f0fdfa
+    classDef accent fill:#0d9488,stroke:#5eead4,color:#f0fdfa
+    classDef amber  fill:#a16207,stroke:#fbbf24,color:#fffbeb
+    classDef store  fill:#0d9488,stroke:#5eead4,color:#f0fdfa
+    classDef ext    fill:#475569,stroke:#94a3b8,color:#f8fafc</pre>
+        <p class="cap">A boot/cache loader hydrates DATA; a state + render dispatcher feeds the filter, concept-align Compare, and automation generators, all backed by IndexedDB/localStorage.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= DATA FLOW ================= -->
+  <section id="dataflow" aria-labelledby="flow-h">
+    <p class="eyebrow">How it works</p>
+    <h2 class="title" id="flow-h">From vendor docs to a live page</h2>
+    <p class="lede">An offline, stdlib-only pipeline produces the committed corpus; at runtime the app boots instantly from cache and only re-fetches when the artifact actually changed.</p>
+    <div class="diagram-stack">
+      <div class="diagram reveal">
+        <h3>Build &amp; data-flow pipeline</h3>
+        <pre class="mermaid">flowchart LR
+    src["scripts/sources - vendor books + docs, gitignored"]:::source
+    parsers["parse_*.py - encor, junos, arista, frr, cisco extras"]:::build
+    inter["per-source JSON - encor.json, junos.json, frr.json"]:::build
+    master["parse.py + merge_dcn_corpus.py - merge + dedupe by normalized cmd"]:::accent
+    clean["clean_titles.py + audit_data_quality.py - repair, quarantine"]:::accent
+    out[("commands.json - 52,031 records")]:::store
+    web["index.html - fetch at boot"]:::core
+    src --> parsers --> inter --> master --> clean --> out --> web
+    classDef source fill:#475569,stroke:#94a3b8,color:#f8fafc
+    classDef build  fill:#a16207,stroke:#fbbf24,color:#fffbeb
+    classDef accent fill:#0d9488,stroke:#5eead4,color:#f0fdfa
+    classDef store  fill:#0d9488,stroke:#5eead4,color:#f0fdfa
+    classDef core   fill:#15803d,stroke:#34d399,color:#ecfdf5</pre>
+        <p class="cap">Per-source parsers emit intermediate JSON; parse.py and merge_dcn_corpus.py merge and dedupe by normalized cmd; quality utilities repair/quarantine bad rows before the final committed commands.json.</p>
+      </div>
+      <div class="diagram reveal">
+        <h3>Runtime boot — cache then revalidate</h3>
+        <pre class="mermaid">sequenceDiagram
+    actor User
+    participant B as Browser index.html
+    participant IDB as IndexedDB mvc-cli-cache
+    participant CDN as GitHub Pages
+    User->>B: open page
+    B->>IDB: idbGet cached corpus
+    alt cache hit
+        IDB-->>B: cached DATA
+        B->>B: bootRender, badge cached
+    end
+    B->>CDN: HEAD commands.json (ETag + length)
+    alt changed or no cache
+        CDN-->>B: new ETag + length
+        B->>CDN: GET commands.json (no-store)
+        CDN-->>B: 52,031 records
+        B->>IDB: idbPut corpus + ETag
+        B->>B: bootRender, badge fresh
+    else unchanged
+        CDN-->>B: 304 same ETag, badge revalidated
+    end
+    B-->>User: filtered cards / table / compare</pre>
+        <p class="cap">On load the app renders instantly from the IndexedDB cache, then HEAD-revalidates commands.json against a stored ETag and only re-fetches and re-renders when the artifact actually changed.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= TECH STACK ================= -->
+  <section id="stack" aria-labelledby="stack-h">
+    <p class="eyebrow">Tech stack</p>
+    <h2 class="title" id="stack-h">Zero-dependency by design</h2>
+    <p class="lede">No framework, no bundler, no JS dependencies — just the platform and a stdlib-only Python build.</p>
+    <div class="stack" style="margin-top:1.3rem" role="list" aria-label="Technologies">
+      <span class="tag" role="listitem">Vanilla JavaScript</span>
+      <span class="tag" role="listitem">HTML5</span>
+      <span class="tag" role="listitem">CSS grid + custom properties</span>
+      <span class="tag" role="listitem">Fetch API (HEAD/GET no-store)</span>
+      <span class="tag" role="listitem">IndexedDB (mvc-cli-cache)</span>
+      <span class="tag" role="listitem">localStorage + sessionStorage</span>
+      <span class="tag" role="listitem">base64 deep-link URLs (?ws=)</span>
+      <span class="tag" role="listitem">Python 3 stdlib (json, re, pathlib, argparse)</span>
+      <span class="tag" role="listitem">GitHub Pages (static, auto-deploy)</span>
+      <span class="tag" role="listitem">Node.js (test harness, assert)</span>
+    </div>
+  </section>
+
+  <!-- ================= COMPONENTS ================= -->
+  <section id="components" aria-labelledby="comp-h">
+    <p class="eyebrow">Components</p>
+    <h2 class="title" id="comp-h">Modules &amp; responsibilities</h2>
+    <p class="lede">One single-file client app, one JSON corpus, and a fleet of stdlib-only Python parsers that build it.</p>
+    <div class="tbl-wrap reveal" style="margin-top:1.3rem">
+      <table>
+        <thead><tr><th scope="col">Module</th><th scope="col">Responsibility</th></tr></thead>
+        <tbody>
+          <tr><td><span class="mod">index.html</span><span class="te">Vanilla JS · HTML · CSS · Fetch · IndexedDB · localStorage</span></td><td>The entire single-file client app (~5,827 lines of vanilla JS): boot/cache loader, global DATA state + render dispatcher, filter/deep-link engine, concept-aligned Compare engine, and automation snippet generators. No framework, no build.</td></tr>
+          <tr><td><span class="mod">commands.json</span><span class="te">Static JSON ~17 MB · GitHub Pages</span></td><td>Single source of truth — flat array of 52,031 command records across 17 vendors/tools. Fetched once at boot (cache-then-revalidate) and queried entirely client-side. FRR rows carry optional live/in_docs provenance flags.</td></tr>
+          <tr><td><span class="mod">scripts/parse.py</span><span class="te">Python 3 stdlib</span></td><td>Master merger — generic markdown walker that folds in community sources, seed entries, and all per-source JSONs, deduping globally by normalized cmd to emit commands.json.</td></tr>
+          <tr><td><span class="mod">scripts/parse_frr.py</span><span class="te">Python 3 stdlib</span></td><td>Parses the FRR Master CLI reference JSON (docs ∪ Docker-FRR live scrape) into frr.json, mapping daemons to categories and tagging each row with live/in_docs provenance flags surfaced as a green "live" badge in the UI.</td></tr>
+          <tr><td><span class="mod">scripts/merge_dcn_corpus.py</span><span class="te">Python 3 stdlib (argparse, json, re, pathlib)</span></td><td>Merges the DCN tool's pre-built cli-export.json corpus into commands.json, normalizing vendor labels and roles and deduping by (vendor, normalized cmd) so existing FRR provenance flags survive. Added Microsoft/Linux/Wireshark surfaces.</td></tr>
+          <tr><td><span class="mod">scripts/clean_titles.py</span><span class="te">Python 3 stdlib</span></td><td>Idempotent maintenance utility that derives clean command labels from the cmd field for any record whose title is leaked prose; writes .titlebak backups.</td></tr>
+          <tr><td><span class="mod">scripts/audit_data_quality.py</span><span class="te">Python 3 stdlib</span></td><td>Flags records where description prose has leaked into title/cmd fields and can quarantine unrecoverable rows to keep the corpus clean.</td></tr>
+          <tr><td><span class="mod">scripts/parse_encor.py · parse_junos.py · parse_arista.py · parse_cisco_ospf.py · parse_cisco_extras.py</span><span class="te">Python 3 stdlib</span></td><td>Per-source parsers, one per vendor doc format (Cisco Press chapter+verb regex, Junos two-mode index, Arista bold-backtick, ASA/NX-OS word-boundary role classifier), each emitting an intermediate per-source JSON.</td></tr>
+          <tr><td><span class="mod">tests/stress_test.js</span><span class="te">Node.js assert · process.hrtime.bigint</span></td><td>Node-based pure-JS performance + correctness suite that extracts functions (extractPlaceholders, substitutePlaceholders, lookupConcept, CONCEPT_SYNONYMS) directly from index.html and benchmarks them against the production corpus.</td></tr>
+          <tr><td><span class="mod">configurator.html</span><span class="te">Static HTML · vanilla JS</span></td><td>Legacy form-based CLI generator kept for archive purposes only — superseded by the cheatsheet's Compare view + Automate drawer; not linked from the live site.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ================= QUICKSTART ================= -->
+  <section id="quickstart" aria-labelledby="qs-h">
+    <p class="eyebrow">Quickstart</p>
+    <h2 class="title" id="qs-h">Run it in seconds</h2>
+    <p class="lede">No install, no build, no dependencies. Use the hosted demo, or regenerate the corpus locally with Python 3 stdlib.</p>
+
+    <div class="code">
+      <div class="bar"><span class="dots"><i style="background:#ff5f56"></i><i style="background:#ffb000"></i><i style="background:#00d97e"></i></span><span class="ttl">use it</span><button class="copy" type="button">Copy</button></div>
+      <pre class="sh"><span class="c"># Open the live demo (no install) —</span>
+<span class="c"># https://gesh75.github.io/multivendor-cli-configurator/</span>
+
+<span class="c"># Or open index.html directly in any modern browser —</span>
+<span class="c"># no build, no dependencies</span></pre>
+    </div>
+
+    <div class="code">
+      <div class="bar"><span class="dots"><i style="background:#ff5f56"></i><i style="background:#ffb000"></i><i style="background:#00d97e"></i></span><span class="ttl">regenerate the corpus — Python 3 stdlib only</span><button class="copy" type="button">Copy</button></div>
+      <pre class="sh"><span class="g">cd</span> scripts
+<span class="g">python3</span> parse_encor.py
+<span class="g">python3</span> parse_junos.py
+<span class="g">python3</span> parse_arista.py
+<span class="g">python3</span> parse_cisco_ospf.py
+<span class="g">python3</span> parse_cisco_extras.py
+<span class="g">python3</span> parse_frr.py
+<span class="g">python3</span> parse.py   <span class="c"># master merge -&gt; ../commands.json</span></pre>
+    </div>
+
+    <div class="code">
+      <div class="bar"><span class="dots"><i style="background:#ff5f56"></i><i style="background:#ffb000"></i><i style="background:#00d97e"></i></span><span class="ttl">maintenance + tests</span><button class="copy" type="button">Copy</button></div>
+      <pre class="sh"><span class="c"># Maintenance utilities:</span>
+<span class="g">python3</span> scripts/clean_titles.py
+<span class="g">python3</span> scripts/audit_data_quality.py
+
+<span class="c"># Run the Node stress suite:</span>
+<span class="g">node</span> tests/stress_test.js</pre>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="foot-grid">
+    <div>
+      <div class="brand" style="margin-bottom:.5rem"><span class="dot" aria-hidden="true"></span><b>multivendor-cli</b></div>
+      <p style="margin:0; max-width:42ch; font-size:.9rem; color:var(--muted-dim)">52,031 CLI commands across 17 vendors and tools in one searchable, comparable, deep-linkable single-file page.</p>
+    </div>
+    <nav class="foot-links" aria-label="Footer links">
+      <a href="https://github.com/gesh75/multivendor-cli-configurator" target="_blank" rel="noopener">GitHub repo ↗</a>
+      <a href="https://gesh75.github.io/multivendor-cli-configurator/" target="_blank" rel="noopener">Live demo ↗</a>
+      <a href="#hero">Back to top ↑</a>
+      <span style="color:var(--muted-dim)">License: not specified</span>
+    </nav>
+  </div>
+  <p class="foot-note">Auto-generated documentation · single self-contained page · dark-neon terminal theme. All figures traced to README.md, docs/ARCHITECTURE.md, and commands.json.</p>
+</footer>
+
+<button id="top" aria-label="Back to top" title="Back to top">↑</button>
+
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'dark',
+    securityLevel: 'strict',
+    themeVariables: {
+      primaryColor: '#1e293b', primaryTextColor: '#e2e8f0', lineColor: '#64748b',
+      primaryBorderColor: '#475569', fontFamily: 'ui-sans-serif, system-ui, sans-serif'
+    }
+  });
+
+  /* ---- scroll progress bar ---- */
+  const progress = document.getElementById('progress');
+  const onScroll = () => {
+    const h = document.documentElement;
+    const max = h.scrollHeight - h.clientHeight;
+    progress.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+    topBtn.classList.toggle('show', h.scrollTop > 600);
+  };
+
+  /* ---- back to top ---- */
+  const topBtn = document.getElementById('top');
+  topBtn.addEventListener('click', () =>
+    window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' }));
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  /* ---- mobile menu ---- */
+  const menuBtn = document.getElementById('menu-btn');
+  const navLinks = document.getElementById('navlinks');
+  menuBtn.addEventListener('click', () => {
+    const open = navLinks.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', String(open));
+  });
+  navLinks.addEventListener('click', e => {
+    if (e.target.tagName === 'A') {
+      navLinks.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  /* ---- scroll-spy active nav ---- */
+  const sections = [...document.querySelectorAll('main section[id]')];
+  const linkFor = id => navLinks.querySelector('a[href="#' + id + '"]');
+  const spy = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (en.isIntersecting) {
+        navLinks.querySelectorAll('a').forEach(a => a.classList.remove('active'));
+        const l = linkFor(en.target.id);
+        if (l) l.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+  sections.forEach(s => spy.observe(s));
+
+  /* ---- scroll reveal (staggered) ---- */
+  const reveals = [...document.querySelectorAll('.reveal')];
+  if (reduce) {
+    reveals.forEach(r => r.classList.add('in'));
+  } else {
+    const ro = new IntersectionObserver((entries, obs) => {
+      entries.forEach(en => {
+        if (en.isIntersecting) {
+          const sibs = [...en.target.parentElement.children].filter(c => c.classList.contains('reveal'));
+          const i = Math.max(0, sibs.indexOf(en.target));
+          en.target.style.transitionDelay = Math.min(i * 80, 400) + 'ms';
+          en.target.classList.add('in');
+          obs.unobserve(en.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(r => ro.observe(r));
+  }
+
+  /* ---- count-up stat chips ---- */
+  const fmt = n => n.toLocaleString('en-US');
+  const animateCount = el => {
+    const target = +el.dataset.count;
+    if (el.dataset.text && target === 0) { el.textContent = el.dataset.text; return; }
+    if (reduce) { el.textContent = fmt(target); return; }
+    const dur = 1400, start = performance.now();
+    const step = now => {
+      const p = Math.min((now - start) / dur, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = fmt(Math.round(target * eased));
+      if (p < 1) requestAnimationFrame(step);
+      else el.textContent = fmt(target);
+    };
+    requestAnimationFrame(step);
+  };
+  const countObs = new IntersectionObserver((entries, obs) => {
+    entries.forEach(en => {
+      if (en.isIntersecting) { animateCount(en.target); obs.unobserve(en.target); }
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.chip .num').forEach(el => countObs.observe(el));
+
+  /* ---- copy-to-clipboard for code blocks ---- */
+  document.querySelectorAll('.code .copy').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const pre = btn.closest('.code').querySelector('pre.sh');
+      const text = pre.innerText;
+      try {
+        await navigator.clipboard.writeText(text);
+        const old = btn.textContent;
+        btn.textContent = 'Copied ✓'; btn.classList.add('ok');
+        setTimeout(() => { btn.textContent = old; btn.classList.remove('ok'); }, 1600);
+      } catch {
+        btn.textContent = 'Copy failed';
+        setTimeout(() => { btn.textContent = 'Copy'; }, 1600);
+      }
+    });
+  });
+
+  onScroll();
+</script>
+</body>
+</html>
