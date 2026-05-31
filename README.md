@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="docs/assets/hero.svg" alt="multivendor-cli-configurator — architecture" width="100%">
+</p>
+
 # Multivendor Network CLI Tools
 
 > A zero-dependency single-file HTML reference for network engineers —
@@ -5,7 +9,7 @@
 > comparable, shareable, deep-linkable interface.
 
 🟢 **Live demo:** [gesh75.github.io/multivendor-cli-configurator](https://gesh75.github.io/multivendor-cli-configurator/)
-📐 **Architecture:** [ARCHITECTURE.md](ARCHITECTURE.md)
+📐 **Architecture:** [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
 
 ![Architecture](docs/img/architecture.svg)
 
@@ -45,36 +49,29 @@ drawer. Not linked from the live site.
 
 ## Command coverage
 
-### Network vendors
+All 17 vendors & tools in one table (descending by command count). Network
+vendors and host/tool surfaces are tagged in the **Type** column.
 
-| Vendor | OS | Commands |
-|---|---|---|
-| **Arista** | EOS | 7,384 |
-| **VyOS** | VyOS (full config tree) | 6,286 |
-| **Cisco** | IOS / IOS-XE · ASA 9.24 · NX-OS | 4,409 |
-| **Huawei** | VRP (bracketed prompts, iStack, Eth-Trunk, OSPF/BGP) | 4,406 |
-| **Aruba** | AOS-CX (`1/1/N` interfaces, MSTP/RPVST, VSX) | 4,093 |
-| **FRR** | FRRouting (vtysh) — docs **+ verified live on a 10-node Docker FRR lab** | 3,947 |
-| **Juniper** | Junos (MX / EX / QFX / SRX) | 3,206 |
-| **Extreme** | EXOS (VLAN-centric, STP, OSPF, SummitStacking, MLAG, ACLs) | 2,781 |
-| **FortiOS** | Fortinet (`config / set / end` blocks, REST cmdb) | 2,376 |
-| **PAN-OS** | Palo Alto firewalls (`set rulebase security ...`, virtual routers) | 1,217 |
-| **Mikrotik** | RouterOS (`/path` syntax, firewall filters, queues) | 1,209 |
-| **NVIDIA** | Cumulus Linux 5.x with NVUE (`nv set/show`) | 1,149 |
-| **Nokia** | SR Linux (declarative `enter candidate` / `commit now`, gNMI) | 1,053 |
-| **SONiC** | OCP / Azure SONiC (Click CLI, `show ip ...`) | 442 |
-| | **Subtotal** | **43,958** |
-
-### Tools & host OS
-
-| Tool / OS | Surface | Commands |
-|---|---|---|
-| **Microsoft** | Windows PowerShell networking cmdlets | 3,352 |
-| **Linux** | `ip` / `iproute2` / host networking | 2,591 |
-| **Wireshark** | `tshark` capture + display filters | 2,130 |
-| | **Subtotal** | **8,073** |
-
-**TOTAL: 52,031**
+| Vendor / Tool | OS / Surface | Type | Commands |
+|---|---|---|---|
+| **Arista** | EOS | Network | 7,384 |
+| **VyOS** | VyOS (full config tree) | Network | 6,286 |
+| **Cisco** | IOS / IOS-XE · ASA 9.24 · NX-OS | Network | 4,409 |
+| **Huawei** | VRP (bracketed prompts, iStack, Eth-Trunk, OSPF/BGP) | Network | 4,406 |
+| **Aruba** | AOS-CX (`1/1/N` interfaces, MSTP/RPVST, VSX) | Network | 4,093 |
+| **FRR** | FRRouting (vtysh) — docs **+ verified live on a 10-node Docker FRR lab** | Network | 3,947 |
+| **Microsoft** | Windows PowerShell networking cmdlets | Host OS | 3,352 |
+| **Juniper** | Junos (MX / EX / QFX / SRX) | Network | 3,206 |
+| **Extreme** | EXOS (VLAN-centric, STP, OSPF, SummitStacking, MLAG, ACLs) | Network | 2,781 |
+| **Linux** | `ip` / `iproute2` / host networking | Host OS | 2,591 |
+| **FortiOS** | Fortinet (`config / set / end` blocks, REST cmdb) | Network | 2,376 |
+| **Wireshark** | `tshark` capture + display filters | Tool | 2,130 |
+| **PAN-OS** | Palo Alto firewalls (`set rulebase security ...`, virtual routers) | Network | 1,217 |
+| **Mikrotik** | RouterOS (`/path` syntax, firewall filters, queues) | Network | 1,209 |
+| **NVIDIA** | Cumulus Linux 5.x with NVUE (`nv set/show`) | Network | 1,149 |
+| **Nokia** | SR Linux (declarative `enter candidate` / `commit now`, gNMI) | Network | 1,053 |
+| **SONiC** | OCP / Azure SONiC (Click CLI, `show ip ...`) | Network | 442 |
+| | | **TOTAL (17)** | **52,031** |
 
 By category (top 10): Interfaces 15,197 · System 6,761 · Protocols 6,418 ·
 VLAN 3,959 · Security 2,251 · Routing 2,185 · BGP 1,993 · Misc 1,983 ·
@@ -104,6 +101,52 @@ reproducible. Two maintenance utilities keep the corpus clean:
   leaked into the `title`/`cmd` fields, and can quarantine unrecoverable ones.
 - `scripts/clean_titles.py` — derives clean command labels from the `cmd` field
   for any record whose title is prose. Idempotent; writes `.titlebak` backups.
+
+---
+
+## 🏛️ Architecture
+
+One static page plus one JSON file. Network engineers use it directly in a
+browser; an **offline, stdlib-only Python pipeline** turns published vendor docs
+(and a live FRR lab) into a deduped `commands.json`; GitHub Pages serves the
+artifacts; and generated automation snippets target real devices out-of-band.
+
+```mermaid
+flowchart TB
+    eng["Network Engineers - browse, search, compare"]:::actor
+    docs["Vendor Docs - Cisco, Junos, EOS, FRR, DCN"]:::source
+    lab["10-node Docker FRR Lab - live capture"]:::source
+
+    subgraph SYS["multivendor-cli-configurator"]
+      app["index.html - single-file web app"]:::core
+      data["commands.json - 52,031 records"]:::store
+      pipe["scripts Python ETL - parse, merge, clean"]:::build
+    end
+
+    pages["GitHub Pages - static host and auto-deploy"]:::ext
+    devices["Target Devices - Netmiko, Ansible, NETCONF"]:::target
+
+    eng -->|"open page"| app
+    app -->|"fetch once"| data
+    docs --> pipe
+    lab --> pipe
+    pipe -->|"generates"| data
+    pipe -->|"push to main"| pages
+    pages -->|"serves"| app
+    app -.->|"copy snippets - user-run"| devices
+
+    classDef actor  fill:#0e7490,stroke:#5eead4,color:#fff
+    classDef source fill:#475569,stroke:#94a3b8,color:#fff
+    classDef core   fill:#15803d,stroke:#39ff14,color:#fff
+    classDef store  fill:#0d9488,stroke:#5eead4,color:#fff
+    classDef build  fill:#a16207,stroke:#ffd152,color:#fff
+    classDef ext    fill:#334155,stroke:#94a3b8,color:#fff
+    classDef target fill:#b91c1c,stroke:#fb7185,color:#fff
+```
+
+**Full diagram set** — system context, container/component map, runtime boot
+sequence, build pipeline, render-dispatch state machine, and the command data
+model — lives in **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)**.
 
 ---
 
