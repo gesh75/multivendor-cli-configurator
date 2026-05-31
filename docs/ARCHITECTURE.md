@@ -39,18 +39,18 @@ eventually target real devices out-of-band.
 
 ```mermaid
 flowchart TB
-    eng["👩‍💻 Network Engineers<br/>browse · search · compare"]:::actor
-    docs["📚 Vendor Docs<br/>Cisco · Junos · EOS · FRR · DCN"]:::source
-    lab["🐳 10-node Docker<br/>FRR Lab (live capture)"]:::source
+    eng["Network Engineers - browse, search, compare"]:::actor
+    docs["Vendor Docs - Cisco, Junos, EOS, FRR, DCN"]:::source
+    lab["10-node Docker FRR Lab - live capture"]:::source
 
     subgraph SYS["multivendor-cli-configurator"]
-      app["🖥️ index.html<br/>single-file web app"]:::core
-      data["🗃️ commands.json<br/>~52,031 records"]:::store
-      pipe["🐍 scripts/ Python ETL<br/>parse · merge · clean"]:::build
+      app["index.html - single-file web app"]:::core
+      data["commands.json - 52,031 records"]:::store
+      pipe["scripts Python ETL - parse, merge, clean"]:::build
     end
 
-    pages["☁️ GitHub Pages<br/>static host + auto-deploy"]:::ext
-    devices["🌐 Target Devices<br/>Netmiko / Ansible / NETCONF"]:::target
+    pages["GitHub Pages - static host and auto-deploy"]:::ext
+    devices["Target Devices - Netmiko, Ansible, NETCONF"]:::target
 
     eng -->|"open page"| app
     app -->|"fetch once"| data
@@ -59,7 +59,7 @@ flowchart TB
     pipe -->|"generates"| data
     pipe -->|"push to main"| pages
     pages -->|"serves"| app
-    app -.->|"copy snippets (user-run)"| devices
+    app -.->|"copy snippets - user-run"| devices
 
     classDef actor  fill:#0e7490,stroke:#5eead4,color:#fff
     classDef source fill:#475569,stroke:#94a3b8,color:#fff
@@ -81,17 +81,17 @@ array hydrated from `commands.json`.
 
 ```mermaid
 flowchart TB
-    subgraph BROWSER["🖥️ index.html — single-file client app"]
+    subgraph BROWSER["index.html - single-file client app"]
       direction TB
-      boot["⚡ Data Loader & Cache<br/>loadCommandsWithCache · bootRender<br/>idbGet/idbPut · HEAD revalidate"]:::svc
-      state["🧠 Global state + render()<br/>DATA · vendor/os/role/cat Sets<br/>el() + replaceChildren()"]:::core
-      filter["🔎 Filter & Deep-Link<br/>matches · parseQuery<br/>syncUrl · encodeWorkspace"]:::svc
-      compare["🔗 Compare / Concept Align<br/>conceptKey · lookupConcept<br/>CONCEPT_SYNONYMS (37)"]:::accent
-      auto["🔧 Automation Generators<br/>AUTOMATION_MAPPINGS · compilePlaybook<br/>Netmiko · Ansible · NETCONF · Bash"]:::danger
+      boot["Data Loader and Cache - loadCommandsWithCache, bootRender, HEAD revalidate"]:::svc
+      state["Global state and render - DATA, vendor/os/role/cat Sets, replaceChildren"]:::core
+      filter["Filter and Deep-Link - matches, parseQuery, syncUrl, encodeWorkspace"]:::svc
+      compare["Compare and Concept Align - conceptKey, lookupConcept, CONCEPT_SYNONYMS 37"]:::accent
+      auto["Automation Generators - Netmiko, Ansible, NETCONF, Bash"]:::danger
     end
 
-    json[("🗃️ commands.json")]:::store
-    persist[["💾 IndexedDB · localStorage<br/>?ws= base64 deep-link"]]:::ext
+    json[("commands.json")]:::store
+    persist[["IndexedDB and localStorage - ?ws= base64 deep-link"]]:::ext
 
     json --> boot --> state
     state --> filter --> state
@@ -120,27 +120,27 @@ cache-then-revalidate path that keeps a 17 MB corpus feeling instant.
 ```mermaid
 sequenceDiagram
     actor User
-    participant B as Browser (index.html)
-    participant IDB as IndexedDB (mvc-cli-cache)
+    participant B as Browser index.html
+    participant IDB as IndexedDB mvc-cli-cache
     participant CDN as GitHub Pages
 
     User->>B: open page
-    B->>IDB: idbGet(cached corpus)
+    B->>IDB: idbGet cached corpus
     alt cache hit
         IDB-->>B: cached DATA
-        B->>B: bootRender() → render() (badge: cached)
+        B->>B: bootRender to render, badge cached
     end
-    B->>CDN: HEAD commands.json (ETag + length)
+    B->>CDN: HEAD commands.json, ETag and length
     alt changed or no cache
-        CDN-->>B: new ETag / length
-        B->>CDN: GET commands.json (no-store)
-        CDN-->>B: ~52,031 records
-        B->>IDB: idbPut(corpus, ETag)
-        B->>B: bootRender() → render() (badge: fresh)
+        CDN-->>B: new ETag and length
+        B->>CDN: GET commands.json, no-store
+        CDN-->>B: 52,031 records
+        B->>IDB: idbPut corpus and ETag
+        B->>B: bootRender to render, badge fresh
     else unchanged
-        CDN-->>B: 304 / same ETag (badge: revalidated)
+        CDN-->>B: 304 same ETag, badge revalidated
     end
-    B-->>User: filtered cards / table / compare
+    B-->>User: filtered cards, table, compare
 ```
 
 ---
@@ -154,13 +154,13 @@ and quality utilities repair and quarantine bad rows before the final commit.
 
 ```mermaid
 flowchart LR
-    src["📚 scripts/sources/*<br/>vendor books · docs (gitignored)"]:::source
-    parsers["🐍 parse_*.py<br/>encor · junos · arista · frr · cisco · extras"]:::build
-    inter["🧩 per-source JSON<br/>encor.json · junos.json · …"]:::build
-    master["🔀 parse.py + merge_dcn_corpus.py<br/>merge + dedupe by normalized cmd"]:::accent
-    clean["🧹 clean_titles.py + audit_data_quality.py<br/>repair prose · quarantine bad rows"]:::accent
-    out[("🗃️ commands.json<br/>~52,031 records")]:::store
-    web["🖥️ index.html<br/>fetch() at boot"]:::core
+    src["scripts sources - vendor books and docs, gitignored"]:::source
+    parsers["parse scripts - encor, junos, arista, frr, cisco, extras"]:::build
+    inter["per-source JSON - encor.json, junos.json, and more"]:::build
+    master["parse.py and merge_dcn_corpus.py - merge and dedupe by normalized cmd"]:::accent
+    clean["clean_titles.py and audit_data_quality.py - repair prose, quarantine bad rows"]:::accent
+    out[("commands.json - 52,031 records")]:::store
+    web["index.html - fetch at boot"]:::core
 
     src --> parsers --> inter --> master --> clean --> out --> web
 
@@ -191,13 +191,13 @@ stateDiagram-v2
     Table --> Filtering: search / filter / sort
     Compare --> Filtering: vendor subset change
 
-    Cards --> Automate: open Automate / queue CLI
-    Compare --> Automate: See equivalents ↗
+    Cards --> Automate: open Automate or queue CLI
+    Compare --> Automate: See equivalents
     Automate --> Filtering: close drawer
 
-    Filtering --> Filtering: syncUrl() → ?ws= deep-link
+    Filtering --> Filtering: syncUrl writes ?ws= deep-link
     note right of Filtering
-      matches() = filter Sets
+      matches = filter Sets
       AND parseQuery operators
       AND haystack search
     end note
@@ -216,17 +216,17 @@ semantically-equivalent rows across vendors.
 erDiagram
     COMMAND {
         string os    "e.g. IOS-XE, Junos, EOS"
-        string vendor "Cisco, Juniper, Arista, FRR, …"
-        string role  "router / switch / firewall"
-        string cat   "BGP, OSPF, VLAN, Interfaces, …"
-        string title "human label (cleaned)"
+        string vendor "Cisco, Juniper, Arista, FRR, and more"
+        string role  "router, switch, firewall"
+        string cat   "BGP, OSPF, VLAN, Interfaces, and more"
+        string title "human label, cleaned"
         string cmd   "the literal CLI command"
         string desc  "what it does"
-        bool   live  "FRR only: seen on Docker lab"
-        bool   in_docs "FRR only: present in docs"
+        bool   live  "FRR only - seen on Docker lab"
+        bool   in_docs "FRR only - present in docs"
     }
     CONCEPT {
-        string conceptKey "normalized slug e.g. bgp:peer"
+        string conceptKey "normalized slug e.g. bgp-peer"
         string label      "display name"
     }
     VENDOR {
@@ -234,7 +234,7 @@ erDiagram
         int    count "commands contributed"
     }
     VENDOR ||--o{ COMMAND : "contributes"
-    CONCEPT ||--o{ COMMAND : "aligns (CONCEPT_SYNONYMS)"
+    CONCEPT ||--o{ COMMAND : "aligns via CONCEPT_SYNONYMS"
 ```
 
 ---
