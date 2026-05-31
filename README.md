@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="docs/assets/hero.svg" alt="multivendor-cli-configurator — architecture" width="100%">
+</p>
+
 # Multivendor Network CLI Tools
 
 > A zero-dependency single-file HTML reference for network engineers —
@@ -5,7 +9,7 @@
 > comparable, shareable, deep-linkable interface.
 
 🟢 **Live demo:** [gesh75.github.io/multivendor-cli-configurator](https://gesh75.github.io/multivendor-cli-configurator/)
-📐 **Architecture:** [ARCHITECTURE.md](ARCHITECTURE.md)
+📐 **Architecture:** [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
 
 ![Architecture](docs/img/architecture.svg)
 
@@ -104,6 +108,52 @@ reproducible. Two maintenance utilities keep the corpus clean:
   leaked into the `title`/`cmd` fields, and can quarantine unrecoverable ones.
 - `scripts/clean_titles.py` — derives clean command labels from the `cmd` field
   for any record whose title is prose. Idempotent; writes `.titlebak` backups.
+
+---
+
+## 🏛️ Architecture
+
+One static page plus one JSON file. Network engineers use it directly in a
+browser; an **offline, stdlib-only Python pipeline** turns published vendor docs
+(and a live FRR lab) into a deduped `commands.json`; GitHub Pages serves the
+artifacts; and generated automation snippets target real devices out-of-band.
+
+```mermaid
+flowchart TB
+    eng["👩‍💻 Network Engineers<br/>browse · search · compare"]:::actor
+    docs["📚 Vendor Docs<br/>Cisco · Junos · EOS · FRR · DCN"]:::source
+    lab["🐳 10-node Docker<br/>FRR Lab (live capture)"]:::source
+
+    subgraph SYS["multivendor-cli-configurator"]
+      app["🖥️ index.html<br/>single-file web app"]:::core
+      data["🗃️ commands.json<br/>~52,031 records"]:::store
+      pipe["🐍 scripts/ Python ETL<br/>parse · merge · clean"]:::build
+    end
+
+    pages["☁️ GitHub Pages<br/>static host + auto-deploy"]:::ext
+    devices["🌐 Target Devices<br/>Netmiko / Ansible / NETCONF"]:::target
+
+    eng -->|"open page"| app
+    app -->|"fetch once"| data
+    docs --> pipe
+    lab --> pipe
+    pipe -->|"generates"| data
+    pipe -->|"push to main"| pages
+    pages -->|"serves"| app
+    app -.->|"copy snippets (user-run)"| devices
+
+    classDef actor  fill:#0e7490,stroke:#5eead4,color:#fff
+    classDef source fill:#475569,stroke:#94a3b8,color:#fff
+    classDef core   fill:#15803d,stroke:#39ff14,color:#fff
+    classDef store  fill:#0d9488,stroke:#5eead4,color:#fff
+    classDef build  fill:#a16207,stroke:#ffd152,color:#fff
+    classDef ext    fill:#334155,stroke:#94a3b8,color:#fff
+    classDef target fill:#b91c1c,stroke:#fb7185,color:#fff
+```
+
+**Full diagram set** — system context, container/component map, runtime boot
+sequence, build pipeline, render-dispatch state machine, and the command data
+model — lives in **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)**.
 
 ---
 

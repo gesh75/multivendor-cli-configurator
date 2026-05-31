@@ -1,0 +1,219 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 360" role="img" aria-labelledby="heroTitle heroDesc" fill="none" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">
+  <title id="heroTitle">multivendor-cli-configurator — architecture</title>
+  <desc id="heroDesc">Animated terminal banner: a phosphor-green prompt types a network command while 17 vendor chips light up in sequence, connector lines pulse from the command to each matched vendor, a stream of grayed commands scrolls behind, and a counter ticks toward 52,031 commands.</desc>
+
+  <defs>
+    <!-- backgrounds -->
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b0f0a"/>
+      <stop offset="0.55" stop-color="#0c120d"/>
+      <stop offset="1" stop-color="#0f1814"/>
+    </linearGradient>
+    <radialGradient id="crt" cx="0.5" cy="0.32" r="0.85">
+      <stop offset="0" stop-color="#39ff14" stop-opacity="0.10"/>
+      <stop offset="0.6" stop-color="#39ff14" stop-opacity="0.02"/>
+      <stop offset="1" stop-color="#000000" stop-opacity="0.35"/>
+    </radialGradient>
+    <!-- title gradient: phosphor green -> amber -> teal -->
+    <linearGradient id="titleGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#39ff14"/>
+      <stop offset="0.5" stop-color="#ffd152"/>
+      <stop offset="1" stop-color="#5eead4"/>
+    </linearGradient>
+    <linearGradient id="panelGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#11201a"/>
+      <stop offset="1" stop-color="#0c130e"/>
+    </linearGradient>
+    <!-- subtle grid -->
+    <pattern id="grid" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M30 0H0V30" fill="none" stroke="#39ff14" stroke-opacity="0.05" stroke-width="1"/>
+    </pattern>
+    <!-- glows -->
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="3.4" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="softGlow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="7" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
+    <style>
+      @keyframes blink { 0%,49%{opacity:1} 50%,100%{opacity:0} }
+      @keyframes pulse { 0%,100%{opacity:.45} 50%{opacity:1} }
+      @keyframes flicker { 0%,100%{opacity:.92} 47%{opacity:1} 62%{opacity:.85} }
+      @keyframes drawline { to { stroke-dashoffset: 0 } }
+      @keyframes scroll { from { transform: translateY(0) } to { transform: translateY(-150px) } }
+      @keyframes chipOn {
+        0%, 12% { fill: #0f1814; stroke: #2a3a30; }
+        20%, 78% { fill: #14271c; stroke: #39ff14; }
+        88%, 100% { fill: #0f1814; stroke: #2a3a30; }
+      }
+      @keyframes chipText {
+        0%, 12% { fill: #8b9a8e; }
+        20%, 78% { fill: #39ff14; }
+        88%, 100% { fill: #8b9a8e; }
+      }
+      @keyframes linkPulse {
+        0%, 10% { opacity: 0; }
+        22%, 70% { opacity: 0.9; }
+        86%, 100% { opacity: 0; }
+      }
+
+      .node { transform-box: fill-box; transform-origin: center; }
+      .cursor { animation: blink 1.05s step-end infinite; }
+      .crt { animation: flicker 5.5s ease-in-out infinite; }
+      .pulse { animation: pulse 2.8s ease-in-out infinite; }
+      .p2 { animation-delay: .5s } .p3 { animation-delay: 1s } .p4 { animation-delay: 1.5s }
+
+      .underline { stroke-dasharray: 540; stroke-dashoffset: 540; animation: drawline 1.7s ease-out .35s forwards; }
+      .stream { animation: scroll 9s linear infinite; }
+
+      /* vendor chip light-up cycle, staggered across the rail */
+      .chipBox { animation: chipOn 9.5s ease-in-out infinite; }
+      .chipLbl { animation: chipText 9.5s ease-in-out infinite; }
+      .link    { animation: linkPulse 9.5s ease-in-out infinite; }
+
+      .d0{animation-delay:0s} .d1{animation-delay:.5s} .d2{animation-delay:1s} .d3{animation-delay:1.5s}
+      .d4{animation-delay:2s} .d5{animation-delay:2.5s} .d6{animation-delay:3s} .d7{animation-delay:3.5s}
+      .d8{animation-delay:4s} .d9{animation-delay:4.5s} .d10{animation-delay:5s} .d11{animation-delay:5.5s}
+      .d12{animation-delay:6s} .d13{animation-delay:6.5s} .d14{animation-delay:7s} .d15{animation-delay:7.5s}
+      .d16{animation-delay:8s}
+
+      @media (prefers-reduced-motion: reduce) {
+        * { animation: none !important; }
+        .underline { stroke-dashoffset: 0; }
+        .cursor { opacity: 1; }
+        .chipBox { fill: #14271c; stroke: #39ff14; }
+        .chipLbl { fill: #39ff14; }
+        .link { opacity: 0.55; }
+      }
+    </style>
+  </defs>
+
+  <!-- backdrop -->
+  <rect width="1200" height="360" fill="url(#bg)"/>
+  <rect width="1200" height="360" fill="url(#grid)"/>
+  <rect width="1200" height="360" fill="url(#crt)" class="crt"/>
+
+  <!-- faint scrolling command stream (background ambiance) -->
+  <g clip-path="url(#streamClip)" opacity="0.16">
+    <clipPath id="streamClip"><rect x="812" y="44" width="350" height="150" rx="8"/></clipPath>
+    <g class="stream" font-size="11" fill="#8b9a8e">
+      <text x="824" y="58">router bgp 65001</text>
+      <text x="824" y="76">set protocols ospf area 0</text>
+      <text x="824" y="94">ip route 10.0.0.0/24</text>
+      <text x="824" y="112">nv set interface swp1</text>
+      <text x="824" y="130">config system interface</text>
+      <text x="824" y="148">vlan 100 name CORE</text>
+      <text x="824" y="166">show ip bgp summary</text>
+      <text x="824" y="184">enter candidate</text>
+      <text x="824" y="202">router bgp 65001</text>
+      <text x="824" y="220">set protocols ospf area 0</text>
+      <text x="824" y="238">ip route 10.0.0.0/24</text>
+      <text x="824" y="256">nv set interface swp1</text>
+      <text x="824" y="274">config system interface</text>
+      <text x="824" y="292">vlan 100 name CORE</text>
+    </g>
+  </g>
+
+  <!-- terminal panel -->
+  <g class="node">
+    <rect x="44" y="44" width="540" height="150" rx="12" fill="url(#panelGrad)" stroke="#1d3326" stroke-width="1.5"/>
+    <!-- title bar dots -->
+    <circle cx="66" cy="64" r="5" fill="#ff5f56"/>
+    <circle cx="84" cy="64" r="5" fill="#ffb000"/>
+    <circle cx="102" cy="64" r="5" fill="#00d97e"/>
+    <text x="120" y="68" font-size="11" fill="#8b9a8e">multivendor-cli — terminal</text>
+
+    <!-- prompt + typed command -->
+    <text x="66" y="108" font-size="16" fill="#39ff14" filter="url(#glow)">
+      <tspan fill="#ffb000" font-weight="700">&#8227; </tspan><tspan fill="#5eead4">cli</tspan><tspan fill="#8b9a8e"> ~ </tspan><tspan fill="#ffd152">$</tspan>
+    </text>
+    <text x="118" y="108" font-size="16" fill="#e6f0e6" filter="url(#glow)">
+      <tspan fill="#39ff14">router</tspan> bgp <tspan fill="#ffd152">65001</tspan><tspan x="118" dy="0"> </tspan>
+    </text>
+    <!-- blinking cursor -->
+    <rect class="cursor" x="298" y="96" width="9" height="16" fill="#39ff14"/>
+
+    <!-- intent annotation -->
+    <text x="66" y="138" font-size="11" fill="#8b9a8e"># one intent &#8594; 17 vendor syntaxes, concept-aligned</text>
+
+    <!-- live counter -->
+    <text x="66" y="170" font-size="12" fill="#8b9a8e">corpus</text>
+    <text x="116" y="170" font-size="13" font-weight="700" fill="#39ff14" filter="url(#glow)">52,031 commands</text>
+    <text x="290" y="170" font-size="11" fill="#5eead4">cache-then-revalidate</text>
+  </g>
+
+  <!-- ================= connector lines: command -> vendor chips ================= -->
+  <!-- origin near terminal right edge ~ (584,118); chips on rail at y ~ 250 -->
+  <g stroke-width="1.6" fill="none">
+    <path class="link d0"  d="M584 118 C 660 130, 740 240, 786 252" stroke="#39ff14"/>
+    <path class="link d2"  d="M584 122 C 680 150, 800 244, 866 252" stroke="#00d97e"/>
+    <path class="link d4"  d="M584 126 C 720 170, 880 246, 946 252" stroke="#5eead4"/>
+    <path class="link d6"  d="M584 130 C 780 190, 960 248,1026 252" stroke="#39ff14"/>
+    <path class="link d8"  d="M584 134 C 840 200,1040 250,1106 252" stroke="#ffd152"/>
+  </g>
+
+  <!-- ================= title block ================= -->
+  <text x="615" y="118" font-size="40" font-weight="800" fill="url(#titleGrad)" filter="url(#softGlow)"
+        font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif">multivendor-cli-configurator</text>
+  <path class="underline" d="M616 134 H1118" stroke="#39ff14" stroke-width="2.5" stroke-linecap="round"/>
+  <text x="616" y="162" font-size="16" fill="#8b9a8e"
+        font-family="ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif">52,000+ CLI commands &#183; 17 vendors &#183; one zero-dependency HTML file</text>
+
+  <!-- ================= vendor chip rail (17 chips, two rows) ================= -->
+  <!-- Row 1 -->
+  <g font-size="11" font-weight="600" text-anchor="middle">
+    <g class="node"><rect class="chipBox d0"  x="44"  y="234" width="84" height="26" rx="13" fill="#0f1814" stroke="#2a3a30" stroke-width="1.4"/><text class="chipLbl d0"  x="86"  y="251" fill="#8b9a8e">Cisco</text></g>
+    <g class="node"><rect class="chipBox d1"  x="136" y="234" width="84" height="26" rx="13" fill="#0f1814" stroke="#2a3a30" stroke-width="1.4"/><text class="chipLbl d1"  x="178" y="251" fill="#8b9a8e">Juniper</text></g>
+    <g class="node"><rect class="chipBox d2"  x="228" y="234" width="84" height="26" rx="13" fill="#0f1814" stroke="#2a3a30" stroke-width="1.4"/><text class="chipLbl d2"  x="270" y="251" fill="#8b9a8e">Arista</text></g>
+    <g class="node"><rect class="chipBox d3"  x="320" y="234" width="84" height="26" rx="13" fill="#0f1814" stroke="#2a3a30" stroke-width="1.4"/><text class="chipLbl d3"  x="362" y="251" fill="#8b9a8e">FRR</text></g>
+    <g class="node"><rect class="chipBox d4"  x="412" y="234" width="84" height="26" rx="13" fill="#0f1814" stroke="#2a3a30" stroke-width="1.4"/><text class="chipLbl d4"  x="454" y="251" fill="#8b9a8e">VyOS</text></g>
+    <g class="node"><rect class="chipBox d5"  x="504" y="234" width="84" height="26" rx="13" fill="#0f1814" stroke="#2a3a30" stroke-width="1.4"/><text class="chipLbl d5"  x="546" y="251" fill="#8b9a8e">Huawei</text></g>
+    <g class="node"><rect class="chipBox d6"  x="596" y="234" width="84" height="26" rx="13" fill="#0f1814" stroke="#2a3a30" stroke-width="1.4"/><text class="chipLbl d6"  x="638" y="251" fill="#8b9a8e">Aruba</text></g>
+    <g class="node"><rect class="chipBox d7"  x="688" y="234" width="84" height="26" rx="13" fill="#0f1814" stroke="#2a3a30" stroke-width="1.4"/><text class="chipLbl d7"  x="730" y="251" fill="#8b9a8e">Extreme</text></g>
+    <g class="node"><rect class="chipBox d8"  x="780" y="234" width="84" height="26" rx="13" fill="#0f1814" stroke="#2a3a30" stroke-width="1.4"/><text class="chipLbl d8"  x="822" y="251" fill="#8b9a8e">FortiOS</text></g>
+  </g>
+  <!-- Row 2 -->
+  <g font-size="11" font-weight="600" text-anchor="middle">
+    <g class="node"><rect class="chipBox d9"  x="44"  y="272" width="84" height="26" rx="13" fill="#0f1814" stroke="#2a3a30" stroke-width="1.4"/><text class="chipLbl d9"  x="86"  y="289" fill="#8b9a8e">PAN-OS</text></g>
+    <g class="node"><rect class="chipBox d10" x="136" y="272" width="84" height="26" rx="13" fill="#0f1814" stroke="#2a3a30" stroke-width="1.4"/><text class="chipLbl d10" x="178" y="289" fill="#8b9a8e">Mikrotik</text></g>
+    <g class="node"><rect class="chipBox d11" x="228" y="272" width="84" height="26" rx="13" fill="#0f1814" stroke="#2a3a30" stroke-width="1.4"/><text class="chipLbl d11" x="270" y="289" fill="#8b9a8e">NVIDIA</text></g>
+    <g class="node"><rect class="chipBox d12" x="320" y="272" width="84" height="26" rx="13" fill="#0f1814" stroke="#2a3a30" stroke-width="1.4"/><text class="chipLbl d12" x="362" y="289" fill="#8b9a8e">Nokia</text></g>
+    <g class="node"><rect class="chipBox d13" x="412" y="272" width="84" height="26" rx="13" fill="#0f1814" stroke="#2a3a30" stroke-width="1.4"/><text class="chipLbl d13" x="454" y="289" fill="#8b9a8e">SONiC</text></g>
+    <g class="node"><rect class="chipBox d14" x="504" y="272" width="84" height="26" rx="13" fill="#0f1814" stroke="#2a3a30" stroke-width="1.4"/><text class="chipLbl d14" x="546" y="289" fill="#8b9a8e">Microsoft</text></g>
+    <g class="node"><rect class="chipBox d15" x="596" y="272" width="84" height="26" rx="13" fill="#0f1814" stroke="#2a3a30" stroke-width="1.4"/><text class="chipLbl d15" x="638" y="289" fill="#8b9a8e">Linux</text></g>
+    <g class="node"><rect class="chipBox d16" x="688" y="272" width="84" height="26" rx="13" fill="#0f1814" stroke="#2a3a30" stroke-width="1.4"/><text class="chipLbl d16" x="730" y="289" fill="#8b9a8e">Wireshark</text></g>
+    <!-- pipeline tag -->
+    <g class="node"><rect x="780" y="272" width="84" height="26" rx="13" fill="#0c130e" stroke="#ffb000" stroke-width="1.4" opacity="0.9"/><text x="822" y="289" fill="#ffd152">+ Python ETL</text></g>
+  </g>
+
+  <!-- ================= bottom pipeline rail (data flow) ================= -->
+  <g font-size="11" text-anchor="middle">
+    <!-- connector path for traveling packets -->
+    <path id="pipe" d="M120 330 H1080" stroke="#1d3326" stroke-width="2"/>
+    <!-- stage labels -->
+    <text x="120" y="334" fill="#8b9a8e" text-anchor="start">sources</text>
+    <text x="420" y="334" fill="#8b9a8e">parse + merge</text>
+    <text x="700" y="334" fill="#5eead4">commands.json</text>
+    <text x="1080" y="334" fill="#39ff14" text-anchor="end">index.html</text>
+    <!-- traveling data packets along the pipe (SMIL) -->
+    <circle r="3.5" fill="#39ff14" filter="url(#glow)">
+      <animateMotion dur="3.2s" repeatCount="indefinite" rotate="auto"><mpath href="#pipe"/></animateMotion>
+    </circle>
+    <circle r="3.5" fill="#ffd152" filter="url(#glow)">
+      <animateMotion dur="3.2s" begin="1.05s" repeatCount="indefinite" rotate="auto"><mpath href="#pipe"/></animateMotion>
+    </circle>
+    <circle r="3.5" fill="#5eead4" filter="url(#glow)">
+      <animateMotion dur="3.2s" begin="2.1s" repeatCount="indefinite" rotate="auto"><mpath href="#pipe"/></animateMotion>
+    </circle>
+  </g>
+
+  <!-- pulsing glow accents -->
+  <g filter="url(#softGlow)">
+    <circle class="node pulse"    cx="700" cy="330" r="4.5" fill="#5eead4"/>
+    <circle class="node pulse p2" cx="1080" cy="330" r="4.5" fill="#39ff14"/>
+    <circle class="node pulse p3" cx="120" cy="330" r="4.5" fill="#ffb000"/>
+  </g>
+</svg>
