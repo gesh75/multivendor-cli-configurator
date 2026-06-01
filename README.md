@@ -4,6 +4,13 @@
 
 # Multivendor Network CLI Tools
 
+## 📖 Live documentation
+
+[![Multivendor CLI Configurator — live documentation](docs/assets/preview.png)](https://gesh75.github.io/multivendor-cli-configurator/docs/)
+
+> 🌐 **Live:** <https://gesh75.github.io/multivendor-cli-configurator/docs/> — an animated single-page guide: architecture diagrams, data flow, tech stack, and quickstart.
+
+
 > A zero-dependency single-file HTML reference for network engineers —
 > **52,000+ CLI commands across 17 vendors & tools** in one searchable,
 > comparable, shareable, deep-linkable interface.
