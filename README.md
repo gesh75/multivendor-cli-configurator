@@ -9,6 +9,8 @@
 [![Multivendor CLI Configurator — live documentation](docs/assets/preview.png)](https://gesh75.github.io/multivendor-cli-configurator/docs/)
 
 > 🌐 **Live:** <https://gesh75.github.io/multivendor-cli-configurator/docs/> — an animated single-page guide: architecture diagrams, data flow, tech stack, and quickstart.
+>
+> 🗂️ Part of the **[gesh75 documentation hub](https://gesh75.github.io/)** — all my network & AI engineering project docs in one place.
 
 
 > A zero-dependency single-file HTML reference for network engineers —
