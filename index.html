@@ -104,6 +104,9 @@ main.lcollapsed aside.side{visibility:hidden;pointer-events:none;width:0;border:
 .chip:hover{border-color:var(--accent)}
 .chip.on{background:var(--chip-on);border-color:var(--accent);color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
 .chip .v{opacity:.65;font-size:9px}
+.chip.preset{border-color:var(--accent-2);color:var(--accent-2);font-weight:600}
+.chip.preset.on{background:var(--accent-2);border-color:var(--accent-2);color:#000;box-shadow:none}
+.chip.preset:hover{border-color:var(--accent);color:var(--accent)}
 .chip.cisco.on{border-color:var(--cisco);color:var(--cisco);box-shadow:0 0 0 1px var(--cisco) inset}
 .chip.juniper.on{border-color:var(--juniper);color:var(--juniper);box-shadow:0 0 0 1px var(--juniper) inset}
 .chip.arista.on{border-color:var(--arista);color:var(--arista);box-shadow:0 0 0 1px var(--arista) inset}
@@ -800,6 +803,21 @@ const OSLABEL = {
   panos:"PAN-OS", srlinux:"SR Linux", fortios:"FortiOS", routeros:"RouterOS", exos:"Extreme EXOS", aoscx:"Aruba AOS-CX", vrp:"Huawei VRP",
 };
 const VENDOR_KEY = v => (v||"").toLowerCase();
+
+/* The operator's working stack — surfaced first in the Vendor filter and as a
+   one-click "My Stack" preset. Cisco is intentionally NOT in the stack (no
+   Cisco devices in the estate) but stays in the full list for cross-vendor
+   translation and interview reference. */
+const MY_STACK = ["Juniper","Arista","PAN-OS","FortiOS","Nokia"];
+// Leaders shown first in the vendor list: the stack, then Cisco (reference).
+const VENDOR_PRIORITY = [...MY_STACK, "Cisco"];
+function orderVendors(vendors){
+  const pr = new Map(VENDOR_PRIORITY.map((v,i)=>[v,i]));
+  // Stable sort: priority vendors first (in VENDOR_PRIORITY order), the rest
+  // keep their natural order from the dataset.
+  return [...vendors].sort((a,b)=>
+    (pr.has(a)?pr.get(a):Infinity) - (pr.has(b)?pr.get(b):Infinity));
+}
 
 /* ─────────────────────────────────────────────────────────────────────
    NETCONF / YANG / Ansible automation mappings (10 high-value patterns)
@@ -3805,12 +3823,26 @@ function highlightInElem(root, q){
 }
 
 function renderChips(){
-  const vendors = uniq(DATA.map(d=>d.vendor));
+  const vendors = orderVendors(uniq(DATA.map(d=>d.vendor)));
   const oses    = uniq(DATA.map(d=>d.os));
   const roles   = uniq(DATA.map(d=>d.role));
   const cats    = uniq(DATA.map(d=>d.cat));
 
   const cv = $("chips-vendor"); cv.replaceChildren();
+  // "My Stack" preset — one click to filter to the operator's working vendors.
+  const stackInData = MY_STACK.filter(v=>vendors.includes(v));
+  const stackActive = stackInData.length>0
+    && state.vendor.size===stackInData.length
+    && stackInData.every(v=>state.vendor.has(v));
+  cv.appendChild(el("span",{
+    class:"chip preset"+(stackActive?" on":""),
+    title:"Filter to your stack: "+stackInData.join(", ")+" (click again to clear)",
+    onClick:()=>{
+      state.vendor.clear();
+      if(!stackActive){ stackInData.forEach(v=>state.vendor.add(v)); }
+      renderChips(); renderActiveBar(); render();
+    }
+  }, "⭐ My Stack"));
   vendors.forEach(v=>{
     cv.appendChild(el("span",{class:"chip "+VENDOR_KEY(v)+(state.vendor.has(v)?" on":""),
       onClick:()=>{state.vendor.has(v)?state.vendor.delete(v):state.vendor.add(v); renderChips(); renderActiveBar(); render();}},
@@ -4851,14 +4883,15 @@ function renderCompare(filtered, results){
 }
 
 function buildCompare(filtered, results){
-  // Compare view is N-vendor aware. With 11 supported vendors, rendering all
+  // Compare view is N-vendor aware. With 17 supported vendors, rendering all
   // columns by default would be cramped — so when the user hasn't filtered,
-  // we default to the four with deepest coverage (Cisco · Juniper · Arista
-  // · FRR). The user opts into the rest via the vendor chips in the sidebar.
+  // we default to the operator's working stack (MY_STACK). The user opts into
+  // the rest (incl. Cisco for reference) via the vendor chips in the sidebar.
   const ALL_VENDORS = ["Cisco","Juniper","Arista","FRR","VyOS","SONiC","NVIDIA","PAN-OS","Nokia","FortiOS","Mikrotik","Extreme","Aruba","Huawei","Microsoft","Linux","Wireshark"];
   const VEND_SHORT  = {Cisco:"C", Juniper:"J", Arista:"A", FRR:"F", VyOS:"V", SONiC:"S", NVIDIA:"N", "PAN-OS":"P", Nokia:"K", FortiOS:"FT", Mikrotik:"MT", Extreme:"E", Aruba:"AR", Huawei:"HW"};
   const VEND_CT_CLS = {Cisco:"ct-c", Juniper:"ct-j", Arista:"ct-a", FRR:"ct-f", VyOS:"ct-v", SONiC:"ct-s", NVIDIA:"ct-n", "PAN-OS":"ct-p", Nokia:"ct-o", FortiOS:"ct-fo", Mikrotik:"ct-m", Extreme:"ct-e", Aruba:"ct-ar", Huawei:"ct-h"};
-  const DEFAULT_VENDORS = ["Cisco","Juniper","Arista","FRR"];
+  // Default compare columns = the operator's stack, ordered as in the sidebar.
+  const DEFAULT_VENDORS = MY_STACK.filter(v => ALL_VENDORS.includes(v));
   const cmpVendors = state.vendor.size > 0
     ? ALL_VENDORS.filter(v => state.vendor.has(v))
     : DEFAULT_VENDORS;
