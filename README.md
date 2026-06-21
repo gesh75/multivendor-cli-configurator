@@ -14,7 +14,7 @@
 
 
 > A zero-dependency single-file HTML reference for network engineers —
-> **52,000+ CLI commands across 17 vendors & tools** in one searchable,
+> **69,000+ CLI commands across 17 vendors & tools** in one searchable,
 > comparable, shareable, deep-linkable interface.
 
 🟢 **Live demo:** [gesh75.github.io/multivendor-cli-configurator](https://gesh75.github.io/multivendor-cli-configurator/)
@@ -27,7 +27,7 @@
 ## What's here
 
 **[Cheatsheet](https://gesh75.github.io/multivendor-cli-configurator/)** (`index.html`) —
-**52,106 commands** across **17 vendors & tools**, searchable, filterable,
+**69,854 commands** across **17 vendors & tools**, searchable, filterable,
 deep-linkable, with three view modes:
 
 - **Cards** (default) — auto-fit grid grouped by category
@@ -63,35 +63,35 @@ vendors and host/tool surfaces are tagged in the **Type** column.
 
 | Vendor / Tool | OS / Surface | Type | Commands |
 |---|---|---|---|
-| **Arista** | EOS | Network | 7,384 |
-| **VyOS** | VyOS (full config tree) | Network | 6,286 |
-| **Cisco** | IOS / IOS-XE · ASA 9.24 · NX-OS | Network | 4,409 |
-| **Huawei** | VRP (bracketed prompts, iStack, Eth-Trunk, OSPF/BGP) | Network | 4,406 |
-| **Aruba** | AOS-CX (`1/1/N` interfaces, MSTP/RPVST, VSX) | Network | 4,093 |
+| **Cisco** | IOS / IOS-XE (full **Master Command List**) · ASA 9.24 · NX-OS | Network | 22,135 |
+| **Arista** | EOS | Network | 7,397 |
+| **VyOS** | VyOS (full config tree) | Network | 6,289 |
+| **Huawei** | VRP (bracketed prompts, iStack, Eth-Trunk, OSPF/BGP) | Network | 4,407 |
+| **Aruba** | AOS-CX (`1/1/N` interfaces, MSTP/RPVST, VSX) | Network | 4,096 |
 | **FRR** | FRRouting (vtysh) — docs **+ verified live on a 10-node Docker FRR lab** | Network | 3,947 |
 | **Microsoft** | Windows PowerShell networking cmdlets | Host OS | 3,352 |
-| **Juniper** | Junos (MX / EX / QFX / SRX) | Network | 3,206 |
-| **Extreme** | EXOS (VLAN-centric, STP, OSPF, SummitStacking, MLAG, ACLs) | Network | 2,781 |
-| **Linux** | `ip` / `iproute2` / host networking | Host OS | 2,591 |
-| **FortiOS** | Fortinet (`config / set / end` blocks, REST cmdb) | Network | 2,376 |
+| **Juniper** | Junos (MX / EX / QFX / SRX) | Network | 3,217 |
+| **Extreme** | EXOS (VLAN-centric, STP, OSPF, SummitStacking, MLAG, ACLs) | Network | 2,782 |
+| **Linux** | `ip` / `iproute2` / host networking | Host OS | 2,592 |
+| **FortiOS** | Fortinet (`config / set / end` blocks, REST cmdb) | Network | 2,380 |
 | **Wireshark** | `tshark` capture + display filters | Tool | 2,130 |
-| **PAN-OS** | Palo Alto firewalls (`set rulebase security ...`, virtual routers) | Network | 1,217 |
-| **Mikrotik** | RouterOS (`/path` syntax, firewall filters, queues) | Network | 1,209 |
-| **NVIDIA** | Cumulus Linux 5.x with NVUE (`nv set/show`) | Network | 1,149 |
-| **Nokia** | SR Linux (declarative `enter candidate` / `commit now`, gNMI) | Network | 1,053 |
-| **SONiC** | OCP / Azure SONiC (Click CLI, `show ip ...`) | Network | 442 |
-| | | **TOTAL (17)** | **52,106** |
+| **PAN-OS** | Palo Alto firewalls (`set rulebase security ...`, virtual routers) | Network | 1,220 |
+| **Mikrotik** | RouterOS (`/path` syntax, firewall filters, queues) | Network | 1,210 |
+| **NVIDIA** | Cumulus Linux 5.x with NVUE (`nv set/show`) | Network | 1,153 |
+| **Nokia** | SR Linux (declarative) **+ SR OS** (`os=sros`, classic CLI) | Network | 1,101 |
+| **SONiC** | OCP / Azure SONiC (Click CLI, `show ip ...`) | Network | 446 |
+| | | **TOTAL (17)** | **69,854** |
 
-By category (top 10): Interfaces 15,197 · System 6,761 · Protocols 6,418 ·
-VLAN 3,959 · Security 2,251 · Routing 2,185 · BGP 1,993 · Misc 1,983 ·
-Troubleshooting 1,649 · Firewall 1,595.
+By category (top 10): Interfaces 17,585 · Protocols 10,246 · System 7,942 ·
+Troubleshooting 6,516 · Security 4,367 · VLAN 4,257 · Routing 2,907 ·
+BGP 2,339 · Misc 2,022 · OSPF 1,602.
 
 Modern-ops coverage (new): Telemetry (gNMI/gRPC/NETCONF/RESTCONF) ·
 Automation (on-box Python/eAPI/JSON-RPC) · Provisioning (ZTP/PnP/POAP) ·
 Optics (breakout + transceiver DOM) · Hardening (SSH ciphers/CoPP/MACsec) —
 spanning Cisco, Juniper, Arista, Nokia SR Linux, NVIDIA Cumulus, SONiC and more.
 
-By role: router 25,270 · switch 22,625 · firewall 4,136.
+By role: router 43,055 · switch 22,656 · firewall 4,143.
 
 ---
 
@@ -108,6 +108,8 @@ By role: router 25,270 · switch 22,625 · firewall 4,136.
 | **DCN multivendor corpus** — VyOS, Huawei VRP, Aruba AOS-CX, Extreme EXOS, FortiOS, PAN-OS, RouterOS, NVUE, SR Linux, SONiC, plus Microsoft / Linux / Wireshark | Many | ~38,000 |
 | Community markdown + hand-curated seed | All | ~600 |
 | **Modern-ops corpus** (`scripts/parse_modern.py`) — telemetry, automation, ZTP, optics/breakout, hardening | Many | ~75 |
+| **Cisco IOS Master Command List** (official, all-releases index) — full IOS command surface | Cisco | ~17,700 |
+| **Nokia 7750 SR OS Basic System Config Guide** (official) — new `os=sros` surface | Nokia | ~40 |
 
 All sources are publicly available. The Python pipeline under `scripts/` is
 reproducible. Two maintenance utilities keep the corpus clean:
@@ -134,7 +136,7 @@ flowchart TB
 
     subgraph SYS["multivendor-cli-configurator"]
       app["index.html - single-file web app"]:::core
-      data["commands.json - 52,106 records"]:::store
+      data["commands.json - 69,854 records"]:::store
       pipe["scripts Python ETL - parse, merge, clean"]:::build
     end
 
