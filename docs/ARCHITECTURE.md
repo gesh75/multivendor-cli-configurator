@@ -4,7 +4,7 @@
 
 # 🏛️ multivendor-cli-configurator — Architecture
 
-A **zero-dependency, single-file HTML cheatsheet** that puts **~52,031 network CLI
+A **zero-dependency, single-file HTML cheatsheet** that puts **~52,106 network CLI
 commands across 17 vendors & tools** into one searchable, filterable,
 deep-linkable browser page. The runtime is one ~5,800-line `index.html` of vanilla
 JavaScript that fetches a flat `commands.json` (cache-then-revalidate via IndexedDB)
@@ -45,7 +45,7 @@ flowchart TB
 
     subgraph SYS["multivendor-cli-configurator"]
       app["index.html - single-file web app"]:::core
-      data["commands.json - 52,031 records"]:::store
+      data["commands.json - 52,106 records"]:::store
       pipe["scripts Python ETL - parse, merge, clean"]:::build
     end
 
@@ -134,7 +134,7 @@ sequenceDiagram
     alt changed or no cache
         CDN-->>B: new ETag and length
         B->>CDN: GET commands.json, no-store
-        CDN-->>B: 52,031 records
+        CDN-->>B: 52,106 records
         B->>IDB: idbPut corpus and ETag
         B->>B: bootRender to render, badge fresh
     else unchanged
@@ -159,7 +159,7 @@ flowchart LR
     inter["per-source JSON - encor.json, junos.json, and more"]:::build
     master["parse.py and merge_dcn_corpus.py - merge and dedupe by normalized cmd"]:::accent
     clean["clean_titles.py and audit_data_quality.py - repair prose, quarantine bad rows"]:::accent
-    out[("commands.json - 52,031 records")]:::store
+    out[("commands.json - 52,106 records")]:::store
     web["index.html - fetch at boot"]:::core
 
     src --> parsers --> inter --> master --> clean --> out --> web
@@ -249,7 +249,7 @@ erDiagram
 | **Compare engine** | `conceptKey` slugs · 37-entry `CONCEPT_SYNONYMS` · CSS grid |
 | **Automation** | Regex extraction → NETCONF / ncclient / Netmiko / Ansible / Bash via lookup tables |
 | **Data pipeline** | Python 3 standard library only (`json`, `pathlib`, `re`) — no third-party deps |
-| **Data artifact** | `commands.json` — ~17 MB flat array of ~52,031 records |
+| **Data artifact** | `commands.json` — ~17 MB flat array of ~52,106 records |
 | **Hosting / CI** | GitHub Pages — static host, auto-deploy on push to `main` |
 | **Tests** | Node.js `assert` + source-extraction testing (`tests/stress_test.js`) |
 

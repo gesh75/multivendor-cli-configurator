@@ -27,7 +27,7 @@
 ## What's here
 
 **[Cheatsheet](https://gesh75.github.io/multivendor-cli-configurator/)** (`index.html`) —
-**52,031 commands** across **17 vendors & tools**, searchable, filterable,
+**52,106 commands** across **17 vendors & tools**, searchable, filterable,
 deep-linkable, with three view modes:
 
 - **Cards** (default) — auto-fit grid grouped by category
@@ -80,11 +80,16 @@ vendors and host/tool surfaces are tagged in the **Type** column.
 | **NVIDIA** | Cumulus Linux 5.x with NVUE (`nv set/show`) | Network | 1,149 |
 | **Nokia** | SR Linux (declarative `enter candidate` / `commit now`, gNMI) | Network | 1,053 |
 | **SONiC** | OCP / Azure SONiC (Click CLI, `show ip ...`) | Network | 442 |
-| | | **TOTAL (17)** | **52,031** |
+| | | **TOTAL (17)** | **52,106** |
 
 By category (top 10): Interfaces 15,197 · System 6,761 · Protocols 6,418 ·
 VLAN 3,959 · Security 2,251 · Routing 2,185 · BGP 1,993 · Misc 1,983 ·
 Troubleshooting 1,649 · Firewall 1,595.
+
+Modern-ops coverage (new): Telemetry (gNMI/gRPC/NETCONF/RESTCONF) ·
+Automation (on-box Python/eAPI/JSON-RPC) · Provisioning (ZTP/PnP/POAP) ·
+Optics (breakout + transceiver DOM) · Hardening (SSH ciphers/CoPP/MACsec) —
+spanning Cisco, Juniper, Arista, Nokia SR Linux, NVIDIA Cumulus, SONiC and more.
 
 By role: router 25,270 · switch 22,625 · firewall 4,136.
 
@@ -102,6 +107,7 @@ By role: router 25,270 · switch 22,625 · firewall 4,136.
 | **FRR Master CLI Command Reference** (docs ∪ live capture from a 10-node Docker FRR lab) | FRR | ~2,230 |
 | **DCN multivendor corpus** — VyOS, Huawei VRP, Aruba AOS-CX, Extreme EXOS, FortiOS, PAN-OS, RouterOS, NVUE, SR Linux, SONiC, plus Microsoft / Linux / Wireshark | Many | ~38,000 |
 | Community markdown + hand-curated seed | All | ~600 |
+| **Modern-ops corpus** (`scripts/parse_modern.py`) — telemetry, automation, ZTP, optics/breakout, hardening | Many | ~75 |
 
 All sources are publicly available. The Python pipeline under `scripts/` is
 reproducible. Two maintenance utilities keep the corpus clean:
@@ -128,7 +134,7 @@ flowchart TB
 
     subgraph SYS["multivendor-cli-configurator"]
       app["index.html - single-file web app"]:::core
-      data["commands.json - 52,031 records"]:::store
+      data["commands.json - 52,106 records"]:::store
       pipe["scripts Python ETL - parse, merge, clean"]:::build
     end
 
