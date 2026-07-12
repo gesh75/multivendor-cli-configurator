@@ -457,7 +457,7 @@
         <p class="lede" style="margin-top:1rem">An offline, stdlib-only Python pipeline turns published vendor docs — and a live 10-node Docker FRR lab — into one deduped <code style="font-family:var(--mono);color:var(--teal)">commands.json</code> that GitHub Pages serves statically. No backend, no build, no JS dependencies.</p>
       </div>
       <div class="mini-stats reveal" aria-label="Corpus breakdown">
-        <div class="mini"><span class="k">index.html (vanilla JS lines)</span><span class="v">5,827</span></div>
+        <div class="mini"><span class="k">index.html (vanilla JS lines)</span><span class="v">5,861</span></div>
         <div class="mini"><span class="k">CONCEPT_SYNONYMS entries</span><span class="v">37</span></div>
         <div class="mini"><span class="k">YANG automation patterns</span><span class="v">15</span></div>
         <div class="mini"><span class="k">FRR lab nodes (Docker)</span><span class="v">10</span></div>
@@ -631,7 +631,7 @@
       <table>
         <thead><tr><th scope="col">Module</th><th scope="col">Responsibility</th></tr></thead>
         <tbody>
-          <tr><td><span class="mod">index.html</span><span class="te">Vanilla JS · HTML · CSS · Fetch · IndexedDB · localStorage</span></td><td>The entire single-file client app (~5,827 lines of vanilla JS): boot/cache loader, global DATA state + render dispatcher, filter/deep-link engine, concept-aligned Compare engine, and automation snippet generators. No framework, no build.</td></tr>
+          <tr><td><span class="mod">index.html</span><span class="te">Vanilla JS · HTML · CSS · Fetch · IndexedDB · localStorage</span></td><td>The entire single-file client app (~5,861 lines of vanilla JS): boot/cache loader, global DATA state + render dispatcher, filter/deep-link engine, concept-aligned Compare engine, and automation snippet generators. No framework, no build.</td></tr>
           <tr><td><span class="mod">commands.json</span><span class="te">Static JSON ~18 MB · GitHub Pages</span></td><td>Single source of truth — flat array of 69,854 command records across 17 vendors/tools. Fetched once at boot (cache-then-revalidate) and queried entirely client-side. FRR rows carry optional live/in_docs provenance flags.</td></tr>
           <tr><td><span class="mod">scripts/parse.py</span><span class="te">Python 3 stdlib</span></td><td>Master merger — generic markdown walker that folds in community sources, seed entries, and all per-source JSONs, deduping globally by normalized cmd to emit commands.json.</td></tr>
           <tr><td><span class="mod">scripts/parse_frr.py</span><span class="te">Python 3 stdlib</span></td><td>Parses the FRR Master CLI reference JSON (docs ∪ Docker-FRR live scrape) into frr.json, mapping daemons to categories and tagging each row with live/in_docs provenance flags surfaced as a green "live" badge in the UI.</td></tr>
@@ -695,7 +695,7 @@
       <a href="https://github.com/gesh75/multivendor-cli-configurator" target="_blank" rel="noopener">GitHub repo ↗</a>
       <a href="https://gesh75.github.io/multivendor-cli-configurator/" target="_blank" rel="noopener">Live demo ↗</a>
       <a href="#hero">Back to top ↑</a>
-      <span style="color:var(--muted-dim)">License: not specified</span>
+      <span style="color:var(--muted-dim)">License: MIT</span>
     </nav>
   </div>
   <p class="foot-note">Auto-generated documentation · single self-contained page · dark-neon terminal theme. All figures traced to README.md, docs/ARCHITECTURE.md, and commands.json.</p>
