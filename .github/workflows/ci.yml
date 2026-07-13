@@ -20,3 +20,14 @@ jobs:
           python-version: "3.x"
       - name: Check docs are in sync with the corpus
         run: python3 scripts/check_consistency.py
+
+  stress-test:
+    name: Node stress + correctness suite
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Run tests/stress_test.js
+        run: node tests/stress_test.js

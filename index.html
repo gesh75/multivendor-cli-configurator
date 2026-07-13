@@ -4823,16 +4823,29 @@ const CONCEPT_SYNONYMS = [
 
 function lookupConcept(haystack){
   if(!haystack) return null;
+  // The synonym needles are constants, so lowercase them once and cache the
+  // result on the function — a full-corpus pass calls this ~70K times, and
+  // hoisting toLowerCase out of the inner loop turns each call into pure
+  // substring checks. Behavior-identical to matching CONCEPT_SYNONYMS directly.
+  let table = lookupConcept._lc;
+  if(!table){
+    table = lookupConcept._lc = CONCEPT_SYNONYMS.map(c => ({
+      concept: c.concept, cat: c.cat,
+      any: c.any.map(alt => Array.isArray(alt)
+        ? alt.map(s => s.toLowerCase())
+        : alt.toLowerCase()),
+    }));
+  }
   const h = haystack.toLowerCase();
-  for(const c of CONCEPT_SYNONYMS){
+  for(const c of table){
     for(const alt of c.any){
-      if(Array.isArray(alt)){
+      if(typeof alt === "string"){
+        if(h.includes(alt)) return { concept: c.concept, cat: c.cat };
+      } else {
         // All substrings must be present (AND)
         let ok = true;
-        for(const s of alt){ if(!h.includes(s.toLowerCase())){ ok = false; break; } }
+        for(const s of alt){ if(!h.includes(s)){ ok = false; break; } }
         if(ok) return { concept: c.concept, cat: c.cat };
-      } else {
-        if(h.includes(alt.toLowerCase())) return { concept: c.concept, cat: c.cat };
       }
     }
   }
