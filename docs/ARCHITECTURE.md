@@ -1,261 +1,116 @@
-<p align="center">
-  <img src="assets/hero.svg" alt="multivendor-cli-configurator — architecture" width="100%">
-</p>
+# Architecture
 
-# 🏛️ multivendor-cli-configurator — Architecture
+> How vendor sources turn into **69,967** searchable, automatable commands in a
+> single static HTML file. **FRR rows additionally carry a `live` flag** when
+> the exact command was observed running on the 10-node Docker FRR lab.
 
-A **zero-dependency, single-file HTML cheatsheet** that puts **~69,854 network CLI
-commands across 17 vendors & tools** into one searchable, filterable,
-deep-linkable browser page. The runtime is one ~5,800-line `index.html` of vanilla
-JavaScript that fetches a flat `commands.json` (cache-then-revalidate via IndexedDB)
-and renders everything **client-side** in three views — Cards, Table, and Compare —
-**with no backend**. A separate offline, **stdlib-only Python pipeline** under
-`scripts/` parses published vendor docs into per-source JSON, merges and dedupes them
-into `commands.json`, which is committed and auto-deployed via **GitHub Pages**.
-Beyond lookup, the UI generates **vendor-correct automation snippets**
-(NETCONF / ncclient / Netmiko / Ansible / Bash) by regex-extracting values from each
-command.
+![Architecture diagram](docs/img/architecture.svg)
 
 ---
 
-## Table of Contents
+## TL;DR
 
-1. [System Context](#1-system-context)
-2. [Container & Component Map](#2-container--component-map)
-3. [Runtime Boot Sequence](#3-runtime-boot-sequence)
-4. [Build & Data-Flow Pipeline](#4-build--data-flow-pipeline)
-5. [Render-Dispatch State Machine](#5-render-dispatch-state-machine)
-6. [Command Data Model](#6-command-data-model)
-7. [Tech Stack](#7-tech-stack)
+- **17 vendors / tools, 21 OS surfaces, 69,967 commands** — Cisco (IOS / IOS-XE / NX-OS / ASA), Juniper (Junos), Arista (EOS), FRR (FRRouting), VyOS, Huawei VRP, Aruba AOS-CX, Extreme EXOS, FortiOS, PAN-OS, Mikrotik RouterOS, NVIDIA Cumulus NVUE, Nokia (SR Linux + SR OS), SONiC, plus Microsoft PowerShell, Linux iproute2, and Wireshark tshark.
+- **Reproducible Python pipeline** — every command can be traced back to a published source via a stdlib-only parser in `scripts/`.
+- **Single static file** — `index.html` is vanilla JS + a `fetch('commands.json')`. No framework. No build step for the UI. Hosted on GitHub Pages.
+- **Zero credentials on disk** — automation snippets use `${conn().host}` interpolations driven by a sessionStorage-only connection state with a redact toggle for safe screenshots.
+- **Coverage-gap tooling** — `fix_coverage_gaps.py` retags NX-OS/IOS-XE and promotes VXLAN/EVPN categories; `expand_thin_vendors.py` grows thin surfaces; `patch_yang_stack_vendors.py` extends Automate templates to FRR · VyOS · Nokia · Aruba.
 
 ---
 
-## 1. System Context
+## Data pipeline (3 stages)
 
-The whole system is **one static page + one JSON file**. Network engineers interact
-with it directly in a browser; published vendor docs and a live FRR lab feed an
-offline pipeline; GitHub Pages serves the artifacts; and generated automation snippets
-eventually target real devices out-of-band.
+### 1 · Vendor sources (`scripts/sources/*.md`)
 
-```mermaid
-flowchart TB
-    eng["Network Engineers - browse, search, compare"]:::actor
-    docs["Vendor Docs - Cisco, Junos, EOS, FRR, DCN"]:::source
-    lab["10-node Docker FRR Lab - live capture"]:::source
+All public publications, dropped in as raw markdown. Each vendor has 1–3 books plus the DCN multivendor corpus and modern-ops seed.
 
-    subgraph SYS["multivendor-cli-configurator"]
-      app["index.html - single-file web app"]:::core
-      data["commands.json - 69,854 records"]:::store
-      pipe["scripts Python ETL - parse, merge, clean"]:::build
-    end
+| Vendor | Sources | Notes |
+|---|---|---|
+| **Cisco** | ENCOR / ENARSI Portable CG · ASA 9.24 CLI Reference · IOS OSPF Command Reference · VXLAN BGP EVPN NX-OS Reference · IOS Master Command List | `ios` / `iosxe` / `nxos` / `asa` |
+| **Juniper** | Junos OS CLI Reference · Day One guides | `junos` |
+| **Arista** | EOS User Guide (official) | `eos` |
+| **FRR** | FRR Master CLI Reference ∪ Docker FRR live capture | `frr` + `live`/`in_docs` flags |
+| **DCN corpus** | VyOS · Huawei · Aruba · Extreme · FortiOS · PAN-OS · RouterOS · NVUE · SR Linux · SONiC · Microsoft · Linux · Wireshark | bulk of mid-tier vendors |
+| **Modern-ops + gap fills** | `parse_modern.py` · `expand_thin_vendors.py` | Telemetry / Automation / Provisioning / Optics / Hardening + thin-vendor fills |
 
-    pages["GitHub Pages - static host and auto-deploy"]:::ext
-    devices["Target Devices - Netmiko, Ansible, NETCONF"]:::target
+The `scripts/sources/` folder is `.gitignored` — only the resulting JSON is checked in.
 
-    eng -->|"open page"| app
-    app -->|"fetch once"| data
-    docs --> pipe
-    lab --> pipe
-    pipe -->|"generates"| data
-    pipe -->|"push to main"| pages
-    pages -->|"serves"| app
-    app -.->|"copy snippets - user-run"| devices
+### 2 · Parsers (`scripts/parse_*.py`)
 
-    classDef actor  fill:#0e7490,stroke:#5eead4,color:#fff
-    classDef source fill:#475569,stroke:#94a3b8,color:#fff
-    classDef core   fill:#15803d,stroke:#39ff14,color:#fff
-    classDef store  fill:#0d9488,stroke:#5eead4,color:#fff
-    classDef build  fill:#a16207,stroke:#ffd152,color:#fff
-    classDef ext    fill:#334155,stroke:#94a3b8,color:#fff
-    classDef target fill:#b91c1c,stroke:#fb7185,color:#fff
-```
+One parser per source format. All are pure Python 3 stdlib — no dependencies.
 
----
-
-## 2. Container & Component Map
-
-`index.html` is a monolith by file count but cleanly layered by concern: a boot/cache
-layer, a global state + render dispatcher, a filter/deep-link engine, a concept-alignment
-compare engine, and an automation/code-generation layer — all over an in-memory `DATA`
-array hydrated from `commands.json`.
-
-```mermaid
-flowchart TB
-    subgraph BROWSER["index.html - single-file client app"]
-      direction TB
-      boot["Data Loader and Cache - loadCommandsWithCache, bootRender, HEAD revalidate"]:::svc
-      state["Global state and render - DATA, vendor/os/role/cat Sets, replaceChildren"]:::core
-      filter["Filter and Deep-Link - matches, parseQuery, syncUrl, encodeWorkspace"]:::svc
-      compare["Compare and Concept Align - conceptKey, lookupConcept, CONCEPT_SYNONYMS 37"]:::accent
-      auto["Automation Generators - Netmiko, Ansible, NETCONF, Bash"]:::danger
-    end
-
-    json[("commands.json")]:::store
-    persist[["IndexedDB and localStorage - ?ws= base64 deep-link"]]:::ext
-
-    json --> boot --> state
-    state --> filter --> state
-    state --> compare
-    state --> auto
-    boot <--> persist
-    filter <--> persist
-
-    classDef core   fill:#15803d,stroke:#39ff14,color:#fff
-    classDef svc    fill:#0e7490,stroke:#5eead4,color:#fff
-    classDef accent fill:#0d9488,stroke:#5eead4,color:#fff
-    classDef danger fill:#b91c1c,stroke:#fb7185,color:#fff
-    classDef store  fill:#0d9488,stroke:#5eead4,color:#fff
-    classDef ext    fill:#475569,stroke:#94a3b8,color:#fff
-```
-
----
-
-## 3. Runtime Boot Sequence
-
-On load the app renders **instantly from the IndexedDB cache** if present, then
-HEAD-revalidates `commands.json` against a stored ETag + Content-Length and only
-re-fetches and re-renders when the artifact actually changed — a classic
-cache-then-revalidate path that keeps a 17 MB corpus feeling instant.
-
-```mermaid
-sequenceDiagram
-    actor User
-    participant B as Browser index.html
-    participant IDB as IndexedDB mvc-cli-cache
-    participant CDN as GitHub Pages
-
-    User->>B: open page
-    B->>IDB: idbGet cached corpus
-    alt cache hit
-        IDB-->>B: cached DATA
-        B->>B: bootRender to render, badge cached
-    end
-    B->>CDN: HEAD commands.json, ETag and length
-    alt changed or no cache
-        CDN-->>B: new ETag and length
-        B->>CDN: GET commands.json, no-store
-        CDN-->>B: 69,854 records
-        B->>IDB: idbPut corpus and ETag
-        B->>B: bootRender to render, badge fresh
-    else unchanged
-        CDN-->>B: 304 same ETag, badge revalidated
-    end
-    B-->>User: filtered cards, table, compare
-```
-
----
-
-## 4. Build & Data-Flow Pipeline
-
-The offline Python pipeline (never shipped to the browser) turns published vendor
-books and a live FRR lab into one deduped JSON array: per-source parsers emit
-intermediate JSON, a master merger folds in community markdown + seed + DCN corpus,
-and quality utilities repair and quarantine bad rows before the final commit.
-
-```mermaid
-flowchart LR
-    src["scripts sources - vendor books and docs, gitignored"]:::source
-    parsers["parse scripts - encor, junos, arista, frr, cisco, extras"]:::build
-    inter["per-source JSON - encor.json, junos.json, and more"]:::build
-    master["parse.py and merge_dcn_corpus.py - merge and dedupe by normalized cmd"]:::accent
-    clean["clean_titles.py and audit_data_quality.py - repair prose, quarantine bad rows"]:::accent
-    out[("commands.json - 69,854 records")]:::store
-    web["index.html - fetch at boot"]:::core
-
-    src --> parsers --> inter --> master --> clean --> out --> web
-
-    classDef source fill:#475569,stroke:#94a3b8,color:#fff
-    classDef build  fill:#a16207,stroke:#ffd152,color:#fff
-    classDef accent fill:#0d9488,stroke:#5eead4,color:#fff
-    classDef store  fill:#0d9488,stroke:#5eead4,color:#fff
-    classDef core   fill:#15803d,stroke:#39ff14,color:#fff
-```
-
----
-
-## 5. Render-Dispatch State Machine
-
-Every user action mutates the global `state`, which the `render()` dispatcher reads to
-filter `DATA` via `matches()` and route to exactly one of three view renderers. State
-is persisted to `localStorage` and serialized into a shareable base64 `?ws=` URL.
-
-```mermaid
-stateDiagram-v2
-    [*] --> Booting
-    Booting --> Filtering: bootRender() assigns DATA
-    Filtering --> Cards: state.view = cards
-    Filtering --> Table: state.view = table
-    Filtering --> Compare: state.view = compare
-
-    Cards --> Filtering: search / filter / fav
-    Table --> Filtering: search / filter / sort
-    Compare --> Filtering: vendor subset change
-
-    Cards --> Automate: open Automate or queue CLI
-    Compare --> Automate: See equivalents
-    Automate --> Filtering: close drawer
-
-    Filtering --> Filtering: syncUrl writes ?ws= deep-link
-    note right of Filtering
-      matches = filter Sets
-      AND parseQuery operators
-      AND haystack search
-    end note
-```
-
----
-
-## 6. Command Data Model
-
-There is **no database** — the entire "schema" is the shape of each record in the flat
-`commands.json` array. Records share a common shape; FRR rows add optional provenance
-flags, and the Compare engine derives a stable `conceptKey` slug to line up
-semantically-equivalent rows across vendors.
-
-```mermaid
-erDiagram
-    COMMAND {
-        string os    "e.g. IOS-XE, Junos, EOS"
-        string vendor "Cisco, Juniper, Arista, FRR, and more"
-        string role  "router, switch, firewall"
-        string cat   "BGP, OSPF, VLAN, Interfaces, and more"
-        string title "human label, cleaned"
-        string cmd   "the literal CLI command"
-        string desc  "what it does"
-        bool   live  "FRR only - seen on Docker lab"
-        bool   in_docs "FRR only - present in docs"
-    }
-    CONCEPT {
-        string conceptKey "normalized slug e.g. bgp-peer"
-        string label      "display name"
-    }
-    VENDOR {
-        string name "1 of 17"
-        int    count "commands contributed"
-    }
-    VENDOR ||--o{ COMMAND : "contributes"
-    CONCEPT ||--o{ COMMAND : "aligns via CONCEPT_SYNONYMS"
-```
-
----
-
-## 7. Tech Stack
-
-| Layer | Technology |
+| Parser | Output |
 |---|---|
-| **Runtime UI** | Vanilla JavaScript · HTML · CSS — zero framework, zero build, zero JS dependencies |
-| **Boot & cache** | Fetch API (HEAD/GET, `cache:'no-store'`) · IndexedDB (`mvc-cli-cache`) |
-| **Persistence** | `localStorage` · base64 `?ws=` deep-link URLs |
-| **Compare engine** | `conceptKey` slugs · 37-entry `CONCEPT_SYNONYMS` · CSS grid |
-| **Automation** | Regex extraction → NETCONF / ncclient / Netmiko / Ansible / Bash via lookup tables |
-| **Data pipeline** | Python 3 standard library only (`json`, `pathlib`, `re`) — no third-party deps |
-| **Data artifact** | `commands.json` — ~17 MB flat array of ~69,854 records |
-| **Hosting / CI** | GitHub Pages — static host, auto-deploy on push to `main` |
-| **Tests** | Node.js `assert` + source-extraction testing (`tests/stress_test.js`) |
+| `parse_encor.py` / `parse_junos.py` / `parse_arista.py` / `parse_cisco_ospf.py` / `parse_cisco_extras.py` / `parse_frr.py` | per-source JSON |
+| `merge_dcn_corpus.py` / `parse.py` | merge + dedupe → `commands.json` |
+| `parse_modern.py` | modern-ops categories |
+| `expand_thin_vendors.py` | SONiC / NVIDIA / Huawei / SR OS / NX-OS / essentials fills |
+| `fix_coverage_gaps.py` | NX-OS/IOS-XE retag, VXLAN/EVPN cats, taxonomy/placeholder cleanup |
+| `clean_titles.py` / `audit_data_quality.py` / `check_consistency.py` | quality + docs drift gate |
+
+### 3 · `commands.json`
+
+Single source of truth (~18 MB). Each row is:
+
+```json
+{
+  "os":     "ios",
+  "role":   "router",
+  "vendor": "Cisco",
+  "cat":    "BGP",
+  "title":  "router bgp [ASN]",
+  "cmd":    "router bgp 65001\n neighbor 10.0.0.2 remote-as 65002",
+  "desc":   "BGP > Configure neighbor"
+}
+```
+
+OS surfaces include `ios`, `iosxe`, `nxos`, `asa`, `junos`, `eos`, `frr`, `vyos`, `sonic`, `nvue`, `panos`, `srlinux`, `sros`, `fortios`, `routeros`, `exos`, `aoscx`, `vrp`, `powershell`, `linux`, `tshark`.
+
+Dedicated overlay categories: **`VXLAN`**, **`EVPN`** (promoted from keyword hits that previously lived under BGP/System/Interfaces).
+
+FRR rows may also carry `live` / `in_docs` provenance flags.
 
 ---
 
-<p align="center"><sub>
-Diagrams render natively on GitHub. Hero banner is a handcrafted animated SVG
-(SMIL + CSS keyframes, with a <code>prefers-reduced-motion</code> guard).
-</sub></p>
+## UI architecture (`index.html`)
+
+### Automate drawer
+
+1. **YANG Automate** — 15 patterns (`iface-ipv4`, `static-route`, `ospf-network`, `bgp-neighbor`, `vlan`, …). Templates now cover **Cisco · Juniper · Arista · FRR · VyOS · Nokia · Aruba**. Matchers still key off IOS/Junos-shaped commands; stack vendors render when Automate is opened from Compare / equivalents.
+2. **SSH Automate** — Netmiko + Ansible + NAPALM for every vendor. `devTypeFor()` prefers **OS-specific** device types (`cisco_nxos`, `cisco_asa`, `cisco_xe`, `nokia_sros`). `ansibleModFor()` selects `cisco.nxos` / `cisco.asa` collections when the queued command is NX-OS or ASA.
+
+### Parse Output modal
+
+Built-in show-output parsers (Cisco BGP/route/intf/OSPF + Junos BGP/route). Expanding EOS/FRR/VyOS parsers remains a follow-up.
+
+---
+
+## Hosting
+
+```
+push to main
+  └─► GitHub Actions: gh-pages (built-in)
+       └─► https://gesh75.github.io/multivendor-cli-configurator/
+```
+
+`index.html` + `commands.json` is the entire deployment.
+
+---
+
+## Regenerating `commands.json`
+
+```bash
+cd scripts
+# 1. Run per-source parsers as needed, then merge
+python3 parse.py
+python3 parse_modern.py
+python3 expand_thin_vendors.py
+python3 fix_coverage_gaps.py
+python3 clean_titles.py
+python3 audit_data_quality.py
+python3 check_consistency.py
+# 2. Optional UI Automate extension (idempotent)
+python3 patch_yang_stack_vendors.py
+```
+
+Stdlib only. No virtualenv required.
