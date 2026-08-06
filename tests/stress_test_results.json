@@ -1,7 +1,50 @@
 {
-  "note": "Refreshed after coverage-gap fill (69,967 corpus). Timing fields retained as historical pass markers; re-run tests/stress_test.js in browser for fresh timings.",
+  "T3 vendor filter (29.5K rows)": {
+    "target_ms": 50,
+    "actual_ms": 1.07,
+    "pass": true
+  },
+  "T4 vendor+cat+role filter": {
+    "target_ms": 50,
+    "actual_ms": 0.72,
+    "pass": true
+  },
+  "T5 free-text search \"bgp neighbor\"": {
+    "target_ms": 80,
+    "actual_ms": 16.67,
+    "pass": true
+  },
+  "T6 lookupConcept \u00d7 full corpus": {
+    "target_ms": 1800,
+    "actual_ms": 464.55,
+    "pass": true
+  },
+  "T6_concept_hits": 16987,
+  "T6b_concept_correctness": "10/10",
+  "T10a extractPlaceholders \u00d7 1000": {
+    "target_ms": 50,
+    "actual_ms": 1.41,
+    "pass": true
+  },
+  "T10b substitutePlaceholders \u00d7 1000": {
+    "target_ms": 50,
+    "actual_ms": 1.17,
+    "pass": true
+  },
+  "T10c_ph_correctness": "4/4",
+  "T9 groupQueueByVendor (4 rows)": {
+    "target_ms": 5,
+    "actual_ms": 0.01,
+    "pass": true
+  },
+  "T9_queue_vendors": [
+    "Cisco",
+    "Juniper",
+    "Arista",
+    "FRR"
+  ],
   "vendor_coverage": {
-    "Cisco": 22145,
+    "Cisco": 22168,
     "Juniper": 3217,
     "Arista": 7397,
     "FRR": 3949,
@@ -9,10 +52,10 @@
     "SONiC": 459,
     "NVIDIA": 1168,
     "PAN-OS": 1224,
-    "Nokia": 1125,
+    "Nokia": 1131,
     "FortiOS": 2383,
     "Mikrotik": 1216,
-    "Extreme": 2790,
+    "Extreme": 2800,
     "Aruba": 4106,
     "Huawei": 4425,
     "Linux": 2592,
@@ -24,10 +67,45 @@
     "live": 870,
     "in_docs": 1705
   },
+  "deep_gap_dig": {
+    "os": {
+      "ios": 21428,
+      "iosxe": 125,
+      "nxos": 200,
+      "asa": 415,
+      "junos": 3217,
+      "eos": 7397,
+      "frr": 3949,
+      "vyos": 6289,
+      "sonic": 459,
+      "nvue": 1168,
+      "panos": 1224,
+      "srlinux": 1059,
+      "fortios": 2383,
+      "routeros": 1216,
+      "exos": 2800,
+      "aoscx": 4106,
+      "vrp": 4425,
+      "linux": 2592,
+      "powershell": 3352,
+      "tshark": 2130,
+      "sros": 72
+    },
+    "cats": {
+      "VXLAN": 257,
+      "EVPN": 499,
+      "Spanning-Tree": 845,
+      "EtherChannel": 518,
+      "BFD": 133
+    },
+    "os_dev_ok": "6/6",
+    "gap_fails": 0
+  },
+  "note": "Refreshed after deep gap dig (70,006 corpus).",
   "os_coverage": {
     "ios": 21428,
-    "iosxe": 113,
-    "nxos": 189,
+    "iosxe": 125,
+    "nxos": 200,
     "asa": 415,
     "junos": 3217,
     "eos": 7397,
@@ -39,61 +117,20 @@
     "srlinux": 1059,
     "fortios": 2383,
     "routeros": 1216,
-    "exos": 2790,
+    "exos": 2800,
     "aoscx": 4106,
     "vrp": 4425,
     "linux": 2592,
     "powershell": 3352,
     "tshark": 2130,
-    "sros": 66
+    "sros": 72
   },
   "overlay": {
-    "VXLAN": 255,
-    "EVPN": 498
+    "VXLAN": 257,
+    "EVPN": 499,
+    "Spanning-Tree": 845,
+    "EtherChannel": 518,
+    "BFD": 133
   },
-  "total": 69967,
-  "T3 vendor filter (29.5K rows)": {
-    "target_ms": 50,
-    "actual_ms": 0.63,
-    "pass": true
-  },
-  "T4 vendor+cat+role filter": {
-    "target_ms": 50,
-    "actual_ms": 4.49,
-    "pass": true
-  },
-  "T5 free-text search \"bgp neighbor\"": {
-    "target_ms": 80,
-    "actual_ms": 17.26,
-    "pass": true
-  },
-  "T6 lookupConcept \u00d7 full corpus": {
-    "target_ms": 1800,
-    "actual_ms": 1461.3,
-    "pass": true
-  },
-  "T6_concept_hits": 18253,
-  "T6b_concept_correctness": "10/10",
-  "T10a extractPlaceholders \u00d7 1000": {
-    "target_ms": 50,
-    "actual_ms": 1.06,
-    "pass": true
-  },
-  "T10b substitutePlaceholders \u00d7 1000": {
-    "target_ms": 50,
-    "actual_ms": 0.63,
-    "pass": true
-  },
-  "T10c_ph_correctness": "4/4",
-  "T9 groupQueueByVendor (4 rows)": {
-    "target_ms": 5,
-    "actual_ms": 0,
-    "pass": true
-  },
-  "T9_queue_vendors": [
-    "Cisco",
-    "Juniper",
-    "Arista",
-    "FRR"
-  ]
+  "total": 70006
 }

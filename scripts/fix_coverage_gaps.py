@@ -60,6 +60,46 @@ EVPN_HINT = re.compile(
     re.I,
 )
 
+# Promote from generic buckets only — avoid stealing BGP/OSPF/etc.
+GENERIC_CATS = {
+    "Interfaces",
+    "System",
+    "Protocols",
+    "VLAN",
+    "Routing",
+    "Troubleshooting",
+    "Misc",
+    "Security",
+}
+
+STP_HINT = re.compile(
+    r"\b(?:"
+    r"spanning[- ]?tree|rstp|mstp|pvst|rapid-pvst|"
+    r"stp\s+(?:enable|mode|priority|root)|"
+    r"bridge\s+stp|enable\s+stpd"
+    r")\b",
+    re.I,
+)
+
+BFD_HINT = re.compile(
+    r"\b(?:"
+    r"bfd\s+(?:enable|interval|multiplier|neighbor|echo)|"
+    r"ip\s+ospf\s+bfd|isis\s+bfd|bgp\s+neighbor\s+\S+\s+fall-over\s+bfd|"
+    r"protocol\s+bfd|bfd\s+all-interfaces"
+    r")\b",
+    re.I,
+)
+
+LACP_HINT = re.compile(
+    r"\b(?:"
+    r"lacp\b|port[- ]?channel|etherchannel|"
+    r"channel-group\s+\d+|lag\s+\d+|share-group|"
+    r"interface\s+port-channel|bonding\s+bond|"
+    r"aggregate-id|vpc\s+\d+"
+    r")\b",
+    re.I,
+)
+
 ESC_PH = re.compile(r"<([^<>\\]+)\\>")
 
 
@@ -89,6 +129,9 @@ def main() -> None:
         "iosxe_retag": 0,
         "vxlan_cat": 0,
         "evpn_cat": 0,
+        "stp_cat": 0,
+        "bfd_cat": 0,
+        "lacp_cat": 0,
         "stp_collapse": 0,
         "vrrp_collapse": 0,
         "placeholder_fix": 0,
@@ -108,16 +151,28 @@ def main() -> None:
                 d["os"] = "iosxe"
                 stats["iosxe_retag"] += 1
 
-        # 2) VXLAN / EVPN category promotion (don't clobber already-correct cats)
+        # 2) Overlay + L2/HA category promotion
         cat = d.get("cat") or ""
+        text = blob(d)
         if cat not in ("VXLAN", "EVPN"):
-            text = blob(d)
             if EVPN_HINT.search(text):
                 d["cat"] = "EVPN"
                 stats["evpn_cat"] += 1
             elif VXLAN_HINT.search(text):
                 d["cat"] = "VXLAN"
                 stats["vxlan_cat"] += 1
+        # Promote STP / BFD / LACP out of generic buckets only
+        cat = d.get("cat") or ""
+        if cat in GENERIC_CATS:
+            if STP_HINT.search(text):
+                d["cat"] = "Spanning-Tree"
+                stats["stp_cat"] += 1
+            elif BFD_HINT.search(text):
+                d["cat"] = "BFD"
+                stats["bfd_cat"] += 1
+            elif LACP_HINT.search(text):
+                d["cat"] = "EtherChannel"
+                stats["lacp_cat"] += 1
 
         # 3) Taxonomy collapse
         if cat == "STP" or d.get("cat") == "STP":

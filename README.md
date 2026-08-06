@@ -14,7 +14,7 @@
 
 
 > A zero-dependency single-file HTML reference for network engineers —
-> **69,000+ CLI commands across 17 vendors & tools** in one searchable,
+> **70,000+ CLI commands across 17 vendors & tools** in one searchable,
 > comparable, shareable, deep-linkable interface.
 
 🟢 **Live demo:** [gesh75.github.io/multivendor-cli-configurator](https://gesh75.github.io/multivendor-cli-configurator/)
@@ -27,7 +27,7 @@
 ## What's here
 
 **[Cheatsheet](https://gesh75.github.io/multivendor-cli-configurator/)** (`index.html`) —
-**69,967 commands** across **17 vendors & tools**, searchable, filterable,
+**70,006 commands** across **17 vendors & tools**, searchable, filterable,
 deep-linkable, with three view modes:
 
 - **Cards** (default) — auto-fit grid grouped by category
@@ -80,7 +80,7 @@ vendors and host/tool surfaces are tagged in the **Type** column.
 | **NVIDIA** | Cumulus Linux 5.x with NVUE (`nv set/show`) | Network | 1,168 |
 | **Nokia** | SR Linux (declarative) **+ SR OS** (`os=sros`, classic CLI) | Network | 1,125 |
 | **SONiC** | OCP / Azure SONiC (Click CLI, `show ip ...`) | Network | 459 |
-| | | **TOTAL (17)** | **69,967** |
+| | | **TOTAL (17)** | **70,006** |
 
 By category (top 10): Interfaces 17,490 · Protocols 10,173 · System 7,815 ·
 Troubleshooting 6,513 · Security 4,369 · VLAN 4,208 · Routing 2,806 ·
@@ -91,7 +91,7 @@ Automation (on-box Python/eAPI/JSON-RPC) · Provisioning (ZTP/PnP/POAP) ·
 Optics (breakout + transceiver DOM) · Hardening (SSH ciphers/CoPP/MACsec) —
 spanning Cisco, Juniper, Arista, Nokia SR Linux, NVIDIA Cumulus, SONiC and more.
 
-By role: router 42,990 · switch 22,827 · firewall 4,150.
+By role: router 43,008 · switch 22,848 · firewall 4,150.
 
 ---
 
@@ -142,7 +142,7 @@ flowchart TB
 
     subgraph SYS["multivendor-cli-configurator"]
       app["index.html - single-file web app"]:::core
-      data["commands.json - 69,967 records"]:::store
+      data["commands.json - 70,006 records"]:::store
       pipe["scripts Python ETL - parse, merge, clean"]:::build
     end
 

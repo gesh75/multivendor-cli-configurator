@@ -426,6 +426,134 @@ r("Cisco", "iosxe", "router", "Provisioning", "PnP / ZTP status",
   "show pnp status\nshow install summary",
   "Check Plug-and-Play / install state for day-0 bring-up.")
 
+# ───────────────────────── NX-OS depth (wave-2) ─────────────────────────
+r("Cisco", "nxos", "switch", "BGP", "NX-OS BGP underlay neighbor",
+  "router bgp 65001\n neighbor 10.0.0.2 remote-as 65001\n  update-source loopback0\n  address-family ipv4 unicast\n   send-community both",
+  "iBGP underlay neighbor with update-source loopback.")
+r("Cisco", "nxos", "switch", "OSPF", "NX-OS OSPF interface network",
+  "feature ospf\nrouter ospf UNDERLAY\ninterface Ethernet1/1\n ip router ospf UNDERLAY area 0.0.0.0",
+  "Enable OSPF and place an interface in area 0.")
+r("Cisco", "nxos", "switch", "ISIS", "NX-OS IS-IS underlay",
+  "feature isis\nrouter isis UNDERLAY\n net 49.0001.0000.0000.0001.00\ninterface Ethernet1/1\n ip router isis UNDERLAY",
+  "Enable IS-IS and advertise an interface into the underlay.")
+r("Cisco", "nxos", "switch", "BFD", "NX-OS BFD for BGP",
+  "feature bfd\nrouter bgp 65001\n neighbor 10.0.0.2\n  bfd",
+  "Enable BFD and attach it to a BGP neighbor.")
+r("Cisco", "nxos", "switch", "ACL", "NX-OS IP access-list",
+  "ip access-list ACL-MGMT\n 10 permit ip 10.0.0.0/24 any\n 20 deny ip any any",
+  "Create a named IPv4 ACL for management filtering.")
+r("Cisco", "nxos", "switch", "Spanning-Tree", "NX-OS spanning-tree mode",
+  "spanning-tree mode rapid-pvst\nspanning-tree vlan 1-100 priority 4096",
+  "Set rapid-PVST and bridge priority for VLANs.")
+r("Cisco", "nxos", "switch", "VLAN", "NX-OS VLAN with vn-segment",
+  "vlan 100\n name WEB\n vn-segment 10100",
+  "Map a VLAN to a VXLAN VNI via vn-segment.")
+r("Cisco", "nxos", "switch", "Interfaces", "NX-OS layer-3 interface",
+  "interface Ethernet1/1\n no switchport\n ip address 10.0.0.1/30\n no shutdown",
+  "Convert a port to routed mode and assign an IPv4 address.")
+r("Cisco", "nxos", "switch", "NTP", "NX-OS NTP server",
+  "ntp server 10.0.0.30 use-vrf management",
+  "Point NX-OS at an NTP server in the management VRF.")
+r("Cisco", "nxos", "switch", "SNMP", "NX-OS SNMPv2 community",
+  "snmp-server community MONITOR group network-operator",
+  "Create a read-only SNMP community.")
+r("Cisco", "nxos", "switch", "Logging", "NX-OS remote syslog",
+  "logging server 10.0.0.20 5 use-vrf management",
+  "Send informational-and-above logs to a remote syslog host.")
+r("Cisco", "nxos", "switch", "Troubleshooting", "NX-OS show VXLAN / NVE",
+  "show nve peers\nshow nve vni\nshow bgp l2vpn evpn summary",
+  "Verify NVE peers, VNIs, and EVPN BGP session health.")
+
+# ───────────────────────── IOS-XE depth (wave-2) ─────────────────────────
+r("Cisco", "iosxe", "router", "BGP", "IOS-XE BGP neighbor",
+  "router bgp 65001\n bgp log-neighbor-changes\n neighbor 10.0.0.2 remote-as 65002\n address-family ipv4\n  neighbor 10.0.0.2 activate",
+  "Configure an EBGP neighbor and activate IPv4.")
+r("Cisco", "iosxe", "router", "OSPF", "IOS-XE OSPF network",
+  "router ospf 1\n network 10.0.0.0 0.0.0.255 area 0\n passive-interface default\n no passive-interface GigabitEthernet0/0",
+  "Enable OSPF area 0 with selective passive interfaces.")
+r("Cisco", "iosxe", "router", "VXLAN", "IOS-XE BGP EVPN NVE",
+  "l2vpn evpn\nbridge-domain 100\nmember vni 10100\ninterface nve1\n source-interface Loopback0\n member vni 10100 ingress-replication",
+  "Basic IOS-XE EVPN/NVE membership for a VNI.")
+r("Cisco", "iosxe", "router", "BFD", "IOS-XE BFD template",
+  "bfd-template single-hop EDGE\n interval min-tx 50 min-rx 50 multiplier 3\ninterface GigabitEthernet0/0\n bfd template EDGE",
+  "Apply a single-hop BFD template to an interface.")
+r("Cisco", "iosxe", "router", "Spanning-Tree", "IOS-XE rapid-PVST",
+  "spanning-tree mode rapid-pvst\nspanning-tree portfast default",
+  "Enable rapid-PVST and default PortFast on access ports.")
+r("Cisco", "iosxe", "router", "EtherChannel", "IOS-XE LACP port-channel",
+  "interface GigabitEthernet0/1\n channel-group 10 mode active\ninterface Port-channel10\n switchport mode trunk",
+  "Bundle a member into LACP port-channel 10.")
+r("Cisco", "iosxe", "router", "NTP", "IOS-XE NTP server",
+  "ntp server 10.0.0.30",
+  "Configure an NTP server on IOS-XE.")
+r("Cisco", "iosxe", "router", "SNMP", "IOS-XE SNMPv2 community",
+  "snmp-server community MONITOR ro",
+  "Create a read-only SNMP community.")
+r("Cisco", "iosxe", "router", "Logging", "IOS-XE remote syslog",
+  "logging host 10.0.0.20\nlogging trap informational",
+  "Send informational traps to a remote syslog host.")
+r("Cisco", "iosxe", "router", "AAA", "IOS-XE RADIUS login",
+  "radius server AAA1\n address ipv4 10.0.0.10 auth-port 1812 acct-port 1813\n key SECRET\naaa authentication login default group radius local",
+  "Define a RADIUS server and prefer it for login.")
+r("Cisco", "iosxe", "router", "Hardening", "IOS-XE control-plane service-policy",
+  "policy-map COPP\n class class-default\n  police 80000 conform-action transmit exceed-action drop\ncontrol-plane\n service-policy input COPP",
+  "Apply a basic CoPP policy to the control plane.")
+r("Cisco", "iosxe", "router", "Troubleshooting", "IOS-XE platform / YANG status",
+  "show platform software yang-management process\nshow netconf-yang status\nshow restconf",
+  "Verify YANG/NETCONF/RESTCONF process health on IOS-XE.")
+
+# ───────────────────────── Extreme essentials ─────────────────────────
+r("Extreme", "exos", "switch", "Spanning-Tree", "Enable EXOS STP",
+  "enable stpd s0\nconfigure stpd s0 mode dot1w\nconfigure stpd s0 priority 4096",
+  "Enable STPD s0 in 802.1w mode with bridge priority.")
+r("Extreme", "exos", "switch", "Spanning-Tree", "Show EXOS STP",
+  "show stpd\nshow stpd s0",
+  "Display STPD state and per-instance detail.")
+r("Extreme", "exos", "switch", "ACL", "Create EXOS policy ACL",
+  "create access-list MGMT_ONLY \"source-address 10.0.0.0/24;\"\nconfigure access-list MGMT_ONLY ports 1:1",
+  "Create a simple source ACL and bind it to a port.")
+r("Extreme", "exos", "switch", "EtherChannel", "Configure EXOS sharing / LAG",
+  "enable sharing 1 grouping 1-2 algorithm address-based L3_L4 lacp",
+  "Create an LACP load-share group on ports 1-2.")
+r("Extreme", "exos", "switch", "BFD", "Enable EXOS BFD",
+  "enable bfd\nconfigure bfd vlan UNDERLAY destinations 10.0.0.2",
+  "Enable BFD and track a VLAN destination.")
+r("Extreme", "exos", "switch", "Security", "EXOS management ACL",
+  "configure snmp access-profile MGMT_ONLY\nconfigure ssh2 access-profile MGMT_ONLY",
+  "Restrict SNMP and SSH with an access profile.")
+r("Extreme", "exos", "switch", "QoS", "EXOS QoS profile",
+  "configure qosprofile qp3 minbw 10 maxbw 50 ports all",
+  "Set min/max bandwidth on a QoS profile.")
+r("Extreme", "exos", "switch", "Multicast", "EXOS IGMP snooping",
+  "enable igmp snooping\nenable igmp snooping vlan DATA",
+  "Enable IGMP snooping globally and on a VLAN.")
+r("Extreme", "exos", "switch", "Hardening", "EXOS failsafe account",
+  "configure account admin max-failed-logins 5\nenable idletimeout",
+  "Limit failed logins and enable idle timeout.")
+r("Extreme", "exos", "switch", "Telemetry", "EXOS sFlow",
+  "enable sflow\nconfigure sflow collector 10.0.0.40 port 6343\nconfigure sflow agent 10.0.0.1",
+  "Enable sFlow toward a collector.")
+
+# ───────────────────────── SR OS extras ─────────────────────────
+r("Nokia", "sros", "router", "ACL", "SR OS filter for management",
+  "configure filter ip-filter 10 create entry 10 match src-ip 10.0.0.0/24 action forward",
+  "Permit management subnet through an IP filter.")
+r("Nokia", "sros", "router", "Spanning-Tree", "SR OS mVPLS STP",
+  "configure service vpls 100 stp mode rstp",
+  "Enable RSTP on a VPLS service.")
+r("Nokia", "sros", "router", "QoS", "SR OS SAP ingress policy",
+  "configure qos sap-ingress 10 create queue 1 create",
+  "Create a basic SAP-ingress QoS policy.")
+r("Nokia", "sros", "router", "NAT", "SR OS NAT inside",
+  "configure service nat nat-policy \"NAT44\" create",
+  "Create a NAT44 policy container on SR OS.")
+r("Nokia", "sros", "router", "Hardening", "SR OS cpm-filter",
+  "configure system security cpm-filter ip-filter entry 10 action drop",
+  "Drop unmatched control-plane traffic via CPM filter.")
+r("Nokia", "sros", "router", "Telemetry", "SR OS gRPC telemetry",
+  "configure system grpc allow-unsecure-connection\nconfigure system telemetry destination-group \"COLLECTOR\"",
+  "Enable gRPC and a telemetry destination group.")
+
 # ───────────────────────── FRR NTP/AAA notes via system ─────────────────────────
 r("FRR", "frr", "router", "NTP", "Host NTP (FRR runs on Linux)",
   "sudo timedatectl set-ntp true\n# or: sudo apt install chrony && sudo systemctl enable --now chrony",
