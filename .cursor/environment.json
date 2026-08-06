@@ -1,0 +1,14 @@
+{
+  "name": "multivendor-cli-configurator",
+  "install": "python3 --version && node --version",
+  "terminals": [
+    {
+      "name": "static-server",
+      "command": "python3 -m http.server 8000",
+      "description": "Serves the static app at http://localhost:8000 — open /index.html for the cheatsheet, /docs/ for the docs, /tests/stress_test.html for the browser test suite."
+    }
+  ],
+  "ports": [
+    { "name": "static-server", "port": 8000 }
+  ]
+}
