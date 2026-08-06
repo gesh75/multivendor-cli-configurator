@@ -1,0 +1,46 @@
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Stage public site only
+        run: |
+          mkdir -p _site
+          # App + corpus
+          cp -a index.html commands.json configurator.html favicon.svg \
+                og-image.png manifest.webmanifest robots.txt sitemap.xml \
+                LICENSE README.md ARCHITECTURE.md .nojekyll _site/
+          # Docs landing + assets
+          cp -a docs _site/docs
+          # Browser stress harness (optional)
+          mkdir -p _site/tests
+          cp -a tests/stress_test.html tests/stress_test.js tests/STRESS_TEST.md \
+                tests/stress_test_results.json _site/tests/
+          # Keep artifact lean — do not publish scripts/*.json sources
+          du -sh _site
+          find _site -type f | wc -l
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4
