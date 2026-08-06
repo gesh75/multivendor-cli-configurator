@@ -170,6 +170,31 @@ def main() -> int:
         if missing:
             report["critical"].append(f"{name} missing vendors: {missing}")
 
+    silent_fb = len(re.findall(r"\|\|AUTO_\w+\.Cisco\)\(v\)", html))
+    hardcoded = bool(
+        re.search(
+            r'\[\s*"Cisco"\s*,\s*"Juniper"\s*,\s*"Arista"\s*\]\.filter\(\s*v\s*=>\s*found\.mapping\.render',
+            html,
+        )
+    )
+    print("\n=== Automate safety ===")
+    print(f"  {'PASS' if silent_fb == 0 else 'FAIL'}  silent Cisco fallbacks: {silent_fb}")
+    print(f"  {'PASS' if not hardcoded else 'FAIL'}  openAutomation not C/J/A-only: {not hardcoded}")
+    if silent_fb:
+        report["critical"].append(f"silent AUTO_*.Cisco fallbacks: {silent_fb}")
+    if hardcoded:
+        report["critical"].append("openAutomation hardcodes Cisco/Juniper/Arista only")
+    if "AUTO_VENDORS" not in html:
+        report["critical"].append("openAutomation missing AUTO_VENDORS")
+        print("  FAIL  AUTO_VENDORS missing")
+    else:
+        print("  PASS  AUTO_VENDORS present")
+    if 'id="btn-clibuilder"' in html and "Builder" in html[html.find('id="btn-clibuilder"') : html.find('id="btn-clibuilder"') + 200]:
+        print("  PASS  Builder navbar label")
+    else:
+        report["critical"].append("Builder navbar label missing")
+        print("  FAIL  Builder navbar label")
+
     print("\n=== Netmiko / Ansible maps ===")
     netmiko = extract_object_keys(html, "NETMIKO_DEV_TYPE")
     os_dev = extract_object_keys(html, "OS_DEV_TYPE")

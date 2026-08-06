@@ -1,40 +1,40 @@
 {
   "T3 vendor filter (29.5K rows)": {
     "target_ms": 50,
-    "actual_ms": 1.07,
+    "actual_ms": 0.92,
     "pass": true
   },
   "T4 vendor+cat+role filter": {
     "target_ms": 50,
-    "actual_ms": 0.72,
+    "actual_ms": 0.69,
     "pass": true
   },
   "T5 free-text search \"bgp neighbor\"": {
     "target_ms": 80,
-    "actual_ms": 16.67,
+    "actual_ms": 17.07,
     "pass": true
   },
   "T6 lookupConcept \u00d7 full corpus": {
     "target_ms": 1800,
-    "actual_ms": 464.55,
+    "actual_ms": 466.62,
     "pass": true
   },
   "T6_concept_hits": 16987,
   "T6b_concept_correctness": "10/10",
   "T10a extractPlaceholders \u00d7 1000": {
     "target_ms": 50,
-    "actual_ms": 1.41,
+    "actual_ms": 1.45,
     "pass": true
   },
   "T10b substitutePlaceholders \u00d7 1000": {
     "target_ms": 50,
-    "actual_ms": 1.17,
+    "actual_ms": 1.09,
     "pass": true
   },
   "T10c_ph_correctness": "4/4",
   "T9 groupQueueByVendor (4 rows)": {
     "target_ms": 5,
-    "actual_ms": 0.01,
+    "actual_ms": 0,
     "pass": true
   },
   "T9_queue_vendors": [
@@ -101,7 +101,7 @@
     "os_dev_ok": "6/6",
     "gap_fails": 0
   },
-  "note": "Refreshed after deep gap dig (70,006 corpus).",
+  "note": "Refreshed after Automate UX/safety fix (70,006 corpus).",
   "os_coverage": {
     "ios": 21428,
     "iosxe": 125,

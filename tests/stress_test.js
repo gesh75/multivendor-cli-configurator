@@ -337,6 +337,26 @@ results['T6b_concept_correctness'] = `${conceptOK}/${conceptCases.length}`;
     }
   }
 
+  // No silent Cisco YANG fallback in AUTO renderers
+  const badFb = (html.match(/\|\|AUTO_\w+\.Cisco\)\(v\)/g) || []).length;
+  if (badFb) {
+    gapFails++;
+    console.log(`   Cisco silent-fallback still present: ${badFb}`);
+  } else {
+    console.log('   No silent AUTO_*.Cisco fallback');
+  }
+
+  // openAutomation must offer more than C/J/A for native mappings
+  if (/\[\s*"Cisco"\s*,\s*"Juniper"\s*,\s*"Arista"\s*\]\.filter\(v => found\.mapping\.render/.test(html)) {
+    gapFails++;
+    console.log('   openAutomation still hardcodes Cisco/Juniper/Arista only');
+  } else if (!html.includes('AUTO_VENDORS')) {
+    gapFails++;
+    console.log('   openAutomation missing AUTO_VENDORS list');
+  } else {
+    console.log('   openAutomation uses AUTO_VENDORS filter');
+  }
+
   // Extreme must have Spanning-Tree after deep dig promotion
   const exStp = DATA.filter(d => d.vendor === 'Extreme' && d.cat === 'Spanning-Tree').length;
   if (exStp < 50) {
@@ -344,6 +364,14 @@ results['T6b_concept_correctness'] = `${conceptOK}/${conceptCases.length}`;
     console.log(`   Extreme Spanning-Tree too thin: ${exStp}`);
   } else {
     console.log(`   Extreme Spanning-Tree: ${exStp}`);
+  }
+
+  // Builder button discoverability
+  if (!/id="btn-clibuilder"[^>]*>[\s\S]*?Builder/.test(html)) {
+    gapFails++;
+    console.log('   Builder navbar label missing');
+  } else {
+    console.log('   Builder navbar label present');
   }
 
   results['deep_gap_dig'] = {
