@@ -27,7 +27,7 @@
 ## What's here
 
 **[Cheatsheet](https://gesh75.github.io/multivendor-cli-configurator/)** (`index.html`) —
-**69,854 commands** across **17 vendors & tools**, searchable, filterable,
+**69,967 commands** across **17 vendors & tools**, searchable, filterable,
 deep-linkable, with three view modes:
 
 - **Cards** (default) — auto-fit grid grouped by category
@@ -63,35 +63,35 @@ vendors and host/tool surfaces are tagged in the **Type** column.
 
 | Vendor / Tool | OS / Surface | Type | Commands |
 |---|---|---|---|
-| **Cisco** | IOS / IOS-XE (full **Master Command List**) · ASA 9.24 · NX-OS | Network | 22,135 |
+| **Cisco** | IOS / IOS-XE (full **Master Command List**) · ASA 9.24 · NX-OS | Network | 22,145 |
 | **Arista** | EOS | Network | 7,397 |
 | **VyOS** | VyOS (full config tree) | Network | 6,289 |
-| **Huawei** | VRP (bracketed prompts, iStack, Eth-Trunk, OSPF/BGP) | Network | 4,407 |
-| **Aruba** | AOS-CX (`1/1/N` interfaces, MSTP/RPVST, VSX) | Network | 4,096 |
-| **FRR** | FRRouting (vtysh) — docs **+ verified live on a 10-node Docker FRR lab** | Network | 3,947 |
+| **Huawei** | VRP (bracketed prompts, iStack, Eth-Trunk, OSPF/BGP) | Network | 4,425 |
+| **Aruba** | AOS-CX (`1/1/N` interfaces, MSTP/RPVST, VSX) | Network | 4,106 |
+| **FRR** | FRRouting (vtysh) — docs **+ verified live on a 10-node Docker FRR lab** | Network | 3,949 |
 | **Microsoft** | Windows PowerShell networking cmdlets | Host OS | 3,352 |
 | **Juniper** | Junos (MX / EX / QFX / SRX) | Network | 3,217 |
-| **Extreme** | EXOS (VLAN-centric, STP, OSPF, SummitStacking, MLAG, ACLs) | Network | 2,782 |
+| **Extreme** | EXOS (VLAN-centric, STP, OSPF, SummitStacking, MLAG, ACLs) | Network | 2,790 |
 | **Linux** | `ip` / `iproute2` / host networking | Host OS | 2,592 |
-| **FortiOS** | Fortinet (`config / set / end` blocks, REST cmdb) | Network | 2,380 |
+| **FortiOS** | Fortinet (`config / set / end` blocks, REST cmdb) | Network | 2,383 |
 | **Wireshark** | `tshark` capture + display filters | Tool | 2,130 |
-| **PAN-OS** | Palo Alto firewalls (`set rulebase security ...`, virtual routers) | Network | 1,220 |
-| **Mikrotik** | RouterOS (`/path` syntax, firewall filters, queues) | Network | 1,210 |
-| **NVIDIA** | Cumulus Linux 5.x with NVUE (`nv set/show`) | Network | 1,153 |
-| **Nokia** | SR Linux (declarative) **+ SR OS** (`os=sros`, classic CLI) | Network | 1,101 |
-| **SONiC** | OCP / Azure SONiC (Click CLI, `show ip ...`) | Network | 446 |
-| | | **TOTAL (17)** | **69,854** |
+| **PAN-OS** | Palo Alto firewalls (`set rulebase security ...`, virtual routers) | Network | 1,224 |
+| **Mikrotik** | RouterOS (`/path` syntax, firewall filters, queues) | Network | 1,216 |
+| **NVIDIA** | Cumulus Linux 5.x with NVUE (`nv set/show`) | Network | 1,168 |
+| **Nokia** | SR Linux (declarative) **+ SR OS** (`os=sros`, classic CLI) | Network | 1,125 |
+| **SONiC** | OCP / Azure SONiC (Click CLI, `show ip ...`) | Network | 459 |
+| | | **TOTAL (17)** | **69,967** |
 
-By category (top 10): Interfaces 17,585 · Protocols 10,246 · System 7,942 ·
-Troubleshooting 6,516 · Security 4,367 · VLAN 4,257 · Routing 2,907 ·
-BGP 2,339 · Misc 2,022 · OSPF 1,602.
+By category (top 10): Interfaces 17,490 · Protocols 10,173 · System 7,815 ·
+Troubleshooting 6,513 · Security 4,369 · VLAN 4,208 · Routing 2,806 ·
+BGP 2,153 · Misc 2,018 · OSPF 1,604. Dedicated **VXLAN** (255) and **EVPN** (498) categories added.
 
 Modern-ops coverage (new): Telemetry (gNMI/gRPC/NETCONF/RESTCONF) ·
 Automation (on-box Python/eAPI/JSON-RPC) · Provisioning (ZTP/PnP/POAP) ·
 Optics (breakout + transceiver DOM) · Hardening (SSH ciphers/CoPP/MACsec) —
 spanning Cisco, Juniper, Arista, Nokia SR Linux, NVIDIA Cumulus, SONiC and more.
 
-By role: router 43,055 · switch 22,656 · firewall 4,143.
+By role: router 42,990 · switch 22,827 · firewall 4,150.
 
 ---
 
@@ -118,6 +118,12 @@ reproducible. Two maintenance utilities keep the corpus clean:
   leaked into the `title`/`cmd` fields, and can quarantine unrecoverable ones.
 - `scripts/clean_titles.py` — derives clean command labels from the `cmd` field
   for any record whose title is prose. Idempotent; writes `.titlebak` backups.
+- `scripts/fix_coverage_gaps.py` — retags NX-OS/IOS-XE, promotes VXLAN/EVPN cats,
+  collapses STP/VRRP aliases, unescapes placeholders, shortens over-long titles.
+- `scripts/expand_thin_vendors.py` — curated fills for SONiC, NVIDIA, Huawei,
+  Nokia SR OS, Aruba/Extreme/Mikrotik essentials, and NX-OS/IOS-XE samples.
+- `scripts/patch_yang_stack_vendors.py` — extends Automate YANG templates to
+  FRR · VyOS · Nokia · Aruba (MY_STACK) and OS-aware Netmiko/Ansible routing.
 
 ---
 
@@ -136,7 +142,7 @@ flowchart TB
 
     subgraph SYS["multivendor-cli-configurator"]
       app["index.html - single-file web app"]:::core
-      data["commands.json - 69,854 records"]:::store
+      data["commands.json - 69,967 records"]:::store
       pipe["scripts Python ETL - parse, merge, clean"]:::build
     end
 
