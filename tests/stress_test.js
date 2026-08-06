@@ -250,6 +250,140 @@ results['T6b_concept_correctness'] = `${conceptOK}/${conceptCases.length}`;
   if (frr.length === 0 || live.length === 0) failures++;
 }
 
+// --- Deep gap dig (OS floors, overlay cats, Automate / Netmiko maps) ---------
+{
+  const osCount = {};
+  const catCount = {};
+  for (const d of DATA) {
+    osCount[d.os] = (osCount[d.os] || 0) + 1;
+    catCount[d.cat] = (catCount[d.cat] || 0) + 1;
+  }
+  const osFloors = { nxos: 200, iosxe: 120, sros: 70, sonic: 450 };
+  const catFloors = { VXLAN: 250, EVPN: 490, 'Spanning-Tree': 400, EtherChannel: 250, BFD: 100 };
+  let gapFails = 0;
+  for (const [os, floor] of Object.entries(osFloors)) {
+    const n = osCount[os] || 0;
+    const pass = n >= floor;
+    if (!pass) { gapFails++; console.log(`   OS FLOOR MISS: ${os}=${n} < ${floor}`); }
+    else console.log(`   OS floor ${os}: ${n} ≥ ${floor}`);
+  }
+  for (const [cat, floor] of Object.entries(catFloors)) {
+    const n = catCount[cat] || 0;
+    const pass = n >= floor;
+    if (!pass) { gapFails++; console.log(`   CAT FLOOR MISS: ${cat}=${n} < ${floor}`); }
+    else console.log(`   Cat floor ${cat}: ${n} ≥ ${floor}`);
+  }
+
+  // Extract OS_DEV_TYPE + ANSIBLE_MOD for coverage assertions
+  const osDevCode = sliceLines(/^const OS_DEV_TYPE = \{/, /^\};$/);
+  const ansibleCode = sliceLines(/^const ANSIBLE_MOD = \{/, /^\};$/);
+  const autoGapSandbox = {};
+  vm.runInContext(
+    osDevCode + '\n' + ansibleCode + '\nthis.OS_DEV_TYPE=OS_DEV_TYPE;this.ANSIBLE_MOD=ANSIBLE_MOD;',
+    vm.createContext(autoGapSandbox)
+  );
+  const { OS_DEV_TYPE, ANSIBLE_MOD } = autoGapSandbox;
+  const missingOs = Object.keys(osCount).filter(o => !OS_DEV_TYPE[o]);
+  if (missingOs.length) {
+    gapFails++;
+    console.log(`   OS_DEV_TYPE MISS: ${missingOs.join(',')}`);
+  } else {
+    console.log(`   OS_DEV_TYPE covers all ${Object.keys(osCount).length} OS labels`);
+  }
+  const vendors = [...new Set(DATA.map(d => d.vendor))];
+  const missingAns = vendors.filter(v => !ANSIBLE_MOD[v]);
+  if (missingAns.length) {
+    gapFails++;
+    console.log(`   ANSIBLE_MOD MISS: ${missingAns.join(',')}`);
+  } else {
+    console.log(`   ANSIBLE_MOD covers all ${vendors.length} vendors`);
+  }
+
+  // OS-aware Netmiko device types (critical gap from prior handoff)
+  function devTypeFor(q) {
+    return OS_DEV_TYPE[q.os] || NETMIKO_DEV_TYPE[q.vendor] || 'terminal_server';
+  }
+  const osDevCases = [
+    { os: 'nxos', vendor: 'Cisco', want: 'cisco_nxos' },
+    { os: 'iosxe', vendor: 'Cisco', want: 'cisco_xe' },
+    { os: 'asa', vendor: 'Cisco', want: 'cisco_asa' },
+    { os: 'sros', vendor: 'Nokia', want: 'nokia_sros' },
+    { os: 'srlinux', vendor: 'Nokia', want: 'nokia_srl' },
+    { os: 'ios', vendor: 'Cisco', want: 'cisco_ios' },
+  ];
+  let osDevOk = 0;
+  for (const c of osDevCases) {
+    const got = devTypeFor(c);
+    if (got === c.want) osDevOk++;
+    else { gapFails++; console.log(`   DEVTYPE MISS: ${c.os} → ${got} (wanted ${c.want})`); }
+  }
+  console.log(`OS-aware device_type: ${osDevOk}/${osDevCases.length}`);
+
+  // Automate maps must include Huawei/NVIDIA/SONiC/Extreme/Mikrotik (no Cisco fallback)
+  const moreVendors = ['Huawei', 'NVIDIA', 'SONiC', 'Extreme', 'Mikrotik', 'FRR', 'VyOS', 'Nokia', 'Aruba'];
+  const autoMaps = ['AUTO_IFACE_IPV4', 'AUTO_BGP', 'AUTO_OSPF', 'AUTO_VLAN', 'AUTO_HOSTNAME'];
+  for (const name of autoMaps) {
+    const start = html.indexOf(`const ${name} = {`);
+    if (start < 0) { gapFails++; console.log(`   AUTO MAP MISS: ${name}`); continue; }
+    const chunk = html.slice(start, start + 14000);
+    const end = chunk.indexOf('\n};');
+    const body = end > 0 ? chunk.slice(0, end) : chunk;
+    const missing = moreVendors.filter(v => !new RegExp(`(?:^|\\n)\\s*${v}\\s*:`).test(body));
+    if (missing.length) {
+      gapFails++;
+      console.log(`   ${name} vendor gaps: ${missing.join(',')}`);
+    } else {
+      console.log(`   ${name}: stack+more vendors present`);
+    }
+  }
+
+  // No silent Cisco YANG fallback in AUTO renderers
+  const badFb = (html.match(/\|\|AUTO_\w+\.Cisco\)\(v\)/g) || []).length;
+  if (badFb) {
+    gapFails++;
+    console.log(`   Cisco silent-fallback still present: ${badFb}`);
+  } else {
+    console.log('   No silent AUTO_*.Cisco fallback');
+  }
+
+  // openAutomation must offer more than C/J/A for native mappings
+  if (/\[\s*"Cisco"\s*,\s*"Juniper"\s*,\s*"Arista"\s*\]\.filter\(v => found\.mapping\.render/.test(html)) {
+    gapFails++;
+    console.log('   openAutomation still hardcodes Cisco/Juniper/Arista only');
+  } else if (!html.includes('AUTO_VENDORS')) {
+    gapFails++;
+    console.log('   openAutomation missing AUTO_VENDORS list');
+  } else {
+    console.log('   openAutomation uses AUTO_VENDORS filter');
+  }
+
+  // Extreme must have Spanning-Tree after deep dig promotion
+  const exStp = DATA.filter(d => d.vendor === 'Extreme' && d.cat === 'Spanning-Tree').length;
+  if (exStp < 50) {
+    gapFails++;
+    console.log(`   Extreme Spanning-Tree too thin: ${exStp}`);
+  } else {
+    console.log(`   Extreme Spanning-Tree: ${exStp}`);
+  }
+
+  // Builder button discoverability
+  if (!/id="btn-clibuilder"[^>]*>[\s\S]*?Builder/.test(html)) {
+    gapFails++;
+    console.log('   Builder navbar label missing');
+  } else {
+    console.log('   Builder navbar label present');
+  }
+
+  results['deep_gap_dig'] = {
+    os: osCount,
+    cats: Object.fromEntries(Object.keys(catFloors).map(k => [k, catCount[k] || 0])),
+    os_dev_ok: `${osDevOk}/${osDevCases.length}`,
+    gap_fails: gapFails,
+  };
+  console.log(`Deep gap dig failures: ${gapFails}`);
+  if (gapFails) failures += gapFails;
+}
+
 // --- Write results ---------------------------------------------------------
 fs.writeFileSync(
   path.join(__dirname, 'stress_test_results.json'),

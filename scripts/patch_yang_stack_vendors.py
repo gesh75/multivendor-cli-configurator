@@ -493,7 +493,7 @@ def patch_cat_groups(text: str) -> str:
 
 
 def patch_safe_render(text: str) -> str:
-    """Guard AUTO_*[vendor](v) when vendor missing — fallback Cisco."""
+    """Prefer explicit vendor templates; never silently fall back to Cisco YANG."""
     text2 = text
     for name in [
         "AUTO_IFACE_IPV4",
@@ -512,9 +512,12 @@ def patch_safe_render(text: str) -> str:
         "AUTO_RADIUS",
         "AUTO_PORTCHANNEL",
     ]:
-        old = f"(vendor, v) => {name}[vendor](v)"
-        new = f"(vendor, v) => ({name}[vendor]||{name}.Cisco)(v)"
-        text2 = text2.replace(old, new)
+        cisco_fb = f"(vendor, v) => ({name}[vendor]||{name}.Cisco)(v)"
+        bare = f"(vendor, v) => {name}[vendor](v)"
+        null_safe = f"(vendor, v) => {name}[vendor] ? {name}[vendor](v) : null"
+        text2 = text2.replace(cisco_fb, null_safe)
+        if null_safe not in text2:
+            text2 = text2.replace(bare, null_safe)
     return text2
 
 

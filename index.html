@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Multivendor CLI Reference — 17 vendors, 70K+ commands</title>
-<meta name="description" content="69,000+ CLI commands across 17 network vendors & tools — Cisco · Juniper · Arista · FRR · VyOS · SONiC · NVIDIA · Palo Alto PAN-OS · Nokia · Fortinet FortiOS · Mikrotik · Extreme · Aruba · Huawei · plus Microsoft, Linux & Wireshark. Searchable, comparable, exportable." />
+<meta name="description" content="70,000+ CLI commands across 17 network vendors & tools — Cisco · Juniper · Arista · FRR · VyOS · SONiC · NVIDIA · Palo Alto PAN-OS · Nokia · Fortinet FortiOS · Mikrotik · Extreme · Aruba · Huawei · plus Microsoft, Linux & Wireshark. Searchable, comparable, exportable." />
 
 <!-- Discoverability. Asset paths are RELATIVE so they resolve correctly under
      the GitHub Pages project subpath (/multivendor-cli-configurator/). -->
@@ -616,7 +616,7 @@ a.skip-link:focus-visible{outline-offset:-2px}
     <button class="tbtn" id="btn-side" title="Collapse/expand sidebar (S)">☰</button>
     <button class="tbtn" id="btn-theme" title="Toggle light/dark mode"><span id="theme-icon">🌙</span></button>
     <button class="tbtn" id="btn-help" title="Keyboard shortcuts">?</button>
-    <button class="tbtn" id="btn-clibuilder" title="Open CLI Builder (b)">⌘ <span class="lbl">CLI</span> <span class="badge" id="cli-badge" style="display:none">0</span></button>
+    <button class="tbtn" id="btn-clibuilder" title="Open CLI Builder — queue commands with + CLI on any card, then compile Netmiko/Ansible (b)">⌘ <span class="lbl">Builder</span> <span class="badge" id="cli-badge" style="display:none">0</span></button>
     <button class="tbtn" id="btn-share" title="Copy a shareable URL that restores your current filters, view, search, and CLI Builder queue">🔗 <span class="lbl">Share</span></button>
     <button class="tbtn" id="btn-parser" title="Parse raw 'show' output into a structured table">📊 <span class="lbl">Parse Output</span></button>
     <div class="export-wrap" style="position:relative;display:inline-block">
@@ -636,7 +636,7 @@ a.skip-link:focus-visible{outline-offset:-2px}
     <span>·</span><span><b id="stat-vendors">3</b> vendors</span>
     <span>·</span><span><b id="stat-cats">25</b> categories</span>
     <span>·</span><span style="color:var(--accent)">Showing <b id="stat-shown">…</b></span>
-    <span style="margin-left:auto;color:var(--ink-muted)">Use <span class="kbd">/</span> search · <span class="kbd">c</span> compare · <span class="kbd">t</span> table · <span class="kbd">b</span> builder · <span class="kbd">?</span> help</span>
+    <span style="margin-left:auto;color:var(--ink-muted)">Use <span class="kbd">/</span> search · <span class="kbd">b</span> builder · card <span class="kbd">Automate</span> · <span class="kbd">?</span> help</span>
   </div>
 </header>
 
@@ -774,9 +774,15 @@ a.skip-link:focus-visible{outline-offset:-2px}
     <tr><td>c</td><td>Compare view</td></tr>
     <tr><td>t</td><td>Table view</td></tr>
     <tr><td>g</td><td>Cards (grid) view</td></tr>
-    <tr><td>b</td><td>Toggle CLI Builder</td></tr>
+    <tr><td>b</td><td>Toggle CLI Builder (navbar <b>Builder</b>)</td></tr>
     <tr><td>f</td><td>Toggle Favorites filter</td></tr>
     <tr><td>Esc</td><td>Clear search / close drawers</td></tr>
+  </table>
+  <h4 style="margin-top:12px">Automation</h4>
+  <table>
+    <tr><td>⚡ Automate</td><td>On any card — YANG/CLI templates for the matched pattern</td></tr>
+    <tr><td>+ CLI</td><td>Add the command to the Builder queue</td></tr>
+    <tr><td>Builder</td><td>Compile queued commands to Netmiko / Ansible / Bash</td></tr>
   </table>
   <h4 style="margin-top:12px">Search operators</h4>
   <table>
@@ -846,7 +852,7 @@ const AUTOMATION_MAPPINGS = [
       if(m) return {ifname:m[1], ip:m[2], mask:cidrToMask(m[3]), cidr:m[3]};
       return null;
     },
-    render: (vendor, v) => (AUTO_IFACE_IPV4[vendor]||AUTO_IFACE_IPV4.Cisco)(v),
+    render: (vendor, v) => AUTO_IFACE_IPV4[vendor] ? AUTO_IFACE_IPV4[vendor](v) : null,
   },
   {
     id: "static-route",
@@ -865,7 +871,7 @@ const AUTOMATION_MAPPINGS = [
       if(m) return {prefix:m[1], cidr:m[2], mask:cidrToMask(m[2]), nh:m[3]};
       return null;
     },
-    render: (vendor, v) => (AUTO_STATIC[vendor]||AUTO_STATIC.Cisco)(v),
+    render: (vendor, v) => AUTO_STATIC[vendor] ? AUTO_STATIC[vendor](v) : null,
   },
   {
     id: "ospf-network",
@@ -884,7 +890,7 @@ const AUTOMATION_MAPPINGS = [
       if(m) return {pid:"1", area:m[1], ifname:m[2], net:"10.0.0.0", wild:"0.0.0.255"};
       return null;
     },
-    render: (vendor, v) => (AUTO_OSPF[vendor]||AUTO_OSPF.Cisco)(v),
+    render: (vendor, v) => AUTO_OSPF[vendor] ? AUTO_OSPF[vendor](v) : null,
   },
   {
     id: "bgp-neighbor",
@@ -903,7 +909,7 @@ const AUTOMATION_MAPPINGS = [
       if(m) return {local_as:"65001", peer:m[1], remote_as:m[2]};
       return null;
     },
-    render: (vendor, v) => (AUTO_BGP[vendor]||AUTO_BGP.Cisco)(v),
+    render: (vendor, v) => AUTO_BGP[vendor] ? AUTO_BGP[vendor](v) : null,
   },
   {
     id: "vlan",
@@ -922,7 +928,7 @@ const AUTOMATION_MAPPINGS = [
       if(m) return {id:m[2], name:m[1]};
       return null;
     },
-    render: (vendor, v) => (AUTO_VLAN[vendor]||AUTO_VLAN.Cisco)(v),
+    render: (vendor, v) => AUTO_VLAN[vendor] ? AUTO_VLAN[vendor](v) : null,
   },
   {
     id: "switchport-access",
@@ -938,7 +944,7 @@ const AUTOMATION_MAPPINGS = [
       if(m) return {ifname:m[1], vlan:m[2].replace(/^vlan/,"")};
       return null;
     },
-    render: (vendor, v) => (AUTO_SWITCHPORT[vendor]||AUTO_SWITCHPORT.Cisco)(v),
+    render: (vendor, v) => AUTO_SWITCHPORT[vendor] ? AUTO_SWITCHPORT[vendor](v) : null,
   },
   {
     id: "ntp-server",
@@ -951,7 +957,7 @@ const AUTOMATION_MAPPINGS = [
       const m = cmd.match(/^(?:set system\s+)?ntp server\s+(\d+\.\d+\.\d+\.\d+)/im);
       return m ? {server:m[1]} : null;
     },
-    render: (vendor, v) => (AUTO_NTP[vendor]||AUTO_NTP.Cisco)(v),
+    render: (vendor, v) => AUTO_NTP[vendor] ? AUTO_NTP[vendor](v) : null,
   },
   {
     id: "syslog-host",
@@ -966,7 +972,7 @@ const AUTOMATION_MAPPINGS = [
                 cmd.match(/^set system syslog host\s+(\d+\.\d+\.\d+\.\d+)/im);
       return m ? {host:m[1]} : null;
     },
-    render: (vendor, v) => (AUTO_SYSLOG[vendor]||AUTO_SYSLOG.Cisco)(v),
+    render: (vendor, v) => AUTO_SYSLOG[vendor] ? AUTO_SYSLOG[vendor](v) : null,
   },
   {
     id: "hostname",
@@ -985,7 +991,7 @@ const AUTOMATION_MAPPINGS = [
              || cmd.match(/^nv set system hostname\s+(\S+)/im);
       return m ? {hostname:m[1]} : null;
     },
-    render: (vendor, v) => (AUTO_HOSTNAME[vendor]||AUTO_HOSTNAME.Cisco)(v),
+    render: (vendor, v) => AUTO_HOSTNAME[vendor] ? AUTO_HOSTNAME[vendor](v) : null,
   },
   {
     id: "interface-desc",
@@ -1001,7 +1007,7 @@ const AUTOMATION_MAPPINGS = [
       if(m) return {ifname:m[1], desc:m[2]};
       return null;
     },
-    render: (vendor, v) => (AUTO_IFDESC[vendor]||AUTO_IFDESC.Cisco)(v),
+    render: (vendor, v) => AUTO_IFDESC[vendor] ? AUTO_IFDESC[vendor](v) : null,
   },
   {
     id: "loopback",
@@ -1020,7 +1026,7 @@ const AUTOMATION_MAPPINGS = [
       if(m) return {name:"Loopback"+m[2], unit:m[2], ip:m[3], mask:cidrToMask(m[4]), cidr:m[4]};
       return null;
     },
-    render: (vendor, v) => (AUTO_LOOPBACK[vendor]||AUTO_LOOPBACK.Cisco)(v),
+    render: (vendor, v) => AUTO_LOOPBACK[vendor] ? AUTO_LOOPBACK[vendor](v) : null,
   },
   {
     id: "default-route",
@@ -1036,7 +1042,7 @@ const AUTOMATION_MAPPINGS = [
       m = cmd.match(/^set routing-options static route\s+0\.0\.0\.0\/0\s+next-hop\s+(\S+)/im); if(m) return {nh:m[1]};
       return null;
     },
-    render: (vendor, v) => (AUTO_DEFAULTRT[vendor]||AUTO_DEFAULTRT.Cisco)(v),
+    render: (vendor, v) => AUTO_DEFAULTRT[vendor] ? AUTO_DEFAULTRT[vendor](v) : null,
   },
   {
     id: "trunk-port",
@@ -1053,7 +1059,7 @@ const AUTOMATION_MAPPINGS = [
       if(m) return {ifname:m[1], vlans: m[2].split(/\s+/).map(x => x.replace(/^vlan/,"")).filter(Boolean).join(",")};
       return null;
     },
-    render: (vendor, v) => (AUTO_TRUNK[vendor]||AUTO_TRUNK.Cisco)(v),
+    render: (vendor, v) => AUTO_TRUNK[vendor] ? AUTO_TRUNK[vendor](v) : null,
   },
   {
     id: "aaa-radius",
@@ -1069,7 +1075,7 @@ const AUTOMATION_MAPPINGS = [
       if(m) return {host:m[1], key:m[2]||"SECRET"};
       return null;
     },
-    render: (vendor, v) => (AUTO_RADIUS[vendor]||AUTO_RADIUS.Cisco)(v),
+    render: (vendor, v) => AUTO_RADIUS[vendor] ? AUTO_RADIUS[vendor](v) : null,
   },
   {
     id: "portchannel",
@@ -1085,7 +1091,7 @@ const AUTOMATION_MAPPINGS = [
       if(m) return {ifname:m[1], pcid:m[2].replace(/^ae/,""), mode:"active"};
       return null;
     },
-    render: (vendor, v) => (AUTO_PORTCHANNEL[vendor]||AUTO_PORTCHANNEL.Cisco)(v),
+    render: (vendor, v) => AUTO_PORTCHANNEL[vendor] ? AUTO_PORTCHANNEL[vendor](v) : null,
   },
 ];
 
@@ -1497,9 +1503,290 @@ function stackGenericCli(vendor, lines, ansible){
   return _withDev(_autoCliBundle(vendor+" config", lines, ansible), map[vendor]||"linux");
 }
 
+
+/* MORE_VENDOR_AUTO_EXT — Huawei/NVIDIA/SONiC/Extreme/Mikrotik */
+function moreIfaceIpv4(vendor, v){
+  if(vendor==="Huawei") return _withDev(_autoCliBundle("Huawei VRP interface IPv4",
+    [`system-view`,`interface ${v.ifname}`,`ip address ${v.ip} ${v.mask}`,`quit`],
+    `- name: VRP IPv4 ${v.ifname}
+  community.network.ce_config:
+    lines:
+      - interface ${v.ifname}
+      - ip address ${v.ip} ${v.mask}`), "huawei");
+  if(vendor==="NVIDIA") return _withDev(_autoCliBundle("NVIDIA NVUE interface IPv4",
+    [`nv set interface ${v.ifname} ip address ${v.ip}/${v.cidr}`,`nv config apply`],
+    `- name: NVUE IPv4 ${v.ifname}
+  nvidia.nvue.command:
+    commands:
+      - nv set interface ${v.ifname} ip address ${v.ip}/${v.cidr}
+      - nv config apply`), "linux");
+  if(vendor==="SONiC") return _withDev(_autoCliBundle("SONiC interface IPv4",
+    [`sudo config interface ip add ${v.ifname} ${v.ip}/${v.cidr}`],
+    `- name: SONiC IPv4 ${v.ifname}
+  ansible.builtin.shell: sudo config interface ip add ${v.ifname} ${v.ip}/${v.cidr}`), "linux");
+  if(vendor==="Extreme") return _withDev(_autoCliBundle("Extreme EXOS interface IPv4",
+    [`configure vlan ${v.ifname} ipaddress ${v.ip} ${v.mask}`],
+    `- name: EXOS IPv4
+  community.network.exos_config:
+    lines:
+      - configure vlan ${v.ifname} ipaddress ${v.ip} ${v.mask}`), "extreme_exos");
+  if(vendor==="Mikrotik") return _withDev(_autoCliBundle("RouterOS interface IPv4",
+    [`/ip address add address=${v.ip}/${v.cidr} interface=${v.ifname}`],
+    `- name: RouterOS IPv4
+  community.routeros.command:
+    commands:
+      - /ip address add address=${v.ip}/${v.cidr} interface=${v.ifname}`), "mikrotik_routeros");
+  return null;
+}
+function moreStatic(vendor, v){
+  if(vendor==="Huawei") return _withDev(_autoCliBundle("Huawei static route",
+    [`system-view`,`ip route-static ${v.prefix} ${v.mask} ${v.nh}`],
+    `- name: VRP static
+  community.network.ce_config:
+    lines:
+      - ip route-static ${v.prefix} ${v.mask} ${v.nh}`), "huawei");
+  if(vendor==="NVIDIA") return _withDev(_autoCliBundle("NVUE static route",
+    [`nv set vrf default router static ${v.prefix}/${v.cidr} via ${v.nh}`,`nv config apply`],
+    `- name: NVUE static
+  nvidia.nvue.command:
+    commands:
+      - nv set vrf default router static ${v.prefix}/${v.cidr} via ${v.nh}
+      - nv config apply`), "linux");
+  if(vendor==="SONiC") return _withDev(_autoCliBundle("SONiC static route",
+    [`sudo config route add prefix ${v.prefix}/${v.cidr} nexthop ${v.nh}`],
+    `- name: SONiC static
+  ansible.builtin.shell: sudo config route add prefix ${v.prefix}/${v.cidr} nexthop ${v.nh}`), "linux");
+  if(vendor==="Extreme") return _withDev(_autoCliBundle("EXOS static route",
+    [`configure iproute add ${v.prefix} ${v.mask} ${v.nh}`],
+    `- name: EXOS static
+  community.network.exos_config:
+    lines:
+      - configure iproute add ${v.prefix} ${v.mask} ${v.nh}`), "extreme_exos");
+  if(vendor==="Mikrotik") return _withDev(_autoCliBundle("RouterOS static route",
+    [`/ip route add dst-address=${v.prefix}/${v.cidr} gateway=${v.nh}`],
+    `- name: RouterOS static
+  community.routeros.command:
+    commands:
+      - /ip route add dst-address=${v.prefix}/${v.cidr} gateway=${v.nh}`), "mikrotik_routeros");
+  return null;
+}
+function moreOspf(vendor, v){
+  const area = v.area || "0.0.0.0";
+  if(vendor==="Huawei") return _withDev(_autoCliBundle("Huawei OSPF",
+    [`system-view`,`ospf 1`,`area ${area}`,`network ${v.net || "10.0.0.0"} ${v.wildcard || "0.0.0.255"}`],
+    `- name: VRP OSPF
+  community.network.ce_config:
+    lines:
+      - ospf 1
+      - area ${area}
+      - network ${v.net || "10.0.0.0"} ${v.wildcard || "0.0.0.255"}`), "huawei");
+  if(vendor==="NVIDIA") return _withDev(_autoCliBundle("NVUE OSPF",
+    [`nv set vrf default router ospf area ${area}`,`nv config apply`],
+    `- name: NVUE OSPF
+  nvidia.nvue.command:
+    commands:
+      - nv set vrf default router ospf area ${area}
+      - nv config apply`), "linux");
+  if(vendor==="SONiC") return _withDev(_autoCliBundle("SONiC OSPF via FRR vtysh",
+    [`sudo vtysh -c 'configure terminal' -c 'router ospf' -c 'network ${v.net || "10.0.0.0"}/24 area ${area}' -c 'end' -c 'write'`],
+    `- name: SONiC OSPF
+  ansible.builtin.shell: sudo vtysh -c 'configure terminal' -c 'router ospf' -c 'network ${v.net || "10.0.0.0"}/24 area ${area}' -c 'end' -c 'write'`), "linux");
+  if(vendor==="Extreme") return _withDev(_autoCliBundle("EXOS OSPF",
+    [`enable ospf`,`configure ospf add vlan ${v.ifname || "UNDERLAY"} area ${area}`],
+    `- name: EXOS OSPF
+  community.network.exos_config:
+    lines:
+      - enable ospf
+      - configure ospf add vlan ${v.ifname || "UNDERLAY"} area ${area}`), "extreme_exos");
+  if(vendor==="Mikrotik") return _withDev(_autoCliBundle("RouterOS OSPF",
+    [`/routing ospf instance add name=def redistribute=connected`,`/routing ospf interface-template add interfaces=${v.ifname} area=backbone`],
+    `- name: RouterOS OSPF
+  community.routeros.command:
+    commands:
+      - /routing ospf instance add name=def redistribute=connected`), "mikrotik_routeros");
+  return null;
+}
+function moreBgp(vendor, v){
+  if(vendor==="Huawei") return _withDev(_autoCliBundle("Huawei BGP neighbor",
+    [`system-view`,`bgp ${v.local_as}`,`peer ${v.peer} as-number ${v.remote_as}`],
+    `- name: VRP BGP
+  community.network.ce_config:
+    lines:
+      - bgp ${v.local_as}
+      - peer ${v.peer} as-number ${v.remote_as}`), "huawei");
+  if(vendor==="NVIDIA") return _withDev(_autoCliBundle("NVUE BGP neighbor",
+    [`nv set vrf default router bgp autonomous-system ${v.local_as}`,`nv set vrf default router bgp neighbor ${v.peer} remote-as ${v.remote_as}`,`nv config apply`],
+    `- name: NVUE BGP
+  nvidia.nvue.command:
+    commands:
+      - nv set vrf default router bgp autonomous-system ${v.local_as}
+      - nv set vrf default router bgp neighbor ${v.peer} remote-as ${v.remote_as}
+      - nv config apply`), "linux");
+  if(vendor==="SONiC") return _withDev(_autoCliBundle("SONiC BGP neighbor",
+    [`sudo config bgp autonomous-system ${v.local_as}`,`sudo config bgp neighbor add ${v.peer} remote-as ${v.remote_as}`],
+    `- name: SONiC BGP
+  ansible.builtin.shell: |
+    sudo config bgp autonomous-system ${v.local_as}
+    sudo config bgp neighbor add ${v.peer} remote-as ${v.remote_as}`), "linux");
+  if(vendor==="Extreme") return _withDev(_autoCliBundle("EXOS BGP neighbor",
+    [`enable bgp`,`configure bgp as-number ${v.local_as}`,`configure bgp add neighbor ${v.peer} remote-as ${v.remote_as}`],
+    `- name: EXOS BGP
+  community.network.exos_config:
+    lines:
+      - enable bgp
+      - configure bgp as-number ${v.local_as}
+      - configure bgp add neighbor ${v.peer} remote-as ${v.remote_as}`), "extreme_exos");
+  if(vendor==="Mikrotik") return _withDev(_autoCliBundle("RouterOS BGP neighbor",
+    [`/routing bgp connection add name=to-peer remote.address=${v.peer} remote.as=${v.remote_as} local.role=ebgp`],
+    `- name: RouterOS BGP
+  community.routeros.command:
+    commands:
+      - /routing bgp connection add name=to-peer remote.address=${v.peer} remote.as=${v.remote_as} local.role=ebgp`), "mikrotik_routeros");
+  return null;
+}
+function moreVlan(vendor, v){
+  if(vendor==="Huawei") return _withDev(_autoCliBundle("Huawei VLAN",
+    [`system-view`,`vlan ${v.id}`,`name ${v.name}`],
+    `- name: VRP VLAN
+  community.network.ce_config:
+    lines:
+      - vlan ${v.id}
+      - name ${v.name}`), "huawei");
+  if(vendor==="NVIDIA") return _withDev(_autoCliBundle("NVUE VLAN",
+    [`nv set bridge domain br_default vlan ${v.id}`,`nv config apply`],
+    `- name: NVUE VLAN
+  nvidia.nvue.command:
+    commands:
+      - nv set bridge domain br_default vlan ${v.id}
+      - nv config apply`), "linux");
+  if(vendor==="SONiC") return _withDev(_autoCliBundle("SONiC VLAN",
+    [`sudo config vlan add ${v.id}`],
+    `- name: SONiC VLAN
+  ansible.builtin.shell: sudo config vlan add ${v.id}`), "linux");
+  if(vendor==="Extreme") return _withDev(_autoCliBundle("EXOS VLAN",
+    [`create vlan ${v.name} tag ${v.id}`],
+    `- name: EXOS VLAN
+  community.network.exos_config:
+    lines:
+      - create vlan ${v.name} tag ${v.id}`), "extreme_exos");
+  if(vendor==="Mikrotik") return _withDev(_autoCliBundle("RouterOS VLAN",
+    [`/interface vlan add name=${v.name} vlan-id=${v.id} interface=bridge1`],
+    `- name: RouterOS VLAN
+  community.routeros.command:
+    commands:
+      - /interface vlan add name=${v.name} vlan-id=${v.id} interface=bridge1`), "mikrotik_routeros");
+  return null;
+}
+function moreHostname(vendor, v){
+  if(vendor==="Huawei") return _withDev(_autoCliBundle("Huawei sysname",
+    [`system-view`,`sysname ${v.hostname}`],
+    `- name: VRP sysname
+  community.network.ce_config:
+    lines:
+      - sysname ${v.hostname}`), "huawei");
+  if(vendor==="NVIDIA") return _withDev(_autoCliBundle("NVUE hostname",
+    [`nv set system hostname ${v.hostname}`,`nv config apply`],
+    `- name: NVUE hostname
+  nvidia.nvue.command:
+    commands:
+      - nv set system hostname ${v.hostname}
+      - nv config apply`), "linux");
+  if(vendor==="SONiC") return _withDev(_autoCliBundle("SONiC hostname",
+    [`sudo config hostname ${v.hostname}`],
+    `- name: SONiC hostname
+  ansible.builtin.shell: sudo config hostname ${v.hostname}`), "linux");
+  if(vendor==="Extreme") return _withDev(_autoCliBundle("EXOS hostname",
+    [`configure snmp sysName ${v.hostname}`],
+    `- name: EXOS hostname
+  community.network.exos_config:
+    lines:
+      - configure snmp sysName ${v.hostname}`), "extreme_exos");
+  if(vendor==="Mikrotik") return _withDev(_autoCliBundle("RouterOS identity",
+    [`/system identity set name=${v.hostname}`],
+    `- name: RouterOS identity
+  community.routeros.command:
+    commands:
+      - /system identity set name=${v.hostname}`), "mikrotik_routeros");
+  return null;
+}
+function moreNtp(vendor, v){
+  if(vendor==="Huawei") return _withDev(_autoCliBundle("Huawei NTP",
+    [`system-view`,`ntp-service unicast-server ${v.server}`],
+    `- name: VRP NTP
+  community.network.ce_config:
+    lines:
+      - ntp-service unicast-server ${v.server}`), "huawei");
+  if(vendor==="NVIDIA") return _withDev(_autoCliBundle("NVUE NTP",
+    [`nv set system ntp server ${v.server}`,`nv config apply`],
+    `- name: NVUE NTP
+  nvidia.nvue.command:
+    commands:
+      - nv set system ntp server ${v.server}
+      - nv config apply`), "linux");
+  if(vendor==="SONiC") return _withDev(_autoCliBundle("SONiC NTP",
+    [`sudo config ntp add ${v.server}`],
+    `- name: SONiC NTP
+  ansible.builtin.shell: sudo config ntp add ${v.server}`), "linux");
+  if(vendor==="Extreme") return _withDev(_autoCliBundle("EXOS NTP",
+    [`configure ntp server add ${v.server}`,`enable ntp`],
+    `- name: EXOS NTP
+  community.network.exos_config:
+    lines:
+      - configure ntp server add ${v.server}
+      - enable ntp`), "extreme_exos");
+  if(vendor==="Mikrotik") return _withDev(_autoCliBundle("RouterOS NTP",
+    [`/system ntp client set enabled=yes servers=${v.server}`],
+    `- name: RouterOS NTP
+  community.routeros.command:
+    commands:
+      - /system ntp client set enabled=yes servers=${v.server}`), "mikrotik_routeros");
+  return null;
+}
+function moreSyslog(vendor, v){
+  if(vendor==="Huawei") return _withDev(_autoCliBundle("Huawei syslog",
+    [`system-view`,`info-center loghost ${v.host}`],
+    `- name: VRP syslog
+  community.network.ce_config:
+    lines:
+      - info-center loghost ${v.host}`), "huawei");
+  if(vendor==="NVIDIA") return _withDev(_autoCliBundle("NVUE syslog",
+    [`nv set system syslog server ${v.host}`,`nv config apply`],
+    `- name: NVUE syslog
+  nvidia.nvue.command:
+    commands:
+      - nv set system syslog server ${v.host}
+      - nv config apply`), "linux");
+  if(vendor==="SONiC") return _withDev(_autoCliBundle("SONiC syslog",
+    [`sudo config syslog add ${v.host}`],
+    `- name: SONiC syslog
+  ansible.builtin.shell: sudo config syslog add ${v.host}`), "linux");
+  if(vendor==="Extreme") return _withDev(_autoCliBundle("EXOS syslog",
+    [`configure syslog add ${v.host} local use-local-time`],
+    `- name: EXOS syslog
+  community.network.exos_config:
+    lines:
+      - configure syslog add ${v.host} local use-local-time`), "extreme_exos");
+  if(vendor==="Mikrotik") return _withDev(_autoCliBundle("RouterOS syslog",
+    [`/system logging action set remote remote=${v.host}`],
+    `- name: RouterOS syslog
+  community.routeros.command:
+    commands:
+      - /system logging action set remote remote=${v.host}`), "mikrotik_routeros");
+  return null;
+}
+function moreGeneric(vendor, lines, ansible, dev){
+  return _withDev(_autoCliBundle(vendor+" config", lines, ansible), dev);
+}
+
 /* Per-vendor template renderers — return {netconf, ncclient, ansible} */
 const AUTO_IFACE_IPV4 = {
 /* ext:AUTO_IFACE_IPV4 */
+/* more:AUTO_IFACE_IPV4 */
+  Huawei: v => moreIfaceIpv4('Huawei', v),
+  NVIDIA: v => moreIfaceIpv4('NVIDIA', v),
+  SONiC: v => moreIfaceIpv4('SONiC', v),
+  Extreme: v => moreIfaceIpv4('Extreme', v),
+  Mikrotik: v => moreIfaceIpv4('Mikrotik', v),
   FRR: v => stackIfaceIpv4('FRR', v),
   VyOS: v => stackIfaceIpv4('VyOS', v),
   Nokia: v => stackIfaceIpv4('Nokia', v),
@@ -1635,6 +1922,12 @@ switch.runCmds(1, ["enable",
 
 const AUTO_STATIC = {
 /* ext:AUTO_STATIC */
+/* more:AUTO_STATIC */
+  Huawei: v => moreStatic('Huawei', v),
+  NVIDIA: v => moreStatic('NVIDIA', v),
+  SONiC: v => moreStatic('SONiC', v),
+  Extreme: v => moreStatic('Extreme', v),
+  Mikrotik: v => moreStatic('Mikrotik', v),
   FRR: v => stackStatic('FRR', v),
   VyOS: v => stackStatic('VyOS', v),
   Nokia: v => stackStatic('Nokia', v),
@@ -1742,6 +2035,12 @@ sw.runCmds(1, ["enable","configure","ip route ${v.prefix}/${v.cidr} ${v.nh}"])`,
 
 const AUTO_OSPF = {
 /* ext:AUTO_OSPF */
+/* more:AUTO_OSPF */
+  Huawei: v => moreOspf('Huawei', v),
+  NVIDIA: v => moreOspf('NVIDIA', v),
+  SONiC: v => moreOspf('SONiC', v),
+  Extreme: v => moreOspf('Extreme', v),
+  Mikrotik: v => moreOspf('Mikrotik', v),
   FRR: v => stackOspf('FRR', v),
   VyOS: v => stackOspf('VyOS', v),
   Nokia: v => stackOspf('Nokia', v),
@@ -1846,6 +2145,12 @@ sw.runCmds(1, ["enable","configure",
 
 const AUTO_BGP = {
 /* ext:AUTO_BGP */
+/* more:AUTO_BGP */
+  Huawei: v => moreBgp('Huawei', v),
+  NVIDIA: v => moreBgp('NVIDIA', v),
+  SONiC: v => moreBgp('SONiC', v),
+  Extreme: v => moreBgp('Extreme', v),
+  Mikrotik: v => moreBgp('Mikrotik', v),
   FRR: v => stackBgp('FRR', v),
   VyOS: v => stackBgp('VyOS', v),
   Nokia: v => stackBgp('Nokia', v),
@@ -1960,6 +2265,12 @@ sw.runCmds(1, ["enable","configure",
 
 const AUTO_VLAN = {
 /* ext:AUTO_VLAN */
+/* more:AUTO_VLAN */
+  Huawei: v => moreVlan('Huawei', v),
+  NVIDIA: v => moreVlan('NVIDIA', v),
+  SONiC: v => moreVlan('SONiC', v),
+  Extreme: v => moreVlan('Extreme', v),
+  Mikrotik: v => moreVlan('Mikrotik', v),
   FRR: v => stackVlan('FRR', v),
   VyOS: v => stackVlan('VyOS', v),
   Nokia: v => stackVlan('Nokia', v),
@@ -2043,6 +2354,12 @@ sw.runCmds(1, ["enable","configure","vlan ${v.id}","name ${v.name}"])`,
 
 const AUTO_SWITCHPORT = {
 /* ext:AUTO_SWITCHPORT */
+/* more:AUTO_SWITCHPORT */
+  Huawei: v => moreGeneric('Huawei', [`system-view`,`interface ${v.ifname}`,`port link-type access`,`port default vlan ${v.vlan}`], `- name: VRP access\n  community.network.ce_config:\n    lines:\n      - interface ${v.ifname}\n      - port default vlan ${v.vlan}`, 'huawei'),
+  NVIDIA: v => moreGeneric('NVIDIA', [`nv set interface ${v.ifname} bridge domain br_default access ${v.vlan}`,`nv config apply`], `- name: NVUE access\n  nvidia.nvue.command:\n    commands: ['nv set interface ${v.ifname} bridge domain br_default access ${v.vlan}','nv config apply']`, 'linux'),
+  SONiC: v => moreGeneric('SONiC', [`sudo config vlan member add ${v.vlan} ${v.ifname}`], `- name: SONiC access\n  ansible.builtin.shell: sudo config vlan member add ${v.vlan} ${v.ifname}`, 'linux'),
+  Extreme: v => moreGeneric('Extreme', [`configure vlan ${v.vlan} add ports ${v.ifname} untagged`], `- name: EXOS access\n  community.network.exos_config:\n    lines:\n      - configure vlan ${v.vlan} add ports ${v.ifname} untagged`, 'extreme_exos'),
+  Mikrotik: v => moreGeneric('Mikrotik', [`/interface bridge port set [find interface=${v.ifname}] pvid=${v.vlan}`], `- name: RouterOS access\n  community.routeros.command:\n    commands: ['/interface bridge port set [find interface=${v.ifname}] pvid=${v.vlan}']`, 'mikrotik_routeros'),
   FRR: v => stackGenericCli('FRR', [`# VLAN membership is host/bridge-side for FRR`], `- name: noop\n  ansible.builtin.debug:\n    msg: FRR has no switchport`),
   VyOS: v => stackGenericCli('VyOS', [`set interfaces ethernet ${v.ifname} vif ${v.vlan}`], `- name: VyOS access vif\n  vyos.vyos.vyos_config:\n    lines:\n      - set interfaces ethernet ${v.ifname} vif ${v.vlan}`),
   Nokia: v => stackVlan('Nokia', {id:v.vlan, name:'VLAN'+v.vlan}),
@@ -2144,6 +2461,12 @@ sw.runCmds(1, ["enable","configure",
 
 const AUTO_NTP = {
 /* ext:AUTO_NTP */
+/* more:AUTO_NTP */
+  Huawei: v => moreNtp('Huawei', v),
+  NVIDIA: v => moreNtp('NVIDIA', v),
+  SONiC: v => moreNtp('SONiC', v),
+  Extreme: v => moreNtp('Extreme', v),
+  Mikrotik: v => moreNtp('Mikrotik', v),
   FRR: v => stackNtp('FRR', v),
   VyOS: v => stackNtp('VyOS', v),
   Nokia: v => stackNtp('Nokia', v),
@@ -2217,6 +2540,12 @@ sw.runCmds(1, ["enable","configure","ntp server ${v.server}"])`,
 
 const AUTO_SYSLOG = {
 /* ext:AUTO_SYSLOG */
+/* more:AUTO_SYSLOG */
+  Huawei: v => moreSyslog('Huawei', v),
+  NVIDIA: v => moreSyslog('NVIDIA', v),
+  SONiC: v => moreSyslog('SONiC', v),
+  Extreme: v => moreSyslog('Extreme', v),
+  Mikrotik: v => moreSyslog('Mikrotik', v),
   FRR: v => stackSyslog('FRR', v),
   VyOS: v => stackSyslog('VyOS', v),
   Nokia: v => stackSyslog('Nokia', v),
@@ -2296,6 +2625,12 @@ sw.runCmds(1, ["enable","configure","logging host ${v.host}"])`,
 
 const AUTO_HOSTNAME = {
 /* ext:AUTO_HOSTNAME */
+/* more:AUTO_HOSTNAME */
+  Huawei: v => moreHostname('Huawei', v),
+  NVIDIA: v => moreHostname('NVIDIA', v),
+  SONiC: v => moreHostname('SONiC', v),
+  Extreme: v => moreHostname('Extreme', v),
+  Mikrotik: v => moreHostname('Mikrotik', v),
   FRR: v => stackHostname('FRR', v),
   VyOS: v => stackHostname('VyOS', v),
   Nokia: v => stackHostname('Nokia', v),
@@ -2358,6 +2693,12 @@ sw.runCmds(1, ["enable","configure","hostname ${v.hostname}"])`,
 
 const AUTO_IFDESC = {
 /* ext:AUTO_IFDESC */
+/* more:AUTO_IFDESC */
+  Huawei: v => moreGeneric('Huawei', [`system-view`,`interface ${v.ifname}`,`description ${v.desc}`], `- name: VRP ifDesc\n  community.network.ce_config:\n    lines:\n      - interface ${v.ifname}\n      - description ${v.desc}`, 'huawei'),
+  NVIDIA: v => moreGeneric('NVIDIA', [`nv set interface ${v.ifname} description '${v.desc}'`,`nv config apply`], `- name: NVUE ifDesc\n  nvidia.nvue.command:\n    commands: ["nv set interface ${v.ifname} description '${v.desc}'",'nv config apply']`, 'linux'),
+  SONiC: v => moreGeneric('SONiC', [`sudo config interface description ${v.ifname} '${v.desc}'`], `- name: SONiC ifDesc\n  ansible.builtin.shell: sudo config interface description ${v.ifname} '${v.desc}'`, 'linux'),
+  Extreme: v => moreGeneric('Extreme', [`configure ports ${v.ifname} display-string ${v.desc}`], `- name: EXOS ifDesc\n  community.network.exos_config:\n    lines:\n      - configure ports ${v.ifname} display-string ${v.desc}`, 'extreme_exos'),
+  Mikrotik: v => moreGeneric('Mikrotik', [`/interface set ${v.ifname} comment="${v.desc}"`], `- name: RouterOS ifDesc\n  community.routeros.command:\n    commands: ['/interface set ${v.ifname} comment="${v.desc}"']`, 'mikrotik_routeros'),
   FRR: v => stackGenericCli('FRR', [`interface ${v.ifname}`, `description ${v.desc}`], `- name: FRR ifDesc\n  ansible.builtin.shell: vtysh -c "configure terminal" -c "interface ${v.ifname}" -c "description ${v.desc}" -c "end" -c "write"`),
   VyOS: v => stackGenericCli('VyOS', [`set interfaces ethernet ${v.ifname} description '${v.desc}'`], `- name: VyOS ifDesc\n  vyos.vyos.vyos_config:\n    lines:\n      - set interfaces ethernet ${v.ifname} description '${v.desc}'`),
   Nokia: v => stackGenericCli('Nokia', [`enter candidate`,`set / interface ${v.ifname} description "${v.desc}"`,`commit now`], `- name: SR Linux ifDesc\n  nokia.srlinux.config:\n    update:\n      - path: /interface[name=${v.ifname}]\n        value:\n          description: ${v.desc}`),
@@ -2433,6 +2774,12 @@ sw.runCmds(1, ["enable","configure","interface ${v.ifname}","description ${v.des
 
 const AUTO_LOOPBACK = {
 /* ext:AUTO_LOOPBACK */
+/* more:AUTO_LOOPBACK */
+  Huawei: v => moreIfaceIpv4('Huawei', {ifname:v.name||'LoopBack0', ip:v.ip, mask:v.mask, cidr:v.cidr}),
+  NVIDIA: v => moreIfaceIpv4('NVIDIA', {ifname:v.name||'lo', ip:v.ip, mask:v.mask, cidr:v.cidr}),
+  SONiC: v => moreIfaceIpv4('SONiC', {ifname:v.name||'Loopback0', ip:v.ip, mask:v.mask, cidr:v.cidr}),
+  Extreme: v => moreIfaceIpv4('Extreme', {ifname:v.name||'Default', ip:v.ip, mask:v.mask, cidr:v.cidr}),
+  Mikrotik: v => moreIfaceIpv4('Mikrotik', {ifname:v.name||'bridge1', ip:v.ip, mask:v.mask, cidr:v.cidr}),
   FRR: v => stackIfaceIpv4('FRR', {ifname:v.name||('lo'+v.unit), ip:v.ip, mask:v.mask, cidr:v.cidr}),
   VyOS: v => stackIfaceIpv4('VyOS', {ifname:'lo', ip:v.ip, mask:v.mask, cidr:v.cidr}),
   Nokia: v => stackIfaceIpv4('Nokia', {ifname:'lo0', ip:v.ip, mask:v.mask, cidr:v.cidr}),
@@ -2532,6 +2879,12 @@ sw.runCmds(1, ["enable","configure",
 
 const AUTO_DEFAULTRT = {
 /* ext:AUTO_DEFAULTRT */
+/* more:AUTO_DEFAULTRT */
+  Huawei: v => moreStatic('Huawei', {prefix:'0.0.0.0', cidr:'0', mask:'0.0.0.0', nh:v.nh}),
+  NVIDIA: v => moreStatic('NVIDIA', {prefix:'0.0.0.0', cidr:'0', mask:'0.0.0.0', nh:v.nh}),
+  SONiC: v => moreStatic('SONiC', {prefix:'0.0.0.0', cidr:'0', mask:'0.0.0.0', nh:v.nh}),
+  Extreme: v => moreStatic('Extreme', {prefix:'0.0.0.0', cidr:'0', mask:'0.0.0.0', nh:v.nh}),
+  Mikrotik: v => moreStatic('Mikrotik', {prefix:'0.0.0.0', cidr:'0', mask:'0.0.0.0', nh:v.nh}),
   FRR: v => stackStatic('FRR', {prefix:'0.0.0.0', cidr:'0', mask:'0.0.0.0', nh:v.nh}),
   VyOS: v => stackStatic('VyOS', {prefix:'0.0.0.0', cidr:'0', mask:'0.0.0.0', nh:v.nh}),
   Nokia: v => stackStatic('Nokia', {prefix:'0.0.0.0', cidr:'0', mask:'0.0.0.0', nh:v.nh}),
@@ -2633,6 +2986,12 @@ sw.runCmds(1, ["enable","configure","ip route 0.0.0.0/0 ${v.nh}"])`,
 
 const AUTO_TRUNK = {
 /* ext:AUTO_TRUNK */
+/* more:AUTO_TRUNK */
+  Huawei: v => moreGeneric('Huawei', [`system-view`,`interface ${v.ifname}`,`port link-type trunk`,`port trunk allow-pass vlan ${v.vlans}`], `- name: VRP trunk\n  community.network.ce_config:\n    lines:\n      - interface ${v.ifname}\n      - port trunk allow-pass vlan ${v.vlans}`, 'huawei'),
+  NVIDIA: v => moreGeneric('NVIDIA', [`nv set interface ${v.ifname} bridge domain br_default vlan ${v.vlans}`,`nv config apply`], `- name: NVUE trunk\n  nvidia.nvue.command:\n    commands: ['nv set interface ${v.ifname} bridge domain br_default vlan ${v.vlans}','nv config apply']`, 'linux'),
+  SONiC: v => moreGeneric('SONiC', [`sudo config vlan member add ${v.vlans.split(',')[0]} ${v.ifname} -t`], `- name: SONiC trunk\n  ansible.builtin.shell: sudo config vlan member add ${v.vlans.split(',')[0]} ${v.ifname} -t`, 'linux'),
+  Extreme: v => moreGeneric('Extreme', [`configure vlan ${v.vlans.split(',')[0]} add ports ${v.ifname} tagged`], `- name: EXOS trunk\n  community.network.exos_config:\n    lines:\n      - configure vlan ${v.vlans.split(',')[0]} add ports ${v.ifname} tagged`, 'extreme_exos'),
+  Mikrotik: v => moreGeneric('Mikrotik', [`/interface bridge vlan add bridge=bridge1 tagged=${v.ifname} vlan-ids=${v.vlans}`], `- name: RouterOS trunk\n  community.routeros.command:\n    commands: ['/interface bridge vlan add bridge=bridge1 tagged=${v.ifname} vlan-ids=${v.vlans}']`, 'mikrotik_routeros'),
   FRR: v => stackGenericCli('FRR', [`# trunking is host bridge VLAN filter`], `- name: noop\n  ansible.builtin.debug:\n    msg: host bridge VLAN filter`),
   VyOS: v => stackGenericCli('VyOS', [`set interfaces ethernet ${v.ifname} vif ${v.vlans.split(',')[0]}`], `- name: VyOS trunk-ish vif\n  vyos.vyos.vyos_config:\n    lines:\n      - set interfaces ethernet ${v.ifname} vif ${v.vlans.split(',')[0]}`),
   Nokia: v => stackGenericCli('Nokia', [`enter candidate`,`set / interface ${v.ifname} vlan-tagging true`,`commit now`], `- name: SR Linux trunk\n  nokia.srlinux.config:\n    update:\n      - path: /interface[name=${v.ifname}]\n        value:\n          vlan-tagging: true`),
@@ -2729,6 +3088,12 @@ sw.runCmds(1, ["enable","configure",
 
 const AUTO_RADIUS = {
 /* ext:AUTO_RADIUS */
+/* more:AUTO_RADIUS */
+  Huawei: v => moreGeneric('Huawei', [`system-view`,`radius-server template AAA`,`radius-server shared-key cipher ${v.key}`,`radius-server authentication ${v.host}`], `- name: VRP RADIUS\n  community.network.ce_config:\n    lines:\n      - radius-server authentication ${v.host}`, 'huawei'),
+  NVIDIA: v => moreGeneric('NVIDIA', [`nv set system aaa authentication-order radius`,`nv config apply`], `- name: NVUE RADIUS note\n  nvidia.nvue.command:\n    commands: ['nv set system aaa authentication-order radius','nv config apply']`, 'linux'),
+  SONiC: v => moreGeneric('SONiC', [`# configure host PAM/RADIUS for SONiC mgmt plane`], `- name: SONiC RADIUS note\n  ansible.builtin.debug:\n    msg: configure host PAM RADIUS`, 'linux'),
+  Extreme: v => moreGeneric('Extreme', [`configure radius-server add ${v.host} shared-secret ${v.key}`], `- name: EXOS RADIUS\n  community.network.exos_config:\n    lines:\n      - configure radius-server add ${v.host} shared-secret ${v.key}`, 'extreme_exos'),
+  Mikrotik: v => moreGeneric('Mikrotik', [`/radius add address=${v.host} secret=${v.key} service=login`], `- name: RouterOS RADIUS\n  community.routeros.command:\n    commands: ['/radius add address=${v.host} secret=${v.key} service=login']`, 'mikrotik_routeros'),
   FRR: v => stackGenericCli('FRR', [`# configure PAM/sshd RADIUS on Linux host`], `- name: note\n  ansible.builtin.debug:\n    msg: configure host PAM RADIUS`),
   VyOS: v => stackGenericCli('VyOS', [`set system login radius-server ${v.host} key '${v.key}'`], `- name: VyOS RADIUS\n  vyos.vyos.vyos_config:\n    lines:\n      - set system login radius-server ${v.host} key '${v.key}'`),
   Nokia: v => stackGenericCli('Nokia', [`enter candidate`,`set / system aaa authentication-server radius server ${v.host}`,`commit now`], `- name: SR Linux RADIUS\n  nokia.srlinux.config:\n    update:\n      - path: /system/aaa/server-group[name=radius]/server[address=${v.host}]\n        value: {}`),
@@ -2819,6 +3184,12 @@ sw.runCmds(1, ["enable","configure",
 
 const AUTO_PORTCHANNEL = {
 /* ext:AUTO_PORTCHANNEL */
+/* more:AUTO_PORTCHANNEL */
+  Huawei: v => moreGeneric('Huawei', [`system-view`,`interface Eth-Trunk${v.pcid}`,`mode lacp-static`,`quit`,`interface ${v.ifname}`,`eth-trunk ${v.pcid}`], `- name: VRP Eth-Trunk\n  community.network.ce_config:\n    lines:\n      - interface ${v.ifname}\n      - eth-trunk ${v.pcid}`, 'huawei'),
+  NVIDIA: v => moreGeneric('NVIDIA', [`nv set interface bond${v.pcid} bond member ${v.ifname}`,`nv config apply`], `- name: NVUE bond\n  nvidia.nvue.command:\n    commands: ['nv set interface bond${v.pcid} bond member ${v.ifname}','nv config apply']`, 'linux'),
+  SONiC: v => moreGeneric('SONiC', [`sudo config portchannel add PortChannel${v.pcid}`,`sudo config portchannel member add PortChannel${v.pcid} ${v.ifname}`], `- name: SONiC LAG\n  ansible.builtin.shell: |\n    sudo config portchannel add PortChannel${v.pcid}\n    sudo config portchannel member add PortChannel${v.pcid} ${v.ifname}`, 'linux'),
+  Extreme: v => moreGeneric('Extreme', [`enable sharing ${v.pcid} grouping ${v.ifname} algorithm address-based L3_L4 lacp`], `- name: EXOS LAG\n  community.network.exos_config:\n    lines:\n      - enable sharing ${v.pcid} grouping ${v.ifname} algorithm address-based L3_L4 lacp`, 'extreme_exos'),
+  Mikrotik: v => moreGeneric('Mikrotik', [`/interface bonding add name=bond${v.pcid} slaves=${v.ifname} mode=802.3ad`], `- name: RouterOS bond\n  community.routeros.command:\n    commands: ['/interface bonding add name=bond${v.pcid} slaves=${v.ifname} mode=802.3ad']`, 'mikrotik_routeros'),
   FRR: v => stackGenericCli('FRR', [`# create Linux bond on host`, `ip link add bond0 type bond mode 802.3ad`], `- name: host bond\n  ansible.builtin.command: ip link add bond0 type bond mode 802.3ad`),
   VyOS: v => stackGenericCli('VyOS', [`set interfaces bonding bond0 member interface ${v.ifname}`], `- name: VyOS bond\n  vyos.vyos.vyos_config:\n    lines:\n      - set interfaces bonding bond0 member interface ${v.ifname}`),
   Nokia: v => stackGenericCli('Nokia', [`enter candidate`,`set / interface lag${v.pcid} lag lacp fallback false`,`set / interface ${v.ifname} ethernet aggregate-id lag${v.pcid}`,`commit now`], `- name: SR Linux LAG\n  nokia.srlinux.config:\n    update:\n      - path: /interface[name=${v.ifname}]/ethernet\n        value:\n          aggregate-id: lag${v.pcid}`),
@@ -4457,14 +4828,24 @@ function openAutomation(d){
   // have set, so the .open class's right:0 always wins.
   drawer.style.right = "";
   drawer.classList.add("open");
-  // Compute vendors offered for this command. Specific mapping = whatever the
-  // mapping renders; fallback = all 3.
-  // Native YANG mappings only cover Cisco/Juniper/Arista today. The CLI-fallback
-  // path supports all 11 vendors (Netmiko ships device_types for every one).
+  // Native mappings: offer every vendor that has a real template for this
+  // pattern (no silent Cisco fallback). Fallback SSH path: every vendor with
+  // a FALLBACK_RENDERERS entry.
+  const AUTO_VENDORS = [
+    "Cisco","Juniper","Arista","FRR","VyOS","Nokia","Aruba",
+    "Huawei","NVIDIA","SONiC","Extreme","Mikrotik",
+  ];
+  const FALLBACK_VENDORS = [
+    "Cisco","Juniper","Arista","FRR","VyOS","SONiC","NVIDIA","PAN-OS",
+    "Nokia","FortiOS","Mikrotik","Extreme","Aruba","Huawei",
+  ];
   const vendors = found
-    ? ["Cisco","Juniper","Arista"].filter(v => found.mapping.render(v, found.vals))
-    : ["Cisco","Juniper","Arista","FRR","VyOS","SONiC","NVIDIA","PAN-OS","Nokia","FortiOS","Mikrotik","Extreme","Aruba","Huawei"];
-  const active = vendors.includes(d.vendor) ? d.vendor : vendors[0];
+    ? AUTO_VENDORS.filter(v => {
+        try { return !!found.mapping.render(v, found.vals); }
+        catch (_) { return false; }
+      })
+    : FALLBACK_VENDORS.filter(v => typeof FALLBACK_RENDERERS[v] === "function");
+  const active = vendors.includes(d.vendor) ? d.vendor : (vendors[0] || d.vendor);
 
   // Title
   $("auto-title").textContent = found
@@ -4595,14 +4976,15 @@ function buildAndReplaceParams(d, found, active, vendors){
 
 function rerenderAutoBlocks(d, found, active){
   const body = $("auto-body");
-  const out = found ? found.mapping.render(active, found.vals) : FALLBACK_RENDERERS[active](d);
+  const out = found ? found.mapping.render(active, found.vals) : (FALLBACK_RENDERERS[active]||null)?.(d);
+  if(!out) return;
   const blocks = body.querySelectorAll(".auto-block");
   const fresh = found
     ? [out.netconf, out.ncclient, out.ansible]
     : [out.netmiko, out.ansible, out.napalm];
   blocks.forEach((blk,i)=>{
     const pre = blk.querySelector("pre");
-    if(pre) pre.textContent = fresh[i];
+    if(pre) pre.textContent = fresh[i] == null ? "" : fresh[i];
   });
   // Also refresh the vchips at top (in case user edited a var)
   if(found){
@@ -4621,10 +5003,9 @@ function renderAutoBody(d, found, active, vendors){
   // Info banner — different message for specific vs fallback
   if(found){
     body.appendChild(el("div",{class:"auto-info"},
-      "✓ ", el("b",{},"Model-driven automation"), " — real templates pre-filled with values extracted from your command. ",
-      el("b",{},"NETCONF/YANG"), " is the protocol, ", el("b",{},"ncclient"), " is the Python library, ",
-      el("b",{},"Ansible"), " uses vendor resource modules (",
-      el("code",{},"cisco.ios.*"), " · ", el("code",{},"junipernetworks.junos.*"), " · ", el("code",{},"arista.eos.*"), ")."
+      "✓ ", el("b",{},"Model-driven automation"), " — templates for ",
+      el("b",{},vendors.join(" · ")), ". Pick a vendor chip below; snippets re-render live. ",
+      "On cards use ", el("code",{},"⚡ Automate"), " (mapped) or ", el("code",{},"🔧 Automate"), " (SSH fallback)."
     ));
   } else {
     body.appendChild(el("div",{class:"auto-info"},
@@ -4645,7 +5026,14 @@ function renderAutoBody(d, found, active, vendors){
 
   const out = found
     ? found.mapping.render(active, found.vals)
-    : FALLBACK_RENDERERS[active](d);
+    : (FALLBACK_RENDERERS[active]||null)?.(d);
+
+  if(!out){
+    body.appendChild(el("div",{class:"auto-info"},
+      "No automation template for ", el("b",{},active), " on this pattern. Pick another vendor chip."
+    ));
+    return;
+  }
 
   const mkBlock = (label, content, lang)=>{
     const blk = el("div",{class:"auto-block"});
@@ -4654,21 +5042,21 @@ function renderAutoBody(d, found, active, vendors){
     const cp = el("button",{class:"copyb"});
     cp.textContent = "Copy";
     cp.addEventListener("click",()=>{
-      navigator.clipboard.writeText(content).then(()=>{
+      navigator.clipboard.writeText(content || "").then(()=>{
         cp.classList.add("copied"); cp.textContent="✓ Copied";
         setTimeout(()=>{cp.classList.remove("copied"); cp.textContent="Copy";},1500);
       });
     });
     hdr.appendChild(cp);
     blk.appendChild(hdr);
-    blk.appendChild(el("pre",{class: lang || ""}, content));
+    blk.appendChild(el("pre",{class: lang || ""}, content == null ? "" : content));
     return blk;
   };
 
   if(found){
-    body.appendChild(mkBlock("NETCONF XML payload", out.netconf, "netconf"));
-    body.appendChild(mkBlock("Python (ncclient) snippet", out.ncclient, "python"));
-    body.appendChild(mkBlock("Ansible task (YAML)", out.ansible, "yaml"));
+    body.appendChild(mkBlock("NETCONF / CLI payload", out.netconf || "# n/a", "netconf"));
+    body.appendChild(mkBlock("Python (ncclient / Netmiko) snippet", out.ncclient || "# n/a", "python"));
+    body.appendChild(mkBlock("Ansible task (YAML)", out.ansible || "# n/a", "yaml"));
   } else {
     body.appendChild(mkBlock("Python (Netmiko) snippet", out.netmiko, "python"));
     body.appendChild(mkBlock("Ansible task (YAML)", out.ansible, "yaml"));
