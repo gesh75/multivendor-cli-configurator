@@ -85,17 +85,45 @@ FRR rows may also carry `live` / `in_docs` provenance flags.
 
 Built-in show-output parsers (Cisco BGP/route/intf/OSPF + Junos BGP/route). Expanding EOS/FRR/VyOS parsers remains a follow-up.
 
+### Deep-links and workspace
+
+Filter state is a query string (`v`, `os`, `role`, `cat`, `q`, `view`, `fav`).
+**Share** encodes filters + the CLI Builder queue as `?ws=` base64url JSON.
+Boot prefers `ws` over the loose params. Connection fields stay in
+`sessionStorage` (`auto-conn`); favorites / queue / theme use `localStorage`.
+Full contract: [DEVELOPER.md](DEVELOPER.md).
+
 ---
 
 ## Hosting
 
+Push to `main` runs `.github/workflows/pages.yml` (not the generic
+`peaceiris/actions-gh-pages` rsync). The job stages a lean `_site/`:
+
+- App + corpus: `index.html`, `commands.json`, plus favicon / OG / manifest /
+  robots / sitemap / LICENSE / both Architecture files
+- `docs/` landing + this runbook
+- Browser stress harness under `tests/`
+- `.nojekyll` — **required**. Without it, GitHub’s Jekyll pass treats Ansible
+  `{{ lookup(...) }}` in Automate snippets as Liquid and the deploy dies
+
+`scripts/*.json` source dumps are **not** published.
+
 ```
 push to main
-  └─► GitHub Actions: gh-pages (built-in)
+  └─► GitHub Actions: Deploy GitHub Pages (stage _site)
        └─► https://gesh75.github.io/multivendor-cli-configurator/
+       └─► https://gesh75.github.io/multivendor-cli-configurator/docs/
 ```
 
-`index.html` + `commands.json` is the entire deployment.
+Local serve (do not open `index.html` as `file://` — `fetch` is blocked):
+
+```bash
+python3 -m http.server 8000
+```
+
+Developer setup, CI jobs, URL contract, and troubleshooting:
+**[DEVELOPER.md](DEVELOPER.md)**.
 
 ---
 
@@ -119,3 +147,7 @@ python3 patch_yang_more_vendors.py
 
 
 Stdlib only. No virtualenv required.
+
+CI on every PR (`main`): `python3 scripts/check_consistency.py` and
+`node tests/stress_test.js`. Local HTTP, URL contract, Pages inventory, and
+pitfalls: **[DEVELOPER.md](DEVELOPER.md)**.

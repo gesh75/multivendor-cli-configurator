@@ -639,7 +639,10 @@
           <tr><td><span class="mod">scripts/clean_titles.py</span><span class="te">Python 3 stdlib</span></td><td>Idempotent maintenance utility that derives clean command labels from the cmd field for any record whose title is leaked prose; writes .titlebak backups.</td></tr>
           <tr><td><span class="mod">scripts/audit_data_quality.py</span><span class="te">Python 3 stdlib</span></td><td>Flags records where description prose has leaked into title/cmd fields and can quarantine unrecoverable rows to keep the corpus clean.</td></tr>
           <tr><td><span class="mod">scripts/parse_encor.py · parse_junos.py · parse_arista.py · parse_cisco_ospf.py · parse_cisco_extras.py</span><span class="te">Python 3 stdlib</span></td><td>Per-source parsers, one per vendor doc format (Cisco Press chapter+verb regex, Junos two-mode index, Arista bold-backtick, ASA/NX-OS word-boundary role classifier), each emitting an intermediate per-source JSON.</td></tr>
-          <tr><td><span class="mod">tests/stress_test.js</span><span class="te">Node.js assert · process.hrtime.bigint</span></td><td>Node-based pure-JS performance + correctness suite that extracts functions (extractPlaceholders, substitutePlaceholders, lookupConcept, CONCEPT_SYNONYMS) directly from index.html and benchmarks them against the production corpus.</td></tr>
+          <tr><td><span class="mod">tests/stress_test.js</span><span class="te">Node.js assert · process.hrtime.bigint</span></td><td>Node-based pure-JS performance + correctness suite that extracts functions (extractPlaceholders, substitutePlaceholders, lookupConcept, CONCEPT_SYNONYMS) directly from index.html and benchmarks them against the production corpus. CI job on every PR; also asserts OS/cat floors and Automate vendor coverage.</td></tr>
+          <tr><td><span class="mod">scripts/check_consistency.py</span><span class="te">Python 3 stdlib · CI</span></td><td>Fails if README.md or this page omit the live total, per-role counts, or vendor-count phrase from commands.json. Rounded “70,000+” / ~MB size are warnings only.</td></tr>
+          <tr><td><span class="mod">.github/workflows/pages.yml</span><span class="te">GitHub Actions · lean _site</span></td><td>Stages app + docs + stress harness (not scripts/*.json). Ships <code>.nojekyll</code> so Jekyll cannot parse Ansible <code>{{ }}</code> in Automate snippets.</td></tr>
+          <tr><td><span class="mod">docs/DEVELOPER.md</span><span class="te">Runbook</span></td><td>Local HTTP serve, deep-link / <code>?ws=</code> contract, storage keys, CI, Pages inventory, and troubleshooting.</td></tr>
           <tr><td><span class="mod">configurator.html</span><span class="te">Static HTML · vanilla JS</span></td><td>Legacy form-based CLI generator kept for archive purposes only — superseded by the cheatsheet's Compare view + Automate drawer; not linked from the live site.</td></tr>
         </tbody>
       </table>
@@ -650,37 +653,42 @@
   <section id="quickstart" aria-labelledby="qs-h">
     <p class="eyebrow">Quickstart</p>
     <h2 class="title" id="qs-h">Run it in seconds</h2>
-    <p class="lede">No install, no build, no dependencies. Use the hosted demo, or regenerate the corpus locally with Python 3 stdlib.</p>
+    <p class="lede">No install, no build, no JS dependencies. Use the hosted demo, or serve the repo over HTTP locally — <code style="font-family:var(--mono);color:var(--teal)">file://</code> blocks <code style="font-family:var(--mono);color:var(--teal)">fetch('commands.json')</code>. Full runbook: <a href="DEVELOPER.md">docs/DEVELOPER.md</a>.</p>
 
     <div class="code">
       <div class="bar"><span class="dots"><i style="background:#ff5f56"></i><i style="background:#ffb000"></i><i style="background:#00d97e"></i></span><span class="ttl">use it</span><button class="copy" type="button">Copy</button></div>
-      <pre class="sh"><span class="c"># Open the live demo (no install) —</span>
+      <pre class="sh"><span class="c"># Live demo (no install) —</span>
 <span class="c"># https://gesh75.github.io/multivendor-cli-configurator/</span>
 
-<span class="c"># Or open index.html directly in any modern browser —</span>
-<span class="c"># no build, no dependencies</span></pre>
+<span class="c"># Local — HTTP required (file:// is blocked)</span>
+<span class="g">python3</span> -m http.server 8000
+<span class="c"># http://localhost:8000/           cheatsheet</span>
+<span class="c"># http://localhost:8000/docs/      this page</span>
+<span class="c"># http://localhost:8000/tests/stress_test.html</span></pre>
     </div>
 
     <div class="code">
       <div class="bar"><span class="dots"><i style="background:#ff5f56"></i><i style="background:#ffb000"></i><i style="background:#00d97e"></i></span><span class="ttl">regenerate the corpus — Python 3 stdlib only</span><button class="copy" type="button">Copy</button></div>
       <pre class="sh"><span class="g">cd</span> scripts
-<span class="g">python3</span> parse_encor.py
-<span class="g">python3</span> parse_junos.py
-<span class="g">python3</span> parse_arista.py
-<span class="g">python3</span> parse_cisco_ospf.py
-<span class="g">python3</span> parse_cisco_extras.py
-<span class="g">python3</span> parse_frr.py
-<span class="g">python3</span> parse.py   <span class="c"># master merge -&gt; ../commands.json</span></pre>
+<span class="g">python3</span> parse.py                 <span class="c"># merge + dedupe → ../commands.json</span>
+<span class="g">python3</span> parse_modern.py
+<span class="g">python3</span> expand_thin_vendors.py
+<span class="g">python3</span> fix_coverage_gaps.py
+<span class="g">python3</span> clean_titles.py
+<span class="g">python3</span> check_consistency.py     <span class="c"># CI docs-drift gate</span>
+<span class="g">python3</span> deep_gap_dig.py          <span class="c"># OS / cat / Automate floors</span></pre>
     </div>
 
     <div class="code">
       <div class="bar"><span class="dots"><i style="background:#ff5f56"></i><i style="background:#ffb000"></i><i style="background:#00d97e"></i></span><span class="ttl">maintenance + tests</span><button class="copy" type="button">Copy</button></div>
-      <pre class="sh"><span class="c"># Maintenance utilities:</span>
-<span class="g">python3</span> scripts/clean_titles.py
-<span class="g">python3</span> scripts/audit_data_quality.py
+      <pre class="sh"><span class="c"># Same two jobs CI runs on every PR to main:</span>
+<span class="g">python3</span> scripts/check_consistency.py
+<span class="g">node</span> tests/stress_test.js
 
-<span class="c"># Run the Node stress suite:</span>
-<span class="g">node</span> tests/stress_test.js</pre>
+<span class="c"># Quality + Automate HTML patches (idempotent):</span>
+<span class="g">python3</span> scripts/audit_data_quality.py
+<span class="g">python3</span> scripts/patch_yang_stack_vendors.py
+<span class="g">python3</span> scripts/patch_yang_more_vendors.py</pre>
     </div>
   </section>
 </main>
@@ -694,6 +702,7 @@
     <nav class="foot-links" aria-label="Footer links">
       <a href="https://github.com/gesh75/multivendor-cli-configurator" target="_blank" rel="noopener">GitHub repo ↗</a>
       <a href="https://gesh75.github.io/multivendor-cli-configurator/" target="_blank" rel="noopener">Live demo ↗</a>
+      <a href="DEVELOPER.md">Developer runbook</a>
       <a href="#hero">Back to top ↑</a>
       <span style="color:var(--muted-dim)">License: MIT</span>
     </nav>

@@ -19,6 +19,7 @@
 
 🟢 **Live demo:** [gesh75.github.io/multivendor-cli-configurator](https://gesh75.github.io/multivendor-cli-configurator/)
 📐 **Architecture:** [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
+🛠️ **Developer / ops runbook:** [docs/DEVELOPER.md](docs/DEVELOPER.md) — local serve, URL contract, CI, Pages, pitfalls.
 
 ![Architecture](docs/img/architecture.svg)
 
@@ -48,7 +49,9 @@ Each command card has:
   or **keyring** (OS credential store). Toggling re-renders every snippet in
   place, with a companion `.env.example` / `keyring set` one-liner alongside.
 
-Opens in any modern browser. No build, no install, zero JS dependencies.
+Opens in any modern browser over **HTTP**. No build, no install, zero JS
+dependencies. `file://` blocks `fetch('commands.json')` — serve from the repo
+root with `python3 -m http.server 8000`.
 
 A legacy `configurator.html` is kept in the repo for archive purposes — a
 form-based CLI generator superseded by the cheatsheet's Compare view + Automate
@@ -63,7 +66,7 @@ vendors and host/tool surfaces are tagged in the **Type** column.
 
 | Vendor / Tool | OS / Surface | Type | Commands |
 |---|---|---|---|
-| **Cisco** | IOS / IOS-XE (full **Master Command List**) · ASA 9.24 · NX-OS | Network | 22,145 |
+| **Cisco** | IOS / IOS-XE (full **Master Command List**) · ASA 9.24 · NX-OS | Network | 22,168 |
 | **Arista** | EOS | Network | 7,397 |
 | **VyOS** | VyOS (full config tree) | Network | 6,289 |
 | **Huawei** | VRP (bracketed prompts, iStack, Eth-Trunk, OSPF/BGP) | Network | 4,425 |
@@ -71,14 +74,14 @@ vendors and host/tool surfaces are tagged in the **Type** column.
 | **FRR** | FRRouting (vtysh) — docs **+ verified live on a 10-node Docker FRR lab** | Network | 3,949 |
 | **Microsoft** | Windows PowerShell networking cmdlets | Host OS | 3,352 |
 | **Juniper** | Junos (MX / EX / QFX / SRX) | Network | 3,217 |
-| **Extreme** | EXOS (VLAN-centric, STP, OSPF, SummitStacking, MLAG, ACLs) | Network | 2,790 |
+| **Extreme** | EXOS (VLAN-centric, STP, OSPF, SummitStacking, MLAG, ACLs) | Network | 2,800 |
 | **Linux** | `ip` / `iproute2` / host networking | Host OS | 2,592 |
 | **FortiOS** | Fortinet (`config / set / end` blocks, REST cmdb) | Network | 2,383 |
 | **Wireshark** | `tshark` capture + display filters | Tool | 2,130 |
 | **PAN-OS** | Palo Alto firewalls (`set rulebase security ...`, virtual routers) | Network | 1,224 |
 | **Mikrotik** | RouterOS (`/path` syntax, firewall filters, queues) | Network | 1,216 |
 | **NVIDIA** | Cumulus Linux 5.x with NVUE (`nv set/show`) | Network | 1,168 |
-| **Nokia** | SR Linux (declarative) **+ SR OS** (`os=sros`, classic CLI) | Network | 1,125 |
+| **Nokia** | SR Linux (declarative) **+ SR OS** (`os=sros`, classic CLI) | Network | 1,131 |
 | **SONiC** | OCP / Azure SONiC (Click CLI, `show ip ...`) | Network | 459 |
 | | | **TOTAL (17)** | **70,006** |
 
@@ -188,7 +191,7 @@ model — lives in **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)**.
 - **Shareable workspace URL** — restores filters, view, search, and CLI Builder queue
 - **Deep-link state:** `?cat=BGP&view=compare&v=Juniper`
 - **Syntax highlighting** with placeholder pills (`[IP]`, `<vlan>`, …)
-- **Keyboard:** `/` search · `c/t/g` views · `b` builder · `s` sidebar · `f` favorites · `Esc`
+- **Keyboard:** `/` search · `c/t/g` views · `b` builder · `s` sidebar · `f` favorites · `?` help · `Esc`
 - **Light/dark mode** toggle, persisted
 - **Accessible & discoverable:** valid heading outline, `:focus-visible` rings,
   `aria-live` status, skip link, plus Open Graph / Twitter / JSON-LD metadata,
@@ -224,7 +227,14 @@ To add a new source:
 1. Drop the source into `scripts/sources/` (gitignored) or add a parser.
 2. Run the relevant `parse_*.py` (or `merge_dcn_corpus.py`) to regenerate.
 3. Run `python3 scripts/clean_titles.py` and `audit_data_quality.py` to verify quality.
-4. Commit + push to `main` — GitHub Pages auto-deploys the live demo.
+4. Refresh hand-copied figures in `README.md` and `docs/index.html` (CI
+   `check_consistency.py` gates total / role / vendor-count). Recount the
+   per-vendor table from `commands.json` — that table is not gated.
+5. Commit + push to `main` — `.github/workflows/pages.yml` stages a lean
+   `_site/` (app + `docs/` + stress harness; not `scripts/*.json`). `.nojekyll`
+   must ship or Jekyll chokes on Ansible `{{ }}` in Automate snippets.
+
+Local HTTP + CI + URL/query-string contract: **[docs/DEVELOPER.md](docs/DEVELOPER.md)**.
 
 ---
 
