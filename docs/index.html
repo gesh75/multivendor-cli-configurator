@@ -241,6 +241,7 @@
       <a href="#stack">Tech stack</a>
       <a href="#components">Components</a>
       <a href="#quickstart">Quickstart</a>
+      <a href="#develop">Develop</a>
     </nav>
     <a class="nav-cta" href="https://github.com/gesh75/multivendor-cli-configurator" target="_blank" rel="noopener">GitHub ↗</a>
   </div>
@@ -457,7 +458,7 @@
         <p class="lede" style="margin-top:1rem">An offline, stdlib-only Python pipeline turns published vendor docs — and a live 10-node Docker FRR lab — into one deduped <code style="font-family:var(--mono);color:var(--teal)">commands.json</code> that GitHub Pages serves statically. No backend, no build, no JS dependencies.</p>
       </div>
       <div class="mini-stats reveal" aria-label="Corpus breakdown">
-        <div class="mini"><span class="k">index.html (vanilla JS lines)</span><span class="v">5,861</span></div>
+        <div class="mini"><span class="k">index.html (vanilla JS lines)</span><span class="v">5,871</span></div>
         <div class="mini"><span class="k">CONCEPT_SYNONYMS entries</span><span class="v">37</span></div>
         <div class="mini"><span class="k">YANG automation patterns</span><span class="v">15</span></div>
         <div class="mini"><span class="k">FRR lab nodes (Docker)</span><span class="v">10</span></div>
@@ -473,7 +474,7 @@
     <h2 class="title" id="features-h">Key features</h2>
     <p class="lede">Search, compare, and automate across 17 CLIs — all from one static file.</p>
     <div class="grid" style="margin-top:1.4rem">
-      <article class="card reveal"><span class="ic" aria-hidden="true">📚</span><h3>70,006 commands, 17 vendors, one page</h3><p>Arista EOS, Cisco IOS/IOS-XE/ASA/NX-OS, Juniper Junos, FRR, VyOS, Huawei VRP, Aruba AOS-CX, Extreme EXOS, FortiOS, PAN-OS, Mikrotik RouterOS, NVIDIA Cumulus NVUE, Nokia SR Linux, SONiC, plus Microsoft PowerShell, Linux iproute2, and Wireshark tshark — all searchable in a single static HTML file.</p></article>
+      <article class="card reveal"><span class="ic" aria-hidden="true">📚</span><h3>70,006 commands, 17 vendors, one page</h3><p>Arista EOS, Cisco IOS/IOS-XE/ASA/NX-OS, Juniper Junos, FRR, VyOS, Huawei VRP, Aruba AOS-CX, Extreme EXOS, FortiOS, PAN-OS, Mikrotik RouterOS, NVIDIA Cumulus NVUE, Nokia SR Linux + SR OS, SONiC, plus Microsoft PowerShell, Linux iproute2, and Wireshark tshark — all searchable in a single static HTML file.</p></article>
       <article class="card reveal"><span class="ic" aria-hidden="true">🪟</span><h3>Three view modes</h3><p>Cards (auto-fit grid grouped by category), Table (sortable, exportable to CSV/Markdown/JSON/TXT), and Compare — a concept-aligned, N-vendor-aware matrix that lines up Cisco's neighbor row with Junos's peer row, paginated and virtualized for the full corpus.</p></article>
       <article class="card reveal"><span class="ic" aria-hidden="true">🔧</span><h3>Automate drawer (YANG + SSH)</h3><p>Regex-extracts your IP/VLAN/ASN/interface from a command and renders vendor-correct NETCONF XML, ncclient Python, Netmiko, NAPALM, and Ansible tasks pre-filled with your values across 15 model-driven patterns, with a universal SSH fallback for every command.</p></article>
       <article class="card reveal"><span class="ic" aria-hidden="true">🔐</span><h3>Secret mode for snippets</h3><p>Toggle how snippets read credentials — Inline (demo only), .env via python-dotenv (default, safer pasteboard), or OS keyring — and every snippet re-renders in place with a matching .env.example / keyring set one-liner.</p></article>
@@ -638,8 +639,11 @@
           <tr><td><span class="mod">scripts/merge_dcn_corpus.py</span><span class="te">Python 3 stdlib (argparse, json, re, pathlib)</span></td><td>Merges the DCN tool's pre-built cli-export.json corpus into commands.json, normalizing vendor labels and roles and deduping by (vendor, normalized cmd) so existing FRR provenance flags survive. Added Microsoft/Linux/Wireshark surfaces.</td></tr>
           <tr><td><span class="mod">scripts/clean_titles.py</span><span class="te">Python 3 stdlib</span></td><td>Idempotent maintenance utility that derives clean command labels from the cmd field for any record whose title is leaked prose; writes .titlebak backups.</td></tr>
           <tr><td><span class="mod">scripts/audit_data_quality.py</span><span class="te">Python 3 stdlib</span></td><td>Flags records where description prose has leaked into title/cmd fields and can quarantine unrecoverable rows to keep the corpus clean.</td></tr>
+          <tr><td><span class="mod">scripts/parse_modern.py · expand_thin_vendors.py · fix_coverage_gaps.py</span><span class="te">Python 3 stdlib · idempotent merges</span></td><td>Post-merge fills and repairs: modern-ops categories (telemetry / ZTP / optics / hardening), curated thin-vendor rows (SONiC, NVUE, SR OS, …), and NX-OS/IOS-XE retag plus VXLAN/EVPN/STP/LACP/BFD promotions. Run these <em>after</em> parse.py — a lone rebuild overwrites them.</td></tr>
+          <tr><td><span class="mod">scripts/patch_yang_stack_vendors.py · patch_yang_more_vendors.py</span><span class="te">Python 3 stdlib · mutates index.html</span></td><td>Idempotent Automate-template extensions: FRR/VyOS/Nokia/Aruba (stack) then Huawei/NVIDIA/SONiC/Extreme/Mikrotik. Marker comments skip a second apply. No silent Cisco fallback.</td></tr>
+          <tr><td><span class="mod">scripts/check_consistency.py · deep_gap_dig.py</span><span class="te">Python 3 stdlib · CI / local gates</span></td><td>Consistency asserts README + docs/index.html still contain the live total, per-role counts, and “17 vendor”. Deep-gap-dig fails on OS/cat floors, missing AUTO_* keys, and Netmiko/Ansible map holes (floors are also asserted in the Node suite).</td></tr>
           <tr><td><span class="mod">scripts/parse_encor.py · parse_junos.py · parse_arista.py · parse_cisco_ospf.py · parse_cisco_extras.py</span><span class="te">Python 3 stdlib</span></td><td>Per-source parsers, one per vendor doc format (Cisco Press chapter+verb regex, Junos two-mode index, Arista bold-backtick, ASA/NX-OS word-boundary role classifier), each emitting an intermediate per-source JSON.</td></tr>
-          <tr><td><span class="mod">tests/stress_test.js</span><span class="te">Node.js assert · process.hrtime.bigint</span></td><td>Node-based pure-JS performance + correctness suite that extracts functions (extractPlaceholders, substitutePlaceholders, lookupConcept, CONCEPT_SYNONYMS) directly from index.html and benchmarks them against the production corpus.</td></tr>
+          <tr><td><span class="mod">tests/stress_test.js</span><span class="te">Node.js assert · process.hrtime.bigint · CI job</span></td><td>Node-based pure-JS performance + correctness suite that extracts functions (extractPlaceholders, substitutePlaceholders, lookupConcept, CONCEPT_SYNONYMS, device-type maps) directly from index.html and benchmarks them against the production corpus. This is the CI <code>stress-test</code> job.</td></tr>
           <tr><td><span class="mod">configurator.html</span><span class="te">Static HTML · vanilla JS</span></td><td>Legacy form-based CLI generator kept for archive purposes only — superseded by the cheatsheet's Compare view + Automate drawer; not linked from the live site.</td></tr>
         </tbody>
       </table>
@@ -675,12 +679,30 @@
 
     <div class="code">
       <div class="bar"><span class="dots"><i style="background:#ff5f56"></i><i style="background:#ffb000"></i><i style="background:#00d97e"></i></span><span class="ttl">maintenance + tests</span><button class="copy" type="button">Copy</button></div>
-      <pre class="sh"><span class="c"># Maintenance utilities:</span>
+      <pre class="sh"><span class="c"># After parse.py, re-apply later fills (parse.py overwrites commands.json):</span>
+<span class="g">python3</span> scripts/parse_modern.py
+<span class="g">python3</span> scripts/expand_thin_vendors.py
+<span class="g">python3</span> scripts/fix_coverage_gaps.py
 <span class="g">python3</span> scripts/clean_titles.py
 <span class="g">python3</span> scripts/audit_data_quality.py
 
-<span class="c"># Run the Node stress suite:</span>
+<span class="c"># Gates (consistency is CI; deep_gap_dig is local + mirrored in the Node suite):</span>
+<span class="g">python3</span> scripts/check_consistency.py
+<span class="g">python3</span> scripts/deep_gap_dig.py
 <span class="g">node</span> tests/stress_test.js</pre>
+    </div>
+  </section>
+
+  <!-- ================= DEVELOP ================= -->
+  <section id="develop" aria-labelledby="dev-h">
+    <p class="eyebrow">For contributors</p>
+    <h2 class="title" id="dev-h">Develop, CI, and Pages</h2>
+    <p class="lede">The cheatsheet is a static page. Most work is UI or docs — leave the committed <code style="font-family:var(--mono);color:var(--teal)">commands.json</code> alone unless you have the gitignored vendor sources <em>and</em> the external DCN export.</p>
+    <div class="grid" style="margin-top:1.4rem">
+      <article class="card reveal"><span class="ic" aria-hidden="true">🖥️</span><h3>Serve locally</h3><p><code style="font-family:var(--mono);color:var(--teal)">python3 -m http.server 8000</code> then open <code>/</code>, <code>/docs/</code>, or <code>/tests/stress_test.html</code>. <code>file://</code> often breaks <code>fetch('commands.json')</code> and the IndexedDB cache path.</p></article>
+      <article class="card reveal"><span class="ic" aria-hidden="true">🧪</span><h3>Two CI jobs</h3><p><code style="font-family:var(--mono);color:var(--teal)">check_consistency.py</code> fails if README or this page drop the live total (70,006), role counts (43,008 / 22,848 / 4,150), or “17 vendor”. <code>node tests/stress_test.js</code> gates search/Automate correctness and coverage floors.</p></article>
+      <article class="card reveal"><span class="ic" aria-hidden="true">🚀</span><h3>Lean Pages deploy</h3><p><code style="font-family:var(--mono);color:var(--teal)">pages.yml</code> publishes app + docs + the browser harness — not <code>scripts/*.json</code>. Keep <code>.nojekyll</code>: Ansible <code>{{ }}</code> in generated snippets is Liquid poison for Jekyll.</p></article>
+      <article class="card reveal"><span class="ic" aria-hidden="true">⚠️</span><h3>Do not lone-run parse.py</h3><p>It rebuilds the corpus from intermediates and drops DCN / modern-ops / thin-vendor fills unless those scripts run next. Full order, URL contract, and a troubleshooting table: <a href="DEVELOP.md">docs/DEVELOP.md</a>.</p></article>
     </div>
   </section>
 </main>
@@ -694,6 +716,7 @@
     <nav class="foot-links" aria-label="Footer links">
       <a href="https://github.com/gesh75/multivendor-cli-configurator" target="_blank" rel="noopener">GitHub repo ↗</a>
       <a href="https://gesh75.github.io/multivendor-cli-configurator/" target="_blank" rel="noopener">Live demo ↗</a>
+      <a href="DEVELOP.md">Developer guide</a>
       <a href="#hero">Back to top ↑</a>
       <span style="color:var(--muted-dim)">License: MIT</span>
     </nav>
