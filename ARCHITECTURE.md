@@ -42,7 +42,7 @@ One parser per source format. All are pure Python 3 stdlib — no dependencies.
 | Parser | Output |
 |---|---|
 | `parse_encor.py` / `parse_junos.py` / `parse_arista.py` / `parse_cisco_ospf.py` / `parse_cisco_extras.py` / `parse_frr.py` | per-source JSON |
-| `merge_dcn_corpus.py` / `parse.py` | merge + dedupe → `commands.json` |
+| `merge_dcn_corpus.py` / `parse.py` | merge + dedupe → `commands.json` (`parse.py` overwrites; re-run DCN/modern/thin fills after) |
 | `parse_modern.py` | modern-ops categories |
 | `expand_thin_vendors.py` | SONiC / NVIDIA / Huawei / SR OS / NX-OS / Extreme / essentials fills |
 | `fix_coverage_gaps.py` | NX-OS/IOS-XE retag, VXLAN/EVPN/STP/BFD/LACP cats, taxonomy/placeholder cleanup |
@@ -91,20 +91,30 @@ Built-in show-output parsers (Cisco BGP/route/intf/OSPF + Junos BGP/route). Expa
 
 ```
 push to main
-  └─► GitHub Actions: gh-pages (built-in)
-       └─► https://gesh75.github.io/multivendor-cli-configurator/
+  └─► .github/workflows/pages.yml
+       └─► stage lean _site/ (app + docs + tests; no scripts/*.json)
+            └─► actions/deploy-pages
+                 └─► https://gesh75.github.io/multivendor-cli-configurator/
 ```
 
-`index.html` + `commands.json` is the entire deployment.
+`.nojekyll` is required: Automate snippets embed Ansible `{{ lookup(...) }}`, and Jekyll would treat that as Liquid.
+
+CI (`.github/workflows/ci.yml`) is separate: `check_consistency.py` plus `tests/stress_test.js`.
+
+Developer setup, URL/search contract, regen pitfalls, and a troubleshooting table live in **[docs/DEVELOP.md](docs/DEVELOP.md)**.
 
 ---
 
 ## Regenerating `commands.json`
 
+`parse.py` **overwrites** `commands.json` from `scripts/sources/` (gitignored) plus the checked-in `scripts/*.json` intermediates. It does **not** keep later DCN / modern-ops / thin-vendor rows unless those passes are re-run afterwards. Day-to-day UI work should leave the committed corpus alone — see [docs/DEVELOP.md](docs/DEVELOP.md).
+
 ```bash
 cd scripts
-# 1. Run per-source parsers as needed, then merge
+# 1. Rebuild from intermediates (needs local sources for a full parse)
 python3 parse.py
+# 2. External DCN merge — requires CLI_WORK_DCN_CORPUS / --source
+python3 merge_dcn_corpus.py
 python3 parse_modern.py
 python3 expand_thin_vendors.py
 python3 fix_coverage_gaps.py
@@ -112,7 +122,7 @@ python3 clean_titles.py
 python3 audit_data_quality.py
 python3 check_consistency.py
 python3 deep_gap_dig.py
-# 2. Optional UI Automate extension (idempotent)
+# 3. Optional UI Automate extension (idempotent; mutates index.html)
 python3 patch_yang_stack_vendors.py
 python3 patch_yang_more_vendors.py
 ```

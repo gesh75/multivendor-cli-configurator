@@ -19,6 +19,7 @@
 
 🟢 **Live demo:** [gesh75.github.io/multivendor-cli-configurator](https://gesh75.github.io/multivendor-cli-configurator/)
 📐 **Architecture:** [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
+🛠️ **Develop / ops:** [docs/DEVELOP.md](docs/DEVELOP.md)
 
 ![Architecture](docs/img/architecture.svg)
 
@@ -63,7 +64,7 @@ vendors and host/tool surfaces are tagged in the **Type** column.
 
 | Vendor / Tool | OS / Surface | Type | Commands |
 |---|---|---|---|
-| **Cisco** | IOS / IOS-XE (full **Master Command List**) · ASA 9.24 · NX-OS | Network | 22,145 |
+| **Cisco** | IOS / IOS-XE (full **Master Command List**) · ASA 9.24 · NX-OS | Network | 22,168 |
 | **Arista** | EOS | Network | 7,397 |
 | **VyOS** | VyOS (full config tree) | Network | 6,289 |
 | **Huawei** | VRP (bracketed prompts, iStack, Eth-Trunk, OSPF/BGP) | Network | 4,425 |
@@ -71,20 +72,21 @@ vendors and host/tool surfaces are tagged in the **Type** column.
 | **FRR** | FRRouting (vtysh) — docs **+ verified live on a 10-node Docker FRR lab** | Network | 3,949 |
 | **Microsoft** | Windows PowerShell networking cmdlets | Host OS | 3,352 |
 | **Juniper** | Junos (MX / EX / QFX / SRX) | Network | 3,217 |
-| **Extreme** | EXOS (VLAN-centric, STP, OSPF, SummitStacking, MLAG, ACLs) | Network | 2,790 |
+| **Extreme** | EXOS (VLAN-centric, STP, OSPF, SummitStacking, MLAG, ACLs) | Network | 2,800 |
 | **Linux** | `ip` / `iproute2` / host networking | Host OS | 2,592 |
 | **FortiOS** | Fortinet (`config / set / end` blocks, REST cmdb) | Network | 2,383 |
 | **Wireshark** | `tshark` capture + display filters | Tool | 2,130 |
 | **PAN-OS** | Palo Alto firewalls (`set rulebase security ...`, virtual routers) | Network | 1,224 |
 | **Mikrotik** | RouterOS (`/path` syntax, firewall filters, queues) | Network | 1,216 |
 | **NVIDIA** | Cumulus Linux 5.x with NVUE (`nv set/show`) | Network | 1,168 |
-| **Nokia** | SR Linux (declarative) **+ SR OS** (`os=sros`, classic CLI) | Network | 1,125 |
+| **Nokia** | SR Linux (declarative) **+ SR OS** (`os=sros`, classic CLI) | Network | 1,131 |
 | **SONiC** | OCP / Azure SONiC (Click CLI, `show ip ...`) | Network | 459 |
 | | | **TOTAL (17)** | **70,006** |
 
-By category (top 10): Interfaces 17,490 · Protocols 10,173 · System 7,815 ·
-Troubleshooting 6,513 · Security 4,369 · VLAN 4,208 · Routing 2,806 ·
-BGP 2,153 · Misc 2,018 · OSPF 1,604. Dedicated **VXLAN** (255) and **EVPN** (498) categories added.
+By category (top 10): Interfaces 16,941 · Protocols 10,150 · System 7,705 ·
+Troubleshooting 6,501 · Security 4,370 · VLAN 4,084 · Routing 2,793 ·
+BGP 2,155 · Misc 2,018 · OSPF 1,606. Dedicated **VXLAN** (257) and **EVPN** (499)
+plus promoted **Spanning-Tree** (845) · **EtherChannel** (518) · **BFD** (133).
 
 Modern-ops coverage (new): Telemetry (gNMI/gRPC/NETCONF/RESTCONF) ·
 Automation (on-box Python/eAPI/JSON-RPC) · Provisioning (ZTP/PnP/POAP) ·
@@ -179,16 +181,16 @@ model — lives in **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)**.
   (concept-aligned, N-vendor matrix, paginated/virtualized)
 - **Filter rail:** accordion sections for Vendor / OS / Role / Category, with an
   active-filter chip bar and live counts
-- **Search prefix operators:** `vendor:juniper ospf` · `os:eos bgp` · `cat:VLAN` · `fav:`
+- **Search prefix operators:** `vendor:juniper ospf` · `os:eos bgp` · `role:firewall` · `cat:VLAN` · `fav:`
 - **Cross-vendor "See equivalents ↗"** per card — drawer with top-N matches per vendor
 - **Favorites** (★) persisted in localStorage + dedicated filter
 - **CLI Builder drawer** — queue commands across vendors, copy/download as `.txt`
 - **Parse Output** — paste raw `show` output, get a structured table
 - **Export menu:** `.txt`, `.md`, `.csv`, `.json`
-- **Shareable workspace URL** — restores filters, view, search, and CLI Builder queue
-- **Deep-link state:** `?cat=BGP&view=compare&v=Juniper`
+- **Shareable workspace URL** — `?ws=` base64url blob restores filters, view, search, and CLI Builder queue
+- **Deep-link state:** `?cat=BGP&view=compare&v=Juniper` (also `os`, `role`, `q`, `fav=1`)
 - **Syntax highlighting** with placeholder pills (`[IP]`, `<vlan>`, …)
-- **Keyboard:** `/` search · `c/t/g` views · `b` builder · `s` sidebar · `f` favorites · `Esc`
+- **Keyboard:** `/` search · `c/t/g` views · `b` builder · `s` sidebar · `f` favorites · `?` help · `Esc`
 - **Light/dark mode** toggle, persisted
 - **Accessible & discoverable:** valid heading outline, `:focus-visible` rings,
   `aria-live` status, skip link, plus Open Graph / Twitter / JSON-LD metadata,
@@ -223,15 +225,23 @@ index.html  ←─ fetch('commands.json')
 To add a new source:
 1. Drop the source into `scripts/sources/` (gitignored) or add a parser.
 2. Run the relevant `parse_*.py` (or `merge_dcn_corpus.py`) to regenerate.
-3. Run `python3 scripts/clean_titles.py` and `audit_data_quality.py` to verify quality.
-4. Commit + push to `main` — GitHub Pages auto-deploys the live demo.
+3. Re-run `parse_modern.py` → `expand_thin_vendors.py` → `fix_coverage_gaps.py`
+   after `parse.py` — a lone merge **overwrites** `commands.json` and drops those fills.
+4. Run `python3 scripts/clean_titles.py`, `audit_data_quality.py`,
+   `check_consistency.py`, and `deep_gap_dig.py` to verify quality.
+5. Commit + push to `main` — GitHub Pages auto-deploys the live demo.
+
+Full command order, CI gates, Pages pitfalls (`.nojekyll` / Ansible `{{ }}`),
+and a troubleshooting table: **[docs/DEVELOP.md](docs/DEVELOP.md)**.
 
 ---
 
 ## Tech
 
-Single-file HTML, vanilla JS, no framework. Hosted on GitHub Pages. Python 3 +
-standard library only for the parsing pipeline.
+Single-file HTML, vanilla JS, no framework. Hosted on GitHub Pages
+(`.github/workflows/pages.yml` publishes a lean artifact — not `scripts/*.json`).
+Python 3 + standard library only for the parsing pipeline. CI
+(`.github/workflows/ci.yml`) gates docs↔corpus drift and the Node stress suite.
 
 ---
 
