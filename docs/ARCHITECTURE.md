@@ -83,7 +83,17 @@ FRR rows may also carry `live` / `in_docs` provenance flags.
 
 ### Parse Output modal
 
-Built-in show-output parsers (Cisco BGP/route/intf/OSPF + Junos BGP/route). Expanding EOS/FRR/VyOS parsers remains a follow-up.
+Built-in show-output parsers:
+
+- Cisco IOS — BGP summary, `show ip route`, interface brief, OSPF neighbor
+- Junos — BGP summary, route terse
+- **Arista EOS — BGP summary** (PfxRcd / PfxAcc)
+- **FRR vtysh — BGP summary** (live-lab shape, `vrf-id` / PfxSnt)
+- **VyOS — BGP summary** (FRR-shaped op-mode)
+
+### CLI Studio (`studio.html`)
+
+A second static surface: English→CLI intent, parameterized recipes, cross-vendor migrate (unified diff), the parsers above, a 10-node FRR Clos map, hardening lint, and a golden-path coverage matrix. Curated corpus in `studio-data.json`. Zero npm. RESTCONF curl and gNMI get snippets sit next to NETCONF / Netmiko / Nornir.
 
 ---
 
@@ -95,7 +105,7 @@ push to main
        └─► https://gesh75.github.io/multivendor-cli-configurator/
 ```
 
-`index.html` + `commands.json` is the entire deployment.
+`index.html` + `commands.json` is the cheatsheet. `studio.html` + `studio-data.json` is CLI Studio. Both ship in the lean `_site/` artifact.
 
 ---
 

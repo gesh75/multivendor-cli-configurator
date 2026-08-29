@@ -28,7 +28,8 @@ jobs:
           # App + corpus
           cp -a index.html commands.json configurator.html favicon.svg \
                 og-image.png manifest.webmanifest robots.txt sitemap.xml \
-                LICENSE README.md ARCHITECTURE.md .nojekyll _site/
+                LICENSE README.md ARCHITECTURE.md .nojekyll \
+                studio.html studio-data.json 404.html CHANGELOG.md _site/
           # Docs landing + assets
           cp -a docs _site/docs
           # Browser stress harness (optional)

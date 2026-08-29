@@ -1,0 +1,543 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CLI Studio — intent, migrate, recipes, parse, lab</title>
+<meta name="description" content="CLI Studio for the Multivendor CLI Configurator: English-to-CLI intent, cross-vendor migrate, golden-path recipes, EOS/FRR/VyOS parsers, FRR lab map, hardening lint. Zero JS dependencies.">
+<meta name="theme-color" content="#0b1020">
+<meta property="og:title" content="CLI Studio — Multivendor CLI Configurator">
+<meta property="og:description" content="Intent · migrate · recipes · parse · 10-node FRR lab. Concept-aligned CLI across 17 vendors.">
+<meta property="og:image" content="https://gesh75.github.io/multivendor-cli-configurator/og-image.png">
+<meta property="og:url" content="https://gesh75.github.io/multivendor-cli-configurator/studio.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="canonical" href="https://gesh75.github.io/multivendor-cli-configurator/studio.html">
+<style>
+:root[data-theme="dark"]{
+  --bg:#0b1020; --panel:#0f1530; --panel-2:#121a3a; --ink:#cfd6f5; --ink-dim:#8892b8; --ink-muted:#5b6a99;
+  --accent:#22d3ee; --accent-2:#a78bfa; --good:#22c55e; --warn:#f59e0b; --bad:#ef4444;
+  --line:#1f2a55; --chip:#16204a; --code-bg:#070b1e;
+}
+:root[data-theme="light"]{
+  --bg:#f4f6fb; --panel:#ffffff; --panel-2:#eef1f8; --ink:#1b2340; --ink-dim:#4a5578; --ink-muted:#6b7694;
+  --accent:#0891b2; --accent-2:#6d28d9; --good:#15803d; --warn:#b45309; --bad:#b91c1c;
+  --line:#d5dbea; --chip:#e8edf8; --code-bg:#f8fafc;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+header{position:sticky;top:0;z-index:20;backdrop-filter:blur(12px);background:color-mix(in srgb,var(--bg) 82%,transparent);border-bottom:1px solid var(--line)}
+.bar{max-width:1280px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:8px;font-weight:700;text-decoration:none;color:var(--ink)}
+.brand small{display:block;font-weight:500;color:var(--ink-muted);font-size:10px;letter-spacing:.14em;text-transform:uppercase}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent)}
+.tabs{display:flex;gap:4px;flex-wrap:wrap;flex:1}
+.tab{border:1px solid var(--line);background:transparent;color:var(--ink-dim);border-radius:999px;padding:6px 11px;cursor:pointer;font:inherit}
+.tab[aria-selected="true"]{background:var(--accent);color:#041018;border-color:transparent;font-weight:650}
+.tbtn{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:10px;padding:6px 10px;cursor:pointer;font:inherit;text-decoration:none}
+main{max-width:1280px;margin:0 auto;padding:20px 16px 80px}
+.hero h1{margin:0 0 6px;font-size:clamp(1.6rem,3vw,2.2rem);letter-spacing:-.03em}
+.hero p{margin:0 0 18px;color:var(--ink-dim);max-width:48rem}
+.grid{display:grid;gap:14px}
+@media(min-width:900px){.grid.two{grid-template-columns:1.1fr .9fr}.grid.cov{grid-template-columns:repeat(2,1fr)}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px}
+label{display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-muted);margin-bottom:6px}
+textarea,input,select{width:100%;background:var(--code-bg);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:10px;font:13px/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+textarea{min-height:140px;resize:vertical}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.chip{border:1px solid var(--line);background:var(--chip);color:var(--ink-dim);border-radius:999px;padding:4px 10px;cursor:pointer;font-size:12px}
+.chip.on{background:var(--accent);color:#041018;border-color:transparent}
+.badge{display:inline-flex;align-items:center;gap:4px;border-radius:999px;padding:2px 8px;font-size:11px;border:1px solid var(--line);color:var(--ink-dim)}
+.badge.live{color:var(--good);border-color:color-mix(in srgb,var(--good) 40%,var(--line))}
+.badge.high{color:var(--bad)}
+.badge.med{color:var(--warn)}
+pre,code,.cli{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.cli{background:var(--code-bg);border:1px solid var(--line);border-radius:10px;padding:10px;white-space:pre-wrap;font-size:12px;margin:8px 0 0}
+.cmd-head{display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap}
+.cmd-card{border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--panel-2);margin-top:8px}
+.muted{color:var(--ink-dim)}
+.k{font-size:11px;border:1px solid var(--line);border-radius:6px;padding:1px 5px;color:var(--ink-muted)}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--ink-muted);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+.ok{color:var(--good)} .err{color:var(--bad)} .warn{color:var(--warn)}
+footer{max-width:1280px;margin:0 auto;padding:0 16px 40px;color:var(--ink-muted);font-size:12px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+svg.lab{width:100%;height:auto;background:var(--code-bg);border-radius:12px;border:1px solid var(--line)}
+.node{cursor:pointer}
+.empty{color:var(--ink-dim);padding:18px;text-align:center}
+.snip-tabs{display:flex;gap:4px;flex-wrap:wrap;margin-top:8px}
+.snip-tabs button{font-size:11px}
+#toast{position:fixed;bottom:16px;right:16px;background:var(--ink);color:var(--bg);padding:8px 12px;border-radius:10px;display:none;z-index:50}
+.cov-cell{width:10px;height:10px;border-radius:2px;display:inline-block;background:var(--line)}
+.cov-cell.on{background:var(--accent)}
+.cov-cell.live{background:var(--good)}
+@media(max-width:720px){.tab{padding:6px 8px;font-size:12px} .lbl-d{display:none}}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#app" style="position:absolute;left:-999px">Skip to content</a>
+<header>
+  <div class="bar">
+    <a class="brand" href="studio.html">
+      <span class="dot"></span>
+      <span>CLI Studio<small>GESH · concept-aligned · 17 vendors</small></span>
+    </a>
+    <nav class="tabs" id="tabs" role="tablist" aria-label="Studio tools"></nav>
+    <a class="tbtn" href="./" title="Full 70,006-command cheatsheet">Cheatsheet</a>
+    <a class="tbtn" href="docs/">Docs</a>
+    <button class="tbtn" id="theme" title="Toggle theme">Theme</button>
+  </div>
+</header>
+<main id="app">
+  <div class="hero">
+    <p class="muted" style="letter-spacing:.16em;text-transform:uppercase;font-size:11px;margin-bottom:6px">Shipped to GitHub Pages</p>
+    <h1 id="title">English in. Seventeen CLIs out.</h1>
+    <p id="lede">Intent, migrate, recipes, and parsers that the 70k cheatsheet did not have a surface for — still zero npm, still static.</p>
+  </div>
+  <div id="view"></div>
+</main>
+<footer>
+  <div>Part of <a href="https://gesh75.github.io/">GESH Lab</a> · MIT · corpus August 2026</div>
+  <div>
+    <a href="https://github.com/gesh75/multivendor-cli-configurator">Source</a> ·
+    <a href="./">70,006-command cheatsheet</a> ·
+    <a href="https://gesh75.github.io/multivendor-ai-network-lab/">AI lab</a>
+  </div>
+</footer>
+<div id="toast"></div>
+<script>
+const TABS = [
+  {id:"intent", label:"Intent"},
+  {id:"recipes", label:"Recipes"},
+  {id:"migrate", label:"Migrate"},
+  {id:"parse", label:"Parse"},
+  {id:"lab", label:"Lab"},
+  {id:"lint", label:"Lint"},
+  {id:"coverage", label:"Coverage"},
+];
+const RECIPES = [
+  {id:"ebgp", title:"eBGP neighbor", concept:"bgp:peer", cat:"BGP", risk:"med", desc:"Stand up an external BGP session.", params:[{k:"asn",l:"Local ASN",d:"65001"},{k:"remote",l:"Remote ASN",d:"65002"},{k:"peer",l:"Peer IP",d:"10.0.0.2"}]},
+  {id:"ospf", title:"OSPF area 0", concept:"ospf:network", cat:"OSPF", risk:"med", desc:"Advertise a /24 into OSPF backbone.", params:[{k:"rid",l:"Router ID",d:"1.1.1.1"},{k:"net",l:"Network",d:"10.0.0.0/24"}]},
+  {id:"svi", title:"VLAN + SVI", concept:"vlan:create", cat:"VLAN", risk:"low", desc:"Create VLAN 10.", params:[{k:"vlan",l:"VLAN ID",d:"10"},{k:"name",l:"Name",d:"USERS"}]},
+  {id:"lacp", title:"LACP uplink", concept:"lacp:channel", cat:"EtherChannel", risk:"med", desc:"Bond two ports.", params:[{k:"id",l:"LAG ID",d:"1"}]},
+  {id:"evpn", title:"VXLAN EVPN leaf", concept:"evpn:vni", cat:"EVPN", risk:"high", desc:"VTEP + L2VNI — what the FRR lab runs.", params:[{k:"vni",l:"VNI",d:"10010"},{k:"loopback",l:"VTEP IP",d:"1.1.1.1"}]},
+  {id:"static", title:"Default static", concept:"static:route", cat:"Routing", risk:"low", desc:"0.0.0.0/0 at a next hop.", params:[{k:"nh",l:"Next hop",d:"10.0.0.2"}]},
+  {id:"acl", title:"Deny RFC1918 inbound", concept:"acl:ipv4", cat:"Security", risk:"high", desc:"Filter, not a silent permit.", params:[{k:"src",l:"Source prefix",d:"10.0.0.0/8"}]},
+  {id:"ntp", title:"NTP server", concept:"ntp:server", cat:"System", risk:"low", desc:"Single preferred time source.", params:[{k:"server",l:"NTP server",d:"10.0.0.10"}]},
+  {id:"bfd", title:"BFD on BGP", concept:"bfd:enable", cat:"BFD", risk:"med", desc:"300ms × 3 on the eBGP session.", params:[{k:"peer",l:"Peer IP",d:"10.0.0.2"}]},
+  {id:"stp", title:"RSTP / Rapid-PVST", concept:"stp:mode", cat:"Spanning-Tree", risk:"high", desc:"Mode + root priority.", params:[{k:"prio",l:"Priority",d:"4096"}]},
+  {id:"gnmi", title:"gNMI / telemetry", concept:"telemetry:gnmi", cat:"Telemetry", risk:"low", desc:"Model-driven telemetry — RESTCONF/gNMI, not just CLI.", params:[]},
+];
+const CONCEPTS = [
+  ["bgp:peer",["bgp","ebgp","neighbor","peer as","remote-as"]],
+  ["ospf:network",["ospf"]],
+  ["evpn:vni",["vxlan","evpn","vni"]],
+  ["lacp:channel",["lacp","port-channel","lag","etherchannel","eth-trunk"]],
+  ["ntp:server",["ntp"]],
+  ["acl:ipv4",["acl","access-list","firewall"]],
+  ["static:route",["static","default route"]],
+  ["vlan:create",["vlan"]],
+  ["bfd:enable",["bfd"]],
+  ["stp:mode",["stp","spanning"]],
+  ["telemetry:gnmi",["gnmi","telemetry","grpc","restconf"]],
+  ["iface:ipv4",["ip address","interface"]],
+];
+const NODES = [
+  {id:"spine-1",role:"spine",x:28,y:18,asn:65000,lo:"1.1.1.1"},
+  {id:"spine-2",role:"spine",x:72,y:18,asn:65000,lo:"1.1.1.2"},
+  {id:"leaf-1",role:"leaf",x:12,y:48,asn:65001,lo:"1.1.1.11"},
+  {id:"leaf-2",role:"leaf",x:37,y:48,asn:65002,lo:"1.1.1.12"},
+  {id:"leaf-3",role:"leaf",x:63,y:48,asn:65003,lo:"1.1.1.13"},
+  {id:"leaf-4",role:"leaf",x:88,y:48,asn:65004,lo:"1.1.1.14"},
+  {id:"ce-1",role:"ce",x:20,y:78,asn:65101,lo:"10.10.1.1"},
+  {id:"ce-2",role:"ce",x:45,y:78,asn:65102,lo:"10.10.2.1"},
+  {id:"host-a",role:"host",x:70,y:78,asn:0,lo:"10.10.10.10"},
+  {id:"host-b",role:"host",x:90,y:78,asn:0,lo:"10.10.20.10"},
+];
+const LINKS = [["spine-1","leaf-1"],["spine-1","leaf-2"],["spine-1","leaf-3"],["spine-1","leaf-4"],["spine-2","leaf-1"],["spine-2","leaf-2"],["spine-2","leaf-3"],["spine-2","leaf-4"],["leaf-1","ce-1"],["leaf-2","ce-2"],["leaf-3","host-a"],["leaf-4","host-b"]];
+const PARSERS = [
+  {id:"cisco-bgp",vendor:"Cisco",label:"show ip bgp summary",
+    hint:"Neighbor table with ASN, state/pfx",
+    sample:"BGP router identifier 1.1.1.1, local AS number 65001\nNeighbor        V    AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd\n10.0.0.2        4 65002   12841   12838        8    0    0 1w2d           42",
+    test:t=>/local AS number/i.test(t)&&/State\/PfxRcd/i.test(t),
+    cols:["neighbor","ver","asn","msgRcvd","msgSent","upDown","state"],
+    parse:t=>t.split(/\n/).map(l=>l.match(/^(\d{1,3}(?:\.\d{1,3}){3})\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\S+)\s+(\S+)/)).filter(Boolean).map(m=>[m[1],m[2],m[3],m[4],m[5],m[9],m[10]])},
+  {id:"cisco-route",vendor:"Cisco",label:"show ip route",
+    hint:"Codes + prefix lines",
+    sample:"Gateway of last resort is 10.0.0.2 to network 0.0.0.0\nB     10.2.0.0/24 [20/0] via 10.0.0.2, 1w2d\nO     10.3.0.0/24 [110/2] via 10.0.1.2, 00:14:02, GigabitEthernet0/1",
+    test:t=>/Gateway of last resort/i.test(t)||/^[A-Z*]{1,3}\s+\d+\.\d+\.\d+\.\d+/m.test(t),
+    cols:["proto","prefix","metric","via"],
+    parse:t=>t.split(/\n/).map(l=>l.match(/^([A-Z*]{1,3})\s+(\d+\.\d+\.\d+\.\d+\/\d+)\s+\[(\d+\/\d+)\]\s+via\s+(\d+\.\d+\.\d+\.\d+)/)).filter(Boolean).map(m=>[m[1],m[2],m[3],m[4]])},
+  {id:"junos-bgp",vendor:"Juniper",label:"show bgp summary",
+    hint:"Peer AS InPkt OutPkt State",
+    sample:"Peer                     AS      InPkt     OutPkt    OutQ   Flaps Last Up/Dwn State|#Active/Received/Accepted/Damped\n10.0.0.2              65002      12841      12838       0       0     1w2d Establ",
+    test:t=>/State\|#Active\/Received/i.test(t)||/Peer\s+AS\s+InPkt/i.test(t),
+    cols:["peer","asn","inPkt","outPkt","last","state"],
+    parse:t=>t.split(/\n/).map(l=>l.match(/^(\d+\.\d+\.\d+\.\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\S+)\s+(\S+)/)).filter(Boolean).map(m=>[m[1],m[2],m[3],m[4],m[7],m[8]])},
+  {id:"eos-bgp",vendor:"Arista",label:"show ip bgp summary (EOS)",
+    hint:"PfxRcd PfxAcc — the documented follow-up parser",
+    sample:"BGP summary information for VRF default\nRouter identifier 1.1.1.1, local AS number 65001\nNeighbor Status Codes: m - Under maintenance\n  Neighbor         V  AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State  PfxRcd PfxAcc\n  10.0.0.2         4  65002          12841     12838    0    0   1w2d   Estab  42     42",
+    test:t=>/Neighbor Status Codes/i.test(t)||(/PfxRcd PfxAcc/i.test(t)&&/local AS number/i.test(t)),
+    cols:["neighbor","ver","asn","msgRcvd","state","pfxRcd","pfxAcc"],
+    parse:t=>t.split(/\n/).map(l=>l.match(/(\d+\.\d+\.\d+\.\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\S+)\s+(\S+)\s+(\d+)\s+(\d+)/)).filter(Boolean).map(m=>[m[1],m[2],m[3],m[4],m[9],m[10],m[11]])},
+  {id:"frr-bgp",vendor:"FRR",label:"show ip bgp summary (FRR)",
+    hint:"vtysh neighbor table — live lab parser",
+    sample:"IPv4 Unicast Summary (VRF default):\nBGP router identifier 1.1.1.1, local AS number 65001 vrf-id 0\nNeighbor        V         AS   MsgRcvd   MsgSent   TblVer  InQ OutQ  Up/Down State/PfxRcd   PfxSnt Desc\n10.0.0.2        4      65000     12841     12838        8    0    0 1w2d            42       12 n/a",
+    test:t=>/vrf-id/i.test(t)||/PfxSnt/i.test(t),
+    cols:["neighbor","ver","asn","msgRcvd","msgSent","upDown","state"],
+    parse:t=>t.split(/\n/).map(l=>l.match(/^(\d+\.\d+\.\d+\.\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)/)).filter(Boolean).map(m=>[m[1],m[2],m[3],m[4],m[5],"",""])},
+  {id:"vyos-bgp",vendor:"VyOS",label:"show ip bgp summary (VyOS)",
+    hint:"FRR-shaped table inside VyOS op-mode",
+    sample:"IPv4 Unicast Summary:\nBGP router identifier 1.1.1.1, local AS number 65001\nNeighbor        V    AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd\n10.0.0.2        4 65002   12841   12838        8    0    0 1w2d           42",
+    test:t=>/IPv4 Unicast Summary/i.test(t)&&/State\/PfxRcd/i.test(t),
+    cols:["neighbor","ver","asn","msgRcvd","msgSent","upDown","state"],
+    parse:t=>t.split(/\n/).map(l=>l.match(/^(\d+\.\d+\.\d+\.\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\S+)\s+(\S+)/)).filter(Boolean).map(m=>[m[1],m[2],m[3],m[4],m[5],m[9],m[10]])},
+];
+
+let CORPUS = [];
+let selectedVendors = [];
+let currentTab = "intent";
+let selNode = "leaf-1";
+
+const $ = id => document.getElementById(id);
+function toast(msg){const t=$("toast");t.textContent=msg;t.style.display="block";setTimeout(()=>t.style.display="none",1600)}
+function copy(text){navigator.clipboard.writeText(text).then(()=>toast("Copied")).catch(()=>toast("Copy failed"))}
+function esc(s){return String(s??"").replace(/[&<>"]/g,c=>({"&":"&","<":"<",">":">","\"":"""}[c]))}
+function lookupConcept(text){
+  const hay=text.toLowerCase();
+  for(const [key,needles] of CONCEPTS){ if(needles.some(n=>hay.includes(n))) return key; }
+  return null;
+}
+function applyParams(cmd, p){
+  let out=cmd;
+  const map=[[/\b65001\b/g,p.asn],[/\b65002\b/g,p.remote],[/\b10\.0\.0\.2\b/g,p.peer||p.nh],[/\b10\.0\.0\.10\b/g,p.server],[/\b10\.0\.0\.1\b/g,p.ip],[/\bvlan 10\b/gi,p.vlan&&("vlan "+p.vlan)],[/\b10010\b/g,p.vni],[/\b1\.1\.1\.1\b/g,p.loopback||p.rid],[/\b4096\b/g,p.prio],[/\b10\.0\.0\.0\/8\b/g,p.src],[/\b10\.0\.0\.0\/24\b/g,p.net]];
+  for(const [re,val] of map){ if(val) out=out.replace(re,val); }
+  return out;
+}
+function cmdsFor(concept){
+  return CORPUS.filter(c=>c.concept===concept && (!selectedVendors.length || selectedVendors.includes(c.vendor)));
+}
+function vendorBar(){
+  const vs=[...new Set(CORPUS.map(c=>c.vendor))];
+  return `<div class="row" id="vbar">${vs.map(v=>`<button type="button" class="chip${selectedVendors.includes(v)?" on":""}" data-v="${esc(v)}">${esc(v)}</button>`).join("")}<button type="button" class="chip" data-v="">All</button></div>`;
+}
+function bindVendorBar(){
+  document.querySelectorAll("#vbar .chip").forEach(b=>b.addEventListener("click",()=>{
+    const v=b.dataset.v;
+    if(!v) selectedVendors=[];
+    else if(selectedVendors.includes(v)) selectedVendors=selectedVendors.filter(x=>x!==v);
+    else selectedVendors=[...selectedVendors,v];
+    render();
+  }));
+}
+function snippets(cmd, vendor, os, concept){
+  const peer=(cmd.match(/\b\d{1,3}(?:\.\d{1,3}){3}\b/)||["10.0.0.2"])[0];
+  const rest = `curl -sk -u "$NET_USER:$NET_PASS" -H "Accept: application/yang-data+json" \\
+  https://$NET_HOST/restconf/data/openconfig-network-instance:network-instances`;
+  const gnmi = `gnmi_cli -address $NET_HOST:57400 -insecure -username $NET_USER -password $NET_PASS \\
+  get --xpath /network-instances/network-instance[name=default]`;
+  const netmiko = `from netmiko import ConnectHandler
+import os
+dev = {"device_type":"${os==="junos"?"juniper_junos":os==="eos"?"arista_eos":os==="nxos"?"cisco_nxos":"cisco_ios"}",
+       "host":os.environ["NET_HOST"],"username":os.environ["NET_USER"],"password":os.environ["NET_PASS"]}
+with ConnectHandler(**dev) as c:
+    print(c.send_config_set(${JSON.stringify(cmd.split("\n"))}))`;
+  const nornir = `from nornir import InitNornir
+from nornir_netmiko.tasks import netmiko_send_config
+nr = InitNornir(config_file="config.yaml")
+nr.run(task=netmiko_send_config, config_commands=${JSON.stringify(cmd.split("\n"))})`;
+  const netconf = `<config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <cli xmlns="urn:cli-studio:native">${esc(cmd)}</cli>
+</config>`;
+  return {CLI:cmd, RESTCONF:rest, gNMI:gnmi, Netmiko:netmiko, Nornir:nornir, NETCONF:netconf};
+}
+function cmdCards(list, params){
+  if(!list.length) return `<div class="empty">No matching commands for this vendor filter.</div>`;
+  return list.map(c=>{
+    const body=applyParams(c.cmd, params||{});
+    const sn=snippets(body,c.vendor,c.os,c.concept);
+    const keys=Object.keys(sn);
+    return `<article class="cmd-card" data-id="${esc(c.vendor+"-"+c.title)}">
+      <div class="cmd-head">
+        <div><b>${esc(c.vendor)}</b> <span class="muted">${esc(c.os)}</span> · ${esc(c.title)}
+          ${c.live?'<span class="badge live">live lab</span>':''}
+          <span class="badge ${esc(c.risk)}">${esc(c.risk)}</span>
+        </div>
+        <button class="tbtn copy">Copy CLI</button>
+      </div>
+      <p class="muted" style="margin:4px 0 0">${esc(c.desc)}</p>
+      <pre class="cli">${esc(body)}</pre>
+      <div class="snip-tabs">${keys.map((k,i)=>`<button class="chip${i?"":" on"}" data-snip="${esc(k)}">${esc(k)}</button>`).join("")}</div>
+      <pre class="cli snip-body">${esc(sn.CLI)}</pre>
+    </article>`;
+  }).join("");
+}
+function bindCards(root){
+  root.querySelectorAll(".copy").forEach(b=>b.addEventListener("click",()=>{
+    const cli=b.closest(".cmd-card")?.querySelector("pre.cli")?.textContent||"";
+    copy(cli);
+  }));
+  root.querySelectorAll(".cmd-card").forEach(card=>{
+    const snips={};
+    const pre=card.querySelector(".snip-body");
+    const cli=card.querySelectorAll("pre.cli")[0]?.textContent||"";
+    const first=card.querySelector(".cmd-head b")?.textContent||"";
+    const c=CORPUS.find(x=>x.vendor===first && card.textContent.includes(x.title));
+    Object.assign(snips, snippets(cli, first, c?.os||"ios", c?.concept||""));
+    card.querySelectorAll("[data-snip]").forEach(btn=>btn.addEventListener("click",()=>{
+      card.querySelectorAll("[data-snip]").forEach(x=>x.classList.toggle("on",x===btn));
+      pre.textContent=snips[btn.dataset.snip]||cli;
+    }));
+  });
+}
+
+function viewIntent(){
+  return `<div class="grid two">
+    <div class="card">
+      <label for="intent">What do you want the box to do?</label>
+      <textarea id="intent" placeholder="eBGP to 10.0.0.2 in AS 65002, or OSPF area 0 on 10.0.0.0/24, or enable gNMI">eBGP neighbor 10.0.0.2 remote-as 65002</textarea>
+      ${vendorBar()}
+      <div class="row">
+        <button class="tbtn" id="go">Translate</button>
+        <span class="muted">Try: <button class="chip ex" data-x="advertise VLAN 10 as EVPN VNI 10010">EVPN</button>
+        <button class="chip ex" data-x="NTP server 10.0.0.10">NTP</button>
+        <button class="chip ex" data-x="enable gNMI telemetry">gNMI</button></span>
+      </div>
+    </div>
+    <div class="card" id="intent-out"><div class="empty">Translate to emit concept-aligned CLI.</div></div>
+  </div><div id="intent-cmds"></div>`;
+}
+function runIntent(){
+  const text=$("intent").value.trim();
+  const concept=lookupConcept(text);
+  const out=$("intent-out");
+  if(!concept){out.innerHTML=`<div class="err">No concept matched. Try BGP, OSPF, VLAN, EVPN, LACP, NTP, ACL, BFD, STP, gNMI.</div>`;return;}
+  const recipe=RECIPES.find(r=>r.concept===concept);
+  const ips=text.match(/\b(?:\d{1,3}\.){3}\d{1,3}(?:\/\d{1,2})?\b/g)||[];
+  const asns=[...text.matchAll(/\bAS(?:N)?\s*(\d+)/gi)].map(m=>m[1]);
+  const vlan=(text.match(/\bvlan\s*(\d+)/i)||[])[1];
+  const params={peer:ips[0],nh:ips[1]||ips[0],asn:asns[0],remote:asns[1],vlan,server:ips[0],vni:(text.match(/\b(\d{4,8})\b/)||[])[1],loopback:ips[0]};
+  const list=cmdsFor(concept);
+  out.innerHTML=`<div class="badge">${esc(concept)}</div>
+    <p>${esc(recipe?recipe.title:concept)} · ${list.length} vendor surfaces · confidence ${recipe?"0.86":"0.62"}</p>
+    <p class="muted">${esc(recipe?recipe.desc:"Mapped via concept needles.")}</p>`;
+  $("intent-cmds").innerHTML=cmdCards(list,params);
+  bindCards($("intent-cmds"));
+}
+
+function viewRecipes(){
+  return `<div class="grid two">${RECIPES.map(r=>`<article class="card rec" data-id="${r.id}">
+    <div class="cmd-head"><b>${esc(r.title)}</b><span class="badge ${r.risk}">${r.risk}</span></div>
+    <p class="muted">${esc(r.desc)}</p>
+    <div class="muted" style="font-size:12px">${esc(r.cat)} · ${esc(r.concept)}</div>
+  </article>`).join("")}</div>
+  <div id="rec-out" style="margin-top:14px"></div>`;
+}
+function openRecipe(id){
+  const r=RECIPES.find(x=>x.id===id); if(!r) return;
+  const fields=r.params.map(p=>`<label>${esc(p.l)}<input data-k="${p.k}" value="${esc(p.d)}"></label>`).join("");
+  $("rec-out").innerHTML=`<div class="card"><h3 style="margin:0 0 8px">${esc(r.title)}</h3>${vendorBar()}<div class="grid two">${fields||"<p class='muted'>No parameters.</p>"}</div>
+    <div class="row"><button class="tbtn" id="bake">Generate</button></div><div id="rec-cmds"></div></div>`;
+  bindVendorBar();
+  const bake=()=>{
+    const p={};
+    $("rec-out").querySelectorAll("input[data-k]").forEach(i=>p[i.dataset.k]=i.value);
+    $("rec-cmds").innerHTML=cmdCards(cmdsFor(r.concept),p);
+    bindCards($("rec-cmds"));
+  };
+  $("bake").onclick=bake; bake();
+}
+
+function viewMigrate(){
+  return `<div class="grid two">
+    <div class="card">
+      <label>Source vendor config</label>
+      <select id="src">${[...new Set(CORPUS.map(c=>c.vendor))].map(v=>`<option>${esc(v)}</option>`).join("")}</select>
+      <textarea id="mig" style="margin-top:8px" placeholder="Paste a running snippet">router bgp 65001
+ neighbor 10.0.0.2 remote-as 65002</textarea>
+      ${vendorBar()}
+      <button class="tbtn" id="do-mig">Migrate</button>
+    </div>
+    <div class="card" id="mig-out"><div class="empty">Paste one vendor, emit the others. Unified-diff style.</div></div>
+  </div>`;
+}
+function runMigrate(){
+  const src=$("src").value;
+  const text=$("mig").value;
+  const concept=lookupConcept(text)||"bgp:peer";
+  const params={};
+  const ips=text.match(/\b(?:\d{1,3}\.){3}\d{1,3}\b/g)||[];
+  if(ips[0]) params.peer=ips[0];
+  const asns=[...text.matchAll(/\b(\d{4,10})\b/g)].map(m=>m[1]);
+  if(asns[0]) params.asn=asns[0]; if(asns[1]) params.remote=asns[1];
+  const others=cmdsFor(concept).filter(c=>c.vendor!==src);
+  $("mig-out").innerHTML=`<p>Concept <b>${esc(concept)}</b> · ${others.length} target surfaces</p>`+
+    others.map(c=>{
+      const body=applyParams(c.cmd,params);
+      const diff=unifiedDiff(text,body,src,c.vendor);
+      return `<article class="cmd-card"><div class="cmd-head"><b>${esc(c.vendor)}</b><button class="tbtn copy" data-copy="${esc(body)}">Copy</button></div><pre class="cli">${esc(diff)}</pre></article>`;
+    }).join("");
+  bindCards($("mig-out"));
+}
+function unifiedDiff(a,b,an,bn){
+  const al=a.split(/\n/), bl=b.split(/\n/);
+  let out=`--- ${an}\n+++ ${bn}\n`;
+  al.forEach(l=>{ if(!bl.includes(l)) out+="- "+l+"\n"; });
+  bl.forEach(l=>{ if(!al.includes(l)) out+="+ "+l+"\n"; });
+  return out.trim();
+}
+
+function viewParse(){
+  return `<div class="card">
+    <label>Paste raw show output</label>
+    <div class="row"><select id="ptpl"><option value="auto">Auto-detect</option>${PARSERS.map(p=>`<option value="${p.id}">${esc(p.vendor)} — ${esc(p.label)}</option>`).join("")}</select>
+    <button class="tbtn" id="do-parse">Parse</button>
+    <button class="tbtn" id="sample">Insert sample</button></div>
+    <textarea id="ptext" placeholder="Cisco / Junos / EOS / FRR / VyOS BGP, route, OSPF…"></textarea>
+    <div id="pout" style="margin-top:12px"></div>
+  </div>`;
+}
+function runParse(){
+  const txt=$("ptext").value;
+  const key=$("ptpl").value;
+  let p=PARSERS.find(x=>x.id===key);
+  if(!p||key==="auto") p=PARSERS.find(x=>x.test(txt));
+  const box=$("pout");
+  if(!txt.trim()){box.innerHTML=`<div class="err">Paste output first.</div>`;return;}
+  if(!p){box.innerHTML=`<div class="err">No parser matched. Try Cisco / Junos / EOS / FRR / VyOS BGP or route output.</div>`;return;}
+  const rows=p.parse(txt);
+  if(!rows.length){box.innerHTML=`<div class="warn">Detected ${esc(p.label)} but extracted 0 rows.</div>`;return;}
+  box.innerHTML=`<p><span class="badge live">${esc(p.vendor)}</span> ${esc(p.label)} · ${rows.length} rows</p>
+    <div style="overflow:auto"><table><thead><tr>${p.cols.map(c=>`<th>${esc(c)}</th>`).join("")}</tr></thead>
+    <tbody>${rows.map(r=>`<tr>${r.map(c=>`<td>${esc(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+}
+
+function viewLab(){
+  const pos=Object.fromEntries(NODES.map(n=>[n.id,n]));
+  const n=NODES.find(x=>x.id===selNode);
+  const live=CORPUS.filter(c=>c.live).slice(0,8);
+  return `<div class="grid two">
+    <div class="card">
+      <svg class="lab" viewBox="0 0 100 100" role="img" aria-label="FRR 10-node Clos">
+        ${LINKS.map(([a,b])=>`<line x1="${pos[a].x}" y1="${pos[a].y}" x2="${pos[b].x}" y2="${pos[b].y}" stroke="currentColor" stroke-opacity=".25" stroke-width=".6"/>`).join("")}
+        ${NODES.map(nd=>`<g class="node" data-id="${nd.id}">
+          <rect x="${nd.x-7}" y="${nd.y-5}" width="14" height="10" rx="1.2" fill="${nd.id===selNode?"#22d3ee":"#121a3a"}" stroke="#1f2a55" stroke-width=".4"/>
+          <text x="${nd.x}" y="${nd.y+1.2}" text-anchor="middle" font-size="2.4" fill="${nd.id===selNode?"#041018":"#cfd6f5"}">${nd.id}</text>
+        </g>`).join("")}
+      </svg>
+    </div>
+    <div class="card">
+      <h3 style="margin:0">${esc(n.id)}</h3>
+      <p class="muted">${esc(n.role)} · ASN ${n.asn||"—"} · loopback ${esc(n.lo)}</p>
+      <p>FRR rows in the 70k corpus carry a <span class="badge live">live</span> flag when the exact command was observed on this Docker Clos.</p>
+      ${live.map(c=>`<pre class="cli">${esc(c.cmd)}</pre>`).join("")}
+    </div>
+  </div>`;
+}
+
+function viewLint(){
+  return `<div class="card">
+    <label>Paste a running-config (any vendor). Studio flags the boring things outages are made of.</label>
+    <textarea id="lint">hostname leaf-1
+interface Ethernet1
+ ip address 10.0.0.1/24
+router bgp 65001
+ neighbor 10.0.0.2 remote-as 65002</textarea>
+    <div class="row"><button class="tbtn" id="do-lint">Lint</button></div>
+    <div id="lint-out"></div>
+  </div>`;
+}
+function runLint(){
+  const t=$("lint").value.toLowerCase();
+  const checks=[
+    {id:"ntp", ok:/ntp/.test(t), msg:"No NTP / chrony server. Clocks drift, certs and logs lie."},
+    {id:"aaa", ok:/aaa|radius|tacacs/.test(t), msg:"No AAA / RADIUS / TACACS. Local-only auth on a fabric."},
+    {id:"ssh", ok:/ssh|transport input ssh|crypto key/.test(t), msg:"No SSH hardening. Telnet-era configs still ship."},
+    {id:"log", ok:/logging |syslog/.test(t), msg:"No syslog / logging host. The next incident has no paper trail."},
+    {id:"bgp", ok:/bgp|neighbor|peer-as/.test(t), warn:true, msg:"BGP present — confirm BFD or a sane hold-time."},
+    {id:"bfd", ok:/bfd/.test(t), msg:"No BFD. Three-minute dead timers are not a failover plan."},
+    {id:"secret", ok:!/password\s+\S+|community\s+\S+/.test(t), msg:"Literal password or SNMP community in the paste. Redact before tickets."},
+  ];
+  $("lint-out").innerHTML=`<ul>${checks.map(c=>`<li class="${c.ok?"ok":(c.warn?"warn":"err")}"><b>${c.ok?"pass":"fail"}</b> — ${esc(c.msg)}</li>`).join("")}</ul>
+    <p class="muted">Heuristic only. Pair with <a href="https://gesh75.github.io/aegis/">AEGIS</a> before anything touches a box.</p>`;
+}
+
+function viewCoverage(){
+  const vendors=[...new Set(CORPUS.map(c=>c.vendor))];
+  const concepts=[...new Set(CORPUS.map(c=>c.concept))];
+  const cell=(v,k)=>{
+    const hits=CORPUS.filter(c=>c.vendor===v&&c.concept===k);
+    if(!hits.length) return `<span class="cov-cell" title="${v} ${k}"></span>`;
+    return `<span class="cov-cell ${hits.some(h=>h.live)?"live":"on"}" title="${v} ${k} (${hits.length})"></span>`;
+  };
+  return `<div class="card" style="overflow:auto">
+    <p class="muted">Studio corpus: ${CORPUS.length} golden-path rows covering the concepts the 70k page is too wide to teach. Green = live on the FRR lab.</p>
+    <table><thead><tr><th>Vendor</th>${concepts.map(k=>`<th title="${esc(k)}">${esc(k.split(":")[0])}</th>`).join("")}<th>n</th></tr></thead>
+    <tbody>${vendors.map(v=>`<tr><td>${esc(v)}</td>${concepts.map(k=>`<td>${cell(v,k)}</td>`).join("")}<td>${CORPUS.filter(c=>c.vendor===v).length}</td></tr>`).join("")}</tbody></table>
+  </div>`;
+}
+
+const VIEWS={intent:viewIntent,recipes:viewRecipes,migrate:viewMigrate,parse:viewParse,lab:viewLab,lint:viewLint,coverage:viewCoverage};
+const TITLES={
+  intent:["English in. Seventeen CLIs out.","Type what you mean. Studio maps it onto a concept, then the vendor surfaces."],
+  recipes:["Golden paths, parameterized.","BGP, OSPF, EVPN, LACP, ACL, NTP, BFD, STP, gNMI — bake IPs and ASNs in."],
+  migrate:["One config. The other sixteen.","Paste Cisco, emit Junos / EOS / FRR / SR Linux as a unified diff."],
+  parse:["Show output, structured.","EOS, FRR, and VyOS parsers ship — the follow-up ARCHITECTURE.md called out."],
+  lab:["Ten nodes. Provenance that is not a guess.","Click a Clos member. Live-flagged FRR commands were captured here."],
+  lint:["The boring failures.","NTP, AAA, SSH, syslog, BFD. Heuristic lint before AEGIS or a change window."],
+  coverage:["Honest matrix.","Golden-path coverage across 17 vendors. Not a marketing heatmap."],
+};
+
+function render(){
+  const tabs=$("tabs");
+  tabs.innerHTML=TABS.map(t=>`<button class="tab" role="tab" aria-selected="${t.id===currentTab}" data-tab="${t.id}">${t.label}</button>`).join("");
+  tabs.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{currentTab=b.dataset.tab;history.replaceState(null,"","#"+currentTab);render();});
+  $("title").textContent=TITLES[currentTab][0];
+  $("lede").textContent=TITLES[currentTab][1];
+  $("view").innerHTML=VIEWS[currentTab]();
+  bindVendorBar();
+  if(currentTab==="intent"){
+    $("go").onclick=runIntent;
+    document.querySelectorAll(".ex").forEach(b=>b.onclick=()=>{$("intent").value=b.dataset.x;runIntent();});
+    runIntent();
+  }
+  if(currentTab==="recipes"){
+    document.querySelectorAll(".rec").forEach(c=>c.onclick=()=>openRecipe(c.dataset.id));
+  }
+  if(currentTab==="migrate"){ $("do-mig").onclick=runMigrate; }
+  if(currentTab==="parse"){
+    $("do-parse").onclick=runParse;
+    $("sample").onclick=()=>{
+      const key=$("ptpl").value;
+      const p=PARSERS.find(x=>x.id===key)||PARSERS.find(x=>x.id==="eos-bgp");
+      $("ptext").value=p.sample; runParse();
+    };
+  }
+  if(currentTab==="lab"){
+    document.querySelectorAll(".node").forEach(g=>g.addEventListener("click",()=>{selNode=g.dataset.id;render();}));
+  }
+  if(currentTab==="lint"){ $("do-lint").onclick=runLint; runLint(); }
+}
+
+$("theme").onclick=()=>{
+  const html=document.documentElement;
+  html.dataset.theme=html.dataset.theme==="dark"?"light":"dark";
+};
+
+fetch("studio-data.json").then(r=>{
+  if(!r.ok) throw new Error(r.status);
+  return r.json();
+}).then(data=>{
+  CORPUS=data;
+  const hash=(location.hash||"#intent").slice(1);
+  if(TABS.some(t=>t.id===hash)) currentTab=hash;
+  render();
+}).catch(()=>{
+  $("view").innerHTML=`<div class="card err">Could not load studio-data.json. Serve over HTTP (GitHub Pages or python3 -m http.server) — file:// is empty on purpose, same contract as the cheatsheet.</div>`;
+});
+</script>
+</body>
+</html>
