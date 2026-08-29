@@ -93,7 +93,11 @@ Built-in show-output parsers:
 
 ### CLI Studio (`studio.html`)
 
-A second static surface: English→CLI intent, parameterized recipes, cross-vendor migrate (unified diff), the parsers above, a 10-node FRR Clos map, hardening lint, and a golden-path coverage matrix. Curated corpus in `studio-data.json`. Zero npm. RESTCONF curl and gNMI get snippets sit next to NETCONF / Netmiko / Nornir.
+A second static surface for the work the 70k cheatsheet is too wide to teach: English→CLI intent, parameterized recipes, cross-vendor migrate (unified diff), the parsers above, a 10-node FRR Clos map, hardening lint, and a golden-path coverage matrix. Curated corpus in `studio-data.json` (~160 concept-aligned rows). Zero npm. Fetch-once, same HTTP-only contract as `index.html`.
+
+RESTCONF curl and gNMI get snippets sit next to NETCONF / Netmiko / Nornir — model-driven programmability is the 2026 default, not a footnote.
+
+Studio recipes now include **IS-IS L2**, **SR-MPLS node-SID**, and **IPv6 eBGP**. Parse tables export TextFSM / TTP. Harden tab runs NTP/AAA/SSH/syslog/BFD/secret heuristics plus an AEGIS-style pre-change gate (risk, blast radius, rollback). Developer runbook: `docs/DEVELOP.md`.
 
 ---
 
@@ -105,7 +109,7 @@ push to main
        └─► https://gesh75.github.io/multivendor-cli-configurator/
 ```
 
-`index.html` + `commands.json` is the cheatsheet. `studio.html` + `studio-data.json` is CLI Studio. Both ship in the lean `_site/` artifact.
+`index.html` + `commands.json` is the cheatsheet. `studio.html` + `studio-data.json` is CLI Studio. Both ship in the lean `_site/` artifact (see `.github/workflows/pages.yml`). `.nojekyll` is required so Ansible `{{ }}` does not trip Jekyll.
 
 ---
 
@@ -126,6 +130,5 @@ python3 deep_gap_dig.py
 python3 patch_yang_stack_vendors.py
 python3 patch_yang_more_vendors.py
 ```
-
 
 Stdlib only. No virtualenv required.
