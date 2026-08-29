@@ -605,6 +605,7 @@ a.skip-link:focus-visible{outline-offset:-2px}
 <header>
   <div class="bar">
     <div class="brand"><span class="dot"></span>Multivendor CLI <small>17 vendors · 70K+ commands</small></div>
+    <a class="tbtn" href="studio.html" title="CLI Studio — intent, migrate, recipes, EOS/FRR/VyOS parse, FRR lab">✦ <span class="lbl">Studio</span></a>
     <div class="search-wrap">
       <div class="search">
         <span style="color:var(--ink-dim)">⌕</span>
@@ -3300,7 +3301,7 @@ Neighbor        V    AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd
 10.0.0.3        4 65003    5678    5679       7    0    0 04:30:11        25
 192.0.2.45      4 65010   34567   34570       7    0    0 1w2d           143
 198.51.100.10   4 65020      45      46       0    0    0 never    Active`,
-    detect: txt => /Neighbor\s+V\s+AS\s+MsgRcvd/i.test(txt) || /local AS number/i.test(txt),
+    detect: txt => /Neighbor\s+V\s+AS\s+MsgRcvd/i.test(txt) || (/local AS number/i.test(txt) && /State\/PfxRcd/i.test(txt)),
     columns: ["Neighbor","V","AS","MsgRcvd","MsgSent","TblVer","InQ","OutQ","Up/Down","State/PfxRcd"],
     parse: txt => {
       const rows = [];
@@ -3420,6 +3421,64 @@ A V Destination        P Prf   Metric 1   Metric 2  Next hop        AS path
       txt.split("\n").forEach(line => {
         const m = line.match(/^([+*\-])\s+(\S)\s+(\S+\/\d+)\s+(\S)\s+(\d+)\s+(\d+)?\s+(\d+)?\s+(>?\S+)(?:\s+(.+))?$/);
         if(m) rows.push([m[1], m[2], m[3], m[4], m[5], m[6]||"", m[7]||"", m[8], m[9]||""]);
+      });
+      return rows;
+    },
+  },
+  "eos-bgp-summary": {
+    label: "Arista EOS — show ip bgp summary",
+    vendor: "Arista",
+    sample: `BGP summary information for VRF default
+Router identifier 1.1.1.1, local AS number 65001
+Neighbor Status Codes: m - Under maintenance
+  Neighbor         V  AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State  PfxRcd PfxAcc
+  10.0.0.2         4  65002          12841     12838    0    0   1w2d   Estab  42     42
+  10.0.1.2         4  65003           2104      2101    0    0   00:14:02 Estab  7      7`,
+    detect: txt => /Neighbor Status Codes/i.test(txt) || (/PfxRcd PfxAcc/i.test(txt) && /local AS number/i.test(txt)),
+    columns: ["Neighbor","V","AS","MsgRcvd","MsgSent","Up/Down","State","PfxRcd","PfxAcc"],
+    parse: txt => {
+      const rows = [];
+      txt.split("\n").forEach(line => {
+        const m = line.match(/(\d+\.\d+\.\d+\.\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\S+)\s+(\S+)\s+(\d+)\s+(\d+)/);
+        if(m) rows.push([m[1], m[2], m[3], m[4], m[5], m[8], m[9], m[10], m[11]]);
+      });
+      return rows;
+    },
+  },
+  "frr-bgp-summary": {
+    label: "FRR vtysh — show ip bgp summary",
+    vendor: "FRR",
+    sample: `IPv4 Unicast Summary (VRF default):
+BGP router identifier 1.1.1.1, local AS number 65001 vrf-id 0
+BGP table version 8
+Neighbor        V         AS   MsgRcvd   MsgSent   TblVer  InQ OutQ  Up/Down State/PfxRcd   PfxSnt Desc
+10.0.0.2        4      65000     12841     12838        8    0    0 1w2d            42       12 n/a
+10.0.1.2        4      65002      2104      2101        8    0    0 00:14:02         7        12 n/a`,
+    detect: txt => /vrf-id/i.test(txt) || /PfxSnt/i.test(txt),
+    columns: ["Neighbor","V","AS","MsgRcvd","MsgSent","Up/Down","State/PfxRcd"],
+    parse: txt => {
+      const rows = [];
+      txt.split("\n").forEach(line => {
+        const m = line.match(/^(\d+\.\d+\.\d+\.\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\S+)\s+(\S+)/);
+        if(m) rows.push([m[1], m[2], m[3], m[4], m[5], m[9], m[10]]);
+      });
+      return rows;
+    },
+  },
+  "vyos-bgp-summary": {
+    label: "VyOS — show ip bgp summary",
+    vendor: "VyOS",
+    sample: `IPv4 Unicast Summary:
+BGP router identifier 1.1.1.1, local AS number 65001
+Neighbor        V    AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd
+10.0.0.2        4 65002   12841   12838        8    0    0 1w2d           42`,
+    detect: txt => /IPv4 Unicast Summary/i.test(txt) && /State\/PfxRcd/i.test(txt),
+    columns: ["Neighbor","V","AS","MsgRcvd","MsgSent","Up/Down","State/PfxRcd"],
+    parse: txt => {
+      const rows = [];
+      txt.split("\n").forEach(line => {
+        const m = line.match(/^(\d+\.\d+\.\d+\.\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\S+)\s+(\S+)/);
+        if(m) rows.push([m[1], m[2], m[3], m[4], m[5], m[9], m[10]]);
       });
       return rows;
     },

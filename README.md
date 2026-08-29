@@ -18,6 +18,7 @@
 > comparable, shareable, deep-linkable interface.
 
 🟢 **Live demo:** [gesh75.github.io/multivendor-cli-configurator](https://gesh75.github.io/multivendor-cli-configurator/)
+✦ **CLI Studio:** [intent · migrate · recipes · parse · lab](https://gesh75.github.io/multivendor-cli-configurator/studio.html)
 📐 **Architecture:** [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
 
 ![Architecture](docs/img/architecture.svg)
@@ -49,6 +50,19 @@ Each command card has:
   place, with a companion `.env.example` / `keyring set` one-liner alongside.
 
 Opens in any modern browser. No build, no install, zero JS dependencies.
+
+**[CLI Studio](https://gesh75.github.io/multivendor-cli-configurator/studio.html)** (`studio.html`) —
+the work the 70k page is too wide to teach, still static:
+
+- **Intent** — English → concept-aligned CLI across the 17 vendors
+- **Recipes** — parameterized BGP, OSPF, EVPN, LACP, ACL, NTP, BFD, STP, gNMI
+- **Migrate** — paste one vendor, emit the others as a unified diff
+- **Parse** — Cisco, Junos, **EOS, FRR, VyOS** show-output tables
+- **Lab** — 10-node FRR Clos; live-flagged commands
+- **Lint** — NTP / AAA / SSH / syslog / BFD heuristics
+- **Coverage** — golden-path matrix, not a marketing heatmap
+
+Snippets: CLI · RESTCONF curl · gNMI get · Netmiko · Nornir · NETCONF.
 
 A legacy `configurator.html` is kept in the repo for archive purposes — a
 form-based CLI generator superseded by the cheatsheet's Compare view + Automate
@@ -183,7 +197,7 @@ model — lives in **[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)**.
 - **Cross-vendor "See equivalents ↗"** per card — drawer with top-N matches per vendor
 - **Favorites** (★) persisted in localStorage + dedicated filter
 - **CLI Builder drawer** — queue commands across vendors, copy/download as `.txt`
-- **Parse Output** — paste raw `show` output, get a structured table
+- **Parse Output** — paste raw `show` output, get a structured table (Cisco, Junos, **EOS, FRR, VyOS**)
 - **Export menu:** `.txt`, `.md`, `.csv`, `.json`
 - **Shareable workspace URL** — restores filters, view, search, and CLI Builder queue
 - **Deep-link state:** `?cat=BGP&view=compare&v=Juniper`
