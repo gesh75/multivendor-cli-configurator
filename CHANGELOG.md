@@ -1,5 +1,32 @@
 # Changelog
 
+## 2026-08-29 — Studio finish (docs + remaining plan)
+
+Closes the research backlog called out when CLI Studio landed on Pages.
+
+### Docs site
+
+- `docs/index.html` now has **Studio**, **Status**, **Develop**, and **Changelog** sections.
+- Added [`docs/DEVELOP.md`](docs/DEVELOP.md) — developer/ops runbook (HTTP-only serve, regen order, CI, Pages inventory, pitfalls). **Supersedes draft PRs #11 and #12.**
+- Quickstart no longer implies `file://`. Full regen pipeline (merge / expand / gap-fix / consistency / deep-gap) is documented.
+- Sitemap includes the runbook.
+
+### Studio plan items now shipped
+
+| Item | Where |
+|---|---|
+| IS-IS L2, SR-MPLS node-SID, IPv6 eBGP recipes | Studio recipes + golden-path corpus |
+| TextFSM / TTP export of parse tables | Parse tab |
+| Hardening lint (NTP / AAA / SSH / syslog / BFD / secrets) | Harden tab |
+| AEGIS-style pre-change (risk, blast, rollback) | Harden tab |
+| SONiC + classic SR OS golden-path growth | Studio corpus (full `commands.json` still thin) |
+
+### Still open
+
+- Grow SONiC (459) and classic SR OS in the 70,006-row JSON
+- Offline service worker for Studio
+- Wiring Studio recipes into the air-gapped AEGIS repo (this gate is a client-side cousin, not a replacement)
+
 ## 2026-08-29 — CLI Studio on GitHub Pages
 
 Shipped a second static surface next to the 70,006-command cheatsheet. Still zero npm. Still GitHub Pages.
@@ -28,12 +55,3 @@ Snippets per command: CLI, RESTCONF curl, gNMI get, Netmiko, Nornir, NETCONF. Cr
 ### Hosting
 
 `studio.html` + `studio-data.json` + `404.html` are now in the lean `_site/` Pages artifact.
-
-### Research backlog (not in this drop)
-
-- Grow SONiC (459) and classic Nokia SR OS
-- Merge draft docs PRs #11 / #12 (developer runbook)
-- ISIS / SR-MPLS / IPv6 BGP recipes
-- TextFSM / TTP export of parse tables
-- Service worker so Studio works fully offline
-- Wire Studio recipes into AEGIS pre-change validation

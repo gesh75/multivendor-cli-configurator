@@ -97,6 +97,8 @@ A second static surface for the work the 70k cheatsheet is too wide to teach: En
 
 RESTCONF curl and gNMI get snippets sit next to NETCONF / Netmiko / Nornir — model-driven programmability is the 2026 default, not a footnote.
 
+Studio recipes now include **IS-IS L2**, **SR-MPLS node-SID**, and **IPv6 eBGP**. Parse tables export TextFSM / TTP. Harden tab runs NTP/AAA/SSH/syslog/BFD/secret heuristics plus an AEGIS-style pre-change gate (risk, blast radius, rollback). Developer runbook: `docs/DEVELOP.md`.
+
 ---
 
 ## Hosting

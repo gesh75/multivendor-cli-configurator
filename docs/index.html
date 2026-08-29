@@ -240,8 +240,12 @@
       <a href="#dataflow">Data flow</a>
       <a href="#stack">Tech stack</a>
       <a href="#components">Components</a>
+      <a href="#studio">Studio</a>
+      <a href="#status">Status</a>
+      <a href="#develop">Develop</a>
+      <a href="#changelog">Changelog</a>
       <a href="#quickstart">Quickstart</a>
-      <a href="../studio.html">Studio</a>
+      <a href="../studio.html">Open Studio</a>
     </nav>
     <a class="nav-cta" href="https://github.com/gesh75/multivendor-cli-configurator" target="_blank" rel="noopener">GitHub ↗</a>
   </div>
@@ -641,6 +645,8 @@
           <tr><td><span class="mod">scripts/audit_data_quality.py</span><span class="te">Python 3 stdlib</span></td><td>Flags records where description prose has leaked into title/cmd fields and can quarantine unrecoverable rows to keep the corpus clean.</td></tr>
           <tr><td><span class="mod">scripts/parse_encor.py · parse_junos.py · parse_arista.py · parse_cisco_ospf.py · parse_cisco_extras.py</span><span class="te">Python 3 stdlib</span></td><td>Per-source parsers, one per vendor doc format (Cisco Press chapter+verb regex, Junos two-mode index, Arista bold-backtick, ASA/NX-OS word-boundary role classifier), each emitting an intermediate per-source JSON.</td></tr>
           <tr><td><span class="mod">tests/stress_test.js</span><span class="te">Node.js assert · process.hrtime.bigint</span></td><td>Node-based pure-JS performance + correctness suite that extracts functions (extractPlaceholders, substitutePlaceholders, lookupConcept, CONCEPT_SYNONYMS) directly from index.html and benchmarks them against the production corpus.</td></tr>
+          <tr><td><span class="mod">studio.html + studio-data.json</span><span class="te">Vanilla JS · static JSON ~56 KB</span></td><td>CLI Studio — intent, recipes (incl. IS-IS / SR-MPLS / IPv6 BGP), migrate, parse (Cisco/Junos/EOS/FRR/VyOS + TextFSM/TTP export), FRR lab, hardening lint, AEGIS-style pre-change. Curated ~160+ concept-aligned rows. Zero npm.</td></tr>
+          <tr><td><span class="mod">docs/DEVELOP.md</span><span class="te">Markdown runbook</span></td><td>Developer/ops runbook: HTTP-only serve, URL contract, regen order, CI, Pages inventory, pitfalls. Supersedes draft PRs #11 and #12.</td></tr>
           <tr><td><span class="mod">configurator.html</span><span class="te">Static HTML · vanilla JS</span></td><td>Legacy form-based CLI generator kept for archive purposes only — superseded by the cheatsheet's Compare view + Automate drawer; not linked from the live site.</td></tr>
         </tbody>
       </table>
@@ -658,8 +664,9 @@
       <pre class="sh"><span class="c"># Open the live demo (no install) —</span>
 <span class="c"># https://gesh75.github.io/multivendor-cli-configurator/</span>
 
-<span class="c"># Or open index.html directly in any modern browser —</span>
-<span class="c"># no build, no dependencies</span></pre>
+<span class="c"># HTTP only — file:// looks empty (fetch of commands.json)</span>
+<span class="g">python3</span> -m http.server 8000
+<span class="c"># then open http://127.0.0.1:8000/</span></pre>
     </div>
 
     <div class="code">
@@ -680,8 +687,73 @@
 <span class="g">python3</span> scripts/clean_titles.py
 <span class="g">python3</span> scripts/audit_data_quality.py
 
-<span class="c"># Run the Node stress suite:</span>
+<span class="c"># Gates (CI):</span>
+<span class="g">python3</span> scripts/check_consistency.py
+<span class="g">python3</span> scripts/deep_gap_dig.py
 <span class="g">node</span> tests/stress_test.js</pre>
+    </div>
+  </section>
+
+  <!-- ================= STUDIO ================= -->
+  <section id="studio" aria-labelledby="studio-h">
+    <p class="eyebrow">CLI Studio</p>
+    <h2 class="title" id="studio-h">The 70k cheatsheet is too wide to teach. Studio is the workbench.</h2>
+    <p class="lede">Shipped on Pages as <a href="../studio.html"><code style="font-family:var(--mono);color:var(--teal)">studio.html</code></a> + <code style="font-family:var(--mono);color:var(--teal)">studio-data.json</code>. Still zero npm. Still GitHub Pages. Credentials stay in <code style="font-family:var(--mono);color:var(--teal)">$NET_*</code> — nothing stored.</p>
+    <div class="grid" style="margin-top:1.4rem">
+      <article class="card reveal"><h3>Intent</h3><p>English → concept → N-vendor CLI. Pattern match is instant; optional Grok explain is user-initiated.</p></article>
+      <article class="card reveal"><h3>Recipes</h3><p>Parameterized BGP, OSPF, EVPN, LACP, ACL, NTP, BFD, STP, plus the 2026 backlog: <strong>IS-IS L2, SR-MPLS node-SID, IPv6 eBGP</strong>.</p></article>
+      <article class="card reveal"><h3>Migrate</h3><p>Paste one vendor, emit the others as a unified diff. Concept keys, not string replace. No silent Cisco fallback.</p></article>
+      <article class="card reveal"><h3>Parse + export</h3><p>Cisco, Junos, EOS, FRR, VyOS show-output tables. Export CSV / JSON / <strong>TextFSM</strong> / <strong>TTP</strong>.</p></article>
+      <article class="card reveal"><h3>Harden</h3><p>NTP / AAA / SSH / syslog / BFD / secret heuristics on a running-config. AEGIS-style pre-change: risk, blast radius, rollback.</p></article>
+      <article class="card reveal"><h3>Lab + coverage</h3><p>10-node FRR Clos with live-flagged commands, plus an honest golden-path heatmap across 17 vendors.</p></article>
+    </div>
+  </section>
+
+  <!-- ================= STATUS ================= -->
+  <section id="status" aria-labelledby="status-h">
+    <p class="eyebrow">Project status · August 2026</p>
+    <h2 class="title" id="status-h">Production. Plan items closed. Two corpus gaps remain.</h2>
+    <p class="lede">70,006 CLI commands · 17 vendors · 43,008 router / 22,848 switch / 4,150 firewall. Live cheatsheet and Studio both deploy from the lean <code style="font-family:var(--mono);color:var(--teal)">_site/</code> Pages artifact.</p>
+    <div class="tbl-wrap reveal" style="margin-top:1.3rem">
+      <table>
+        <thead><tr><th scope="col">Item</th><th scope="col">State</th><th scope="col">Notes</th></tr></thead>
+        <tbody>
+          <tr><td>EOS / FRR / VyOS parse</td><td>shipped</td><td>ARCHITECTURE.md follow-up. Cisco auto-detect no longer steals every <code>local AS number</code> paste.</td></tr>
+          <tr><td>CLI Studio on Pages</td><td>shipped</td><td>PR #13. Intent, recipes, migrate, parse, lab, lint, coverage.</td></tr>
+          <tr><td>IS-IS / SR-MPLS / IPv6 BGP recipes</td><td>shipped</td><td>Research backlog from the 2026-08-29 changelog.</td></tr>
+          <tr><td>TextFSM / TTP export</td><td>shipped</td><td>Parse tables download as templates, not just CSV.</td></tr>
+          <tr><td>AEGIS pre-change gate</td><td>shipped</td><td>Client-side risk / blast / rollback / secret scan. Not a substitute for the air-gapped AEGIS repo.</td></tr>
+          <tr><td>Developer runbook</td><td>shipped</td><td><a href="DEVELOP.md">docs/DEVELOP.md</a> — supersedes draft PRs #11 and #12.</td></tr>
+          <tr><td>Grow SONiC (459)</td><td>open</td><td>Studio golden-path grew. Full corpus still the thinnest vendor — <code>expand_thin_vendors.py</code>.</td></tr>
+          <tr><td>Deepen classic SR OS</td><td>open</td><td>Studio now has BGP/OSPF/IS-IS/SR-MPLS/NTP/BFD. Full corpus still thin vs SR Linux.</td></tr>
+          <tr><td>Offline service worker</td><td>open</td><td>Cheatsheet already cache-then-revalidates via IndexedDB.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ================= DEVELOP ================= -->
+  <section id="develop" aria-labelledby="dev-h">
+    <p class="eyebrow">Develop</p>
+    <h2 class="title" id="dev-h">HTTP-only, stdlib-only, lean Pages.</h2>
+    <p class="lede">The public URL contract, regen order, and CI gates that used to live only in draft PRs. Full text: <a href="DEVELOP.md">docs/DEVELOP.md</a>.</p>
+    <div class="grid" style="margin-top:1.4rem">
+      <article class="card reveal"><h3>Serve over HTTP</h3><p><code style="font-family:var(--mono);color:var(--teal)">file://</code> looks empty because <code style="font-family:var(--mono);color:var(--teal)">index.html</code> fetches <code style="font-family:var(--mono);color:var(--teal)">commands.json</code>. <code style="font-family:var(--mono);color:var(--teal)">python3 -m http.server</code> is the local contract.</p></article>
+      <article class="card reveal"><h3>Regen order matters</h3><p><code style="font-family:var(--mono);color:var(--teal)">parse.py</code> rebuilds from intermediates and <strong>drops</strong> DCN / modern-ops / thin-vendor fills unless those passes run next.</p></article>
+      <article class="card reveal"><h3>CI gates</h3><p><code style="font-family:var(--mono);color:var(--teal)">check_consistency.py</code> asserts 70,006 / roles / 17 vendors still appear in README + this page. <code style="font-family:var(--mono);color:var(--teal)">tests/stress_test.js</code> is the Node suite.</p></article>
+      <article class="card reveal"><h3>Pages artifact</h3><p>Lean <code style="font-family:var(--mono);color:var(--teal)">_site/</code>. <code style="font-family:var(--mono);color:var(--teal)">.nojekyll</code> is required so Ansible <code style="font-family:var(--mono);color:var(--teal)">{{ }}</code> does not trip Jekyll. Source dumps in <code style="font-family:var(--mono);color:var(--teal)">scripts/*.json</code> stay unpublished.</p></article>
+    </div>
+    <p class="lede" style="margin-top:1.2rem">Search operators on the cheatsheet: <code style="font-family:var(--mono);color:var(--teal)">role:</code> <code style="font-family:var(--mono);color:var(--teal)">category:</code> <code style="font-family:var(--mono);color:var(--teal)">vendor:</code> plus shareable <code style="font-family:var(--mono);color:var(--teal)">?ws=</code> workspace and readable <code style="font-family:var(--mono);color:var(--teal)">?cat=BGP&view=compare&v=Juniper</code>. Press <code style="font-family:var(--mono);color:var(--teal)">?</code> for the in-app map.</p>
+  </section>
+
+  <!-- ================= CHANGELOG ================= -->
+  <section id="changelog" aria-labelledby="cl-h">
+    <p class="eyebrow">Changelog</p>
+    <h2 class="title" id="cl-h">What landed.</h2>
+    <div class="panel reveal" style="margin-top:1.2rem">
+      <p class="lede"><strong>2026-08-29 — Studio finish.</strong> IS-IS / SR-MPLS / IPv6 BGP recipes, TextFSM/TTP export, hardening lint + AEGIS pre-change, developer runbook on this docs site. Draft PRs #11/#12 superseded. Full notes in <a href="../CHANGELOG.md">CHANGELOG.md</a>.</p>
+      <p class="lede" style="margin-top:1rem"><strong>2026-08-29 — CLI Studio on Pages (PR #13).</strong> Second static surface next to the 70,006-command cheatsheet. EOS/FRR/VyOS parsers on the cheatsheet too.</p>
+      <p class="lede" style="margin-top:1rem"><strong>2026-08-06 — 70,006 corpus.</strong> STP/BFD/LACP promotion, thin OS fills, Automate vendor coverage, lean Pages deploy, <code>.nojekyll</code>.</p>
     </div>
   </section>
 </main>
@@ -695,11 +767,13 @@
     <nav class="foot-links" aria-label="Footer links">
       <a href="https://github.com/gesh75/multivendor-cli-configurator" target="_blank" rel="noopener">GitHub repo ↗</a>
       <a href="https://gesh75.github.io/multivendor-cli-configurator/" target="_blank" rel="noopener">Live demo ↗</a>
+      <a href="https://gesh75.github.io/multivendor-cli-configurator/studio.html">Studio ↗</a>
+      <a href="DEVELOP.md">Develop</a>
       <a href="#hero">Back to top ↑</a>
       <span style="color:var(--muted-dim)">License: MIT</span>
     </nav>
   </div>
-  <p class="foot-note">Auto-generated documentation · single self-contained page · dark-neon terminal theme. All figures traced to README.md, docs/ARCHITECTURE.md, and commands.json.</p>
+  <p class="foot-note">Documentation for 70,006 commands · 17 vendors · MIT. Figures gated by scripts/check_consistency.py against commands.json. Studio + cheatsheet + this page ship in the lean Pages artifact.</p>
 </footer>
 
 <button id="top" aria-label="Back to top" title="Back to top">↑</button>
