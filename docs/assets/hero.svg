@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 360" role="img" aria-labelledby="heroTitle heroDesc" fill="none" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">
   <title id="heroTitle">multivendor-cli-configurator — architecture</title>
-  <desc id="heroDesc">Animated terminal banner: a phosphor-green prompt types a network command while 17 vendor chips light up in sequence, connector lines pulse from the command to each matched vendor, a stream of grayed commands scrolls behind, and a counter ticks toward 52,031 commands.</desc>
+  <desc id="heroDesc">Animated terminal banner: a phosphor-green prompt types a network command while 17 vendor chips light up in sequence, connector lines pulse from the command to each matched vendor, a stream of grayed commands scrolls behind, and a counter ticks toward 70,006 commands.</desc>
 
   <defs>
     <!-- backgrounds -->
@@ -141,7 +141,7 @@
 
     <!-- live counter -->
     <text x="66" y="170" font-size="12" fill="#8b9a8e">corpus</text>
-    <text x="116" y="170" font-size="13" font-weight="700" fill="#39ff14" filter="url(#glow)">52,031 commands</text>
+    <text x="116" y="170" font-size="13" font-weight="700" fill="#39ff14" filter="url(#glow)">70,006 commands</text>
     <text x="290" y="170" font-size="11" fill="#5eead4">cache-then-revalidate</text>
   </g>
 
