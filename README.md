@@ -77,7 +77,7 @@ vendors and host/tool surfaces are tagged in the **Type** column.
 
 | Vendor / Tool | OS / Surface | Type | Commands |
 |---|---|---|---|
-| **Cisco** | IOS / IOS-XE (full **Master Command List**) · ASA 9.24 · NX-OS | Network | 22,145 |
+| **Cisco** | IOS / IOS-XE (full **Master Command List**) · ASA 9.24 · NX-OS | Network | 22,168 |
 | **Arista** | EOS | Network | 7,397 |
 | **VyOS** | VyOS (full config tree) | Network | 6,289 |
 | **Huawei** | VRP (bracketed prompts, iStack, Eth-Trunk, OSPF/BGP) | Network | 4,425 |
@@ -85,20 +85,20 @@ vendors and host/tool surfaces are tagged in the **Type** column.
 | **FRR** | FRRouting (vtysh) — docs **+ verified live on a 10-node Docker FRR lab** | Network | 3,949 |
 | **Microsoft** | Windows PowerShell networking cmdlets | Host OS | 3,352 |
 | **Juniper** | Junos (MX / EX / QFX / SRX) | Network | 3,217 |
-| **Extreme** | EXOS (VLAN-centric, STP, OSPF, SummitStacking, MLAG, ACLs) | Network | 2,790 |
+| **Extreme** | EXOS (VLAN-centric, STP, OSPF, SummitStacking, MLAG, ACLs) | Network | 2,800 |
 | **Linux** | `ip` / `iproute2` / host networking | Host OS | 2,592 |
 | **FortiOS** | Fortinet (`config / set / end` blocks, REST cmdb) | Network | 2,383 |
 | **Wireshark** | `tshark` capture + display filters | Tool | 2,130 |
 | **PAN-OS** | Palo Alto firewalls (`set rulebase security ...`, virtual routers) | Network | 1,224 |
 | **Mikrotik** | RouterOS (`/path` syntax, firewall filters, queues) | Network | 1,216 |
 | **NVIDIA** | Cumulus Linux 5.x with NVUE (`nv set/show`) | Network | 1,168 |
-| **Nokia** | SR Linux (declarative) **+ SR OS** (`os=sros`, classic CLI) | Network | 1,125 |
+| **Nokia** | SR Linux (declarative) **+ SR OS** (`os=sros`, classic CLI) | Network | 1,131 |
 | **SONiC** | OCP / Azure SONiC (Click CLI, `show ip ...`) | Network | 459 |
 | | | **TOTAL (17)** | **70,006** |
 
-By category (top 10): Interfaces 17,490 · Protocols 10,173 · System 7,815 ·
-Troubleshooting 6,513 · Security 4,369 · VLAN 4,208 · Routing 2,806 ·
-BGP 2,153 · Misc 2,018 · OSPF 1,604. Dedicated **VXLAN** (255) and **EVPN** (498) categories added.
+By category (top 10): Interfaces 16,941 · Protocols 10,150 · System 7,705 ·
+Troubleshooting 6,501 · Security 4,370 · VLAN 4,084 · Routing 2,793 ·
+BGP 2,155 · Misc 2,018 · OSPF 1,606. Dedicated **VXLAN** (257) and **EVPN** (499) categories added.
 
 Modern-ops coverage (new): Telemetry (gNMI/gRPC/NETCONF/RESTCONF) ·
 Automation (on-box Python/eAPI/JSON-RPC) · Provisioning (ZTP/PnP/POAP) ·

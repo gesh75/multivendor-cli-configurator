@@ -10,6 +10,8 @@ Design notes:
 - Hard failures are the raw numeric facts (total count, per-role counts, vendor
   count) — these are what actually drift and each is matched as a substring, so
   surrounding wording can change freely without tripping CI.
+- README.md also restates per-vendor and top-category counts in a table that
+  already drifted once; those figures are gated for README only.
 - The rounded marketing form (e.g. "69,000+") and the ~MB size are advisory
   warnings only, since those are phrasing/rounding choices that flip on small
   changes and shouldn't gate a merge.
@@ -51,7 +53,9 @@ def main() -> int:
 
     total = len(data)
     roles = Counter(row.get("role", "?") for row in data)
-    vendors = sorted({row.get("vendor", "?") for row in data})
+    vendor_counts = Counter(row.get("vendor", "?") for row in data)
+    cat_counts = Counter(row.get("cat") or "?" for row in data)
+    vendors = sorted(vendor_counts)
     size_mb = round(CORPUS.stat().st_size / (1024 * 1024))
 
     print("Corpus (source of truth: commands.json)")
@@ -79,6 +83,19 @@ def main() -> int:
         for value in required:
             if value not in text:
                 failures.append(f"{rel}: missing {value!r}")
+
+    # README-only: the coverage table is the thing that actually drifted.
+    readme = contents.get("README.md")
+    if readme:
+        for vendor, n in vendor_counts.most_common():
+            if fmt(n) not in readme:
+                failures.append(f"README.md: missing {vendor} count {fmt(n)!r}")
+        for cat, n in cat_counts.most_common(10):
+            if fmt(n) not in readme:
+                failures.append(f"README.md: missing category count {cat} {fmt(n)!r}")
+        for cat in ("VXLAN", "EVPN"):
+            if fmt(cat_counts[cat]) not in readme:
+                failures.append(f"README.md: missing category count {cat} {fmt(cat_counts[cat])!r}")
 
     # Advisory only — phrasing/rounding, not raw facts.
     for rel, text in contents.items():

@@ -337,6 +337,17 @@ results['T6b_concept_correctness'] = `${conceptOK}/${conceptCases.length}`;
     }
   }
 
+  // Generated ncclient snippets must be parseable Python (P0-1: port=port=830,,)
+  const connectLines = html.split('\n').filter(l => /manager\.connect\(/.test(l));
+  const badConnect = connectLines.filter(l => /port=port=/.test(l) || /,\s*,/.test(l));
+  if (badConnect.length) {
+    gapFails++;
+    console.log(`   SNIPPET SYNTAX MISS: ${badConnect.length} manager.connect line(s)`);
+    badConnect.slice(0, 3).forEach(l => console.log(`     ${l.trim()}`));
+  } else {
+    console.log(`   Automate connect snippets: ${connectLines.length} lines, no port=port= / double-comma`);
+  }
+
   // No silent Cisco YANG fallback in AUTO renderers
   const badFb = (html.match(/\|\|AUTO_\w+\.Cisco\)\(v\)/g) || []).length;
   if (badFb) {
