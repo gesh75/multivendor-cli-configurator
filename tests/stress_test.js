@@ -225,6 +225,25 @@ results['T6b_concept_correctness'] = `${conceptOK}/${conceptCases.length}`;
   results['T9_queue_vendors'] = queue.map(d => d.vendor);
 }
 
+// --- Snippet syntax smoke (catches copy-paste like port=port=830,,) --------
+{
+  let snippetFails = 0;
+  if (html.includes('port=port')) {
+    snippetFails++;
+    console.log('   SNIPPET MISS: port=port in index.html');
+  }
+  const connectLines = html.split('\n').filter(l => l.includes('manager.connect('));
+  for (const line of connectLines) {
+    if (/,\s*,/.test(line) || /=\s*=/.test(line)) {
+      snippetFails++;
+      console.log(`   SNIPPET MISS: ${line.trim().slice(0, 96)}`);
+    }
+  }
+  console.log(`Snippet connect lines: ${connectLines.length} scanned, ${snippetFails} malformed`);
+  if (snippetFails) failures += snippetFails;
+  results['snippet_connect_lines'] = { scanned: connectLines.length, malformed: snippetFails };
+}
+
 // --- Vendor coverage smoke check -------------------------------------------
 {
   const expected = ['Cisco','Juniper','Arista','FRR','VyOS','SONiC','NVIDIA','PAN-OS','Nokia','FortiOS','Mikrotik','Extreme','Aruba','Huawei','Microsoft','Linux','Wireshark'];
