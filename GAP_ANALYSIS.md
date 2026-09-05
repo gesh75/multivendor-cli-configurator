@@ -65,30 +65,36 @@ No other P0 found: `deep_gap_dig.py` is green, no secret files / API keys,
 
 ## P1 — next (small, evidence-backed)
 
-1. **`tests/STRESS_TEST.md` is a 52,313-row report.** Header, vendor table,
+1. **Buildkite PR check fails with no in-repo pipeline.**
+   `buildkite/multivendor-cli-configurator` failed this PR in ~2s
+   (build #15) and also failed merged PR #13; `main` build #11 passed.
+   There is no `.buildkite/` / `pipeline.yml` in the repo. GitHub Actions
+   `ci.yml` is the real gate and is green on this branch. Either add a
+   checked-in pipeline or drop the required Buildkite context on pull_request.
+2. **`tests/STRESS_TEST.md` is a 52,313-row report.** Header, vendor table,
    and timings predate the 70,006 corpus. `tests/stress_test_results.json`
    was later refreshed; the markdown was not. Misleading for anyone
    reproducing CI.
-2. **`scripts/deep_gap_dig.py` is not a CI job.** `.github/workflows/ci.yml`
+3. **`scripts/deep_gap_dig.py` is not a CI job.** `.github/workflows/ci.yml`
    runs `check_consistency.py` + `tests/stress_test.js` only. The Node suite
    already duplicates most floors, so this is a second gate, not a hole —
    wire it only if you want a Python-only path.
-3. **945 empty `desc` fields** (`deep_gap_dig.py` warning): VyOS 742, FRR 170,
+4. **945 empty `desc` fields** (`deep_gap_dig.py` warning): VyOS 742, FRR 170,
    Cisco 29, SONiC 4. Not quarantined (cmd/title are intact). Fill or
    generate from `title` if Studio/cheatsheet empty-state bothers you.
-4. **`scripts/parse.py` will silently rewrite `commands.json`** from
+5. **`scripts/parse.py` will silently rewrite `commands.json`** from
    intermediates and **drop** DCN / modern-ops / thin-vendor fills if those
    passes are skipped (`docs/DEVELOP.md` pitfall #2). No
    `--dry-run` / refuse-if-shrink guard. Smallest fix: refuse to write if
    `len(cmds)` is below the current file’s length unless `--force`.
-5. **`scripts/merge_dcn_corpus.py` defaults `CLI_WORK_DCN_CORPUS` to a
+6. **`scripts/merge_dcn_corpus.py` defaults `CLI_WORK_DCN_CORPUS` to a
    personal `~/02_Projects/Network_Automation/...` path.** Fine as an
    override, confusing as a default. Point the default at
    `scripts/sources/` (gitignored) or require `--source`.
-6. **Category / overlay counts are still unguarded.** This PR synced the
+7. **Category / overlay counts are still unguarded.** This PR synced the
    README one-liner; `check_consistency.py` does not pin
    `Interfaces 16,941` etc. Add only if the line keeps drifting.
-7. **SONiC (459) and classic SR OS (72) stay at the floor.** Known product
+8. **SONiC (459) and classic SR OS (72) stay at the floor.** Known product
    gap (`CHANGELOG.md` / `docs/DEVELOP.md`). Out of scope here.
 
 ## P2 — later / laziness
