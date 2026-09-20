@@ -1,5 +1,10 @@
 # Gap analysis
 
+> Merge note (2026-09-20): `origin/main` was merged into this Cursor gap-scan
+> branch. Unique scan/fix work from the PR is kept. Do not drop later main
+> changes in other files.
+
+
 Verifiable scan of `gesh75/multivendor-cli-configurator` at `a57fd5a`
 (plus the three small fixes in this PR). Ranked by blast radius, not
 ambition. Out of scope: corpus growth, dependency upgrades, Studio

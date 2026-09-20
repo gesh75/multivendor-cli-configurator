@@ -93,7 +93,7 @@ One-time repo setting (cannot be flipped via API): **Settings → Pages → Sour
 2. `parse.py` last without the fill scripts → corpus shrinks and CI fails.
 3. Missing `.nojekyll` → Pages build dies on Jinja.
 4. Full-repo Pages artifact → deploy timeout. Use the lean `_site/` workflow.
-5. Stale vendor tables in README that `check_consistency.py` does **not** gate (it only checks total / roles / vendor-count phrase). Recompute from `commands.json` when editing the table.
+5. Stale vendor tables in README. `check_consistency.py` now gates each README vendor-row count against `commands.json` (plus total / roles / “17 vendor”). Recompute from the corpus when editing the table.
 
 ## Open corpus work
 
