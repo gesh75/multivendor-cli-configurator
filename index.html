@@ -2064,7 +2064,7 @@ const AUTO_OSPF = {
 </config>`,
     ncclient: `# OSPF process ${v.pid}, network ${v.net} ${v.wild} area ${v.area}
 from ncclient import manager
-m = manager.connect(host=${pyArg('host')}, port=port=830,, username=${pyArg('user')}, password=${pyArg('pass')},
+m = manager.connect(host=${pyArg('host')}, username=${pyArg('user')}, password=${pyArg('pass')},
                     hostkey_verify=False, device_params={"name":"iosxe"})
 m.edit_config(target="running", config=open("ospf.xml").read())`,
     ansible: `- name: OSPF process ${v.pid}
