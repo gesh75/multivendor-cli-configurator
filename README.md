@@ -4,6 +4,8 @@
 
 # Multivendor Network CLI Tools
 
+[![Try it on Hugging Face](https://img.shields.io/badge/%F0%9F%A4%97%20Try%20it%20on-Hugging%20Face-yellow)](https://huggingface.co/spaces/gesh75/multivendor-cli-configurator)
+
 ## 📖 Live documentation
 
 [![Multivendor CLI Configurator — live documentation](docs/assets/preview.png)](https://gesh75.github.io/multivendor-cli-configurator/docs/)
@@ -19,6 +21,7 @@
 
 🟢 **Live demo:** [gesh75.github.io/multivendor-cli-configurator](https://gesh75.github.io/multivendor-cli-configurator/)
 ✦ **CLI Studio:** [intent · migrate · recipes · parse · lab](https://gesh75.github.io/multivendor-cli-configurator/studio.html)
+🤗 **Hugging Face:** [Space](https://huggingface.co/spaces/gesh75/multivendor-cli-configurator) · [Dataset](https://huggingface.co/datasets/gesh75/multivendor-cli-commands) · [Profile](https://huggingface.co/gesh75)
 📐 **Architecture:** [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
 
 ![Architecture](docs/img/architecture.svg)
